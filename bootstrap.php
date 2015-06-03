@@ -20,10 +20,14 @@ $app['debug'] = $app['config']['debug'] === true;
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
 /**
- * Authentication services.
+ * User session service.
  */
-$app->register(new Silex\Provider\SessionServiceProvider());
-$app->register(new CultuurNet\UiTIDProvider\AuthServiceProvider($app['session']), array(
+$app->register(new CultuurNet\UiTIDProvider\Session\UserSessionServiceProvider());
+
+/**
+ * Authentication service.
+ */
+$app->register(new CultuurNet\UiTIDProvider\Auth\AuthServiceProvider($app['session']), array(
     'uitid.base_url' => $app['config']['uitid']['base_url'],
     'uitid.consumer.key' => $app['config']['uitid']['consumer']['key'],
     'uitid.consumer.secret' => $app['config']['uitid']['consumer']['secret'],
