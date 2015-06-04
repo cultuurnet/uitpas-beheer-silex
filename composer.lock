@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "30e12dc7bf54e56749ab62e7b92324bf",
+    "hash": "e0152957810a34a8ac38c748ef5491b3",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -159,12 +159,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/silex-uitid-provider.git",
-                "reference": "2253ef2d59e1fdb93ef5f161d9f67d8e87a7c669"
+                "reference": "3afa869fec1fb6d8634b3c09add2566575776452"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/2253ef2d59e1fdb93ef5f161d9f67d8e87a7c669",
-                "reference": "2253ef2d59e1fdb93ef5f161d9f67d8e87a7c669",
+                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/3afa869fec1fb6d8634b3c09add2566575776452",
+                "reference": "3afa869fec1fb6d8634b3c09add2566575776452",
                 "shasum": ""
             },
             "require": {
@@ -184,7 +184,48 @@
                 "GPLv3"
             ],
             "description": "Silex UiTID authentication provider.",
-            "time": "2015-06-02 15:10:17"
+            "time": "2015-06-03 14:02:04"
+        },
+        {
+            "name": "cultuurnet/udb3-symfony",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cultuurnet/udb3-symfony-php.git",
+                "reference": "b85ef2cfb265f162984bf0a8537e57dd06a50b7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cultuurnet/udb3-symfony-php/zipball/b85ef2cfb265f162984bf0a8537e57dd06a50b7e",
+                "reference": "b85ef2cfb265f162984bf0a8537e57dd06a50b7e",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/http-foundation": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CultuurNet\\UDB3\\Symfony\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPLv3"
+            ],
+            "authors": [
+                {
+                    "name": "Kristof Coomans",
+                    "email": "kristof@2dotstwice.be"
+                }
+            ],
+            "description": "UDB3 integration with Symfony HTTPFoundation",
+            "time": "2014-10-23 11:14:04"
         },
         {
             "name": "deralex/yaml-config-service-provider",
@@ -2984,7 +3025,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "cultuurnet/silex-uitid-provider": 20
+        "cultuurnet/silex-uitid-provider": 20,
+        "cultuurnet/udb3-symfony": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
