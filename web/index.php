@@ -8,6 +8,11 @@ use Symfony\Component\HttpFoundation\Response;
 $app = require_once __DIR__ . '/../bootstrap.php';
 
 /**
+ * Enable CORS.
+ */
+$app->after($app['cors']);
+
+/**
  * Authentication controllers.
  */
 $authController = new \CultuurNet\UiTIDProvider\Auth\AuthControllerProvider(
