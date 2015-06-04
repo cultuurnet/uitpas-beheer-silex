@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e0152957810a34a8ac38c748ef5491b3",
+    "hash": "62e493ca805d8aa90bd837753e7c3857",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -159,17 +159,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/silex-uitid-provider.git",
-                "reference": "3afa869fec1fb6d8634b3c09add2566575776452"
+                "reference": "e022bf7f950fa4a098e8c62ac45b19cdbabed985"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/3afa869fec1fb6d8634b3c09add2566575776452",
-                "reference": "3afa869fec1fb6d8634b3c09add2566575776452",
+                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/e022bf7f950fa4a098e8c62ac45b19cdbabed985",
+                "reference": "e022bf7f950fa4a098e8c62ac45b19cdbabed985",
                 "shasum": ""
             },
             "require": {
                 "cultuurnet/auth": "~1.2",
-                "cultuurnet/culturefeed-php": "~1.5"
+                "cultuurnet/culturefeed-php": "~1.5",
+                "cultuurnet/udb3-symfony": "~0.0@dev"
             },
             "type": "library",
             "autoload": {
@@ -184,7 +185,7 @@
                 "GPLv3"
             ],
             "description": "Silex UiTID authentication provider.",
-            "time": "2015-06-03 14:02:04"
+            "time": "2015-06-04 09:07:22"
         },
         {
             "name": "cultuurnet/udb3-symfony",
@@ -1149,6 +1150,56 @@
             ],
             "abandoned": "guzzle/guzzle",
             "time": "2014-05-01 21:36:02"
+        },
+        {
+            "name": "jdesrosiers/silex-cors-provider",
+            "version": "0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jdesrosiers/silex-cors-provider.git",
+                "reference": "c7e17082f1bff88f8eb2a11acf4191d9b68889c8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jdesrosiers/silex-cors-provider/zipball/c7e17082f1bff88f8eb2a11acf4191d9b68889c8",
+                "reference": "c7e17082f1bff88f8eb2a11acf4191d9b68889c8",
+                "shasum": ""
+            },
+            "require": {
+                "silex/silex": "~1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "symfony/browser-kit": "2.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JDesrosiers\\Silex\\Provider\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jason Desrosiers",
+                    "email": "jdesrosi@gmail.com"
+                }
+            ],
+            "description": "A silex service provider that adds CORS services to silex",
+            "keywords": [
+                "cors",
+                "cross",
+                "origin",
+                "provider",
+                "resource",
+                "service",
+                "sharing",
+                "silex"
+            ],
+            "time": "2015-05-17 00:15:56"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -3025,8 +3076,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "cultuurnet/silex-uitid-provider": 20,
-        "cultuurnet/udb3-symfony": 20
+        "cultuurnet/silex-uitid-provider": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

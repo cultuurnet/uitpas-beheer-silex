@@ -15,6 +15,14 @@ $app->register(new \DerAlex\Silex\YamlConfigServiceProvider(__DIR__ . '/config.y
 $app['debug'] = $app['config']['debug'] === true;
 
 /**
+ * Cross-origin resource sharing.
+ */
+$app->register(new JDesrosiers\Silex\Provider\CorsServiceProvider(), array(
+    'cors.allowOrigin' => implode(' ', $app['config']['cors']['origins']),
+    'cors.allowCredentials' => true
+));
+
+/**
  * Url generator.
  */
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());

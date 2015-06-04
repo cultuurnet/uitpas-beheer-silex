@@ -1,3 +1,5 @@
+cors:
+  origins: []
 debug: true
 uitid:
   consumer:
