@@ -1,4 +1,6 @@
 {
+  "name": "cultuurnet/uitpas-beheer-silex",
+  "description": "A silex application that serves as an intermediate between the UiTPAS API and front end apps.",
   "require": {
     "cultuurnet/silex-uitid-provider": "dev-master",
     "deralex/yaml-config-service-provider": "~1.0",
@@ -21,7 +23,15 @@
     "symfony/translation": "~2.3",
     "symfony/validator": "~2.3",
     "symfony/monolog-bridge": "~2.3",
-    "symfony/twig-bridge": "~2.3"
+    "symfony/twig-bridge": "~2.3",
+    "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
+    "swiftmailer/swiftmailer": "5.*"
+  },
+  "require-dev": {
+    "phpspec/phpspec": "~2.0",
+    "phpunit/phpunit": "~4.3",
+    "squizlabs/php_codesniffer": "~2.2",
+    "phing/phing": "~2.10"
   },
   "minimum-stability": "dev",
   "prefer-stable": true
