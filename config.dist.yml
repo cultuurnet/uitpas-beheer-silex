@@ -1,0 +1,8 @@
+cors:
+  origins: []
+debug: true
+uitid:
+  consumer:
+    key: ***
+    secret: ***
+  base_url: http://www.uitid.be/uitid/rest/

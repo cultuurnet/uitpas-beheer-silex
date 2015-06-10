@@ -1,11 +1,284 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "44ce8de70ce68ec1201c848143aff724",
+    "hash": "4e00ce21e83158d24a92d21aede12005",
     "packages": [
+        {
+            "name": "cultuurnet/auth",
+            "version": "1.2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cultuurnet/Auth.git",
+                "reference": "41f909554c48d100e2b9a61a26191961c4be101e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cultuurnet/Auth/zipball/41f909554c48d100e2b9a61a26191961c4be101e",
+                "reference": "41f909554c48d100e2b9a61a26191961c4be101e",
+                "shasum": ""
+            },
+            "require": {
+                "guzzle/http": "~3.9",
+                "guzzle/plugin-cookie": "~3.9",
+                "guzzle/plugin-log": "~3.9",
+                "guzzle/plugin-oauth": "~3.9",
+                "justinrainbow/json-schema": "~1.3",
+                "php": ">=5.3.0",
+                "symfony/console": "~2.5"
+            },
+            "bin": [
+                "bin/cultuurnet-auth"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev",
+                    "dev-develop": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "CultuurNet\\Auth": [
+                        "lib"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Authentication service for CultuurNet web services",
+            "time": "2015-05-29 17:32:01"
+        },
+        {
+            "name": "cultuurnet/cdb",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cultuurnet/Cdb.git",
+                "reference": "1273c561d60a5d548260f3184312f0c7bbe81ea4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cultuurnet/Cdb/zipball/1273c561d60a5d548260f3184312f0c7bbe81ea4",
+                "reference": "1273c561d60a5d548260f3184312f0c7bbe81ea4",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.3",
+                "satooshi/php-coveralls": "~0.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "CultureFeed_Cdb_": [
+                        "lib"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "PHP library for hydrating/manipulating CultuurNet's Cdb XML documents",
+            "time": "2015-05-22 08:48:28"
+        },
+        {
+            "name": "cultuurnet/culturefeed-php",
+            "version": "v1.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cultuurnet/culturefeed-php.git",
+                "reference": "4e9e27e7dd92d0f38f084bcf670f1e718f5d9c05"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/4e9e27e7dd92d0f38f084bcf670f1e718f5d9c05",
+                "reference": "4e9e27e7dd92d0f38f084bcf670f1e718f5d9c05",
+                "shasum": ""
+            },
+            "require": {
+                "cultuurnet/cdb": "~2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.4.0",
+                "satooshi/php-coveralls": "~0.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "1.2.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "CultureFeed",
+                    "OAuth"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Sven Houtmeyers",
+                    "email": "sven.houtmeyers@cultuurnet.be"
+                },
+                {
+                    "name": "Luk Dens",
+                    "email": "luk.dens@cultuurnet.be"
+                },
+                {
+                    "name": "Davy Van Den Bremt"
+                },
+                {
+                    "name": "Jochen Stals"
+                },
+                {
+                    "name": "Nils Destoop"
+                },
+                {
+                    "name": "Kristof Coomans",
+                    "email": "kristof@2dotstwice.be"
+                },
+                {
+                    "name": "Hans Langouche",
+                    "email": "hans@2dotstwice.be"
+                }
+            ],
+            "description": "Culturefeed PHP library",
+            "time": "2015-06-09 13:15:47"
+        },
+        {
+            "name": "cultuurnet/silex-uitid-provider",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cultuurnet/silex-uitid-provider.git",
+                "reference": "e022bf7f950fa4a098e8c62ac45b19cdbabed985"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/e022bf7f950fa4a098e8c62ac45b19cdbabed985",
+                "reference": "e022bf7f950fa4a098e8c62ac45b19cdbabed985",
+                "shasum": ""
+            },
+            "require": {
+                "cultuurnet/auth": "~1.2",
+                "cultuurnet/culturefeed-php": "~1.5",
+                "cultuurnet/udb3-symfony": "~0.0@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CultuurNet\\UiTIDProvider\\": [
+                        "src"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPLv3"
+            ],
+            "description": "Silex UiTID authentication provider.",
+            "time": "2015-06-04 09:07:22"
+        },
+        {
+            "name": "cultuurnet/udb3-symfony",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cultuurnet/udb3-symfony-php.git",
+                "reference": "b85ef2cfb265f162984bf0a8537e57dd06a50b7e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cultuurnet/udb3-symfony-php/zipball/b85ef2cfb265f162984bf0a8537e57dd06a50b7e",
+                "reference": "b85ef2cfb265f162984bf0a8537e57dd06a50b7e",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/http-foundation": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CultuurNet\\UDB3\\Symfony\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPLv3"
+            ],
+            "authors": [
+                {
+                    "name": "Kristof Coomans",
+                    "email": "kristof@2dotstwice.be"
+                }
+            ],
+            "description": "UDB3 integration with Symfony HTTPFoundation",
+            "time": "2014-10-23 11:14:04"
+        },
+        {
+            "name": "deralex/yaml-config-service-provider",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deralex/YamlConfigServiceProvider.git",
+                "reference": "5923f60e6fbb16432e47310cf9680fe658c8dc0e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deralex/YamlConfigServiceProvider/zipball/5923f60e6fbb16432e47310cf9680fe658c8dc0e",
+                "reference": "5923f60e6fbb16432e47310cf9680fe658c8dc0e",
+                "shasum": ""
+            },
+            "require": {
+                "silex/silex": ">=1.0 <=1.3",
+                "symfony/yaml": "~2.4"
+            },
+            "require-dev": {
+                "phpspec/phpspec": "2.0.*@dev"
+            },
+            "suggest": {
+                "symfony/yaml": "~2.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "DerAlex\\Silex": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Kluth",
+                    "email": "contact@alexanderkluth.com"
+                }
+            ],
+            "description": "Silex ServiceProvider for using YAML configuration files",
+            "keywords": [
+                "silex"
+            ],
+            "time": "2015-03-10 12:58:27"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.2.4",
@@ -469,6 +742,530 @@
                 "parser"
             ],
             "time": "2014-09-09 13:34:57"
+        },
+        {
+            "name": "guzzle/common",
+            "version": "v3.9.2",
+            "target-dir": "Guzzle/Common",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Guzzle3/common.git",
+                "reference": "2e36af7cf2ce3ea1f2d7c2831843b883a8e7b7dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Guzzle3/common/zipball/2e36af7cf2ce3ea1f2d7c2831843b883a8e7b7dc",
+                "reference": "2e36af7cf2ce3ea1f2d7c2831843b883a8e7b7dc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/event-dispatcher": ">=2.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Guzzle\\Common": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Common libraries used by Guzzle",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "collection",
+                "common",
+                "event",
+                "exception"
+            ],
+            "abandoned": "guzzle/guzzle",
+            "time": "2014-08-11 04:32:36"
+        },
+        {
+            "name": "guzzle/http",
+            "version": "v3.9.2",
+            "target-dir": "Guzzle/Http",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Guzzle3/http.git",
+                "reference": "1e8dd1e2ba9dc42332396f39fbfab950b2301dc5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Guzzle3/http/zipball/1e8dd1e2ba9dc42332396f39fbfab950b2301dc5",
+                "reference": "1e8dd1e2ba9dc42332396f39fbfab950b2301dc5",
+                "shasum": ""
+            },
+            "require": {
+                "guzzle/common": "self.version",
+                "guzzle/parser": "self.version",
+                "guzzle/stream": "self.version",
+                "php": ">=5.3.2"
+            },
+            "suggest": {
+                "ext-curl": "*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Guzzle\\Http": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "HTTP libraries used by Guzzle",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "Guzzle",
+                "client",
+                "curl",
+                "http",
+                "http client"
+            ],
+            "abandoned": "guzzle/guzzle",
+            "time": "2014-08-11 04:32:36"
+        },
+        {
+            "name": "guzzle/log",
+            "version": "v3.9.2",
+            "target-dir": "Guzzle/Log",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Guzzle3/log.git",
+                "reference": "679d41f51bbd65d3868eeedfa33235039a57f6ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Guzzle3/log/zipball/679d41f51bbd65d3868eeedfa33235039a57f6ab",
+                "reference": "679d41f51bbd65d3868eeedfa33235039a57f6ab",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "suggest": {
+                "guzzle/http": "v3.9.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Guzzle\\Log": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle log adapter component",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "Guzzle",
+                "adapter",
+                "log"
+            ],
+            "abandoned": "guzzle/guzzle",
+            "time": "2014-03-26 17:15:28"
+        },
+        {
+            "name": "guzzle/parser",
+            "version": "v3.9.2",
+            "target-dir": "Guzzle/Parser",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Guzzle3/parser.git",
+                "reference": "6874d171318a8e93eb6d224cf85e4678490b625c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Guzzle3/parser/zipball/6874d171318a8e93eb6d224cf85e4678490b625c",
+                "reference": "6874d171318a8e93eb6d224cf85e4678490b625c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Guzzle\\Parser": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Interchangeable parsers used by Guzzle",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "URI Template",
+                "cookie",
+                "http",
+                "message",
+                "url"
+            ],
+            "abandoned": "guzzle/guzzle",
+            "time": "2014-02-05 18:29:46"
+        },
+        {
+            "name": "guzzle/plugin-cookie",
+            "version": "v3.9.2",
+            "target-dir": "Guzzle/Plugin/Cookie",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Guzzle3/plugin-cookie.git",
+                "reference": "d8c3bee4152e7888d7bd7b1718f0ec40ee7d6589"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Guzzle3/plugin-cookie/zipball/d8c3bee4152e7888d7bd7b1718f0ec40ee7d6589",
+                "reference": "d8c3bee4152e7888d7bd7b1718f0ec40ee7d6589",
+                "shasum": ""
+            },
+            "require": {
+                "guzzle/http": "self.version",
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Guzzle\\Plugin\\Cookie": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle cookie plugin",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "Guzzle",
+                "plugin"
+            ],
+            "abandoned": "guzzle/guzzle",
+            "time": "2014-02-07 18:36:58"
+        },
+        {
+            "name": "guzzle/plugin-log",
+            "version": "v3.9.2",
+            "target-dir": "Guzzle/Plugin/Log",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Guzzle3/plugin-log.git",
+                "reference": "499132cb94017cff2b498c3cf2dcf2f46bb89b1d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Guzzle3/plugin-log/zipball/499132cb94017cff2b498c3cf2dcf2f46bb89b1d",
+                "reference": "499132cb94017cff2b498c3cf2dcf2f46bb89b1d",
+                "shasum": ""
+            },
+            "require": {
+                "guzzle/http": "self.version",
+                "guzzle/log": "self.version",
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Guzzle\\Plugin\\Log": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle log plugin for over the wire logging",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "Guzzle",
+                "log",
+                "plugin"
+            ],
+            "abandoned": "guzzle/guzzle",
+            "time": "2014-01-08 21:45:39"
+        },
+        {
+            "name": "guzzle/plugin-oauth",
+            "version": "v3.9.2",
+            "target-dir": "Guzzle/Plugin/Oauth",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Guzzle3/plugin-oauth.git",
+                "reference": "c56d7fcb046e24852e13be5ef6a315200207eaf3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Guzzle3/plugin-oauth/zipball/c56d7fcb046e24852e13be5ef6a315200207eaf3",
+                "reference": "c56d7fcb046e24852e13be5ef6a315200207eaf3",
+                "shasum": ""
+            },
+            "require": {
+                "guzzle/http": "self.version",
+                "php": ">=5.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Guzzle\\Plugin\\Oauth": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle OAuth plugin",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "Guzzle",
+                "oauth",
+                "plugin"
+            ],
+            "abandoned": "guzzle/guzzle",
+            "time": "2014-04-16 13:26:19"
+        },
+        {
+            "name": "guzzle/stream",
+            "version": "v3.9.2",
+            "target-dir": "Guzzle/Stream",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Guzzle3/stream.git",
+                "reference": "60c7fed02e98d2c518dae8f97874c8f4622100f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Guzzle3/stream/zipball/60c7fed02e98d2c518dae8f97874c8f4622100f0",
+                "reference": "60c7fed02e98d2c518dae8f97874c8f4622100f0",
+                "shasum": ""
+            },
+            "require": {
+                "guzzle/common": "self.version",
+                "php": ">=5.3.2"
+            },
+            "suggest": {
+                "guzzle/http": "To convert Guzzle request objects to PHP streams"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Guzzle\\Stream": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                }
+            ],
+            "description": "Guzzle stream wrapper component",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "Guzzle",
+                "component",
+                "stream"
+            ],
+            "abandoned": "guzzle/guzzle",
+            "time": "2014-05-01 21:36:02"
+        },
+        {
+            "name": "jdesrosiers/silex-cors-provider",
+            "version": "v0.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jdesrosiers/silex-cors-provider.git",
+                "reference": "d157466a40bd615f8cbc7158e930118f7e69a772"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jdesrosiers/silex-cors-provider/zipball/d157466a40bd615f8cbc7158e930118f7e69a772",
+                "reference": "d157466a40bd615f8cbc7158e930118f7e69a772",
+                "shasum": ""
+            },
+            "require": {
+                "silex/silex": "~1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*",
+                "symfony/browser-kit": "2.3.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JDesrosiers": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jason Desrosiers",
+                    "email": "jdesrosi@gmail.com"
+                }
+            ],
+            "description": "A silex service provider that adds CORS services to silex",
+            "keywords": [
+                "cors",
+                "cross",
+                "origin",
+                "provider",
+                "resource",
+                "service",
+                "sharing",
+                "silex"
+            ],
+            "time": "2014-08-08 03:28:29"
+        },
+        {
+            "name": "justinrainbow/json-schema",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/justinrainbow/json-schema.git",
+                "reference": "2465fe486c864e30badaa4d005ebdf89dbc503f3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/2465fe486c864e30badaa4d005ebdf89dbc503f3",
+                "reference": "2465fe486c864e30badaa4d005ebdf89dbc503f3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "json-schema/json-schema-test-suite": "1.1.0",
+                "phpdocumentor/phpdocumentor": "~2",
+                "phpunit/phpunit": "~3.7"
+            },
+            "bin": [
+                "bin/validate-json"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "JsonSchema": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Bruno Prieto Reis",
+                    "email": "bruno.p.reis@gmail.com"
+                },
+                {
+                    "name": "Justin Rainbow",
+                    "email": "justin.rainbow@gmail.com"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                },
+                {
+                    "name": "Robert Schönthal",
+                    "email": "seroscho@googlemail.com"
+                }
+            ],
+            "description": "A library to validate a json schema.",
+            "homepage": "https://github.com/justinrainbow/json-schema",
+            "keywords": [
+                "json",
+                "schema"
+            ],
+            "time": "2015-03-27 16:41:39"
         },
         {
             "name": "monolog/monolog",
@@ -1797,29 +2594,27 @@
         },
         {
             "name": "symfony/routing",
-            "version": "v2.7.0",
+            "version": "v2.6.9",
+            "target-dir": "Symfony/Component/Routing",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Routing.git",
-                "reference": "6f0333fb8b89cf6f8fd9d6740c5e83b73d9c95b9"
+                "reference": "dc9df18a1cfe87de65e270e8f01407ca6d7c39cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Routing/zipball/6f0333fb8b89cf6f8fd9d6740c5e83b73d9c95b9",
-                "reference": "6f0333fb8b89cf6f8fd9d6740c5e83b73d9c95b9",
+                "url": "https://api.github.com/repos/symfony/Routing/zipball/dc9df18a1cfe87de65e270e8f01407ca6d7c39cb",
+                "reference": "dc9df18a1cfe87de65e270e8f01407ca6d7c39cb",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.9"
-            },
-            "conflict": {
-                "symfony/config": "<2.7"
+                "php": ">=5.3.3"
             },
             "require-dev": {
                 "doctrine/annotations": "~1.0",
                 "doctrine/common": "~2.2",
                 "psr/log": "~1.0",
-                "symfony/config": "~2.7",
+                "symfony/config": "~2.2",
                 "symfony/expression-language": "~2.4",
                 "symfony/http-foundation": "~2.3",
                 "symfony/phpunit-bridge": "~2.7",
@@ -1834,11 +2629,11 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.7-dev"
+                    "dev-master": "2.6-dev"
                 }
             },
             "autoload": {
-                "psr-4": {
+                "psr-0": {
                     "Symfony\\Component\\Routing\\": ""
                 }
             },
@@ -1864,7 +2659,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2015-05-19 06:58:17"
+            "time": "2015-05-15 13:32:45"
         },
         {
             "name": "symfony/security",
@@ -2211,6 +3006,55 @@
             "description": "Symfony Validator Component",
             "homepage": "https://symfony.com",
             "time": "2015-05-29 14:44:44"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "v2.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Yaml.git",
+                "reference": "4a29a5248aed4fb45f626a7bbbd330291492f5c3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/4a29a5248aed4fb45f626a7bbbd330291492f5c3",
+                "reference": "4a29a5248aed4fb45f626a7bbbd330291492f5c3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "https://symfony.com",
+            "time": "2015-05-02 15:21:08"
         },
         {
             "name": "twig/twig",
@@ -3453,61 +4297,14 @@
                 "standards"
             ],
             "time": "2015-04-28 23:28:20"
-        },
-        {
-            "name": "symfony/yaml",
-            "version": "v2.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/Yaml.git",
-                "reference": "4a29a5248aed4fb45f626a7bbbd330291492f5c3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/4a29a5248aed4fb45f626a7bbbd330291492f5c3",
-                "reference": "4a29a5248aed4fb45f626a7bbbd330291492f5c3",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.9"
-            },
-            "require-dev": {
-                "symfony/phpunit-bridge": "~2.7"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.7-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Yaml\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony Yaml Component",
-            "homepage": "https://symfony.com",
-            "time": "2015-05-02 15:21:08"
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": [],
-    "prefer-stable": false,
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "cultuurnet/silex-uitid-provider": 20
+    },
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": []
