@@ -1,4 +1,6 @@
 {
+  "name": "UiTPAS beheer: Silex",
+  "description": "A silex application that serves as an intermediate between the UiTPAS API and front end apps.",
   "require": {
     "cultuurnet/silex-uitid-provider": "dev-master",
     "deralex/yaml-config-service-provider": "~1.0",
