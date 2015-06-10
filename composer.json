@@ -1,5 +1,5 @@
 {
-  "name": "UiTPAS beheer: Silex",
+  "name": "cultuurnet/uitpas-beheer-silex",
   "description": "A silex application that serves as an intermediate between the UiTPAS API and front end apps.",
   "require": {
     "cultuurnet/silex-uitid-provider": "dev-master",

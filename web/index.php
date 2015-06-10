@@ -25,7 +25,7 @@ $app->mount('culturefeed/oauth', $authController);
 /**
  * Authentication verification callback.
  */
-$checkAuthentication = function(Request $request, Application $app) {
+$checkAuthentication = function (Request $request, Application $app) {
     /* @var CultuurNet\UiTIDProvider\Session\UserSession $session */
     $session = $app['session'];
 
