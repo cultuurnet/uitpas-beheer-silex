@@ -13,7 +13,6 @@ $app->register(new \DerAlex\Silex\YamlConfigServiceProvider(__DIR__ . '/config.y
  * Turn debug on or off.
  */
 $app['debug'] = $app['config']['debug'] === true;
-ini_set('display_errors', $app['config']['error_reporting'] === true ? 1 : 0);
 
 /**
  * Configure CORS.
