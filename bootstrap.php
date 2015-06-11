@@ -41,4 +41,13 @@ $app->register(new CultuurNet\UiTIDProvider\Auth\AuthServiceProvider($app['sessi
     'uitid.consumer.secret' => $app['config']['uitid']['consumer']['secret'],
 ));
 
+/**
+ * CultureFeed service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\CultureFeedServiceProvider(), array(
+  'culturefeed.endpoint' => $app['config']['uitid']['base_url'],
+  'culturefeed.consumer.key' => $app['config']['uitid']['consumer']['key'],
+  'culturefeed.consumer.secret' => $app['config']['uitid']['consumer']['secret'],
+));
+
 return $app;

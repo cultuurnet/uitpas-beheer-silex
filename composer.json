@@ -33,6 +33,11 @@
     "squizlabs/php_codesniffer": "~2.2",
     "phing/phing": "~2.10"
   },
+  "autoload": {
+    "psr-4": {
+      "CultuurNet\\UiTPASBeheer\\": "src"
+    }
+  },
   "minimum-stability": "dev",
   "prefer-stable": true
 }
