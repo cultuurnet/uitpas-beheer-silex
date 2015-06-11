@@ -3,6 +3,7 @@
   "description": "A silex application that serves as an intermediate between the UiTPAS API and front end apps.",
   "require": {
     "cultuurnet/silex-uitid-provider": "dev-master",
+    "cultuurnet/culturefeed-php": "dev-feature/UBR",
     "deralex/yaml-config-service-provider": "~1.0",
     "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
     "jdesrosiers/silex-cors-provider": "~0.1",

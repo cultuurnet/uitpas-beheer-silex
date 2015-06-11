@@ -30,7 +30,7 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 /**
  * User session service.
  */
-$app->register(new CultuurNet\UiTIDProvider\Session\UserSessionServiceProvider());
+$app->register(new CultuurNet\UiTPASBeheer\Session\UserSessionServiceProvider());
 
 /**
  * Authentication service.
@@ -49,5 +49,7 @@ $app->register(new \CultuurNet\UiTPASBeheer\CultureFeedServiceProvider(), array(
   'culturefeed.consumer.key' => $app['config']['uitid']['consumer']['key'],
   'culturefeed.consumer.secret' => $app['config']['uitid']['consumer']['secret'],
 ));
+
+$app->register(new \CultuurNet\UiTPASBeheer\Counter\CounterServiceProvider());
 
 return $app;

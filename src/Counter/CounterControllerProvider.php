@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Counter;
 
+use CultuurNet\UiTPASBeheer\Session\UserSession;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
@@ -37,16 +38,36 @@ class CounterControllerProvider implements ControllerProviderInterface
         $controllers->get(
             '/',
             function (Request $request, Application $app) {
-                /* @var \CultureFeed_User $user */
-                $user = $app['uitid_current_user'];
+                /* @var \CultuurNet\UiTPASBeheer\Counter\CounterService $counterService */
+                $counterService = $app['culturefeed_counters'];
+                return new JsonResponse($counterService->getCounters($app['uitid_current_user']));
+            }
+        );
 
-                /* @var \CultureFeed $cultureFeed */
-                $cultureFeed = $app['culturefeed'];
+        $controllers->post(
+            '/current',
+            function (Request $request, Application $app) {
+                $counterId = $request->request->get('counterId');
+                $counters = $this->getCounters($app);
+                if (in_array($counterId, array_keys($counters))) {
+                    /* @var UserSession $session */
+                    $session = $app['session'];
+                    $session->setCounterId($counterId);
+                    return new Response('', 200);
+                } else {
+                    return new Response('Access denied: Counter ID not valid for the current user.', 403);
+                }
+            }
+        );
 
-                $counters = $cultureFeed->uitpas()
-                    ->searchCountersForMember($user->id);
-
-                return new JsonResponse($counters);
+        $controllers->get(
+            '/current',
+            function (Request $request, Application $app) {
+                /* @var UserSession $session */
+                $session = $app['session'];
+                return new JsonResponse(array(
+                    'counterId' => $session->getCounterId(),
+                ));
             }
         );
 
