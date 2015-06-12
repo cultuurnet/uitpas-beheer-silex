@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 class CounterNotFoundExceptionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * CounterNotFoundException
+     * @var CounterNotFoundException
      */
     private $e;
 
