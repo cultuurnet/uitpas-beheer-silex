@@ -36,9 +36,6 @@ $checkAuthentication = function (Request $request, Application $app) {
     }
 };
 
-$counterProvider = new \CultuurNet\UiTPASBeheer\Counter\CounterControllerProvider();
-$app->mount('counters', $counterProvider);
-
 /**
  * API callbacks for UiTID user data and methods.
  *
@@ -47,5 +44,10 @@ $app->mount('counters', $counterProvider);
 $userControllers = $app['controllers_factory'];
 $userControllers->before($checkAuthentication);
 $app->mount('uitid', new \CultuurNet\UiTIDProvider\UserControllerProvider($userControllers));
+
+/**
+ * API callbacks for Counters.
+ */
+$app->mount('counters', new \CultuurNet\UiTPASBeheer\Counter\CounterControllerProvider());
 
 $app->run();
