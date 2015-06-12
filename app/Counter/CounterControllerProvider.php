@@ -17,7 +17,7 @@ class CounterControllerProvider implements ControllerProviderInterface
      */
     public function connect(Application $app)
     {
-        $app['counter_controller'] = $app->share(function(Application $app) {
+        $app['counter_controller'] = $app->share(function (Application $app) {
             return new CounterController($app['counter_service']);
         });
 

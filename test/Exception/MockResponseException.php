@@ -23,7 +23,8 @@ class MockResponseException extends ResponseException
     /**
      * @param array $headers
      */
-    public function setHeaders($headers = array()) {
+    public function setHeaders($headers = array())
+    {
         $this->headers = $headers;
     }
 

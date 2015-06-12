@@ -73,7 +73,8 @@ class JsonErrorResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $data);
     }
 
-    private function getResponseDataForException(ResponseException $exception) {
+    private function getResponseDataForException(ResponseException $exception)
+    {
         $response = new JsonErrorResponse($exception);
 
         $content = $response->getContent();
