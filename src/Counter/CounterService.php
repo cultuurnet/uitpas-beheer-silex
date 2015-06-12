@@ -2,7 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\Counter;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class CounterService
