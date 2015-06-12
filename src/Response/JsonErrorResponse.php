@@ -23,7 +23,7 @@ class JsonErrorResponse extends JsonResponse
         ];
 
         if ($exception instanceof ReadableCodeExceptionInterface) {
-            $data['code'] = $exception->getReadableCode();
+            $data['code'] = $exception::getReadableCode();
         }
 
         parent::__construct($data, $exception->getStatusCode(), $exception->getHeaders());
