@@ -2,13 +2,14 @@
 
 namespace CultuurNet\UiTPASBeheer\Counter;
 
-use CultuurNet\UiTPASBeheer\Session\UserSession;
+use CultuurNet\UiTPASBeheer\Exception\ResponseException;
+use CultuurNet\UiTPASBeheer\Response\JsonErrorResponse;
+use CultuurNet\UiTPASBeheer\Response\JsonSuccessResponse;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class CounterControllerProvider implements ControllerProviderInterface
 {
@@ -25,21 +26,11 @@ class CounterControllerProvider implements ControllerProviderInterface
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
-        $controllers->before(
-            function (Request $request, Application $app) {
-                if (is_null($app['uitid_current_user'])) {
-                    return new Response('Access denied', 403);
-                } else {
-                    return null;
-                }
-            }
-        );
-
         $controllers->get(
             '/',
             function (Request $request, Application $app) {
                 /* @var \CultuurNet\UiTPASBeheer\Counter\CounterService $counterService */
-                $counterService = $app['culturefeed_counters'];
+                $counterService = $app['uitpas_counter_service'];
                 return new JsonResponse($counterService->getCounters($app['uitid_current_user']));
             }
         );
@@ -47,15 +38,16 @@ class CounterControllerProvider implements ControllerProviderInterface
         $controllers->post(
             '/current',
             function (Request $request, Application $app) {
-                $counterId = $request->request->get('counterId');
-                $counters = $this->getCounters($app);
-                if (in_array($counterId, array_keys($counters))) {
-                    /* @var UserSession $session */
-                    $session = $app['session'];
-                    $session->setCounterId($counterId);
-                    return new Response('', 200);
-                } else {
-                    return new Response('Access denied: Counter ID not valid for the current user.', 403);
+                /* @var \CultuurNet\UiTPASBeheer\Counter\CounterService $counterService */
+                $counterService = $app['uitpas_counter_service'];
+
+                try {
+                    $counterId = $request->request->get('counterId');
+                    $counterService->setActiveCounterId($counterId);
+                    $message = sprintf('Active counter was set to id %s.', $counterId);
+                    return new JsonSuccessResponse($message);
+                } catch(ResponseException $exception) {
+                    return new JsonErrorResponse($exception);
                 }
             }
         );
@@ -63,11 +55,15 @@ class CounterControllerProvider implements ControllerProviderInterface
         $controllers->get(
             '/current',
             function (Request $request, Application $app) {
-                /* @var UserSession $session */
-                $session = $app['session'];
-                return new JsonResponse(array(
-                    'counterId' => $session->getCounterId(),
-                ));
+                /* @var \CultuurNet\UiTPASBeheer\Counter\CounterService $counterService */
+                $counterService = $app['uitpas_counter_service'];
+
+                try {
+                    $counter = $counterService->getActiveCounter();
+                    return new JsonResponse($counter);
+                } catch (ResponseException $exception) {
+                    return new JsonErrorResponse($exception);
+                }
             }
         );
 
