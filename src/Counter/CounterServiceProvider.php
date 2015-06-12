@@ -19,7 +19,7 @@ class CounterServiceProvider implements ServiceProviderInterface
             function ($app) {
                 return new CounterService(
                     $app['session'],
-                    $app['culturefeed'],
+                    $app['culturefeed_uitpas'],
                     $app['uitid_current_user']
                 );
             }
