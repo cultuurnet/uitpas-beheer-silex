@@ -37,7 +37,7 @@
   },
   "autoload": {
     "psr-4": {
-      "CultuurNet\\UiTPASBeheer\\": ["src", "app"]
+      "CultuurNet\\UiTPASBeheer\\": ["src", "app", "test"]
     }
   },
   "minimum-stability": "dev",
