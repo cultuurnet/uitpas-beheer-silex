@@ -13,7 +13,7 @@ class CounterServiceTest extends \PHPUnit_Framework_TestCase
     protected $counterService;
 
     /**
-     * @var \CultureFeed_Uitpas_Counter_Employee
+     * @var \CultureFeed_Uitpas_Counter_Employee[]
      */
     protected $counters;
 
@@ -115,17 +115,42 @@ class CounterServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_stores_the_active_counter_id()
+    public function it_can_retrieve_the_active_counter()
+    {
+        $this->counterService->setActiveCounterId(10);
+
+        $this->assertEquals(
+            $this->counters[10],
+            $this->counterService->getActiveCounter()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_fails_to_retrieve_the_active_counter_when_there_is_none()
     {
         $this->assertNull($this->counterService->getActiveCounterId());
 
         $this->setExpectedException(CounterNotSetException::class);
         $this->counterService->getActiveCounter();
+    }
 
+    /**
+     * @test
+     */
+    public function it_stores_the_active_counter_id()
+    {
         $id = 10;
         $this->counterService->setActiveCounterId($id);
         $this->assertEquals($id, $this->counterService->getActiveCounterId());
+    }
 
+    /**
+     * @test
+     */
+    public function it_fails_to_make_a_non_existing_counter_active()
+    {
         $non_existent_id = 5;
         $this->setExpectedException(CounterNotFoundException::class);
         $this->counterService->setActiveCounterId($non_existent_id);
