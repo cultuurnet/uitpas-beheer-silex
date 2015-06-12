@@ -5,7 +5,7 @@ namespace CultuurNet\UiTPASBeheer\Counter;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class CounterService
+class CounterService implements CounterServiceInterface
 {
     const COUNTER_ID_VARIABLE = 'counter_id';
 
@@ -37,7 +37,7 @@ class CounterService
     }
 
     /**
-     * @return \CultureFeed_Uitpas_Counter_Employee[]
+     * @inheritdoc
      */
     public function getCounters()
     {
@@ -52,9 +52,7 @@ class CounterService
     }
 
     /**
-     * @param string $id
-     *
-     * @return \CultureFeed_Uitpas_Counter_Employee|null
+     * @inheritdoc
      */
     public function getCounter($id)
     {
@@ -68,10 +66,7 @@ class CounterService
     }
 
     /**
-     * @param string $id
-     *
-     * @throws CounterNotFoundException
-     *   If the provided counter can not be found or is not available for the current user.
+     * @inheritdoc
      */
     public function setActiveCounterId($id)
     {
@@ -85,7 +80,7 @@ class CounterService
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getActiveCounterId()
     {
@@ -93,11 +88,7 @@ class CounterService
     }
 
     /**
-     * @return \CultureFeed_Uitpas_Counter_Employee
-     *
-     * @throws CounterNotSetException
-     *   If no active counter is set. Use getActiveCounterId() and
-     *   getCounter() if you want to get null instead.
+     * @inheritdoc
      */
     public function getActiveCounter()
     {
