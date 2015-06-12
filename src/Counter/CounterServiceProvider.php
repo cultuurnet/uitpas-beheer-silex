@@ -15,9 +15,13 @@ class CounterServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
-        $app['culturefeed_counters'] = $app->share(
+        $app['uitpas_counter_service'] = $app->share(
             function ($app) {
-                return new CounterService($app['culturefeed']);
+                return new CounterService(
+                    $app['session'],
+                    $app['culturefeed'],
+                    $app['uitid_current_user']
+                );
             }
         );
     }
