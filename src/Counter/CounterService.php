@@ -101,7 +101,7 @@ class CounterService
      */
     public function getActiveCounter()
     {
-        $id = $this->session->get(self::COUNTER_ID_VARIABLE);
+        $id = $this->getActiveCounterId();
 
         if (!is_null($id)) {
             $counter = $this->getCounter($id);
