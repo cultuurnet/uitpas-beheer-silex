@@ -69,6 +69,9 @@ class CounterService
 
     /**
      * @param string $id
+     *
+     * @throws CounterNotFoundException
+     *   If the provided counter can not be found or is not available for the current user.
      */
     public function setActiveCounterId($id)
     {
@@ -91,6 +94,10 @@ class CounterService
 
     /**
      * @return \CultureFeed_Uitpas_Counter_Employee
+     *
+     * @throws CounterNotSetException
+     *   If no active counter is set. Use getActiveCounterId() and
+     *   getCounter() if you want to get null instead.
      */
     public function getActiveCounter()
     {
