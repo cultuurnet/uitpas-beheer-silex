@@ -1,6 +1,7 @@
 <?php
 
 namespace CultuurNet\UiTPASBeheer\Exception;
+
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 /**
@@ -11,7 +12,8 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
  * which could potentially reveal internal security issues when returning
  * unforeseen exceptions with JsonErrorResponse.
  */
-abstract class ResponseException extends \Exception implements HttpExceptionInterface {
+abstract class ResponseException extends \Exception implements HttpExceptionInterface
+{
     /**
      * Returns the status code.
      *
