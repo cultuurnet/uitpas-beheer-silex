@@ -67,6 +67,14 @@ class CultureFeedServiceProvider implements ServiceProviderInterface
                 return new \CultureFeed($oathClient);
             }
         );
+
+        $app['culturefeed_uitpas'] = $app->share(
+            function ($app) {
+                /* @var \CultureFeed $culturefeed */
+                $culturefeed = $app['culturefeed'];
+                return $culturefeed->uitpas();
+            }
+        );
     }
 
     /**
