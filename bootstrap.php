@@ -50,6 +50,9 @@ $app->register(new \CultuurNet\UiTPASBeheer\CultureFeedServiceProvider(), array(
   'culturefeed.consumer.secret' => $app['config']['uitid']['consumer']['secret'],
 ));
 
+/**
+ * UiTPAS Counter service.
+ */
 $app->register(new \CultuurNet\UiTPASBeheer\Counter\CounterServiceProvider());
 
 return $app;
