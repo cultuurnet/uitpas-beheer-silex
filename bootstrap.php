@@ -23,6 +23,11 @@ $app->register(new JDesrosiers\Silex\Provider\CorsServiceProvider(), array(
 ));
 
 /**
+ * Exception handling.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\Exception\ExceptionHandlerServiceProvider());
+
+/**
  * Url generator.
  */
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());

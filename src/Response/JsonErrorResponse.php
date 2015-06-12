@@ -13,7 +13,7 @@ class JsonErrorResponse extends JsonResponse
      * @param int $status
      * @param array $headers
      */
-    public function __construct(ResponseException $exception, $status = 400, $headers = array())
+    public function __construct(ResponseException $exception)
     {
         $data = [
             'type' => 'error',
@@ -26,6 +26,6 @@ class JsonErrorResponse extends JsonResponse
             $data['code'] = $exception->getReadableCode();
         }
 
-        parent::__construct($data, $status, $headers);
+        parent::__construct($data, $exception->getStatusCode(), $exception->getHeaders());
     }
 }
