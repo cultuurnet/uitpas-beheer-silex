@@ -6,6 +6,7 @@
 namespace CultuurNet\UiTPASBeheer\Counter;
 
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class CounterNotFoundExceptionTest extends \PHPUnit_Framework_TestCase
 {
@@ -48,6 +49,30 @@ class CounterNotFoundExceptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             'COUNTER_NOT_FOUND',
             $this->e->getReadableCode()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_defaults_to_status_code_http_not_found()
+    {
+        $this->assertEquals(
+            Response::HTTP_NOT_FOUND,
+            $this->e->getStatusCode()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_allows_to_change_the_status_code()
+    {
+        $e = new CounterNotFoundException('10', Response::HTTP_BAD_REQUEST);
+
+        $this->assertEquals(
+            Response::HTTP_BAD_REQUEST,
+            $e->getStatusCode()
         );
     }
 }
