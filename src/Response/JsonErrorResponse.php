@@ -3,16 +3,17 @@
 namespace CultuurNet\UiTPASBeheer\Response;
 
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
+use CultuurNet\UiTPASBeheer\Exception\ResponseException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class JsonErrorResponse extends JsonResponse
 {
     /**
-     * @param \Exception $exception
+     * @param ResponseException $exception
      * @param int $status
      * @param array $headers
      */
-    public function __construct(\Exception $exception, $status = 400, $headers = array())
+    public function __construct(ResponseException $exception, $status = 400, $headers = array())
     {
         $data = [
             'type' => 'error',
