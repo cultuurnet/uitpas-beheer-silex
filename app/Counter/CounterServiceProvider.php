@@ -15,7 +15,7 @@ class CounterServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
-        $app['uitpas_counter_service'] = $app->share(
+        $app['counter_service'] = $app->share(
             function ($app) {
                 return new CounterService(
                     $app['session'],

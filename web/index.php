@@ -13,6 +13,11 @@ $app = require_once __DIR__ . '/../bootstrap.php';
 $app->after($app['cors']);
 
 /**
+ * Register controllers as services.
+ */
+$app->register(new Silex\Provider\ServiceControllerServiceProvider());
+
+/**
  * Authentication controllers.
  */
 $authController = new \CultuurNet\UiTIDProvider\Auth\AuthControllerProvider(

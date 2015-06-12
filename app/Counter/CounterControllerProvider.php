@@ -5,8 +5,6 @@ namespace CultuurNet\UiTPASBeheer\Counter;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 
 class CounterControllerProvider implements ControllerProviderInterface
 {
@@ -19,42 +17,17 @@ class CounterControllerProvider implements ControllerProviderInterface
      */
     public function connect(Application $app)
     {
+        $app['counter_controller'] = $app->share(function(Application $app) {
+            return new CounterController($app['counter_service']);
+        });
+
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
-        $controllers->get(
-            '/',
-            function (Request $request, Application $app) {
-                /* @var \CultuurNet\UiTPASBeheer\Counter\CounterService $counterService */
-                $counterService = $app['uitpas_counter_service'];
-                return new JsonResponse($counterService->getCounters($app['uitid_current_user']));
-            }
-        );
+        $controllers->get('/', 'counter_controller:getCounters');
 
-        $controllers->post(
-            '/current',
-            function (Request $request, Application $app) {
-                /* @var \CultuurNet\UiTPASBeheer\Counter\CounterService $counterService */
-                $counterService = $app['uitpas_counter_service'];
-
-                $counterId = $request->request->get('counterId');
-                $counterService->setActiveCounterId($counterId);
-
-                $counter = $counterService->getActiveCounter();
-                return new JsonResponse($counter);
-            }
-        );
-
-        $controllers->get(
-            '/current',
-            function (Request $request, Application $app) {
-                /* @var \CultuurNet\UiTPASBeheer\Counter\CounterService $counterService */
-                $counterService = $app['uitpas_counter_service'];
-
-                $counter = $counterService->getActiveCounter();
-                return new JsonResponse($counter);
-            }
-        );
+        $controllers->get('/active', 'counter_controller:getActiveCounter');
+        $controllers->post('/active', 'counter_controller:setActiveCounter');
 
         return $controllers;
     }
