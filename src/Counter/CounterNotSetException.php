@@ -14,7 +14,7 @@ class CounterNotSetException extends ResponseException implements ReadableCodeEx
      */
     public function __construct(\CultureFeed_User $user, $code = 0, $previous = null)
     {
-        $message = sprintf('No active counter set for user %s', $user->nick);
+        $message = sprintf('No active counter set for user %s.', $user->nick);
         parent::__construct($message, $code, $previous);
     }
 
