@@ -2,8 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\Counter;
 
-use CultuurNet\UiTPASBeheer\Exception\ResponseException;
-use CultuurNet\UiTPASBeheer\Response\JsonErrorResponse;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
