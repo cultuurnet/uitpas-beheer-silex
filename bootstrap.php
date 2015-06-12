@@ -30,7 +30,7 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 /**
  * User session service.
  */
-$app->register(new CultuurNet\UiTPASBeheer\Session\UserSessionServiceProvider());
+$app->register(new CultuurNet\UiTIDProvider\Session\UserSessionServiceProvider());
 
 /**
  * Authentication service.
