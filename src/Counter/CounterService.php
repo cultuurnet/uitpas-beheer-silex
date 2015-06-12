@@ -26,7 +26,7 @@ class CounterService
     /**
      * @param \CultureFeed $cultureFeed
      */
-    public function __construct(Session $session, \CultureFeed $cultureFeed, \CultureFeed $user)
+    public function __construct(Session $session, \CultureFeed $cultureFeed, \CultureFeed_User $user)
     {
         $this->cultureFeed = $cultureFeed;
         $this->session = $session;
