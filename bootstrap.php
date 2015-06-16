@@ -28,32 +28,38 @@ $app->register(new JDesrosiers\Silex\Provider\CorsServiceProvider(), array(
 $app->register(new \CultuurNet\UiTPASBeheer\Exception\ExceptionHandlerServiceProvider());
 
 /**
+ * Session service.
+ */
+$app->register(new \Silex\Provider\SessionServiceProvider());
+
+/**
+ * CultureFeed services.
+ */
+$app->register(new \CultuurNet\UiTIDProvider\CultureFeed\CultureFeedServiceProvider(), array(
+    'culturefeed.endpoint' => $app['config']['uitid']['base_url'],
+    'culturefeed.consumer.key' => $app['config']['uitid']['consumer']['key'],
+    'culturefeed.consumer.secret' => $app['config']['uitid']['consumer']['secret'],
+));
+
+/**
  * Url generator.
  */
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
 /**
- * User session service.
+ * UiTID Authentication services.
  */
-$app->register(new CultuurNet\UiTIDProvider\Session\UserSessionServiceProvider());
+$app->register(new CultuurNet\UiTIDProvider\Auth\AuthServiceProvider());
 
 /**
- * Authentication service.
+ * UiTID User services.
  */
-$app->register(new CultuurNet\UiTIDProvider\Auth\AuthServiceProvider($app['session']), array(
-    'uitid.base_url' => $app['config']['uitid']['base_url'],
-    'uitid.consumer.key' => $app['config']['uitid']['consumer']['key'],
-    'uitid.consumer.secret' => $app['config']['uitid']['consumer']['secret'],
-));
+$app->register(new CultuurNet\UiTIDProvider\User\UserServiceProvider());
 
 /**
- * CultureFeed service.
+ * UiTPAS service.
  */
-$app->register(new \CultuurNet\UiTPASBeheer\CultureFeedServiceProvider(), array(
-  'culturefeed.endpoint' => $app['config']['uitid']['base_url'],
-  'culturefeed.consumer.key' => $app['config']['uitid']['consumer']['key'],
-  'culturefeed.consumer.secret' => $app['config']['uitid']['consumer']['secret'],
-));
+$app->register(new \CultuurNet\UiTPASBeheer\UiTPASServiceProvider());
 
 /**
  * UiTPAS Counter service.
