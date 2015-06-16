@@ -13,6 +13,11 @@ $app = require_once __DIR__ . '/../bootstrap.php';
 $app->after($app['cors']);
 
 /**
+ * Register controllers as services.
+ */
+$app->register(new Silex\Provider\ServiceControllerServiceProvider());
+
+/**
  * Authentication controllers.
  */
 $authController = new \CultuurNet\UiTIDProvider\Auth\AuthControllerProvider(
@@ -44,5 +49,10 @@ $checkAuthentication = function (Request $request, Application $app) {
 $userControllers = $app['controllers_factory'];
 $userControllers->before($checkAuthentication);
 $app->mount('uitid', new \CultuurNet\UiTIDProvider\UserControllerProvider($userControllers));
+
+/**
+ * API callbacks for Counters.
+ */
+$app->mount('counters', new \CultuurNet\UiTPASBeheer\Counter\CounterControllerProvider());
 
 $app->run();

@@ -1,8 +1,10 @@
 {
   "name": "cultuurnet/uitpas-beheer-silex",
   "description": "A silex application that serves as an intermediate between the UiTPAS API and front end apps.",
+  "license": "GPL-3.0",
   "require": {
     "cultuurnet/silex-uitid-provider": "dev-master",
+    "cultuurnet/culturefeed-php": "dev-feature/UBR as 1.5",
     "deralex/yaml-config-service-provider": "~1.0",
     "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
     "jdesrosiers/silex-cors-provider": "~0.1",
@@ -32,6 +34,11 @@
     "phpunit/phpunit": "~4.3",
     "squizlabs/php_codesniffer": "~2.2",
     "phing/phing": "~2.10"
+  },
+  "autoload": {
+    "psr-4": {
+      "CultuurNet\\UiTPASBeheer\\": ["src", "app", "test"]
+    }
   },
   "minimum-stability": "dev",
   "prefer-stable": true

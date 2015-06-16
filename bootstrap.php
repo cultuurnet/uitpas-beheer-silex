@@ -23,6 +23,11 @@ $app->register(new JDesrosiers\Silex\Provider\CorsServiceProvider(), array(
 ));
 
 /**
+ * Exception handling.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\Exception\ExceptionHandlerServiceProvider());
+
+/**
  * Url generator.
  */
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
@@ -40,5 +45,19 @@ $app->register(new CultuurNet\UiTIDProvider\Auth\AuthServiceProvider($app['sessi
     'uitid.consumer.key' => $app['config']['uitid']['consumer']['key'],
     'uitid.consumer.secret' => $app['config']['uitid']['consumer']['secret'],
 ));
+
+/**
+ * CultureFeed service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\CultureFeedServiceProvider(), array(
+  'culturefeed.endpoint' => $app['config']['uitid']['base_url'],
+  'culturefeed.consumer.key' => $app['config']['uitid']['consumer']['key'],
+  'culturefeed.consumer.secret' => $app['config']['uitid']['consumer']['secret'],
+));
+
+/**
+ * UiTPAS Counter service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\Counter\CounterServiceProvider());
 
 return $app;

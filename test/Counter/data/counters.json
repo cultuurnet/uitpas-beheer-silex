@@ -1,0 +1,52 @@
+{
+  "1": {
+    "id": 1,
+    "consumerKey": null,
+    "name": null,
+    "role": null,
+    "actorId": null,
+    "cardSystems": [],
+    "permissions": [],
+    "groups": []
+  },
+  "2": {
+    "id": 2,
+    "consumerKey": null,
+    "name": null,
+    "role": null,
+    "actorId": null,
+    "cardSystems": [],
+    "permissions": [],
+    "groups": []
+  },
+  "3": {
+    "id": 3,
+    "consumerKey": null,
+    "name": null,
+    "role": null,
+    "actorId": null,
+    "cardSystems": [],
+    "permissions": [],
+    "groups": []
+  },
+  "4": {
+    "id": 4,
+    "consumerKey": null,
+    "name": null,
+    "role": null,
+    "actorId": null,
+    "cardSystems": [],
+    "permissions": [],
+    "groups": []
+  },
+  "5": {
+    "id": 5,
+    "consumerKey": null,
+    "name": null,
+    "role": null,
+    "actorId": null,
+    "cardSystems": [],
+    "permissions": [],
+    "groups": []
+  }
+}
