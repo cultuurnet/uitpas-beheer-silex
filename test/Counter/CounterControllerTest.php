@@ -23,6 +23,31 @@ class CounterControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @param string $filePath
+     * @return string
+     */
+    private function getJson($filePath)
+    {
+        return file_get_contents(__DIR__ . '/' . $filePath);
+    }
+
+    /**
+     * @param string $json
+     *   Actual JSON string.
+     * @param string $filePath
+     *   Path to the file with the expected JSON.
+     */
+    private function assertJsonEquals($json, $filePath)
+    {
+        $expected = $this->getJson($filePath);
+        $expected = json_decode($expected);
+
+        $actual = json_decode($json);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * @test
      */
     public function it_responds_the_users_counters()
@@ -43,9 +68,7 @@ class CounterControllerTest extends \PHPUnit_Framework_TestCase
         $response = $this->controller->getCounters();
         $content = $response->getContent();
 
-        $expected = json_encode($counters);
-
-        $this->assertEquals($expected, $content);
+        $this->assertJsonEquals($content, 'data/counters.json');
     }
 
     /**
@@ -69,9 +92,7 @@ class CounterControllerTest extends \PHPUnit_Framework_TestCase
         $response = $this->controller->setActiveCounter($request);
         $content = $response->getContent();
 
-        $expected = json_encode($counter);
-
-        $this->assertEquals($expected, $content);
+        $this->assertJsonEquals($content, 'data/counter.json');
     }
 
     /**
@@ -89,8 +110,6 @@ class CounterControllerTest extends \PHPUnit_Framework_TestCase
         $response = $this->controller->getActiveCounter();
         $content = $response->getContent();
 
-        $expected = json_encode($counter);
-
-        $this->assertEquals($expected, $content);
+        $this->assertJsonEquals($content, 'data/counter.json');
     }
 }
