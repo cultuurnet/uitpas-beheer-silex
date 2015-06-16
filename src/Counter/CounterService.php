@@ -99,7 +99,7 @@ class CounterService implements CounterServiceInterface
         }
 
         if (empty($counter)) {
-            throw new CounterNotSetException($this->user);
+            throw new CounterNotSetException();
         }
 
         return $counter;

@@ -17,21 +17,11 @@ class CounterNotSetExceptionTest extends \PHPUnit_Framework_TestCase
     private $e;
 
     /**
-     * @var CultureFeed_User
-     */
-    private $user;
-
-    /**
      * @inheritdoc
      */
     public function setUp()
     {
-        $this->user = new CultureFeed_User();
-        $this->user->nick = 'JohnDoe';
-
-        $this->e = new CounterNotSetException(
-            $this->user
-        );
+        $this->e = new CounterNotSetException();
     }
 
     /**
@@ -66,10 +56,7 @@ class CounterNotSetExceptionTest extends \PHPUnit_Framework_TestCase
      */
     public function it_allows_to_change_the_status_code()
     {
-        $e = new CounterNotSetException(
-            $this->user,
-            Response::HTTP_BAD_REQUEST
-        );
+        $e = new CounterNotSetException(Response::HTTP_BAD_REQUEST);
 
         $this->assertEquals(
             Response::HTTP_BAD_REQUEST,
