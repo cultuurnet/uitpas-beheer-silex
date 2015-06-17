@@ -32,12 +32,7 @@ $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 /**
  * API callbacks for authentication.
  */
-$authController = new \CultuurNet\UiTIDProvider\Auth\AuthControllerProvider(
-    $app['uitid_auth_service'],
-    $app['uitid_user_session_service'],
-    $app['url_generator']
-);
-$app->mount('culturefeed/oauth', $authController);
+$app->mount('culturefeed/oauth', new \CultuurNet\UiTIDProvider\Auth\AuthControllerProvider());
 
 /**
  * API callbacks for UiTID user data and methods.
