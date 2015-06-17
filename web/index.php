@@ -11,6 +11,20 @@ $app = require_once __DIR__ . '/../bootstrap.php';
 $app->after($app['cors']);
 
 /**
+ * Firewall.
+ */
+$app['security.firewalls'] = array(
+    'authentication' => array(
+        'pattern' => '^/culturefeed/oauth',
+    ),
+    'secured' => array(
+        'pattern' => '^.*$',
+        'uitid' => true,
+        'users' => $app['uitid_firewall_user_provider'],
+    ),
+);
+
+/**
  * Register controllers as services.
  */
 $app->register(new Silex\Provider\ServiceControllerServiceProvider());

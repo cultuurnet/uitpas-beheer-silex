@@ -33,6 +33,12 @@ $app->register(new \CultuurNet\UiTPASBeheer\Exception\ExceptionHandlerServicePro
 $app->register(new \Silex\Provider\SessionServiceProvider());
 
 /**
+ * Security services.
+ */
+$app->register(new \Silex\Provider\SecurityServiceProvider());
+$app->register(new \CultuurNet\UiTIDProvider\Security\UiTIDSecurityServiceProvider());
+
+/**
  * CultureFeed services.
  */
 $app->register(new \CultuurNet\UiTIDProvider\CultureFeed\CultureFeedServiceProvider(), array(

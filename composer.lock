@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "538ae1ebfd5a5573cd245fc64b307594",
+    "hash": "e921a12e748242005c503b72e96cb766",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -159,12 +159,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/silex-uitid-provider.git",
-                "reference": "6a3c2fa004c3370fa30ef52fa848bb34c9f91d41"
+                "reference": "d70c113eb6db5dbf4d7c78b3669411cc43e79a16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/6a3c2fa004c3370fa30ef52fa848bb34c9f91d41",
-                "reference": "6a3c2fa004c3370fa30ef52fa848bb34c9f91d41",
+                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/d70c113eb6db5dbf4d7c78b3669411cc43e79a16",
+                "reference": "d70c113eb6db5dbf4d7c78b3669411cc43e79a16",
                 "shasum": ""
             },
             "require": {
@@ -172,7 +172,8 @@
                 "cultuurnet/culturefeed-php": "~1.5",
                 "cultuurnet/udb3-symfony": "~0.0@dev",
                 "php": ">=5.5.0",
-                "silex/silex": "~1.3"
+                "silex/silex": "~1.3",
+                "symfony/security": "~2.6"
             },
             "require-dev": {
                 "phing/phing": "~2.10",
@@ -194,7 +195,7 @@
                 "GPL-3.0"
             ],
             "description": "Silex UiTID authentication provider.",
-            "time": "2015-06-16 15:29:45"
+            "time": "2015-06-17 09:42:32"
         },
         {
             "name": "cultuurnet/udb3-symfony",
