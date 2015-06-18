@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e921a12e748242005c503b72e96cb766",
+    "hash": "22cc1bf00248b39c924924389114aaba",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -88,16 +88,16 @@
         },
         {
             "name": "cultuurnet/culturefeed-php",
-            "version": "dev-feature/UBR",
+            "version": "dev-feature/UBR-53",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "aee2a3546fd61e2dddbefa082a7150a51a94bab1"
+                "reference": "b31dbc7e632d8bcb46a9af48fa31b4f540f2e7be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/aee2a3546fd61e2dddbefa082a7150a51a94bab1",
-                "reference": "aee2a3546fd61e2dddbefa082a7150a51a94bab1",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/b31dbc7e632d8bcb46a9af48fa31b4f540f2e7be",
+                "reference": "b31dbc7e632d8bcb46a9af48fa31b4f540f2e7be",
                 "shasum": ""
             },
             "require": {
@@ -151,7 +151,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-06-11 14:00:16"
+            "time": "2015-06-18 13:43:36"
         },
         {
             "name": "cultuurnet/silex-uitid-provider",
@@ -159,12 +159,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/silex-uitid-provider.git",
-                "reference": "d70c113eb6db5dbf4d7c78b3669411cc43e79a16"
+                "reference": "006d90cf55db291ca3f9e82fc77e7fa306983a73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/d70c113eb6db5dbf4d7c78b3669411cc43e79a16",
-                "reference": "d70c113eb6db5dbf4d7c78b3669411cc43e79a16",
+                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/006d90cf55db291ca3f9e82fc77e7fa306983a73",
+                "reference": "006d90cf55db291ca3f9e82fc77e7fa306983a73",
                 "shasum": ""
             },
             "require": {
@@ -177,8 +177,8 @@
             },
             "require-dev": {
                 "phing/phing": "~2.10",
-                "phpspec/phpspec": "~2.0",
                 "phpunit/phpunit": "~4.3",
+                "satooshi/php-coveralls": "~0.7",
                 "squizlabs/php_codesniffer": "~2.2"
             },
             "type": "library",
@@ -195,7 +195,7 @@
                 "GPL-3.0"
             ],
             "description": "Silex UiTID authentication provider.",
-            "time": "2015-06-17 09:42:32"
+            "time": "2015-06-18 12:07:40"
         },
         {
             "name": "cultuurnet/udb3-symfony",
@@ -291,16 +291,16 @@
         },
         {
             "name": "doctrine/annotations",
-            "version": "v1.2.4",
+            "version": "v1.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e"
+                "reference": "f4a91702ca3cd2e568c3736aa031ed00c3752af4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/b5202eb9e83f8db52e0e58867e0a46e63be8332e",
-                "reference": "b5202eb9e83f8db52e0e58867e0a46e63be8332e",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/f4a91702ca3cd2e568c3736aa031ed00c3752af4",
+                "reference": "f4a91702ca3cd2e568c3736aa031ed00c3752af4",
                 "shasum": ""
             },
             "require": {
@@ -355,7 +355,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2014-12-23 22:40:37"
+            "time": "2015-06-17 12:21:22"
         },
         {
             "name": "doctrine/cache",
@@ -3422,16 +3422,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.7.3",
+            "version": "4.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "41fea1e84ed84d373f5ac099a1276c4358c90708"
+                "reference": "e5f851f324f7add846316f39e668e9deac97a103"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/41fea1e84ed84d373f5ac099a1276c4358c90708",
-                "reference": "41fea1e84ed84d373f5ac099a1276c4358c90708",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e5f851f324f7add846316f39e668e9deac97a103",
+                "reference": "e5f851f324f7add846316f39e668e9deac97a103",
                 "shasum": ""
             },
             "require": {
@@ -3445,7 +3445,7 @@
                 "phpunit/php-code-coverage": "~2.1",
                 "phpunit/php-file-iterator": "~1.4",
                 "phpunit/php-text-template": "~1.2",
-                "phpunit/php-timer": "~1.0",
+                "phpunit/php-timer": ">=1.0.6",
                 "phpunit/phpunit-mock-objects": "~2.3",
                 "sebastian/comparator": "~1.1",
                 "sebastian/diff": "~1.2",
@@ -3490,7 +3490,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-06-11 16:20:25"
+            "time": "2015-06-18 13:33:26"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -4121,7 +4121,7 @@
         {
             "alias": "1.5",
             "alias_normalized": "1.5.0.0",
-            "version": "dev-feature/UBR",
+            "version": "dev-feature/UBR-53",
             "package": "cultuurnet/culturefeed-php"
         }
     ],
