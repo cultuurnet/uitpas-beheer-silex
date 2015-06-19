@@ -2,8 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
-use CultuurNet\UiTPASBeheer\Counter\CounterService;
-
 class PassHolderService
 {
     /**
@@ -12,29 +10,18 @@ class PassHolderService
     protected $uitpasService;
 
     /**
-     * @var CounterService
-     */
-    protected $counterService;
-
-    /**
      * @var string|null
      */
     protected $counterConsumerKey = null;
 
     /**
      * @param \CultureFeed_Uitpas $uitpasService
-     * @param CounterService $counterService
+     * @param string|null $counterConsumerKey
      */
-    public function __construct(\CultureFeed_Uitpas $uitpasService, CounterService $counterService)
+    public function __construct(\CultureFeed_Uitpas $uitpasService, $counterConsumerKey = null)
     {
         $this->uitpasService = $uitpasService;
-        $this->counterService = $counterService;
-
-        $counterId = $this->counterService->getActiveCounterId();
-        $counter = $this->counterService->getCounter($counterId);
-        if ($counter) {
-            $this->counterConsumerKey = $counter->consumerKey;
-        }
+        $this->counterConsumerKey = $counterConsumerKey;
     }
 
     /**

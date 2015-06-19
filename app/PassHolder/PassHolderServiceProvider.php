@@ -18,7 +18,7 @@ class PassHolderServiceProvider implements ServiceProviderInterface
         $app['passholder_service'] = $app->share(function (Application $app) {
             return new PassHolderService(
                 $app['uitpas'],
-                $app['counter_service']
+                $app['counter_consumer_key']
             );
         });
     }
