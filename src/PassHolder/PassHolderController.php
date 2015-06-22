@@ -9,11 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 class PassHolderController
 {
     /**
-     * @param PassHolderService $passHolderService
+     * @param PassHolderServiceInterface $passHolderService
      */
     protected $passHolderService;
 
-    public function __construct(PassHolderService $passHolderService)
+    public function __construct(PassHolderServiceInterface $passHolderService)
     {
         $this->passHolderService = $passHolderService;
     }

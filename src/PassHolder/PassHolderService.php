@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
-class PassHolderService
+class PassHolderService implements PassHolderServiceInterface
 {
     /**
      * @var \CultureFeed_Uitpas
