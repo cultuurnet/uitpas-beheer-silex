@@ -29,7 +29,7 @@ class PassHolderService implements PassHolderServiceInterface
      *
      * @return \CultureFeed_Uitpas_Passholder|null
      */
-    public function getPassHolderByIdentificationNumber($identification)
+    public function getByIdentificationNumber($identification)
     {
         try {
             return $this->uitpasService->getPassholderByIdentificationNumber(

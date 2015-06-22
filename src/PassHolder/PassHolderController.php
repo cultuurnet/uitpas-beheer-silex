@@ -26,7 +26,7 @@ class PassHolderController
     {
         $identificationNumber = $request->request->get('identification');
 
-        $passholder = $this->passHolderService->getPassHolderByIdentificationNumber($identificationNumber);
+        $passholder = $this->passHolderService->getByIdentificationNumber($identificationNumber);
 
         if (is_null($passholder)) {
             throw new PassHolderNotFoundException();
