@@ -42,7 +42,7 @@ $app->mount('uitid', new \CultuurNet\UiTIDProvider\User\UserControllerProvider()
 /**
  * API callbacks for Counters.
  */
-$app->mount('counters', new \CultuurNet\UiTPASBeheer\Counter\CounterControllerProvider());
+$app->mount('counter', new \CultuurNet\UiTPASBeheer\Counter\CounterControllerProvider());
 
 /**
  * API callbacks for PassHolders.
