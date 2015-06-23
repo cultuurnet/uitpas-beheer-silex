@@ -53,6 +53,6 @@ $app->mount('uitid', new \CultuurNet\UiTIDProvider\UserControllerProvider($userC
 /**
  * API callbacks for Counters.
  */
-$app->mount('counters', new \CultuurNet\UiTPASBeheer\Counter\CounterControllerProvider());
+$app->mount('counter', new \CultuurNet\UiTPASBeheer\Counter\CounterControllerProvider());
 
 $app->run();
