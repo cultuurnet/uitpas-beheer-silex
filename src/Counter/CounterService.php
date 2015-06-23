@@ -26,7 +26,7 @@ class CounterService implements CounterServiceInterface
 
     /**
      * @param SessionInterface $session
-     * @param \ICultureFeed $cultureFeed
+     * @param \CultureFeed_Uitpas $uitpas
      * @param \CultureFeed_User $user
      */
     public function __construct(SessionInterface $session, \CultureFeed_Uitpas $uitpas, \CultureFeed_User $user)
@@ -56,7 +56,7 @@ class CounterService implements CounterServiceInterface
      */
     public function getCounter($id)
     {
-        $counters = $this->getCounters($this->user);
+        $counters = $this->getCounters();
 
         if (isset($counters[$id])) {
             return $counters[$id];
