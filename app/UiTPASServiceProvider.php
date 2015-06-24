@@ -1,11 +1,10 @@
 <?php
-
-namespace CultuurNet\UiTPASBeheer\Counter;
+namespace CultuurNet\UiTPASBeheer;
 
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
-class CounterServiceProvider implements ServiceProviderInterface
+class UiTPASServiceProvider implements ServiceProviderInterface
 {
     /**
      * Registers services on the given app.
@@ -15,13 +14,11 @@ class CounterServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
-        $app['counter_service'] = $app->share(
+        $app['uitpas'] = $app->share(
             function ($app) {
-                return new CounterService(
-                    $app['session'],
-                    $app['uitpas'],
-                    $app['uitid_user']
-                );
+                /* @var \CultureFeed $culturefeed */
+                $culturefeed = $app['culturefeed'];
+                return $culturefeed->uitpas();
             }
         );
     }

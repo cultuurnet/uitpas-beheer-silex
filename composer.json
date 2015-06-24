@@ -3,7 +3,7 @@
   "description": "A silex application that serves as an intermediate between the UiTPAS API and front end apps.",
   "license": "GPL-3.0",
   "require": {
-    "cultuurnet/silex-uitid-provider": "dev-master",
+    "cultuurnet/silex-uitid-provider": "dev-feature/UBR-61",
     "cultuurnet/culturefeed-php": "dev-feature/UBR as 1.5",
     "deralex/yaml-config-service-provider": "~1.0",
     "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
@@ -20,7 +20,7 @@
     "symfony/locale": "~2.3",
     "symfony/process": "~2.3",
     "symfony/routing": "~2.6.9",
-    "symfony/security": "~2.3",
+    "symfony/security": "~2.6",
     "symfony/serializer": "~2.3",
     "symfony/translation": "~2.3",
     "symfony/validator": "~2.3",
