@@ -44,4 +44,9 @@ $app->mount('uitid', new \CultuurNet\UiTIDProvider\User\UserControllerProvider()
  */
 $app->mount('counter', new \CultuurNet\UiTPASBeheer\Counter\CounterControllerProvider());
 
+/**
+ * API callbacks for PassHolders.
+ */
+$app->mount('passholder', new \CultuurNet\UiTPASBeheer\PassHolder\PassHolderControllerProvider());
+
 $app->run();

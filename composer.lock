@@ -92,12 +92,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "aee2a3546fd61e2dddbefa082a7150a51a94bab1"
+                "reference": "4d037e4f945a0523d48da85361858edbb4fbe085"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/aee2a3546fd61e2dddbefa082a7150a51a94bab1",
-                "reference": "aee2a3546fd61e2dddbefa082a7150a51a94bab1",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/4d037e4f945a0523d48da85361858edbb4fbe085",
+                "reference": "4d037e4f945a0523d48da85361858edbb4fbe085",
                 "shasum": ""
             },
             "require": {
@@ -151,7 +151,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-06-11 14:00:16"
+            "time": "2015-06-25 08:14:34"
         },
         {
             "name": "cultuurnet/silex-uitid-provider",

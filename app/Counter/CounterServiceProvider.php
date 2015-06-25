@@ -24,6 +24,18 @@ class CounterServiceProvider implements ServiceProviderInterface
                 );
             }
         );
+
+        $app['counter_consumer_key'] = $app->share(function (Application $app) {
+            /* @var CounterService $counterService */
+            $counterService = $app['counter_service'];
+
+            try {
+                $counter = $counterService->getActiveCounter();
+                return $counter->consumerKey;
+            } catch (CounterNotSetException $exception) {
+                return null;
+            }
+        });
     }
 
     /**

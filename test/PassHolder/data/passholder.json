@@ -1,0 +1,53 @@
+{
+  "name": "Foo",
+  "firstName": null,
+  "email": null,
+  "emailPreference": null,
+  "smsPreference": null,
+  "inszNumber": null,
+  "dateOfBirth": null,
+  "gender": null,
+  "street": null,
+  "number": null,
+  "box": null,
+  "postalCode": null,
+  "city": null,
+  "telephone": null,
+  "gsm": null,
+  "nationality": null,
+  "placeOfBirth": null,
+  "price": null,
+  "kansenStatuut": null,
+  "kansenStatuutEndDate": null,
+  "kansenStatuutExpired": null,
+  "kansenStatuutInGracePeriod": null,
+  "uitIdUser": null,
+  "blocked": null,
+  "verified": null,
+  "memberships": [],
+  "registrationBalieConsumerKey": null,
+  "points": null,
+  "moreInfo": null,
+  "schoolConsumerKey": null,
+  "balieConsumerKey": null,
+  "picture": null,
+  "cardSystemSpecific": {
+    "1": {
+      "currentCard": null,
+      "emailPreference": null,
+      "smsPreference": null,
+      "cardSystem": {
+        "id": 122345,
+        "name": "uitpas",
+        "distributionKeys": []
+      },
+      "kansenStatuut": null,
+      "kansenStatuutExpired": null,
+      "kansenStatuutEndDate": null,
+      "kansenStatuutInGracePeriod": null,
+      "status": null
+    }
+  },
+  "numberOfCheckins": null,
+  "inszNumberHash": null
+}
