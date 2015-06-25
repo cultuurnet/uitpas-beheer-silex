@@ -30,6 +30,11 @@ $app['security.firewalls'] = array(
 $app->register(new Silex\Provider\ServiceControllerServiceProvider());
 
 /**
+ * Enable application/json post data.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\JsonPostDataServiceProvider());
+
+/**
  * API callbacks for authentication.
  */
 $app->mount('culturefeed/oauth', new \CultuurNet\UiTIDProvider\Auth\AuthControllerProvider());
