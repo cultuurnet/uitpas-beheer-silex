@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1e355bf311b64afd8df9e7c85bb5b138",
+    "hash": "3f9d5c8fb76adccabbf30887e5ff6990",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -88,16 +88,16 @@
         },
         {
             "name": "cultuurnet/culturefeed-php",
-            "version": "dev-feature/UBR",
+            "version": "dev-feature/UBR-70",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "4d037e4f945a0523d48da85361858edbb4fbe085"
+                "reference": "a85b0a438e8ea1acaf6039aa700a918e2ae5043f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/4d037e4f945a0523d48da85361858edbb4fbe085",
-                "reference": "4d037e4f945a0523d48da85361858edbb4fbe085",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/a85b0a438e8ea1acaf6039aa700a918e2ae5043f",
+                "reference": "a85b0a438e8ea1acaf6039aa700a918e2ae5043f",
                 "shasum": ""
             },
             "require": {
@@ -151,7 +151,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-06-25 08:14:34"
+            "time": "2015-06-26 15:23:37"
         },
         {
             "name": "cultuurnet/silex-uitid-provider",
@@ -4121,7 +4121,7 @@
         {
             "alias": "1.5",
             "alias_normalized": "1.5.0.0",
-            "version": "dev-feature/UBR",
+            "version": "dev-feature/UBR-70",
             "package": "cultuurnet/culturefeed-php"
         }
     ],
