@@ -164,7 +164,7 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
         $response = $this->controller->update($request, $uitpasNumber);
         $json = $response->getContent();
 
-        $this->assertJsonEquals($json, 'Passholder/data/passholder.json');
+        $this->assertJsonEquals($json, 'PassHolder/data/passholder.json');
     }
 
     /**
