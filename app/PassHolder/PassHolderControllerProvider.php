@@ -23,6 +23,9 @@ class PassHolderControllerProvider implements ControllerProviderInterface
 
         $controllers->get('/passholder', 'passholder_controller:getByIdentificationNumber');
 
+        $controllers->get('/passholder/{uitpasNumber}', 'passholder_controller:getByUitpasNumber');
+        $controllers->post('/passholder/{uitpasNumber}', 'passholder_controller:update');
+
         return $controllers;
     }
 }
