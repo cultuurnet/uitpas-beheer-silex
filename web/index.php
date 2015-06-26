@@ -52,6 +52,6 @@ $app->mount('counter', new \CultuurNet\UiTPASBeheer\Counter\CounterControllerPro
 /**
  * API callbacks for PassHolders.
  */
-$app->mount('passholder', new \CultuurNet\UiTPASBeheer\PassHolder\PassHolderControllerProvider());
+$app->mount('/', new \CultuurNet\UiTPASBeheer\PassHolder\PassHolderControllerProvider());
 
 $app->run();

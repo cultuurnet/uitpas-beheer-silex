@@ -21,7 +21,7 @@ class PassHolderControllerProvider implements ControllerProviderInterface
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
-        $controllers->post('/find', 'passholder_controller:find');
+        $controllers->get('/passholder', 'passholder_controller:getByIdentificationNumber');
 
         return $controllers;
     }
