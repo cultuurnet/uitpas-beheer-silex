@@ -60,7 +60,7 @@ class JsonErrorResponseTest extends \PHPUnit_Framework_TestCase
         $readableCode = 'MOCK_CODE';
 
         $exception = new MockReadableCodeException($this->message, $this->code);
-        MockReadableCodeException::setReadableCode($readableCode);
+        $exception->setReadableCode($readableCode);
 
         $data = $this->getResponseDataForException($exception);
 

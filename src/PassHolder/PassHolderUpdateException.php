@@ -25,7 +25,7 @@ class PassHolderUpdateException extends ResponseException implements ReadableCod
     /**
      * @return string
      */
-    public static function getReadableCode()
+    public function getReadableCode()
     {
         return 'PASSHOLDER_UPDATE_CULTUREFEED_ERROR';
     }

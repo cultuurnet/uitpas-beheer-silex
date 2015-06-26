@@ -7,18 +7,18 @@ class MockReadableCodeException extends MockResponseException implements Readabl
     /**
      * @var string
      */
-    public static $readableCode;
+    public $readableCode;
 
-    public static function setReadableCode($readableCode)
+    public function setReadableCode($readableCode)
     {
-        self::$readableCode = (string) $readableCode;
+        $this->readableCode = (string) $readableCode;
     }
 
     /**
      * @return string
      */
-    public static function getReadableCode()
+    public function getReadableCode()
     {
-        return (string) self::$readableCode;
+        return $this->readableCode;
     }
 }

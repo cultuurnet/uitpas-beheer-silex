@@ -21,7 +21,7 @@ class CounterNotSetException extends ResponseException implements ReadableCodeEx
     /**
      * @return string
      */
-    public static function getReadableCode()
+    public function getReadableCode()
     {
         return 'COUNTER_NOT_SET';
     }

@@ -7,5 +7,5 @@ interface ReadableCodeExceptionInterface
     /**
      * @return string
      */
-    public static function getReadableCode();
+    public function getReadableCode();
 }
