@@ -40,4 +40,31 @@ class PassHolderService implements PassHolderServiceInterface
             return null;
         }
     }
+
+    /**
+     * @param string $uitpasNumber
+     *
+     * @return \CultureFeed_Uitpas_Passholder|null
+     */
+    public function getByUitpasNumber($uitpasNumber) {
+        try {
+            return $this->uitpasService->getPassholderByUitpasNumber(
+                $uitpasNumber,
+                $this->counterConsumerKey
+            );
+        } catch (\CultureFeed_Exception $exception) {
+            return null;
+        }
+    }
+
+    /**
+     * @param \CultureFeed_Uitpas_Passholder $passHolder
+     */
+    public function update(\CultureFeed_Uitpas_Passholder $passHolder) {
+        try {
+            $this->uitpasService->updatePassholder($passHolder);
+        } catch (\CultureFeed_Exception $exception) {
+            throw new PassHolderUpdateException(500, $exception);
+        }
+    }
 }
