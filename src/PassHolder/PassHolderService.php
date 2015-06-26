@@ -66,7 +66,7 @@ class PassHolderService implements PassHolderServiceInterface
         try {
             $this->uitpasService->updatePassholder($passHolder);
         } catch (\CultureFeed_Exception $exception) {
-            throw new PassHolderUpdateException(500, $exception);
+            throw new PassHolderUpdateException(400, $exception);
         }
     }
 }
