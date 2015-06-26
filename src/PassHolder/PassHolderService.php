@@ -2,6 +2,9 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\UiTPASBeheer\Exception\CultureFeedResponseException;
+use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+
 class PassHolderService implements PassHolderServiceInterface
 {
     /**
@@ -63,10 +66,6 @@ class PassHolderService implements PassHolderServiceInterface
      */
     public function update(\CultureFeed_Uitpas_Passholder $passHolder)
     {
-        try {
-            $this->uitpasService->updatePassholder($passHolder);
-        } catch (\CultureFeed_Exception $exception) {
-            throw new PassHolderUpdateException(400, $exception);
-        }
+        $this->uitpasService->updatePassholder($passHolder);
     }
 }

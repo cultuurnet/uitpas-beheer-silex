@@ -130,26 +130,4 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->service->update($passHolder);
     }
-
-    /**
-     * @test
-     */
-    public function it_throws_an_exception_when_an_update_failed()
-    {
-        $passHolder = new \CultureFeed_Uitpas_Passholder();
-        $passHolder->uitpasNumber = '0930000125607';
-        $passHolder->name = 'Foo';
-
-        $this->uitpas->expects($this->once())
-            ->method('updatePassholder')
-            ->with($passHolder)
-            ->willThrowException(new \CultureFeed_Exception('Something went wrong.', 'ERROR_CODE'));
-
-        try {
-            $this->service->update($passHolder);
-        } catch (PassHolderUpdateException $exception) {
-            $this->assertEquals(400, $exception->getCode());
-            $this->assertEquals('ERROR_CODE', $exception->getReadableCode());
-        }
-    }
 }
