@@ -27,6 +27,11 @@ class PassHolderUpdateException extends ResponseException implements ReadableCod
      */
     public function getReadableCode()
     {
+        $previous = $this->getPrevious();
+        if ($previous instanceof \CultureFeed_Exception && !empty($previous->error_code)) {
+            return $previous->error_code;
+        }
+
         return 'PASSHOLDER_UPDATE_CULTUREFEED_ERROR';
     }
 }
