@@ -3,7 +3,6 @@
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 
-
 /* @var Application $app */
 $app = require_once __DIR__ . '/../bootstrap.php';
 
@@ -14,13 +13,9 @@ $app->after($app['cors']);
 
 $app->before(
     function (Request $request) {
-        if (0 === strpos(
-                $request->headers->get('Content-Type'),
-                'application/json'
-            )
-        ) {
+        if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
             $data = json_decode($request->getContent(), true);
-            if (NULL === $data) {
+            if (null === $data) {
                 // Decoding failed. Probably the submitted JSON is not correct.
                 return Response::create('Unable to decode the submitted body. Is it valid JSON?', 400);
             }
