@@ -1,6 +1,8 @@
 <?php
 
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
+
 
 /* @var Application $app */
 $app = require_once __DIR__ . '/../bootstrap.php';
@@ -9,6 +11,23 @@ $app = require_once __DIR__ . '/../bootstrap.php';
  * Enable CORS.
  */
 $app->after($app['cors']);
+
+$app->before(
+    function (Request $request) {
+        if (0 === strpos(
+                $request->headers->get('Content-Type'),
+                'application/json'
+            )
+        ) {
+            $data = json_decode($request->getContent(), true);
+            if (NULL === $data) {
+                // Decoding failed. Probably the submitted JSON is not correct.
+                return Response::create('Unable to decode the submitted body. Is it valid JSON?', 400);
+            }
+            $request->request->replace(is_array($data) ? $data : array());
+        }
+    }
+);
 
 /**
  * Firewall.
@@ -53,5 +72,19 @@ $app->mount('counter', new \CultuurNet\UiTPASBeheer\Counter\CounterControllerPro
  * API callbacks for PassHolders.
  */
 $app->mount('passholder', new \CultuurNet\UiTPASBeheer\PassHolder\PassHolderControllerProvider());
+
+$app->get(
+    'swagger.json',
+    function (Request $request) {
+        $file = new SplFileInfo(__DIR__ . '/swagger.json');
+        return new \Symfony\Component\HttpFoundation\BinaryFileResponse(
+            $file,
+            200,
+            [
+                'Content-Type' => 'application/json',
+            ]
+        );
+    }
+);
 
 $app->run();
