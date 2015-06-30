@@ -22,10 +22,9 @@ class PassHolderController
      * @param Request $request
      * @return JsonResponse
      */
-    public function find(Request $request)
+    public function getByIdentificationNumber(Request $request)
     {
-        $identificationNumber = $request->request->get('identification');
-
+        $identificationNumber = $request->query->get('identification');
         $passholder = $this->passHolderService->getByIdentificationNumber($identificationNumber);
 
         if (is_null($passholder)) {
