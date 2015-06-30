@@ -2,6 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
+
 class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -22,7 +24,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->uitpas = $this->getMock(\CultureFeed_Uitpas::class);
-        $this->counterConsumerKey = 'key';
+        $this->counterConsumerKey = new CounterConsumerKey('key');
 
         $this->service = new PassHolderService($this->uitpas, $this->counterConsumerKey);
     }

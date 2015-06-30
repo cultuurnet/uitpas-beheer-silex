@@ -31,7 +31,7 @@ class CounterServiceProvider implements ServiceProviderInterface
 
             try {
                 $counter = $counterService->getActiveCounter();
-                return $counter->consumerKey;
+                return new CounterConsumerKey($counter->consumerKey);
             } catch (CounterNotSetException $exception) {
                 return null;
             }
