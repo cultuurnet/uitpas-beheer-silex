@@ -2,9 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
-use CultuurNet\UiTPASBeheer\Exception\CultureFeedResponseException;
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
-
 class PassHolderService implements PassHolderServiceInterface
 {
     /**
