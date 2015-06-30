@@ -1,6 +1,7 @@
 <?php
 
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
 
 /* @var Application $app */
 $app = require_once __DIR__ . '/../bootstrap.php';
