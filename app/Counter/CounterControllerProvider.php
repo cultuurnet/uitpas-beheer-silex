@@ -24,10 +24,10 @@ class CounterControllerProvider implements ControllerProviderInterface
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
-        $controllers->get('/list', 'counter_controller:getCounters');
+        $controllers->get('/counter/list', 'counter_controller:getCounters');
 
-        $controllers->get('/active', 'counter_controller:getActiveCounter');
-        $controllers->post('/active', 'counter_controller:setActiveCounter');
+        $controllers->get('/counter/active', 'counter_controller:getActiveCounter');
+        $controllers->post('/counter/active', 'counter_controller:setActiveCounter');
 
         return $controllers;
     }

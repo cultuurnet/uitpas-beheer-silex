@@ -48,11 +48,11 @@ $app->mount('uitid', new \CultuurNet\UiTIDProvider\User\UserControllerProvider()
 /**
  * API callbacks for Counters.
  */
-$app->mount('counter', new \CultuurNet\UiTPASBeheer\Counter\CounterControllerProvider());
+$app->mount('/', new \CultuurNet\UiTPASBeheer\Counter\CounterControllerProvider());
 
 /**
  * API callbacks for PassHolders.
  */
-$app->mount('passholder', new \CultuurNet\UiTPASBeheer\PassHolder\PassHolderControllerProvider());
+$app->mount('/', new \CultuurNet\UiTPASBeheer\PassHolder\PassHolderControllerProvider());
 
 $app->run();

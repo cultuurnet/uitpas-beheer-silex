@@ -48,8 +48,8 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             ->with($identification)
             ->willReturn($passholder);
 
-        $request = new Request([], ['identification' => $identification]);
-        $response = $this->controller->find($request);
+        $request = new Request(['identification' => $identification]);
+        $response = $this->controller->getByIdentificationNumber($request);
         $json = $response->getContent();
 
         $this->assertJsonEquals($json, 'PassHolder/data/passholder.json');
@@ -67,10 +67,10 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             ->with($identification)
             ->willReturn(null);
 
-        $request = new Request([], ['identification' => $identification]);
+        $request = new Request(['identification' => $identification]);
 
         try {
-            $this->controller->find($request);
+            $this->controller->getByIdentificationNumber($request);
         } catch (PassHolderNotFoundException $exception) {
             $this->assertInstanceOf(ReadableCodeExceptionInterface::class, $exception);
             $this->assertNotEmpty($exception->getReadableCode());
