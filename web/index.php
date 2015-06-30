@@ -55,18 +55,4 @@ $app->mount('counter', new \CultuurNet\UiTPASBeheer\Counter\CounterControllerPro
  */
 $app->mount('passholder', new \CultuurNet\UiTPASBeheer\PassHolder\PassHolderControllerProvider());
 
-$app->get(
-    'swagger.json',
-    function (Request $request) {
-        $file = new SplFileInfo(__DIR__ . '/swagger.json');
-        return new \Symfony\Component\HttpFoundation\BinaryFileResponse(
-            $file,
-            200,
-            [
-                'Content-Type' => 'application/json',
-            ]
-        );
-    }
-);
-
 $app->run();
