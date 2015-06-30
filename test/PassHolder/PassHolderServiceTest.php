@@ -126,7 +126,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->uitpas->expects($this->once())
             ->method('updatePassholder')
-            ->with($passHolder);
+            ->with($passHolder, $this->counterConsumerKey);
 
         $this->service->update($passHolder);
     }

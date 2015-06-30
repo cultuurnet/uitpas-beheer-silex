@@ -63,6 +63,6 @@ class PassHolderService implements PassHolderServiceInterface
      */
     public function update(\CultureFeed_Uitpas_Passholder $passHolder)
     {
-        $this->uitpasService->updatePassholder($passHolder);
+        $this->uitpasService->updatePassholder($passHolder, $this->counterConsumerKey);
     }
 }
