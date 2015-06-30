@@ -33,10 +33,12 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
     public function getByUitpasNumber($uitpasNumber)
     {
         try {
-            return $this->uitpasService->getPassholderByUitpasNumber(
-                $uitpasNumber,
-                $this->counterConsumerKey
-            );
+            return $this
+                    ->getUitpasService()
+                    ->getPassholderByUitpasNumber(
+                        $uitpasNumber,
+                        $this->getCounterConsumerKey()
+                    );
         } catch (\CultureFeed_Exception $exception) {
             return null;
         }
@@ -47,6 +49,11 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
      */
     public function update(\CultureFeed_Uitpas_Passholder $passHolder)
     {
-        $this->uitpasService->updatePassholder($passHolder, $this->counterConsumerKey);
+        $this
+            ->getUitpasService()
+            ->updatePassholder(
+                $passHolder,
+                $this->getCounterConsumerKey()
+            );
     }
 }
