@@ -2,6 +2,9 @@
 
 namespace CultuurNet\UiTPASBeheer\UiTPAS;
 
+use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
+use CultuurNet\UiTPASBeheer\Exception\ResponseException;
+
 class UiTPASNumberTest extends \PHPUnit_Framework_TestCase
 {
     const VALID_REGULAR = '0930000420206';
@@ -64,7 +67,7 @@ class UiTPASNumberTest extends \PHPUnit_Framework_TestCase
     public function it_validates_that_the_number_starts_with_zero()
     {
         $this->setExpectedException(
-            \InvalidArgumentException::class,
+            UiTPASNumberInvalidException::class,
             'The provided value should be exactly 13 digits and start with 0.'
         );
         new UiTPASNumber(self::INVALID_START_DIGIT);
@@ -76,7 +79,7 @@ class UiTPASNumberTest extends \PHPUnit_Framework_TestCase
     public function it_validates_that_the_number_is_not_shorter_than_13_digits()
     {
         $this->setExpectedException(
-            \InvalidArgumentException::class,
+            UiTPASNumberInvalidException::class,
             'The provided value should be exactly 13 digits and start with 0.'
         );
         new UiTPASNumber(self::INVALID_TOO_SHORT);
@@ -88,7 +91,7 @@ class UiTPASNumberTest extends \PHPUnit_Framework_TestCase
     public function it_validates_that_the_number_is_not_longer_than_13_digits()
     {
         $this->setExpectedException(
-            \InvalidArgumentException::class,
+            UiTPASNumberInvalidException::class,
             'The provided value should be exactly 13 digits and start with 0.'
         );
         new UiTPASNumber(self::INVALID_TOO_LONG);
@@ -100,7 +103,7 @@ class UiTPASNumberTest extends \PHPUnit_Framework_TestCase
     public function it_validates_that_the_number_contains_only_digits()
     {
         $this->setExpectedException(
-            \InvalidArgumentException::class,
+            UiTPASNumberInvalidException::class,
             'The provided value should be exactly 13 digits and start with 0.'
         );
         new UiTPASNumber(self::INVALID_CHARACTERS);
@@ -112,7 +115,7 @@ class UiTPASNumberTest extends \PHPUnit_Framework_TestCase
     public function it_validates_the_check_digit()
     {
         $this->setExpectedException(
-            \InvalidArgumentException::class,
+            UiTPASNumberInvalidException::class,
             'The provided value does not have a valid check digit.'
         );
         new UiTPASNumber(self::INVALID_CHECK_DIGIT);
@@ -124,9 +127,25 @@ class UiTPASNumberTest extends \PHPUnit_Framework_TestCase
     public function it_validates_the_kansenstatuut_digit()
     {
         $this->setExpectedException(
-            \InvalidArgumentException::class,
+            UiTPASNumberInvalidException::class,
             'The second to last digit of the provided value should be 0 or 1.'
         );
         new UiTPASNumber(self::INVALID_KANSENSTATUUT);
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_response_exceptions_with_a_readable_code()
+    {
+        try {
+            new UiTPASNumber(self::INVALID_KANSENSTATUUT);
+            $this->fail('UiTPASNumber should throw UiTPASNumberInvalidException when value is invalid.');
+        } catch (UiTPASNumberInvalidException $exception) {
+            $this->assertInstanceOf(ReadableCodeExceptionInterface::class, $exception);
+            $this->assertEquals('UITPAS_NUMBER_INVALID', $exception->getReadableCode());
+
+            $this->assertInstanceOf(ResponseException::class, $exception);
+        }
     }
 }

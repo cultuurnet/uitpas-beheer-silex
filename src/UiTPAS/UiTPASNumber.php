@@ -48,12 +48,12 @@ class UiTPASNumber extends StringLiteral
     {
         // Validate length and contents of the string.
         if (!preg_match('/' . self::FORMAT . '/', $value)) {
-            throw new \InvalidArgumentException('The provided value should be exactly 13 digits and start with 0.');
+            throw new UiTPASNumberInvalidException('The provided value should be exactly 13 digits and start with 0.');
         }
 
         // Make sure the number is valid according to the Luhn algorithm.
         if (!Luhn::validate($value)) {
-            throw new \InvalidArgumentException('The provided value does not have a valid check digit.');
+            throw new UiTPASNumberInvalidException('The provided value does not have a valid check digit.');
         }
 
         // The number consists of all digits except for the last two.
@@ -62,7 +62,7 @@ class UiTPASNumber extends StringLiteral
         // Kansen statuut digit is the second last digit.
         $this->kansenStatuutDigit = (int) substr($value, -2, 1);
         if (!in_array($this->kansenStatuutDigit, [0, 1])) {
-            throw new \InvalidArgumentException('The second to last digit of the provided value should be 0 or 1.');
+            throw new UiTPASNumberInvalidException('The second to last digit of the provided value should be 0 or 1.');
         }
 
         // Check digit is the last digit.
