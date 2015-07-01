@@ -1,5 +1,5 @@
 <?php
-namespace CultuurNet\UiTPASBeheer;
+namespace CultuurNet\UiTPASBeheer\UiTPAS;
 
 use Silex\Application;
 use Silex\ServiceProviderInterface;

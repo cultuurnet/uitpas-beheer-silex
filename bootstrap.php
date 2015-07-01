@@ -65,7 +65,7 @@ $app->register(new CultuurNet\UiTIDProvider\User\UserServiceProvider());
 /**
  * UiTPAS service.
  */
-$app->register(new \CultuurNet\UiTPASBeheer\UiTPASServiceProvider());
+$app->register(new \CultuurNet\UiTPASBeheer\UiTPAS\UiTPASServiceProvider());
 
 /**
  * UiTPAS Counter service.
