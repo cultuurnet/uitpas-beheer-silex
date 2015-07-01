@@ -22,7 +22,7 @@ class CounterNotFoundException extends ResponseException implements ReadableCode
     /**
      * @return string
      */
-    public static function getReadableCode()
+    public function getReadableCode()
     {
         return 'COUNTER_NOT_FOUND';
     }

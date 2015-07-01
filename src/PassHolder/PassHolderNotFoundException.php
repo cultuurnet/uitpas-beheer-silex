@@ -20,7 +20,7 @@ class PassHolderNotFoundException extends ResponseException implements ReadableC
     /**
      * @return string
      */
-    public static function getReadableCode()
+    public function getReadableCode()
     {
         return 'PASSHOLDER_NOT_FOUND';
     }

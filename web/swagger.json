@@ -188,7 +188,7 @@
     "/passholder": {
       "get": {
         "summary": "Find a passholder by identification number.",
-        "description": "Authentication is required.",
+        "description": "Authentication and active counter is required.",
         "operationId": "findPassholder",
         "produces": [
           "application/json"
@@ -197,7 +197,7 @@
           {
             "name": "identification",
             "in": "query",
-            "description": "The identification to search the user with.",
+            "description": "The identification to search the passholder with.",
             "required": true,
             "type": "string"
           }
@@ -210,13 +210,98 @@
             }
           },
           "403": {
-            "description": "The user is not authenticated."
+            "description": "The user is not authenticated or has no active counter."
           },
           "404": {
             "description": "No passholder found with this identification.",
             "schema": {
               "$ref": "#/definitions/Error"
             }
+          }
+        },
+        "tags": [
+          "Passholder"
+        ]
+      }
+    },
+    "/passholder/{uitpasNumber}": {
+      "get": {
+        "summary": "Find a passholder by uitpas number.",
+        "description": "Authentication and active counter is required.",
+        "operationId": "getPassholder",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The information about the passholder.",
+            "schema": {
+              "$ref": "#/definitions/Passholder"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or has no active counter."
+          },
+          "404": {
+            "description": "No passholder found with this identification.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "tags": [
+          "Passholder"
+        ]
+      },
+      "post": {
+        "summary": "Update a passholder.",
+        "description": "Authentication and active counter is required.",
+        "operationId": "updatePassholder",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the passholder info to update.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/postObjectWithPassholderInfo"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The information about the passholder.",
+            "schema": {
+              "$ref": "#/definitions/Passholder"
+            }
+          },
+          "400": {
+            "description": "Invalid uitpas number used.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or has no active counter, or does not have permission to update the passholder."
           }
         },
         "tags": [
@@ -1141,6 +1226,113 @@
       "required": [
         "id"
       ]
+    },
+    "postObjectWithPassholderInfo": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Boonen"
+        },
+        "firstName": {
+          "type": "string",
+          "example": "Tom"
+        },
+        "email": {
+          "type": "string",
+          "example": "tom@boonen.be"
+        },
+        "emailPreference": {
+          "type": "string",
+          "enum": [
+            "NO_MAILS",
+            "NOTIFICATION_MAILS",
+            "ALL_MAILS"
+          ]
+        },
+        "smsPreference": {
+          "type": "string",
+          "enum": [
+            "NO_sms",
+            "NOTIFICATION_SMS",
+            "ALL_SMS"
+          ]
+        },
+        "inszNumber": {
+          "type": "string",
+          "example": "93051822361"
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "format": "date",
+          "example": "1980-04-15T00:00:00+02:00"
+        },
+        "gender": {
+          "type": "string",
+          "example": "MALE",
+          "enum": [
+            "FEMALE",
+            "MALE"
+          ]
+        },
+        "street": {
+          "type": "string",
+          "example": "Straat"
+        },
+        "number": {
+          "type": "string",
+          "example": 44
+        },
+        "box": {
+          "type": "string",
+          "example": "B"
+        },
+        "postalCode": {
+          "type": "integer",
+          "format": "int32",
+          "example": 2400
+        },
+        "city": {
+          "type": "string",
+          "example": "Mol"
+        },
+        "telephone": {
+          "type": "string",
+          "example": "053781576"
+        },
+        "gsm": {
+          "type": "string",
+          "example": "0485315896"
+        },
+        "nationality": {
+          "type": "string",
+          "example": "Belg"
+        },
+        "placeOfBirth": {
+          "type": "string",
+          "example": "Mol"
+        },
+        "kansenStatuutEndDate": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2013-12-31T23:59:59+01:00"
+        },
+        "verified": {
+          "type": "boolean",
+          "example": true
+        },
+        "moreInfo": {
+          "type": "string",
+          "example": "Proin risus mattis aenean nisl convallis rutrum etiam. Magna fames sem lectus tempor venenatis. Velit"
+        },
+        "schoolConsumerKey": {
+          "type": "string",
+          "example": "31413BDF-DFC7-7A9F-10403618C2816E44"
+        },
+        "balieConsumerKey": {
+          "type": "string",
+          "example": "31413BDF-DFC7-7A9F-10403618C2816E44"
+        }
+      }
     }
   }
 }

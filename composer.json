@@ -4,7 +4,7 @@
   "license": "GPL-3.0",
   "require": {
     "cultuurnet/silex-uitid-provider": "dev-master",
-    "cultuurnet/culturefeed-php": "dev-feature/UBR as 1.5",
+    "cultuurnet/culturefeed-php": "dev-feature/UBR-70 as 1.5",
     "deralex/yaml-config-service-provider": "~1.0",
     "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
     "jdesrosiers/silex-cors-provider": "~0.1",

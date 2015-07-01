@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b2da932c016319fce391d14b960b9640",
+    "hash": "37ba56387bd68a3cbc8f64c337c38873",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/Auth.git",
-                "reference": "41f909554c48d100e2b9a61a26191961c4be101e"
+                "reference": "40e95e60308386dd4d4ddf14fff6696206037ef3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/Auth/zipball/41f909554c48d100e2b9a61a26191961c4be101e",
-                "reference": "41f909554c48d100e2b9a61a26191961c4be101e",
+                "url": "https://api.github.com/repos/cultuurnet/Auth/zipball/40e95e60308386dd4d4ddf14fff6696206037ef3",
+                "reference": "40e95e60308386dd4d4ddf14fff6696206037ef3",
                 "shasum": ""
             },
             "require": {
@@ -51,7 +51,7 @@
                 "Apache-2.0"
             ],
             "description": "Authentication service for CultuurNet web services",
-            "time": "2015-05-29 17:32:01"
+            "time": "2015-06-30 15:52:03"
         },
         {
             "name": "cultuurnet/cdb",
@@ -88,16 +88,16 @@
         },
         {
             "name": "cultuurnet/culturefeed-php",
-            "version": "dev-feature/UBR",
+            "version": "dev-feature/UBR-70",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "05f738e07d76d1343845444ac1c79533b0b1167d"
+                "reference": "4dc5c55fd08d08e3a4076cf6b31262e50b15ee79"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/05f738e07d76d1343845444ac1c79533b0b1167d",
-                "reference": "05f738e07d76d1343845444ac1c79533b0b1167d",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/4dc5c55fd08d08e3a4076cf6b31262e50b15ee79",
+                "reference": "4dc5c55fd08d08e3a4076cf6b31262e50b15ee79",
                 "shasum": ""
             },
             "require": {
@@ -151,7 +151,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-06-30 11:54:42"
+            "time": "2015-06-30 12:55:16"
         },
         {
             "name": "cultuurnet/silex-uitid-provider",
@@ -4650,7 +4650,7 @@
         {
             "alias": "1.5",
             "alias_normalized": "1.5.0.0",
-            "version": "dev-feature/UBR",
+            "version": "dev-feature/UBR-70",
             "package": "cultuurnet/culturefeed-php"
         }
     ],
