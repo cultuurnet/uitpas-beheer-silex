@@ -33,7 +33,7 @@ abstract class CounterAwareUitpasService
     }
 
     /**
-     * @var CounterConsumerKey
+     * @return CounterConsumerKey
      */
     protected function getCounterConsumerKeyObject()
     {
@@ -41,7 +41,7 @@ abstract class CounterAwareUitpasService
     }
 
     /**
-     * @var string
+     * @return string
      */
     protected function getCounterConsumerKey()
     {
