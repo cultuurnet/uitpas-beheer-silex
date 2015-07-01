@@ -3,6 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 
 class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -78,10 +79,11 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_get_a_passholder_by_uitpas_number()
     {
-        $uitpasNumber = '0930000125607';
+        $uitpasNumberValue = '0930000125607';
+        $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
 
         $cardSystem = new \CultureFeed_Uitpas_CardSystem(1, 'uitpas');
-        $cardSystem->id = $uitpasNumber;
+        $cardSystem->id = $uitpasNumberValue;
 
         $cardSystemSpecific = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
         $cardSystemSpecific->cardSystem = $cardSystem;
@@ -92,7 +94,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->uitpas->expects($this->once())
             ->method('getPassholderByUitpasNumber')
-            ->with($uitpasNumber)
+            ->with($uitpasNumberValue)
             ->willReturn($expected);
 
         $actual = $this->service->getByUitpasNumber($uitpasNumber);
@@ -105,11 +107,12 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function it_returns_null_when_a_passholder_cannot_be_found_by_uitpas_number()
     {
-        $uitpasNumber = '0930000125607';
+        $uitpasNumberValue = '0930000125607';
+        $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
 
         $this->uitpas->expects($this->once())
             ->method('getPassholderByUitpasNumber')
-            ->with($uitpasNumber)
+            ->with($uitpasNumberValue)
             ->willThrowException(new \CultureFeed_Exception('Not found.', 404));
 
         $passholder = $this->service->getByUitpasNumber($uitpasNumber);
@@ -122,14 +125,16 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function it_updates_a_given_passholder()
     {
+        $uitpasNumberValue = '0930000125607';
+        $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
+
         $passHolder = new \CultureFeed_Uitpas_Passholder();
-        $passHolder->uitpasNumber = '0930000125607';
         $passHolder->name = 'Foo';
 
         $this->uitpas->expects($this->once())
             ->method('updatePassholder')
             ->with($passHolder, $this->counterConsumerKey);
 
-        $this->service->update($passHolder);
+        $this->service->update($uitpasNumber, $passHolder);
     }
 }
