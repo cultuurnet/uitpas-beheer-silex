@@ -5,6 +5,7 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\Request;
 
 class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
@@ -84,10 +85,11 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function it_responds_the_passholder_matching_a_provided_uitpas_number()
     {
-        $uitpasNumber = '0930000125607';
+        $uitpasNumberValue = '0930000125607';
+        $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
 
         $cardSystem = new \CultureFeed_Uitpas_CardSystem(1, 'uitpas');
-        $cardSystem->id = $uitpasNumber;
+        $cardSystem->id = $uitpasNumberValue;
 
         $cardSystemSpecific = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
         $cardSystemSpecific->cardSystem = $cardSystem;
@@ -101,7 +103,7 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             ->with($uitpasNumber)
             ->willReturn($passholder);
 
-        $response = $this->controller->getByUitpasNumber($uitpasNumber);
+        $response = $this->controller->getByUitpasNumber($uitpasNumberValue);
         $json = $response->getContent();
 
         $this->assertJsonEquals($json, 'PassHolder/data/passholder.json');
@@ -112,7 +114,8 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function it_throws_an_exception_when_a_passholder_can_not_be_found_by_uitpas_number()
     {
-        $uitpasNumber = '0930000125607';
+        $uitpasNumberValue = '0930000125607';
+        $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
 
         $this->service->expects($this->once())
             ->method('getByUitpasNumber')
@@ -120,7 +123,7 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             ->willReturn(null);
 
         try {
-            $this->controller->getByUitpasNumber($uitpasNumber);
+            $this->controller->getByUitpasNumber($uitpasNumberValue);
             $this->fail('getByUitpasNumber() should throw PassHolderNotFoundException.');
         } catch (PassHolderNotFoundException $exception) {
             $this->assertInstanceOf(ReadableCodeExceptionInterface::class, $exception);
@@ -133,21 +136,22 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function it_updates_the_provided_fields_of_a_given_passholder_by_uitpas_number()
     {
-        $uitpasNumber = '0930000125607';
+        $uitpasNumberValue = '0930000125607';
+        $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
+
         $data = ['name' => 'Foo'];
 
         $request = new Request([], $data);
 
         $passHolder = new \CultureFeed_Uitpas_Passholder();
-        $passHolder->uitpasNumber = $uitpasNumber;
         $passHolder->name = $data['name'];
 
         $this->service->expects($this->once())
             ->method('update')
-            ->with($passHolder);
+            ->with($uitpasNumber, $passHolder);
 
         $cardSystem = new \CultureFeed_Uitpas_CardSystem(1, 'uitpas');
-        $cardSystem->id = $uitpasNumber;
+        $cardSystem->id = $uitpasNumberValue;
 
         $cardSystemSpecific = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
         $cardSystemSpecific->cardSystem = $cardSystem;
@@ -161,7 +165,7 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             ->with($uitpasNumber)
             ->willReturn($updated);
 
-        $response = $this->controller->update($request, $uitpasNumber);
+        $response = $this->controller->update($request, $uitpasNumberValue);
         $json = $response->getContent();
 
         $this->assertJsonEquals($json, 'PassHolder/data/passholder.json');
@@ -172,13 +176,14 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function it_throws_an_exception_when_a_passholder_can_not_be_updated()
     {
-        $uitpasNumber = '0930000125607';
+        $uitpasNumberValue = '0930000125607';
+        $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
+
         $data = ['name' => 'Foo'];
 
         $request = new Request([], $data);
 
         $passHolder = new \CultureFeed_Uitpas_Passholder();
-        $passHolder->uitpasNumber = $uitpasNumber;
         $passHolder->name = $data['name'];
 
         $message = 'Something went wrong.';
@@ -186,10 +191,10 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->service->expects($this->once())
             ->method('update')
-            ->with($passHolder)
+            ->with($uitpasNumber, $passHolder)
             ->willThrowException(new \CultureFeed_Exception($message, $code));
 
         $this->setExpectedException(ReadableCodeResponseException::class);
-        $this->controller->update($request, $uitpasNumber);
+        $this->controller->update($request, $uitpasNumberValue);
     }
 }
