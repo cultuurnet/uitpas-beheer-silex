@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "37ba56387bd68a3cbc8f64c337c38873",
+    "hash": "b2da932c016319fce391d14b960b9640",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -88,16 +88,16 @@
         },
         {
             "name": "cultuurnet/culturefeed-php",
-            "version": "dev-feature/UBR-70",
+            "version": "dev-feature/UBR",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "4dc5c55fd08d08e3a4076cf6b31262e50b15ee79"
+                "reference": "cb5ca0642d7cf5823889a8970e2df37d7ba60f5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/4dc5c55fd08d08e3a4076cf6b31262e50b15ee79",
-                "reference": "4dc5c55fd08d08e3a4076cf6b31262e50b15ee79",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/cb5ca0642d7cf5823889a8970e2df37d7ba60f5f",
+                "reference": "cb5ca0642d7cf5823889a8970e2df37d7ba60f5f",
                 "shasum": ""
             },
             "require": {
@@ -151,7 +151,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-06-30 12:55:16"
+            "time": "2015-07-01 08:44:54"
         },
         {
             "name": "cultuurnet/silex-uitid-provider",
@@ -4650,7 +4650,7 @@
         {
             "alias": "1.5",
             "alias_normalized": "1.5.0.0",
-            "version": "dev-feature/UBR-70",
+            "version": "dev-feature/UBR",
             "package": "cultuurnet/culturefeed-php"
         }
     ],
