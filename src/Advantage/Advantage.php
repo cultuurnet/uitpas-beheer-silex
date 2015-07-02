@@ -2,8 +2,15 @@
 
 namespace CultuurNet\UiTPASBeheer\Advantage;
 
-abstract class Advantage
+use CultuurNet\UiTPASBeheer\Advantage\CashIn\CashInContentType;
+
+abstract class Advantage implements \JsonSerializable
 {
+    /**
+     * @var AdvantageType
+     */
+    protected $type;
+
     /**
      * @var string
      */
@@ -20,23 +27,25 @@ abstract class Advantage
     protected $points;
 
     /**
+     * @param AdvantageType $type
      * @param string $id
      * @param string $title
      * @param int $points
-     *
-     * @throws \InvalidArgumentException
-     *   When the provided title is empty.
-     *   When the provided points are zero and the advantage is a points promotion.
      */
-    public function __construct($id, $title, $points)
+    public function __construct(AdvantageType $type, $id, $title, $points)
     {
+        $this->type = $type;
         $this->id = (string) $id;
         $this->title = (string) $title;
         $this->points = (int) $points;
+    }
 
-        if (empty($this->title)) {
-            throw new \InvalidArgumentException('Title should not be empty.');
-        }
+    /**
+     * @return AdvantageType
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
@@ -61,5 +70,22 @@ abstract class Advantage
     public function getPoints()
     {
         return $this->points;
+    }
+
+    /**
+     * @return array
+     */
+    function jsonSerialize()
+    {
+        $type = $this->getType()->toNative();
+        $cashInContentType = CashInContentType::fromAdvantageType($this->getType())->toNative();
+
+        return [
+            'id' => $this->getId(),
+            'title' => $this->getTitle(),
+            'points' => $this->getPoints(),
+            'type' => $type,
+            'cashInContentType' => $cashInContentType,
+        ];
     }
 }

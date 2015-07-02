@@ -8,9 +8,9 @@ class WelcomeAdvantage extends Advantage
      * @param string $id
      * @param string $title
      */
-    public function __construct($id, $title)
+    public function __construct($id, $title = '')
     {
-        parent::__construct($id, $title, 0);
+        parent::__construct(AdvantageType::WELCOME(), $id, $title, 0);
     }
 
     /**
