@@ -4,6 +4,7 @@ namespace CultuurNet\UiTPASBeheer\Counter;
 
 use Silex\Application;
 use Silex\ServiceProviderInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class CounterServiceProvider implements ServiceProviderInterface
 {
@@ -33,7 +34,7 @@ class CounterServiceProvider implements ServiceProviderInterface
                 $counter = $counterService->getActiveCounter();
                 return new CounterConsumerKey($counter->consumerKey);
             } catch (CounterNotSetException $exception) {
-                return null;
+                throw new CounterNotSetException(Response::HTTP_BAD_REQUEST);
             }
         });
     }
