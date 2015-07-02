@@ -2,56 +2,75 @@
 
 namespace CultuurNet\UiTPASBeheer\Advantage;
 
+use CultuurNet\Deserializer\DeserializerInterface;
+use CultuurNet\UiTPASBeheer\Advantage\CashIn\CashIn;
+use CultuurNet\UiTPASBeheer\Advantage\CashIn\CashInContentType;
+use CultuurNet\UiTPASBeheer\Exception\InternalErrorException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGenerator;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class AdvantageController
 {
-    const WELCOME_ADVANTAGE_EXCHANGE_ROUTE_NAME = 'uitpas.advantage.welcome.exchange';
-    const POINTS_PROMOTION_EXCHANGE_ROUTE_NAME = 'uitpas.advantage.points.exchange';
+    /**
+     * @var AdvantageServiceInterface[]
+     */
+    protected $advantageServices;
 
     /**
-     * @var AdvantageService
+     * @var DeserializerInterface
      */
-    protected $service;
+    protected $cashInJsonDeserializer;
 
     /**
-     * @var UrlGenerator
+     * @param DeserializerInterface $cashInJsonDeserializer
      */
-    protected $urlGenerator;
-
-    /**
-     * @param AdvantageService $service
-     */
-    public function __construct(AdvantageService $service, UrlGenerator $urlGenerator)
+    public function __construct(DeserializerInterface $cashInJsonDeserializer)
     {
-        $this->service = $service;
-        $this->urlGenerator = $urlGenerator;
+        $this->cashInJsonDeserializer = $cashInJsonDeserializer;
+    }
+
+    /**
+     * @param AdvantageServiceInterface $advantageService
+     */
+    public function registerAdvantageService(AdvantageServiceInterface $advantageService)
+    {
+        $this->advantageServices[] = $advantageService;
+    }
+
+    /**
+     * @param AdvantageType $type
+     *
+     * @return AdvantageServiceInterface
+     *
+     * @throws InternalErrorException
+     *   When no service was found for the provided type.
+     */
+    protected function getAdvantageServiceForType(AdvantageType $type) {
+        foreach ($this->advantageServices as $advantageService) {
+            if ($type->sameValueAs($advantageService->getType())) {
+                return $advantageService;
+            }
+        }
+        throw new InternalErrorException();
     }
 
     /**
      * @return JsonResponse
      */
-    public function getList(Request $request)
+    public function getCashable($uitpasNumber)
     {
-        $uitpasNumber = $request->query->get('uitpasNumber');
         $uitpasNumber = new UiTPASNumber($uitpasNumber);
 
-        $welcomeAdvantages = $this->service->getExchangeableWelcomeAdvantages($uitpasNumber);
-        $welcomeAdvantages = $this->advantagesToJsonData(
-            $welcomeAdvantages,
-            self::WELCOME_ADVANTAGE_EXCHANGE_ROUTE_NAME
-        );
-
-        $pointPromotions = $this->service->getExchangeablePointPromotions($uitpasNumber);
-        $pointPromotions = $this->advantagesToJsonData(
-            $pointPromotions,
-            self::POINTS_PROMOTION_EXCHANGE_ROUTE_NAME
-        );
-
-        $advantages = array_merge($pointPromotions, $welcomeAdvantages);
+        $advantages = array();
+        foreach ($this->advantageServices as $advantageService) {
+            $advantages = array_merge(
+                $advantages,
+                $advantageService->getCashable($uitpasNumber)
+            );
+        }
 
         return JsonResponse::create()
             ->setData($advantages)
@@ -59,33 +78,35 @@ class AdvantageController
     }
 
     /**
-     * @param Advantage[] $advantages
-     * @param string $exchangeRouteName
-     * @return array
+     * @param Request $request
+     * @return JsonResponse
      */
-    private function advantagesToJsonData($advantages, $exchangeRouteName)
+    public function cashIn(Request $request, $uitpasNumber)
     {
-        $data = [];
+        $uitpasNumber = new UiTPASNumber($uitpasNumber);
+        $content = new StringLiteral($request->getContent());
+        $contentType = new CashInContentType($request->headers->get('Content-Type'));
 
-        foreach ($advantages as $advantage) {
-            $exchangeLink = $this->urlGenerator->generate(
-                $exchangeRouteName,
-                ['advantageId' => $advantage->getId()]
-            );
+        /* @var CashIn $cashIn */
+        $cashIn = $this->cashInJsonDeserializer->deserialize($content);
 
-            $data[] = [
-                'id' => $advantage->getId(),
-                'title' => $advantage->getTitle(),
-                'points' => $advantage->getPoints(),
-                'links' => [
-                    [
-                        'rel' => 'exchange',
-                        'href' => $exchangeLink,
-                    ],
-                ]
-            ];
-        }
+        $advantageId = $cashIn->getId();
+        $advantageType = $contentType->getAdvantageType();
 
-        return $data;
+        $service = $this->getAdvantageServiceForType($advantageType);
+
+        $service->cashIn(
+            $uitpasNumber,
+            $advantageId
+        );
+
+        $advantage = $service->get(
+            $uitpasNumber,
+            $advantageId
+        );
+
+        return JsonResponse::create()
+            ->setData($advantage)
+            ->setPrivate(true);
     }
 }
