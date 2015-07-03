@@ -6,6 +6,7 @@ use CultuurNet\UiTPASBeheer\Advantage\CashIn\CashInJsonDeserializer;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class AdvantageControllerProvider implements ControllerProviderInterface
 {
@@ -16,8 +17,7 @@ class AdvantageControllerProvider implements ControllerProviderInterface
     public function connect(Application $app)
     {
         $app['advantage_controller'] = $app->share(function (Application $app) {
-            $cashInJsonDeserializer = new CashInJsonDeserializer();
-            $controller = new AdvantageController($cashInJsonDeserializer);
+            $controller = new AdvantageController($app['advantage_identifier_json_deserializer']);
 
             $controller->registerAdvantageService($app['points_promotion_advantage_service']);
             $controller->registerAdvantageService($app['welcome_advantage_service']);
@@ -28,9 +28,10 @@ class AdvantageControllerProvider implements ControllerProviderInterface
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
-        $controllers->get('/passholders/{uitpasNumber}/advantages/cashable', 'advantage_controller:getCashable');
+        $controllers->get('/passholders/{uitpasNumber}/advantages', 'advantage_controller:getExchangeable');
+        $controllers->get('/passholders/{uitpasNumber}/advantages/{advantageIdentifier}', 'advantage_controller:get');
 
-        $controllers->post('/passholders/{uitpasNumber}/advantages/cashed', 'advantage_controller:cashIn');
+        $controllers->post('/passholders/{uitpasNumber}/advantages/exchanges', 'advantage_controller:exchange');
 
         return $controllers;
     }
