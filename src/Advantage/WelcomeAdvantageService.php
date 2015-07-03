@@ -38,13 +38,14 @@ class WelcomeAdvantageService extends CounterAwareUitpasService implements Advan
      * @param UiTPASNumber $uitpasNumber
      * @return WelcomeAdvantage[]
      */
-    public function getCashable(UiTPASNumber $uitpasNumber)
+    public function getExchangeable(UiTPASNumber $uitpasNumber)
     {
         $advantages = array();
 
         $options = new \CultureFeed_Uitpas_Passholder_Query_WelcomeAdvantagesOptions();
 
         $options->balieConsumerKey = $this->getCounterConsumerKey();
+        $options->cashInBalieConsumerKey = $this->getCounterConsumerKey();
         $options->uitpas_number = $uitpasNumber->toNative();
 
         $options->cashingPeriodBegin = time();
