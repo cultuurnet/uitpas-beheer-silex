@@ -15,6 +15,10 @@ class AdvantageServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
+        $app['advantage_identifier_json_deserializer'] = $app->share(function (Application $app) {
+           return new AdvantageIdentifierJsonDeserializer();
+        });
+
         $app['welcome_advantage_service'] = $app->share(function (Application $app) {
             return new WelcomeAdvantageService(
                 $app['uitpas'],
