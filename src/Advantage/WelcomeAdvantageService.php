@@ -70,7 +70,8 @@ class WelcomeAdvantageService extends CounterAwareUitpasService implements Advan
     {
         $this->getUitpasService()->cashInWelcomeAdvantage(
             $uitpasNumber->toNative(),
-            $id->toNative()
+            $id->toNative(),
+            $this->getCounterConsumerKey()
         );
     }
 }
