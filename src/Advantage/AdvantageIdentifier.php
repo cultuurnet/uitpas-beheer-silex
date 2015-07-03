@@ -20,6 +20,10 @@ class AdvantageIdentifier extends StringLiteral
 
     /**
      * @param string $value
+     *
+     * @throws AdvantageIdentifierInvalidException
+     *   When the provided value has less or more than 1 separator.
+     *   When the provided value contains an invalid advantage type.
      */
     public function __construct($value)
     {
