@@ -55,8 +55,11 @@ class PointsPromotionAdvantageService extends CounterAwareUitpasService implemen
 
         $results = $this->getUitpasService()->getPromotionPoints($options);
 
+        /* @var \CultureFeed_Uitpas_Passholder_PointsPromotion $advantage */
         foreach ($results->objects as $advantage) {
-            $advantages[] = PointsPromotionAdvantage::fromCultureFeedPointsPromotion($advantage);
+            if ($advantage->cashInState == $advantage::CASHIN_POSSIBLE) {
+                $advantages[] = PointsPromotionAdvantage::fromCultureFeedPointsPromotion($advantage);
+            }
         }
 
         return $advantages;
