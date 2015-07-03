@@ -23,11 +23,11 @@ class PointsPromotionAdvantageService extends CounterAwareUitpasService implemen
     {
         $id = $id->toNative();
 
-        $passholderParameters = new \CultureFeed_Uitpas_Promotion_PassholderParameter();
-        $passholderParameters->uitpasNumber = $uitpasNumber->toNative();
+        $passHolderParameters = new \CultureFeed_Uitpas_Promotion_PassholderParameter();
+        $passHolderParameters->uitpasNumber = $uitpasNumber->toNative();
 
         try {
-            $advantage = $this->getUitpasService()->getPointsPromotion($id, $passholderParameters);
+            $advantage = $this->getUitpasService()->getPointsPromotion($id, $passHolderParameters);
             return PointsPromotionAdvantage::fromCultureFeedPointsPromotion($advantage);
         } catch (\CultureFeed_Exception $exception) {
             return null;
