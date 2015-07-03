@@ -68,6 +68,10 @@ class PointsPromotionAdvantageService extends CounterAwareUitpasService implemen
      */
     public function exchange(UiTPASNumber $uitpasNumber, StringLiteral $id)
     {
-        // TODO: Implement cash() method.
+        $this->getUitpasService()->cashInPromotionPoints(
+            $uitpasNumber->toNative(),
+            $id->toNative(),
+            $this->getCounterConsumerKey()
+        );
     }
 }
