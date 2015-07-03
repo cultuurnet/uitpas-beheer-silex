@@ -21,11 +21,11 @@ interface AdvantageServiceInterface
      * @param UiTPASNumber $uitpasNumber
      * @return Advantage[]
      */
-    public function getCashable(UiTPASNumber $uitpasNumber);
+    public function getExchangeable(UiTPASNumber $uitpasNumber);
 
     /**
      * @param UiTPASNumber $uitpasNumber
      * @param StringLiteral $id
      */
-    public function cashIn(UiTPASNumber $uitpasNumber, StringLiteral $id);
+    public function exchange(UiTPASNumber $uitpasNumber, StringLiteral $id);
 }

@@ -65,7 +65,7 @@ class WelcomeAdvantageService extends CounterAwareUitpasService implements Advan
      * @param UiTPASNumber $uitpasNumber
      * @param StringLiteral $id
      */
-    public function cashIn(UiTPASNumber $uitpasNumber, StringLiteral $id)
+    public function exchange(UiTPASNumber $uitpasNumber, StringLiteral $id)
     {
         $this->getUitpasService()->cashInWelcomeAdvantage(
             $uitpasNumber->toNative(),

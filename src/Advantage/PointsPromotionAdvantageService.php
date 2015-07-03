@@ -38,7 +38,7 @@ class PointsPromotionAdvantageService extends CounterAwareUitpasService implemen
      * @param UiTPASNumber $uitpasNumber
      * @return PointsPromotionAdvantage[]
      */
-    public function getCashable(UiTPASNumber $uitpasNumber)
+    public function getExchangeable(UiTPASNumber $uitpasNumber)
     {
         $advantages = array();
 
@@ -65,9 +65,8 @@ class PointsPromotionAdvantageService extends CounterAwareUitpasService implemen
     /**
      * @param UiTPASNumber $uitpasNumber
      * @param StringLiteral $id
-     * @return Advantage
      */
-    public function cashIn(UiTPASNumber $uitpasNumber, StringLiteral $id)
+    public function exchange(UiTPASNumber $uitpasNumber, StringLiteral $id)
     {
         // TODO: Implement cash() method.
     }
