@@ -2,7 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\Advantage;
 
-use CultuurNet\UiTPASBeheer\Advantage\CashIn\CashInContentType;
+use ValueObjects\Number\Integer;
+use ValueObjects\StringLiteral\StringLiteral;
 
 abstract class Advantage implements \JsonSerializable
 {
@@ -12,32 +13,50 @@ abstract class Advantage implements \JsonSerializable
     protected $type;
 
     /**
-     * @var string
+     * @var StringLiteral
      */
     protected $id;
 
     /**
-     * @var string
+     * @var StringLiteral
      */
     protected $title;
 
     /**
-     * @var int
+     * @var \ValueObjects\Number\Integer
      */
     protected $points;
 
     /**
-     * @param AdvantageType $type
-     * @param string $id
-     * @param string $title
-     * @param int $points
+     * @var bool
      */
-    public function __construct(AdvantageType $type, $id, $title, $points)
-    {
+    protected $exchangeable;
+
+    /**
+     * @var AdvantageIdentifier
+     */
+    protected $identifier;
+
+    /**
+     * @param AdvantageType $type
+     * @param StringLiteral $id
+     * @param StringLiteral $title
+     * @param \ValueObjects\Number\Integer $points
+     * @param bool $exchangeable
+     */
+    public function __construct(
+        AdvantageType $type,
+        StringLiteral $id,
+        StringLiteral $title,
+        Integer $points,
+        $exchangeable
+    ) {
         $this->type = $type;
-        $this->id = (string) $id;
-        $this->title = (string) $title;
-        $this->points = (int) $points;
+        $this->id = $id;
+        $this->title = $title;
+        $this->points = $points;
+        $this->exchangeable = (bool) $exchangeable;
+        $this->identifier = AdvantageIdentifier::fromAdvantage($this);
     }
 
     /**
@@ -49,7 +68,7 @@ abstract class Advantage implements \JsonSerializable
     }
 
     /**
-     * @return string
+     * @return StringLiteral
      */
     public function getId()
     {
@@ -57,7 +76,7 @@ abstract class Advantage implements \JsonSerializable
     }
 
     /**
-     * @return string
+     * @return StringLiteral
      */
     public function getTitle()
     {
@@ -65,7 +84,7 @@ abstract class Advantage implements \JsonSerializable
     }
 
     /**
-     * @return int
+     * @return \ValueObjects\Number\Integer
      */
     public function getPoints()
     {
@@ -73,19 +92,31 @@ abstract class Advantage implements \JsonSerializable
     }
 
     /**
+     * @return bool
+     */
+    public function isExchangeable()
+    {
+        return $this->exchangeable;
+    }
+
+    /**
+     * @return AdvantageIdentifier
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
+    }
+
+    /**
      * @return array
      */
     function jsonSerialize()
     {
-        $type = $this->getType()->toNative();
-        $cashInContentType = CashInContentType::fromAdvantageType($this->getType())->toNative();
-
         return [
-            'id' => $this->getId(),
-            'title' => $this->getTitle(),
-            'points' => $this->getPoints(),
-            'type' => $type,
-            'cashInContentType' => $cashInContentType,
+            'id' => $this->identifier->toNative(),
+            'title' => $this->title->toNative(),
+            'points' => $this->points->toNative(),
+            'exchangeable' => $this->exchangeable,
         ];
     }
 }
