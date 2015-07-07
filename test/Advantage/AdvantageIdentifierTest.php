@@ -41,32 +41,6 @@ class AdvantageIdentifierTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @test
-     * @dataProvider validAdvantageIdentifiers
-     */
-    public function it_can_create_a_new_instance_from_an_advantage(
-        AdvantageIdentifier $expectedIdentifier,
-        AdvantageType $type,
-        StringLiteral $id
-    ) {
-        /* @var Advantage|\PHPUnit_Framework_MockObject_MockObject $advantage */
-        $advantage = $this->getMockForAbstractClass(
-            Advantage::class,
-            [
-                $type,
-                $id,
-                new StringLiteral('Test title'),
-                new Integer(10),
-                true
-            ]
-        );
-
-        $identifier = AdvantageIdentifier::fromAdvantage($advantage);
-
-        $this->assertTrue($expectedIdentifier->sameValueAs($identifier));
-    }
-
-    /**
      * @return array
      */
     public function validAdvantageIdentifiers()
