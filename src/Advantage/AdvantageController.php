@@ -47,7 +47,8 @@ class AdvantageController
      * @throws InternalErrorException
      *   When no service was found for the provided type.
      */
-    protected function getAdvantageServiceForType(AdvantageType $type) {
+    protected function getAdvantageServiceForType(AdvantageType $type)
+    {
         foreach ($this->advantageServices as $advantageService) {
             if ($type->sameValueAs($advantageService->getType())) {
                 return $advantageService;

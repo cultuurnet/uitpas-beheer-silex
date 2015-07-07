@@ -110,7 +110,7 @@ abstract class Advantage implements \JsonSerializable
     /**
      * @return array
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return [
             'id' => $this->identifier->toNative(),

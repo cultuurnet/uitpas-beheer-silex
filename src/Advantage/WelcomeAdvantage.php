@@ -32,7 +32,8 @@ class WelcomeAdvantage extends Advantage
         $id = new StringLiteral((string) $advantage->id);
         $title = new StringLiteral((string) $advantage->title);
 
-        $exchangeable = !($advantage->cashedIn || (!is_null($advantage->maxAvailableUnits) && $advantage->maxAvailableUnits > $advantage->unitsTaken));
+        $exchangeable = !$advantage->cashedIn &&
+            (is_null($advantage->maxAvailableUnits) || $advantage->maxAvailableUnits > $advantage->unitsTaken);
 
         return new static(
             $id,
