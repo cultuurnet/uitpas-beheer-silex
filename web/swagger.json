@@ -92,7 +92,7 @@
         ]
       }
     },
-    "/counter/list": {
+    "/counters": {
       "get": {
         "summary": "Get a list of counters.",
         "description": "Authentication is required.",
@@ -119,7 +119,7 @@
         ]
       }
     },
-    "/counter/active": {
+    "/counters/active": {
       "get": {
         "summary": "Get the active counter.",
         "description": "Authentication is required.",
@@ -185,7 +185,7 @@
         ]
       }
     },
-    "/passholder": {
+    "/passholders": {
       "get": {
         "summary": "Find a passholder by identification number.",
         "description": "Authentication and active counter is required.",
@@ -224,7 +224,7 @@
         ]
       }
     },
-    "/passholder/{uitpasNumber}": {
+    "/passholders/{uitpasNumber}": {
       "get": {
         "summary": "Find a passholder by uitpas number.",
         "description": "Authentication and active counter is required.",
