@@ -9,6 +9,8 @@ use ValueObjects\StringLiteral\StringLiteral;
 class PointsPromotionAdvantageService extends CounterAwareUitpasService implements AdvantageServiceInterface
 {
     /**
+     * @param UiTPASNumber $uitpasNumber
+     * @param StringLiteral $id
      * @return PointsPromotionAdvantage|null
      */
     public function get(UiTPASNumber $uitpasNumber, StringLiteral $id)

@@ -8,6 +8,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdvantageNotFoundException extends ResponseException implements ReadableCodeExceptionInterface
 {
+    /**
+     * @param AdvantageIdentifier $advantageIdentifier
+     * @param int $code
+     * @param \Exception $previous
+     */
     public function __construct(
         AdvantageIdentifier $advantageIdentifier,
         $code = Response::HTTP_NOT_FOUND,

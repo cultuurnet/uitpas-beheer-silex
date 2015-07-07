@@ -2,7 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\Advantage;
 
-use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class AdvantageIdentifierTest extends \PHPUnit_Framework_TestCase
@@ -36,8 +35,8 @@ class AdvantageIdentifierTest extends \PHPUnit_Framework_TestCase
      * @dataProvider validAdvantageIdentifiers
      *
      * @param AdvantageIdentifier $expectedIdentifier
-     * @param AdvantageType $expectedType
-     * @param StringLiteral $expectedId
+     * @param AdvantageType $type
+     * @param StringLiteral $id
      */
     public function it_can_create_a_new_instance_from_an_advantage_type_and_id_objects(
         AdvantageIdentifier $expectedIdentifier,

@@ -9,17 +9,19 @@ use ValueObjects\StringLiteral\StringLiteral;
 class WelcomeAdvantageService extends CounterAwareUitpasService implements AdvantageServiceInterface
 {
     /**
+     * @param UiTPASNumber $uitpasNumber
+     * @param StringLiteral $id
      * @return WelcomeAdvantage|null
      */
     public function get(UiTPASNumber $uitpasNumber, StringLiteral $id)
     {
         $id = $id->toNative();
 
-        $passholderParameters = new \CultureFeed_Uitpas_Promotion_PassholderParameter();
-        $passholderParameters->uitpasNumber = $uitpasNumber->toNative();
+        $passHolderParameters = new \CultureFeed_Uitpas_Promotion_PassholderParameter();
+        $passHolderParameters->uitpasNumber = $uitpasNumber->toNative();
 
         try {
-            $advantage = $this->getUitpasService()->getWelcomeAdvantage($id, $passholderParameters);
+            $advantage = $this->getUitpasService()->getWelcomeAdvantage($id, $passHolderParameters);
             return WelcomeAdvantage::fromCultureFeedWelcomeAdvantage($advantage);
         } catch (\CultureFeed_Exception $exception) {
             return null;

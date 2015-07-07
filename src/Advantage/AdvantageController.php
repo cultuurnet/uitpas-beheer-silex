@@ -32,6 +32,7 @@ class AdvantageController
     }
 
     /**
+     * @param AdvantageType $type
      * @param AdvantageServiceInterface $advantageService
      */
     public function registerAdvantageService(
@@ -62,10 +63,15 @@ class AdvantageController
     }
 
     /**
-     * @param string $uitpasNumber
-     * @param string $advantageIdentifier
+     * @param $uitpasNumber
+     * @param $advantageIdentifier
      *
      * @return JsonResponse
+     *
+     * @throws InternalErrorException
+     *   When no advantage service was found for the advantage identifier's type.
+     * @throws AdvantageNotFoundException
+     *   When no advantage was found for the specified identifier.
      */
     public function get($uitpasNumber, $advantageIdentifier)
     {
@@ -112,8 +118,16 @@ class AdvantageController
 
     /**
      * @param Request $request
+     * @param $uitpasNumber
      *
      * @return JsonResponse
+     *
+     * @throws ReadableCodeResponseException
+     *   When a CultureFeed error occurred.
+     * @throws AdvantageNotFoundException
+     *   When no advantage was found for the specified advantage identifier.
+     * @throws InternalErrorException
+     *   When no advantage was found for the specified identifier.
      */
     public function exchange(Request $request, $uitpasNumber)
     {
