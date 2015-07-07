@@ -2,10 +2,9 @@
 
 namespace CultuurNet\UiTPASBeheer\Advantage;
 
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
-use CultuurNet\UiTPASBeheer\Exception\ResponseException;
+use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
 
-class AdvantageIdentifierInvalidException extends ResponseException implements ReadableCodeExceptionInterface
+class AdvantageIdentifierInvalidException extends ReadableCodeResponseException
 {
     /**
      * @param string $message
@@ -14,14 +13,6 @@ class AdvantageIdentifierInvalidException extends ResponseException implements R
      */
     public function __construct($message, $code = 400, \Exception $previous = null)
     {
-        parent::__construct($message, $code, $previous);
-    }
-
-    /**
-     * @return string
-     */
-    public function getReadableCode()
-    {
-        return 'ADVANTAGE_IDENTIFIER_INVALID';
+        parent::__construct($message, 'ADVANTAGE_IDENTIFIER_INVALID', $code, $previous);
     }
 }
