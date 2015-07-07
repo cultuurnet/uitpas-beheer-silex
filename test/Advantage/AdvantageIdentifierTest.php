@@ -17,6 +17,10 @@ class AdvantageIdentifierTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @dataProvider validAdvantageIdentifiers
+     *
+     * @param AdvantageIdentifier $identifier
+     * @param AdvantageType $expectedType
+     * @param StringLiteral $expectedId
      */
     public function it_can_determine_the_advantage_type_and_id_and_return_them(
         AdvantageIdentifier $identifier,
@@ -30,6 +34,10 @@ class AdvantageIdentifierTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      * @dataProvider validAdvantageIdentifiers
+     *
+     * @param AdvantageIdentifier $expectedIdentifier
+     * @param AdvantageType $expectedType
+     * @param StringLiteral $expectedId
      */
     public function it_can_create_a_new_instance_from_an_advantage_type_and_id_objects(
         AdvantageIdentifier $expectedIdentifier,
