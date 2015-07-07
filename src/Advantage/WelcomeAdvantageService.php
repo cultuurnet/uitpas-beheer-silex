@@ -9,14 +9,6 @@ use ValueObjects\StringLiteral\StringLiteral;
 class WelcomeAdvantageService extends CounterAwareUitpasService implements AdvantageServiceInterface
 {
     /**
-     * @return AdvantageType
-     */
-    public function getType()
-    {
-        return AdvantageType::WELCOME();
-    }
-
-    /**
      * @return WelcomeAdvantage|null
      */
     public function get(UiTPASNumber $uitpasNumber, StringLiteral $id)

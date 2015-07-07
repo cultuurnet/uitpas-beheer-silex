@@ -34,9 +34,11 @@ class AdvantageController
     /**
      * @param AdvantageServiceInterface $advantageService
      */
-    public function registerAdvantageService(AdvantageServiceInterface $advantageService)
-    {
-        $typeKey = $advantageService->getType()->toNative();
+    public function registerAdvantageService(
+        AdvantageType $type,
+        AdvantageServiceInterface $advantageService
+    ) {
+        $typeKey = $type->toNative();
         $this->advantageServices[$typeKey] = $advantageService;
     }
 

@@ -8,11 +8,6 @@ use ValueObjects\StringLiteral\StringLiteral;
 interface AdvantageServiceInterface
 {
     /**
-     * @return AdvantageType
-     */
-    public function getType();
-
-    /**
      * @return Advantage|null
      */
     public function get(UiTPASNumber $uitpasNumber, StringLiteral $id);

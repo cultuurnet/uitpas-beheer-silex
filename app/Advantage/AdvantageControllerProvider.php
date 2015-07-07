@@ -19,8 +19,15 @@ class AdvantageControllerProvider implements ControllerProviderInterface
         $app['advantage_controller'] = $app->share(function (Application $app) {
             $controller = new AdvantageController($app['advantage_identifier_json_deserializer']);
 
-            $controller->registerAdvantageService($app['points_promotion_advantage_service']);
-            $controller->registerAdvantageService($app['welcome_advantage_service']);
+            $controller->registerAdvantageService(
+                AdvantageType::POINTS_PROMOTION(),
+                $app['points_promotion_advantage_service']
+            );
+
+            $controller->registerAdvantageService(
+                AdvantageType::WELCOME(),
+                $app['welcome_advantage_service']
+            );
 
             return $controller;
         });
