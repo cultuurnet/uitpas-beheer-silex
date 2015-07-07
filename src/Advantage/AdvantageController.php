@@ -36,7 +36,8 @@ class AdvantageController
      */
     public function registerAdvantageService(AdvantageServiceInterface $advantageService)
     {
-        $this->advantageServices[] = $advantageService;
+        $typeKey = $advantageService->getType()->toNative();
+        $this->advantageServices[$typeKey] = $advantageService;
     }
 
     /**
@@ -49,12 +50,13 @@ class AdvantageController
      */
     protected function getAdvantageServiceForType(AdvantageType $type)
     {
-        foreach ($this->advantageServices as $advantageService) {
-            if ($type->sameValueAs($advantageService->getType())) {
-                return $advantageService;
-            }
+        $typeKey = $type->toNative();
+
+        if (!isset($this->advantageServices[$typeKey])) {
+            throw new InternalErrorException();
         }
-        throw new InternalErrorException();
+
+        return $this->advantageServices[$typeKey];
     }
 
     /**
