@@ -18,7 +18,8 @@ class AdvantageNotFoundException extends ResponseException implements ReadableCo
         $code = Response::HTTP_NOT_FOUND,
         $previous = null
     ) {
-        parent::__construct('The advantage with id %s was not found.', $advantageIdentifier->toNative());
+        $message = sprintf('The advantage with id %s was not found.', $advantageIdentifier->toNative());
+        parent::__construct($message, $code, $previous);
     }
 
     /**
