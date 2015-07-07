@@ -76,15 +76,6 @@ class AdvantageIdentifier extends StringLiteral
     }
 
     /**
-     * @param Advantage $advantage
-     * @return static
-     */
-    public static function fromAdvantage(Advantage $advantage)
-    {
-        return static::fromAdvantageTypeAndId($advantage->getType(), $advantage->getId());
-    }
-
-    /**
      * @param $type
      * @param $id
      *

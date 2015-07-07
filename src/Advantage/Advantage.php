@@ -56,7 +56,11 @@ abstract class Advantage implements \JsonSerializable
         $this->title = $title;
         $this->points = $points;
         $this->exchangeable = (bool) $exchangeable;
-        $this->identifier = AdvantageIdentifier::fromAdvantage($this);
+
+        $this->identifier = AdvantageIdentifier::fromAdvantageTypeAndId(
+            $this->type,
+            $this->id
+        );
     }
 
     /**
