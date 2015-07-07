@@ -10,9 +10,9 @@ class CounterNotSetException extends ResponseException implements ReadableCodeEx
 {
     /**
      * @param int $code
-     * @param null $previous
+     * @param \Exception $previous
      */
-    public function __construct($code = Response::HTTP_NOT_FOUND, $previous = null)
+    public function __construct($code = Response::HTTP_NOT_FOUND, \Exception $previous = null)
     {
         $message = 'No active counter set for the current user.';
         parent::__construct($message, $code, $previous);

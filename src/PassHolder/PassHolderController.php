@@ -23,8 +23,9 @@ class PassHolderController
     /**
      * @param Request $request
      * @return JsonResponse
+     *
      * @throws PassHolderNotFoundException
-     * @throws \Exception
+     *   When no passholder was found for the provided identification number.
      */
     public function getByIdentificationNumber(Request $request)
     {
@@ -43,8 +44,9 @@ class PassHolderController
     /**
      * @param string $uitpasNumber
      * @return JsonResponse
+
      * @throws PassHolderNotFoundException
-     * @throws \Exception
+     *   When no passholder was found for the provided uitpas number.
      */
     public function getByUitpasNumber($uitpasNumber)
     {

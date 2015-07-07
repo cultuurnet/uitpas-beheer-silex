@@ -9,6 +9,9 @@ class MockReadableCodeException extends MockResponseException implements Readabl
      */
     public $readableCode;
 
+    /**
+     * @param string $readableCode
+     */
     public function setReadableCode($readableCode)
     {
         $this->readableCode = (string) $readableCode;
