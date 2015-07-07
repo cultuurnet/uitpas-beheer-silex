@@ -3,6 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,6 +23,8 @@ class PassHolderController
     /**
      * @param Request $request
      * @return JsonResponse
+     * @throws PassHolderNotFoundException
+     * @throws \Exception
      */
     public function getByIdentificationNumber(Request $request)
     {
@@ -40,9 +43,12 @@ class PassHolderController
     /**
      * @param string $uitpasNumber
      * @return JsonResponse
+     * @throws PassHolderNotFoundException
+     * @throws \Exception
      */
     public function getByUitpasNumber($uitpasNumber)
     {
+        $uitpasNumber = new UiTPASNumber($uitpasNumber);
         $passholder = $this->passHolderService->getByUitpasNumber($uitpasNumber);
 
         if (is_null($passholder)) {
@@ -65,8 +71,9 @@ class PassHolderController
      */
     public function update(Request $request, $uitpasNumber)
     {
+        $uitpasNumber = new UiTPASNumber($uitpasNumber);
+
         $passHolder = new \CultureFeed_Uitpas_Passholder();
-        $passHolder->uitpasNumber = $uitpasNumber;
 
         $properties = $request->request->all();
         foreach ($properties as $property => $value) {
@@ -74,11 +81,11 @@ class PassHolderController
         }
 
         try {
-            $this->passHolderService->update($passHolder);
+            $this->passHolderService->update($uitpasNumber, $passHolder);
         } catch (\CultureFeed_Exception $exception) {
             throw ReadableCodeResponseException::fromCultureFeedException($exception);
         }
 
-        return $this->getByUitpasNumber($uitpasNumber);
+        return $this->getByUitpasNumber($uitpasNumber->toNative());
     }
 }

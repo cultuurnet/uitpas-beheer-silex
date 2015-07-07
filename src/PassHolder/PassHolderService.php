@@ -3,6 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 
 class PassHolderService extends CounterAwareUitpasService implements PassHolderServiceInterface
 {
@@ -26,17 +27,17 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
     }
 
     /**
-     * @param string $uitpasNumber
+     * @param UiTPASNumber $uitpasNumber
      *
      * @return \CultureFeed_Uitpas_Passholder|null
      */
-    public function getByUitpasNumber($uitpasNumber)
+    public function getByUitpasNumber(UiTPASNumber $uitpasNumber)
     {
         try {
             return $this
                     ->getUitpasService()
                     ->getPassholderByUitpasNumber(
-                        $uitpasNumber,
+                        $uitpasNumber->toNative(),
                         $this->getCounterConsumerKey()
                     );
         } catch (\CultureFeed_Exception $exception) {
@@ -45,10 +46,15 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
     }
 
     /**
+     * @param UiTPASNumber $uitpasNumber
      * @param \CultureFeed_Uitpas_Passholder $passHolder
      */
-    public function update(\CultureFeed_Uitpas_Passholder $passHolder)
-    {
+    public function update(
+        UiTPASNumber $uitpasNumber,
+        \CultureFeed_Uitpas_Passholder $passHolder
+    ) {
+        $passHolder->uitpasNumber = $uitpasNumber->toNative();
+
         $this
             ->getUitpasService()
             ->updatePassholder(

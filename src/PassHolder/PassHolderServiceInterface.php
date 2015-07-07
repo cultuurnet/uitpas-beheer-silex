@@ -2,6 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+
 interface PassHolderServiceInterface
 {
     /**
@@ -12,14 +14,15 @@ interface PassHolderServiceInterface
     public function getByIdentificationNumber($identification);
 
     /**
-     * @param string $uitpasNumber
+     * @param UiTPASNumber $uitpasNumber
      *
      * @return \CultureFeed_Uitpas_Passholder|null
      */
-    public function getByUitpasNumber($uitpasNumber);
+    public function getByUitpasNumber(UiTPASNumber $uitpasNumber);
 
     /**
+     * @param UiTPASNumber $uitpasNumber
      * @param \CultureFeed_Uitpas_Passholder $passHolder
      */
-    public function update(\CultureFeed_Uitpas_Passholder $passHolder);
+    public function update(UiTPASNumber $uitpasNumber, \CultureFeed_Uitpas_Passholder $passHolder);
 }
