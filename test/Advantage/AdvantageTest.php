@@ -136,6 +136,6 @@ class AdvantageTest extends \PHPUnit_Framework_TestCase
     public function it_is_serializable()
     {
         $json = json_encode($this->advantage);
-        $this->assertJsonEquals($json, 'Advantage/data/advantage.json');
+        $this->assertJsonEquals($json, 'Advantage/data/welcomeAdvantage.json');
     }
 }
