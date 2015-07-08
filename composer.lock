@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e34edd0dc87109530ff4ce442854558b",
+    "hash": "6c10f880e74ba61f74cb9bf57217893f",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -159,12 +159,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/silex-uitid-provider.git",
-                "reference": "cd841e41fdccd996ceaca04900cb643effc85da6"
+                "reference": "84e5fbd75b208a3a73c1bfb62d4c5cc756ba595e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/cd841e41fdccd996ceaca04900cb643effc85da6",
-                "reference": "cd841e41fdccd996ceaca04900cb643effc85da6",
+                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/84e5fbd75b208a3a73c1bfb62d4c5cc756ba595e",
+                "reference": "84e5fbd75b208a3a73c1bfb62d4c5cc756ba595e",
                 "shasum": ""
             },
             "require": {
@@ -195,7 +195,7 @@
                 "GPL-3.0"
             ],
             "description": "Silex UiTID authentication provider.",
-            "time": "2015-06-24 10:16:35"
+            "time": "2015-07-07 14:10:28"
         },
         {
             "name": "cultuurnet/udb3-symfony",
@@ -3516,6 +3516,52 @@
             "time": "2015-06-14 21:17:01"
         },
         {
+            "name": "escapestudios/symfony2-coding-standard",
+            "version": "2.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/escapestudios/Symfony2-coding-standard.git",
+                "reference": "d4e4794d5cbdfb8945f456d96c4ab133a7f807f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/escapestudios/Symfony2-coding-standard/zipball/d4e4794d5cbdfb8945f456d96c4ab133a7f807f6",
+                "reference": "d4e4794d5cbdfb8945f456d96c4ab133a7f807f6",
+                "shasum": ""
+            },
+            "require": {
+                "squizlabs/php_codesniffer": "~2.0"
+            },
+            "type": "coding-standard",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Joos",
+                    "email": "david.joos@escapestudios.com"
+                },
+                {
+                    "name": "Community contributors",
+                    "homepage": "https://github.com/escapestudios/Symfony2-coding-standard/graphs/contributors"
+                }
+            ],
+            "description": "CodeSniffer ruleset for the Symfony2 coding standard",
+            "homepage": "https://github.com/escapestudios/Symfony2-coding-standard",
+            "keywords": [
+                "Coding Standard",
+                "Symfony2",
+                "phpcs"
+            ],
+            "time": "2015-06-18 08:56:49"
+        },
+        {
             "name": "phing/phing",
             "version": "2.11.0",
             "source": {
@@ -4140,16 +4186,16 @@
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "2.3.4",
+            "version": "2.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "92408bb1968a81b3217a6fdf6c1a198da83caa35"
+                "reference": "1c330b1b6e1ea8fd15f2fbea46770576e366855c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/92408bb1968a81b3217a6fdf6c1a198da83caa35",
-                "reference": "92408bb1968a81b3217a6fdf6c1a198da83caa35",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/1c330b1b6e1ea8fd15f2fbea46770576e366855c",
+                "reference": "1c330b1b6e1ea8fd15f2fbea46770576e366855c",
                 "shasum": ""
             },
             "require": {
@@ -4191,7 +4237,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2015-06-11 15:55:48"
+            "time": "2015-07-04 05:41:32"
         },
         {
             "name": "satooshi/php-coveralls",
