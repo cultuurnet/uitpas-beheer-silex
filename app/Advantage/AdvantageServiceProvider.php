@@ -31,7 +31,8 @@ class AdvantageServiceProvider implements ServiceProviderInterface
         $app['points_promotion_advantage_service'] = $app->share(function (Application $app) {
             return new PointsPromotionAdvantageService(
                 $app['uitpas'],
-                $app['counter_consumer_key']
+                $app['counter_consumer_key'],
+                $app['clock']
             );
         });
     }

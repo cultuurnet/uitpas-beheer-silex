@@ -2,6 +2,9 @@
 
 namespace CultuurNet\UiTPASBeheer\Advantage;
 
+use DateTimeImmutable;
+use DateTimeZone;
+use CultuurNet\Clock\FrozenClock;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\Number\Integer;
@@ -24,14 +27,27 @@ class PointsPromotionAdvantageServiceTest extends \PHPUnit_Framework_TestCase
      */
     protected $service;
 
+    /**
+     * @var int
+     *
+     * Current time, as a unix timestamp.
+     */
+    protected $currentTime;
+
     public function setUp()
     {
+        // Mock the system clock.
+        $now = new DateTimeImmutable('now', new DateTimeZone('Europe/Brussels'));
+        $clock = new FrozenClock($now);
+        $this->currentTime = $clock->getDateTime()->getTimestamp();
+
         $this->uitpas = $this->getMock(\CultureFeed_Uitpas::class);
         $this->counterConsumerKey = new CounterConsumerKey('key');
 
         $this->service = new PointsPromotionAdvantageService(
             $this->uitpas,
-            $this->counterConsumerKey
+            $this->counterConsumerKey,
+            $clock
         );
     }
 
@@ -95,8 +111,6 @@ class PointsPromotionAdvantageServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_get_all_exchangeable_points_promotions_for_a_user()
     {
-        $minimumTimestamp = time();
-
         $uitpasNumber = new UiTPASNumber('0930000125607');
 
         $cfAdvantage1 = new \CultureFeed_Uitpas_Passholder_PointsPromotion();
@@ -138,31 +152,18 @@ class PointsPromotionAdvantageServiceTest extends \PHPUnit_Framework_TestCase
             $expected2,
         ];
 
+        $expectedOptions = new \CultureFeed_Uitpas_Passholder_Query_SearchPromotionPointsOptions();
+        $expectedOptions->balieConsumerKey = $this->counterConsumerKey->toNative();
+        $expectedOptions->uitpasNumber = $uitpasNumber->toNative();
+        $expectedOptions->unexpired = true;
+        $expectedOptions->filterOnUserPoints = true;
+        $expectedOptions->cashingPeriodBegin = $this->currentTime;
+        $expectedOptions->cashingPeriodEnd = $this->currentTime;
+
         $this->uitpas->expects($this->once())
             ->method('getPromotionPoints')
-            ->willReturnCallback(function (
-                \CultureFeed_Uitpas_Passholder_Query_SearchPromotionPointsOptions $options
-            ) use (
-                $uitpasNumber,
-                $minimumTimestamp,
-                $cfAdvantages
-            ) {
-                $this->assertEquals($this->counterConsumerKey->toNative(), $options->balieConsumerKey);
-                $this->assertEquals($uitpasNumber->toNative(), $options->uitpasNumber);
-
-                $this->assertTrue($options->unexpired);
-                $this->assertTrue($options->filterOnUserPoints);
-
-                $maximumTimestamp = time();
-
-                $this->assertTrue($minimumTimestamp <= $options->cashingPeriodBegin);
-                $this->assertTrue($maximumTimestamp >= $options->cashingPeriodBegin);
-
-                $this->assertTrue($minimumTimestamp <= $options->cashingPeriodEnd);
-                $this->assertTrue($maximumTimestamp >= $options->cashingPeriodEnd);
-
-                return $cfAdvantages;
-            });
+            ->with($expectedOptions)
+            ->willReturn($cfAdvantages);
 
         $advantages = $this->service->getExchangeable($uitpasNumber);
 

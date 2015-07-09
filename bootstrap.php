@@ -82,4 +82,12 @@ $app->register(new \CultuurNet\UiTPASBeheer\PassHolder\PassHolderServiceProvider
  */
 $app->register(new \CultuurNet\UiTPASBeheer\Advantage\AdvantageServiceProvider());
 
+/**
+ * Clock service.
+ */
+$app->register(
+    new \CultuurNet\UiTPASBeheer\ClockServiceProvider(),
+    ['clock.timezone' => 'Europe/Brussels']
+);
+
 return $app;

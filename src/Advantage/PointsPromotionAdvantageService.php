@@ -2,12 +2,34 @@
 
 namespace CultuurNet\UiTPASBeheer\Advantage;
 
+use CultuurNet\Clock\Clock;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
+use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class PointsPromotionAdvantageService extends CounterAwareUitpasService implements AdvantageServiceInterface
 {
+    /**
+     * @var Clock
+     */
+    private $clock;
+
+    /**
+     * @param \CultureFeed_Uitpas $uitpasService
+     * @param CounterConsumerKey $counterConsumerKey
+     * @param Clock $clock
+     */
+    public function __construct(
+        \CultureFeed_Uitpas $uitpasService,
+        CounterConsumerKey $counterConsumerKey,
+        Clock $clock
+    ) {
+        parent::__construct($uitpasService, $counterConsumerKey);
+
+        $this->clock = $clock;
+    }
+
     /**
      * @param UiTPASNumber $uitpasNumber
      * @param StringLiteral $id
@@ -41,8 +63,8 @@ class PointsPromotionAdvantageService extends CounterAwareUitpasService implemen
         $options->balieConsumerKey = $this->getCounterConsumerKey();
         $options->uitpasNumber = $uitpasNumber->toNative();
 
-        $options->cashingPeriodBegin = time();
-        $options->cashingPeriodEnd = time();
+        $currentTimestamp = $this->clock->getDateTime()->getTimestamp();
+        $options->cashingPeriodBegin = $options->cashingPeriodEnd = $currentTimestamp;
 
         $options->filterOnUserPoints = true;
         $options->unexpired = true;
