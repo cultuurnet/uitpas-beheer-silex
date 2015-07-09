@@ -87,6 +87,9 @@ class AdvantageControllerTest extends \PHPUnit_Framework_TestCase
             $uitpasNumber->toNative(),
             $identifier->toNative()
         );
+
+        $this->assertEquals(200, $response->getStatusCode());
+
         $json = $response->getContent();
 
         $this->assertJsonEquals($json, $advantageFile);
@@ -167,9 +170,39 @@ class AdvantageControllerTest extends \PHPUnit_Framework_TestCase
             ->willReturn([$pointsPromotion]);
 
         $response = $this->controller->getExchangeable($uitpasNumber->toNative());
+
+        $this->assertEquals(200, $response->getStatusCode());
+
         $json = $response->getContent();
 
         $this->assertJsonEquals($json, 'Advantage/data/exchangeableAdvantages.json');
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_a_meaningful_exception_when_retrieving_exchangeable_advantages_fails()
+    {
+        $uitpasNumber = new UiTPASNumber('0930000125607');
+
+        $exceptionMessage = 'Unknown uitpas number.';
+        $exceptionCode = \CultureFeed_Uitpas_Error::UNKNOWN_UITPASNUMBER;
+        $cfException = new \CultureFeed_Exception($exceptionMessage, $exceptionCode);
+
+        $this->welcomeAdvantageService->expects($this->once())
+            ->method('getExchangeable')
+            ->with($uitpasNumber)
+            ->willThrowException($cfException);
+
+        try {
+            $this->controller->getExchangeable($uitpasNumber->toNative());
+            $this->fail('AdvantageController::getExchangeable should throw a ReadableCodeResponseException.');
+        } catch (ReadableCodeResponseException $exception) {
+            $this->assertEquals($exceptionCode, $exception->getReadableCode());
+            $this->assertEquals($exceptionMessage, $exception->getMessage());
+        } catch (\Exception $exception) {
+            $this->fail('AdvantageController::exchange threw an unexpected exception class.');
+        }
     }
 
     /**
@@ -220,6 +253,8 @@ class AdvantageControllerTest extends \PHPUnit_Framework_TestCase
             $uitpasNumber->toNative()
         );
         $responseJson = $response->getContent();
+
+        $this->assertEquals(200, $response->getStatusCode());
 
         $this->assertJsonEquals($responseJson, $advantageFile);
     }

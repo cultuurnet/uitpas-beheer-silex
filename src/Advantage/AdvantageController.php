@@ -121,6 +121,8 @@ class AdvantageController
      * @throws UiTPASNumberInvalidException
      *   When no valid UiTPASNumber object can be constructed from the
      *   provided value.
+     * @throws ReadableCodeResponseException
+     *   When a CultureFeed error occurred.
      *
      * @return JsonResponse
      */
@@ -129,11 +131,15 @@ class AdvantageController
         $uitpasNumber = new UiTPASNumber($uitpasNumber);
 
         $advantages = array();
-        foreach ($this->advantageServices as $advantageService) {
-            $advantages = array_merge(
-                $advantages,
-                $advantageService->getExchangeable($uitpasNumber)
-            );
+        try {
+            foreach ($this->advantageServices as $advantageService) {
+                $advantages = array_merge(
+                    $advantages,
+                    $advantageService->getExchangeable($uitpasNumber)
+                );
+            }
+        } catch (\CultureFeed_Exception $exception) {
+            throw ReadableCodeResponseException::fromCultureFeedException($exception);
         }
 
         return JsonResponse::create()
