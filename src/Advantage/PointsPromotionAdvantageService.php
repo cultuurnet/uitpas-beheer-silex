@@ -13,7 +13,7 @@ class PointsPromotionAdvantageService extends CounterAwareUitpasService implemen
     /**
      * @var Clock
      */
-    private $clock;
+    protected $clock;
 
     /**
      * @param \CultureFeed_Uitpas $uitpasService

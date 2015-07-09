@@ -15,6 +15,11 @@ class WelcomeAdvantageService extends CounterAwareUitpasService implements Advan
      */
     protected $clock;
 
+    /**
+     * @param \CultureFeed_Uitpas $uitpasService
+     * @param CounterConsumerKey $counterConsumerKey
+     * @param Clock $clock
+     */
     public function __construct(
         \CultureFeed_Uitpas $uitpasService,
         CounterConsumerKey $counterConsumerKey,
