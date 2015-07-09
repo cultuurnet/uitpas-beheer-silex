@@ -2,11 +2,9 @@
 
 namespace CultuurNet\UiTPASBeheer\Advantage;
 
-use CultuurNet\UiTPASBeheer\Advantage\CashIn\CashInJsonDeserializer;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 class AdvantageControllerProvider implements ControllerProviderInterface
 {
