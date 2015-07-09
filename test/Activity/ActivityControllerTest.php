@@ -46,14 +46,21 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
 
         $dateType = DateType::fromNative('today');
         $limit = new Integer(10);
+        $query = new StringLiteral('foo');
+        $page = new Integer(2);
 
         $this->service
           ->expects($this->once())
           ->method('search')
-          ->with($dateType, $limit)
+          ->with($dateType, $limit, $query, $page)
           ->willReturn($activities);
 
-        $request = new Request(['date_type' => 'today', 'limit' => 10]);
+        $request = new Request([
+            'date_type' => 'today',
+            'limit' => 10,
+            'query' => 'foo',
+            'page' => 2,
+        ]);
         $response = $this->controller->search($request);
         $content = $response->getContent();
 
