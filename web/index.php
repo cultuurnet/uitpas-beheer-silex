@@ -55,4 +55,9 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\Counter\CounterControllerProvider(
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\PassHolder\PassHolderControllerProvider());
 
+/**
+ * API callbacks for Activities.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\Activity\ActivityControllerProvider());
+
 $app->run();

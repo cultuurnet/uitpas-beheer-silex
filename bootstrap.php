@@ -77,4 +77,9 @@ $app->register(new \CultuurNet\UiTPASBeheer\Counter\CounterServiceProvider());
  */
 $app->register(new \CultuurNet\UiTPASBeheer\PassHolder\PassHolderServiceProvider());
 
+/**
+ * UiTPAS Activity service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\Activity\ActivityServiceProvider());
+
 return $app;
