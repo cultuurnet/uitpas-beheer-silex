@@ -2,8 +2,12 @@
 
 namespace CultuurNet\UiTPASBeheer\Advantage;
 
+use CultureFeed_Uitpas;
+use CultuurNet\Clock\FrozenClock;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use DateTimeImmutable;
+use DateTimeZone;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class WelcomeAdvantageServiceTest extends \PHPUnit_Framework_TestCase
@@ -23,14 +27,27 @@ class WelcomeAdvantageServiceTest extends \PHPUnit_Framework_TestCase
      */
     protected $service;
 
+    /**
+     * @var int
+     *
+     * Current time, as a unix timestamp.
+     */
+    protected $currentTime;
+
     public function setUp()
     {
-        $this->uitpas = $this->getMock(\CultureFeed_Uitpas::class);
+        // Mock the system clock.
+        $now = new DateTimeImmutable('now', new DateTimeZone('Europe/Brussels'));
+        $clock = new FrozenClock($now);
+        $this->currentTime = $clock->getDateTime()->getTimestamp();
+
+        $this->uitpas = $this->getMock(CultureFeed_Uitpas::class);
         $this->counterConsumerKey = new CounterConsumerKey('key');
 
         $this->service = new WelcomeAdvantageService(
             $this->uitpas,
-            $this->counterConsumerKey
+            $this->counterConsumerKey,
+            $clock
         );
     }
 
@@ -91,8 +108,6 @@ class WelcomeAdvantageServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_get_all_exchangeable_welcome_advantages_for_a_user()
     {
-        $minimumTimestamp = time();
-
         $uitpasNumber = new UiTPASNumber('0930000125607');
 
         $cfAdvantage1 = new \CultureFeed_Uitpas_Passholder_WelcomeAdvantage();
@@ -130,31 +145,18 @@ class WelcomeAdvantageServiceTest extends \PHPUnit_Framework_TestCase
             $expected2,
         ];
 
+        $expectedOptions = new \CultureFeed_Uitpas_Passholder_Query_WelcomeAdvantagesOptions();
+        $expectedOptions->balieConsumerKey = $this->counterConsumerKey->toNative();
+        $expectedOptions->cashInBalieConsumerKey = $this->counterConsumerKey->toNative();
+        $expectedOptions->uitpas_number = $uitpasNumber->toNative();
+        $expectedOptions->cashingPeriodBegin = $this->currentTime;
+        $expectedOptions->cashingPeriodEnd = $this->currentTime;
+        $expectedOptions->cashedIn = false;
+
         $this->uitpas->expects($this->once())
             ->method('getWelcomeAdvantagesForPassholder')
-            ->willReturnCallback(function (
-                \CultureFeed_Uitpas_Passholder_Query_WelcomeAdvantagesOptions $options
-            ) use (
-                $uitpasNumber,
-                $minimumTimestamp,
-                $cfAdvantages
-            ) {
-                $this->assertEquals($this->counterConsumerKey->toNative(), $options->balieConsumerKey);
-                $this->assertEquals($this->counterConsumerKey->toNative(), $options->cashInBalieConsumerKey);
-                $this->assertEquals($uitpasNumber->toNative(), $options->uitpas_number);
-
-                $this->assertFalse($options->cashedIn);
-
-                $maximumTimestamp = time();
-
-                $this->assertTrue($minimumTimestamp <= $options->cashingPeriodBegin);
-                $this->assertTrue($maximumTimestamp >= $options->cashingPeriodBegin);
-
-                $this->assertTrue($minimumTimestamp <= $options->cashingPeriodEnd);
-                $this->assertTrue($maximumTimestamp >= $options->cashingPeriodEnd);
-
-                return $cfAdvantages;
-            });
+            ->with($expectedOptions)
+            ->willReturn($cfAdvantages);
 
         $advantages = $this->service->getExchangeable($uitpasNumber);
 

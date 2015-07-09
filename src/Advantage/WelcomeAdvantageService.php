@@ -2,12 +2,32 @@
 
 namespace CultuurNet\UiTPASBeheer\Advantage;
 
+use CultuurNet\Clock\Clock;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
+use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class WelcomeAdvantageService extends CounterAwareUitpasService implements AdvantageServiceInterface
 {
+    /**
+     * @var Clock
+     */
+    protected $clock;
+
+    public function __construct(
+        \CultureFeed_Uitpas $uitpasService,
+        CounterConsumerKey $counterConsumerKey,
+        Clock $clock
+    ) {
+        parent::__construct(
+            $uitpasService,
+            $counterConsumerKey
+        );
+
+        $this->clock = $clock;
+    }
+
     /**
      * @param UiTPASNumber $uitpasNumber
      * @param StringLiteral $id
@@ -42,8 +62,8 @@ class WelcomeAdvantageService extends CounterAwareUitpasService implements Advan
         $options->cashInBalieConsumerKey = $this->getCounterConsumerKey();
         $options->uitpas_number = $uitpasNumber->toNative();
 
-        $options->cashingPeriodBegin = time();
-        $options->cashingPeriodEnd = time();
+        $currentTimestamp = $this->clock->getDateTime()->getTimestamp();
+        $options->cashingPeriodBegin = $options->cashingPeriodEnd = $currentTimestamp;
 
         $options->cashedIn = false;
 

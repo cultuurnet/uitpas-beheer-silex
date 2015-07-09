@@ -24,7 +24,8 @@ class AdvantageServiceProvider implements ServiceProviderInterface
         $app['welcome_advantage_service'] = $app->share(function (Application $app) {
             return new WelcomeAdvantageService(
                 $app['uitpas'],
-                $app['counter_consumer_key']
+                $app['counter_consumer_key'],
+                $app['clock']
             );
         });
 
