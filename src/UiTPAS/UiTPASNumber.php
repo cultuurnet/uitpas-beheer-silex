@@ -38,7 +38,7 @@ class UiTPASNumber extends StringLiteral
     /**
      * @param string $value
      *
-     * @throws \InvalidArgumentException
+     * @throws UiTPASNumberInvalidException
      *   When the provided value is not a string of exactly 13 digits.
      *   When the provided value does not start with 0.
      *   When the provided value is not valid according to the Luhn algorithm.

@@ -4,6 +4,7 @@ namespace CultuurNet\UiTPASBeheer\Counter;
 
 use Silex\Application;
 use Silex\ServiceProviderInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 class CounterServiceProvider implements ServiceProviderInterface
 {
@@ -12,6 +13,8 @@ class CounterServiceProvider implements ServiceProviderInterface
      *
      * This method should only be used to configure services and parameters.
      * It should not get services.
+     *
+     * @param Application $app
      */
     public function register(Application $app)
     {
@@ -33,7 +36,7 @@ class CounterServiceProvider implements ServiceProviderInterface
                 $counter = $counterService->getActiveCounter();
                 return new CounterConsumerKey($counter->consumerKey);
             } catch (CounterNotSetException $exception) {
-                return null;
+                throw new CounterNotSetException(Response::HTTP_BAD_REQUEST);
             }
         });
     }
@@ -44,6 +47,8 @@ class CounterServiceProvider implements ServiceProviderInterface
      * This method is called after all services are registered
      * and should be used for "dynamic" configuration (whenever
      * a service must be requested).
+     *
+     * @param Application $app
      */
     public function boot(Application $app)
     {

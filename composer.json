@@ -7,6 +7,7 @@
     "cultuurnet/culturefeed-php": "dev-feature/UBR as 1.5",
     "cultuurnet/search": "~1.2",
     "cultuurnet/calendar-summary": "dev-feature/UBR-66 as 1.0",
+    "cultuurnet/deserializer": "1.x-dev",
     "deralex/yaml-config-service-provider": "~1.0",
     "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
     "jdesrosiers/silex-cors-provider": "~0.1",
@@ -31,7 +32,8 @@
     "symfony/monolog-bridge": "~2.3",
     "symfony/twig-bridge": "~2.3",
     "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
-    "swiftmailer/swiftmailer": "5.*"
+    "swiftmailer/swiftmailer": "5.*",
+    "cultuurnet/clock": "~0.1"
   },
   "require-dev": {
     "phpspec/phpspec": "~2.0",

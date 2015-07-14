@@ -10,8 +10,6 @@ class JsonErrorResponse extends JsonResponse
 {
     /**
      * @param ResponseException $exception
-     * @param int $status
-     * @param array $headers
      */
     public function __construct(ResponseException $exception)
     {

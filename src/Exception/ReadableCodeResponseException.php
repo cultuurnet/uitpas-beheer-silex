@@ -38,8 +38,10 @@ class ReadableCodeResponseException extends ResponseException implements Readabl
     }
 
     /**
-     * @param \CultureFeed_Exception $previous
+     * @param \CultureFeed_Exception $exception
      * @param int $code
+     *
+     * @return static
      */
     public static function fromCultureFeedException(\CultureFeed_Exception $exception, $code = 400)
     {
@@ -49,6 +51,6 @@ class ReadableCodeResponseException extends ResponseException implements Readabl
             $code = '403';
         }
 
-        return new self($exception->getMessage(), $readableCode, $code, $exception);
+        return new static($exception->getMessage(), $readableCode, $code, $exception);
     }
 }
