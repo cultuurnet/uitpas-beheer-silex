@@ -16,7 +16,8 @@ class ActivityServiceProvider implements ServiceProviderInterface
             function ($app) {
                 return new ActivityService(
                     $app['uitpas'],
-                    $app['counter_consumer_key']
+                    $app['counter_consumer_key'],
+                    $app['cultuurnet_search']
                 );
             }
         );

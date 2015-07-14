@@ -5,6 +5,8 @@
   "require": {
     "cultuurnet/silex-uitid-provider": "dev-master",
     "cultuurnet/culturefeed-php": "dev-feature/UBR as 1.5",
+    "cultuurnet/search": "~1.2",
+    "cultuurnet/calendar-summary": "dev-feature/UBR-66 as 1.0",
     "deralex/yaml-config-service-provider": "~1.0",
     "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
     "jdesrosiers/silex-cors-provider": "~0.1",

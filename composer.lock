@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e34edd0dc87109530ff4ce442854558b",
+    "hash": "04fa0b555914868ccf0f43da1ecb6c79",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -52,6 +52,49 @@
             ],
             "description": "Authentication service for CultuurNet web services",
             "time": "2015-06-30 15:52:03"
+        },
+        {
+            "name": "cultuurnet/calendar-summary",
+            "version": "dev-feature/UBR-66",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cultuurnet/calendar-summary.git",
+                "reference": "55e509437ffdbc5e7683d4d924788da7b9ac4148"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cultuurnet/calendar-summary/zipball/55e509437ffdbc5e7683d4d924788da7b9ac4148",
+                "reference": "55e509437ffdbc5e7683d4d924788da7b9ac4148",
+                "shasum": ""
+            },
+            "require": {
+                "ext-intl": "*"
+            },
+            "require-dev": {
+                "phing/phing": "~2.10",
+                "phpunit/phpunit": "~4.5",
+                "squizlabs/php_codesniffer": "~2.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev",
+                    "dev-develop": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CultuurNet\\CalendarSummary\\": [
+                        "src"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Library to convert a cdbXML input to a readable summary",
+            "time": "2015-07-09 13:53:17"
         },
         {
             "name": "cultuurnet/cdb",
@@ -154,17 +197,63 @@
             "time": "2015-07-01 08:44:54"
         },
         {
+            "name": "cultuurnet/search",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cultuurnet/Search.git",
+                "reference": "7737becd0e26013264573ce138d2744c899246cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cultuurnet/Search/zipball/7737becd0e26013264573ce138d2744c899246cb",
+                "reference": "7737becd0e26013264573ce138d2744c899246cb",
+                "shasum": ""
+            },
+            "require": {
+                "cultuurnet/auth": "~1.1",
+                "cultuurnet/cdb": "~2.1",
+                "php": ">=5.3.0",
+                "symfony/console": "~2.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.1"
+            },
+            "bin": [
+                "bin/cultuurnet-search"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "CultuurNet\\Search": [
+                        "lib"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "CultuurNet search service",
+            "time": "2015-05-27 16:14:23"
+        },
+        {
             "name": "cultuurnet/silex-uitid-provider",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/silex-uitid-provider.git",
-                "reference": "cd841e41fdccd996ceaca04900cb643effc85da6"
+                "reference": "84e5fbd75b208a3a73c1bfb62d4c5cc756ba595e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/cd841e41fdccd996ceaca04900cb643effc85da6",
-                "reference": "cd841e41fdccd996ceaca04900cb643effc85da6",
+                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/84e5fbd75b208a3a73c1bfb62d4c5cc756ba595e",
+                "reference": "84e5fbd75b208a3a73c1bfb62d4c5cc756ba595e",
                 "shasum": ""
             },
             "require": {
@@ -195,7 +284,7 @@
                 "GPL-3.0"
             ],
             "description": "Silex UiTID authentication provider.",
-            "time": "2015-06-24 10:16:35"
+            "time": "2015-07-07 14:10:28"
         },
         {
             "name": "cultuurnet/udb3-symfony",
@@ -4140,16 +4229,16 @@
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "2.3.4",
+            "version": "2.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "92408bb1968a81b3217a6fdf6c1a198da83caa35"
+                "reference": "1c330b1b6e1ea8fd15f2fbea46770576e366855c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/92408bb1968a81b3217a6fdf6c1a198da83caa35",
-                "reference": "92408bb1968a81b3217a6fdf6c1a198da83caa35",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/1c330b1b6e1ea8fd15f2fbea46770576e366855c",
+                "reference": "1c330b1b6e1ea8fd15f2fbea46770576e366855c",
                 "shasum": ""
             },
             "require": {
@@ -4191,7 +4280,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2015-06-11 15:55:48"
+            "time": "2015-07-04 05:41:32"
         },
         {
             "name": "satooshi/php-coveralls",
@@ -4769,12 +4858,19 @@
             "alias_normalized": "1.5.0.0",
             "version": "dev-feature/UBR",
             "package": "cultuurnet/culturefeed-php"
+        },
+        {
+            "alias": "1.0",
+            "alias_normalized": "1.0.0.0",
+            "version": "dev-feature/UBR-66",
+            "package": "cultuurnet/calendar-summary"
         }
     ],
     "minimum-stability": "dev",
     "stability-flags": {
         "cultuurnet/silex-uitid-provider": 20,
-        "cultuurnet/culturefeed-php": 20
+        "cultuurnet/culturefeed-php": 20,
+        "cultuurnet/calendar-summary": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

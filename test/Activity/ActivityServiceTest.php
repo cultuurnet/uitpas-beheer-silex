@@ -4,6 +4,8 @@ namespace CultuurNet\UiTPASBeheer\Activity;
 
 use CultureFeed_Uitpas_Event_CultureEvent;
 use CultureFeed_ResultSet;
+use CultuurNet\Auth\ConsumerCredentials;
+use CultuurNet\Search\Guzzle\Service;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use ValueObjects\Number\Integer;
@@ -24,6 +26,11 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
     protected $service;
 
     /**
+     * @var \CultuurNet\Search\Guzzle\Service
+     */
+    protected $searchService;
+
+    /**
      * @var CounterConsumerKey
      */
     protected $counterConsumerKey;
@@ -33,8 +40,10 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->uitpas = $this->getMock(\CultureFeed_Uitpas::class);
         $this->counterConsumerKey = new CounterConsumerKey('key');
+        $arguments = array(' http://acc.uitid.be/uitid/rest/searchv2/', $this->getMock(ConsumerCredentials::class));
+        $this->searchService = $this->getMock(Service::class, null, $arguments);
 
-        $this->service = new ActivityService($this->uitpas, $this->counterConsumerKey);
+        $this->service = new ActivityService($this->uitpas, $this->counterConsumerKey, $this->searchService);
 
     }
 
@@ -71,11 +80,15 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $expected = array(
             new Activity(
                 new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
-                new StringLiteral('test event 1')
+                new StringLiteral('test event 1'),
+                new StringLiteral('test event 1 description'),
+                new StringLiteral('test event 1 date')
             ),
             new Activity(
                 new StringLiteral('ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj'),
-                new StringLiteral('test event 2')
+                new StringLiteral('test event 2'),
+                new StringLiteral('test event 2 description'),
+                new StringLiteral('test event 2 date')
             ),
         );
 

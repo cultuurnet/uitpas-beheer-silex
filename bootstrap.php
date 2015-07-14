@@ -48,6 +48,19 @@ $app->register(new \CultuurNet\UiTIDProvider\CultureFeed\CultureFeedServiceProvi
 ));
 
 /**
+ * CultuurNet search.
+ */
+$app['cultuurnet_search'] = $app->share(function ($app) {
+    return new \CultuurNet\Search\Guzzle\Service(
+        $app['config']['search']['base_url'],
+        new \CultuurNet\Auth\ConsumerCredentials(
+            $app['config']['uitid']['consumer']['key'],
+            $app['config']['uitid']['consumer']['secret']
+        )
+    );
+});
+
+/**
  * Url generator.
  */
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());

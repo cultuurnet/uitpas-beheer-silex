@@ -36,11 +36,15 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
         $activities = array(
             new Activity(
                 new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
-                new StringLiteral('test event 1')
+                new StringLiteral('test event 1'),
+                new StringLiteral('test event 1 description'),
+                new StringLiteral('test event 1 date')
             ),
             new Activity(
                 new StringLiteral('ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj'),
-                new StringLiteral('test event 2')
+                new StringLiteral('test event 2'),
+                new StringLiteral('test event 2 description'),
+                new StringLiteral('test event 2 date')
             ),
         );
 

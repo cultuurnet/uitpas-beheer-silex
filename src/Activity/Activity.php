@@ -2,10 +2,23 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity;
 
+use CultureFeed_Uitpas_Event_CultureEvent;
+use CultureFeed_Cdb_Item_Event;
+use CultuurNet\CalendarSummary\CalendarPlainTextFormatter;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class Activity implements \JsonSerializable
 {
+    /**
+     * @var StringLiteral
+     */
+    protected $date;
+
+    /**
+     * @var StringLiteral
+     */
+    protected $description;
+
     /**
      * @var StringLiteral
      */
@@ -19,28 +32,68 @@ class Activity implements \JsonSerializable
     /**
      * @param StringLiteral $id
      * @param StringLiteral $title
+     * @param StringLiteral $description
+     * @param StringLiteral $date
      */
     public function __construct(
         StringLiteral $id,
-        StringLiteral $title
+        StringLiteral $title,
+        StringLiteral $description,
+        StringLiteral $date
     ) {
         $this->id = $id;
         $this->title = $title;
+        $this->description = $description;
+        $this->date = $date;
     }
 
     /**
-     * @param \CultureFeed_Uitpas_Event_CultureEvent $event
+     * @param CultureFeed_Uitpas_Event_CultureEvent $uitpasEvent
+     * @param CultureFeed_Cdb_Item_Event $cdbEvent
      * @return static
      */
-    public static function fromCultureFeedUitpasEvent(\CultureFeed_Uitpas_Event_CultureEvent $event)
-    {
-        $id = new StringLiteral((string) $event->cdbid);
-        $title = new StringLiteral((string) $event->title);
+    public static function fromCultureFeedUitpasAndCdbEvent(
+        CultureFeed_Uitpas_Event_CultureEvent $uitpasEvent,
+        CultureFeed_Cdb_Item_Event $cdbEvent = null
+    ) {
+        $id = new StringLiteral((string) $uitpasEvent->cdbid);
+        $title = new StringLiteral((string) $uitpasEvent->title);
+        $description = new StringLiteral('');
+        $date = new StringLiteral('');
+
+        if ($cdbEvent) {
+            // Description.
+            $details = $cdbEvent->getDetails()->getDetailByLanguage('nl');
+            $description = new StringLiteral((string) $details->getShortDescription());
+
+            // Calendar.
+            $calendar = $cdbEvent->getCalendar();
+            $formatter = new CalendarPlainTextFormatter();
+            $date = new StringLiteral((string) $formatter->format($calendar, 'xs'));
+        }
 
         return new static(
-          $id,
-          $title
+            $id,
+            $title,
+            $description,
+            $date
         );
+    }
+
+    /**
+     * @return StringLiteral
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @return StringLiteral
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**
@@ -67,6 +120,8 @@ class Activity implements \JsonSerializable
         return [
             'id' => $this->id->toNative(),
             'title' => $this->title->toNative(),
+            'description' => $this->description->toNative(),
+            'date' => $this->date->toNative(),
         ];
     }
 }
