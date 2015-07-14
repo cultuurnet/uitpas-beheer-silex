@@ -467,7 +467,7 @@
         ],
         "responses": {
           "200": {
-            "description": "The infoformation available about the activities.",
+            "description": "The information available about the activities.",
             "schema": {
               "$ref": "#/definitions/Activity"
             }
