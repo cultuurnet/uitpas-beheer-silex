@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e34edd0dc87109530ff4ce442854558b",
+    "hash": "067bb7ea35bac4dbb983005b80dff910",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -87,6 +87,47 @@
             "time": "2015-05-22 08:48:28"
         },
         {
+            "name": "cultuurnet/clock",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cultuurnet/clock.git",
+                "reference": "601aaf46375fffd3d3367a866253ca6bb092f584"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cultuurnet/clock/zipball/601aaf46375fffd3d3367a866253ca6bb092f584",
+                "reference": "601aaf46375fffd3d3367a866253ca6bb092f584",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CultuurNet\\Clock\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Kristof Coomans",
+                    "email": "kristof@2dotstwice.be"
+                }
+            ],
+            "description": "Clock abstraction library",
+            "time": "2015-06-08 16:12:34"
+        },
+        {
             "name": "cultuurnet/culturefeed-php",
             "version": "dev-feature/UBR",
             "source": {
@@ -154,6 +195,53 @@
             "time": "2015-07-01 08:44:54"
         },
         {
+            "name": "cultuurnet/deserializer",
+            "version": "1.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cultuurnet/deserializer.git",
+                "reference": "59eac10e865d1117b25a481bf7b5426b4e3d7b3a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cultuurnet/deserializer/zipball/59eac10e865d1117b25a481bf7b5426b4e3d7b3a",
+                "reference": "59eac10e865d1117b25a481bf7b5426b4e3d7b3a",
+                "shasum": ""
+            },
+            "require": {
+                "nicolopignatelli/valueobjects": "~3.0"
+            },
+            "require-dev": {
+                "phing/phing": "~2.10",
+                "phpunit/phpunit": "~4.3",
+                "squizlabs/php_codesniffer": "~2.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.x-dev",
+                    "dev-1.x": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CultuurNet\\Deserializer\\": "src\\"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Kristof Coomans",
+                    "email": "kristof@2dotstwice.be"
+                }
+            ],
+            "description": "Internet media type deserialization library",
+            "time": "2015-07-02 15:48:32"
+        },
+        {
             "name": "cultuurnet/silex-uitid-provider",
             "version": "dev-master",
             "source": {
@@ -163,7 +251,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/cd841e41fdccd996ceaca04900cb643effc85da6",
+                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/84e5fbd75b208a3a73c1bfb62d4c5cc756ba595e",
                 "reference": "cd841e41fdccd996ceaca04900cb643effc85da6",
                 "shasum": ""
             },
@@ -4774,7 +4862,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "cultuurnet/silex-uitid-provider": 20,
-        "cultuurnet/culturefeed-php": 20
+        "cultuurnet/culturefeed-php": 20,
+        "cultuurnet/deserializer": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

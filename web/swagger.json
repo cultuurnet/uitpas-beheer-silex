@@ -308,6 +308,154 @@
           "Passholder"
         ]
       }
+    },
+    "/passholders/{uitpasNumber}/advantages": {
+      "get": {
+        "summary": "Find all exchangeable advantages for a passholder.",
+        "description": "Authentication and active counter is required.",
+        "operationId": "getExchangeableAdvantages",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of exchangeable advantages for the passholder.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Advantage"
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or has no active counter.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "tags": [
+          "Passholder",
+          "Advantage"
+        ]
+      }
+    },
+    "/passholders/{uitpasNumber}/advantages/{advantageId}": {
+      "get": {
+        "summary": "Find an advantage for a passholder by uitpas number of the passholder and the advantage's id.",
+        "description": "Authentication and active counter is required.",
+        "operationId": "getAdvantage",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "advantageId",
+            "in": "path",
+            "description": "The id of the advantage.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The information about the advantage.",
+            "schema": {
+              "$ref": "#/definitions/Advantage"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or has no active counter.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "No advantage found with this id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "tags": [
+          "Passholder",
+          "Advantage"
+        ]
+      }
+    },
+    "/passholders/{uitpasNumber}/advantages/exchanges": {
+      "post": {
+        "summary": "Exchange an advantage for a given passholder.",
+        "description": "Authentication is required.",
+        "operationId": "exchangeAdvantage",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the id of the advantage to exchange for the passholder.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/postObjectWithAdvantageId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The advantage that has been exchanged.",
+            "schema": {
+              "$ref": "#/definitions/Advantage"
+            }
+          },
+          "400": {
+            "description": "The advantage is not exchangeable for the given passholder.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "The user in not authenticated or has not active counter.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "No advantage found for the given id and passholder.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "tags": [
+          "Passholder",
+          "Advantage"
+        ]
+      }
     }
   },
   "tags": [
@@ -326,6 +474,10 @@
     {
       "name": "Passholder",
       "description": "Operations related to a passholder."
+    },
+    {
+      "name": "Advantage",
+      "description": "Operations related to an advantage."
     }
   ],
   "definitions": {
@@ -1215,6 +1367,33 @@
         "name"
       ]
     },
+    "Advantage": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "welcome--390"
+        },
+        "title": {
+          "type": "string",
+          "example": "Korting op theaterticket."
+        },
+        "points": {
+          "type": "integer",
+          "format": "int32",
+          "example": 5
+        },
+        "exchangeable": {
+          "type": "boolean",
+          "example": true
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "points",
+        "exchangeable"
+      ]
+    },
     "postObjectWithCounterId": {
       "properties": {
         "id": {
@@ -1333,6 +1512,17 @@
           "example": "31413BDF-DFC7-7A9F-10403618C2816E44"
         }
       }
+    },
+    "postObjectWithAdvantageId": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "points-promotion--2"
+        }
+      },
+      "required": [
+        "id"
+      ]
     }
   }
 }

@@ -55,4 +55,9 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\Counter\CounterControllerProvider(
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\PassHolder\PassHolderControllerProvider());
 
+/**
+ * API callbacks for Advantages.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\Advantage\AdvantageControllerProvider());
+
 $app->run();
