@@ -1,14 +1,14 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity;
+namespace CultuurNet\UiTPASBeheer\Activity\CultureFeedUiTPAS;
 
-use CultureFeed_Uitpas_Event_CultureEvent;
 use CultureFeed_ResultSet;
-use CultuurNet\Auth\ConsumerCredentials;
-use CultuurNet\Search\Guzzle\Service;
+use CultureFeed_Uitpas_Event_CultureEvent;
+use CultuurNet\Search\SearchResult;
+use CultuurNet\Search\ServiceInterface;
+use CultuurNet\UiTPASBeheer\Activity\Activity;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
-use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class ActivityServiceTest extends \PHPUnit_Framework_TestCase
@@ -26,7 +26,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
     protected $service;
 
     /**
-     * @var \CultuurNet\Search\Guzzle\Service
+     * @var \CultuurNet\Search\ServiceInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $searchService;
 
@@ -37,14 +37,11 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-
         $this->uitpas = $this->getMock(\CultureFeed_Uitpas::class);
         $this->counterConsumerKey = new CounterConsumerKey('key');
-        $arguments = array(' http://acc.uitid.be/uitid/rest/searchv2/', $this->getMock(ConsumerCredentials::class));
-        $this->searchService = $this->getMock(Service::class, null, $arguments);
+        $this->searchService = $this->getMock(ServiceInterface::class);
 
         $this->service = new ActivityService($this->uitpas, $this->counterConsumerKey, $this->searchService);
-
     }
 
     /**
@@ -66,29 +63,41 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
             $event_b,
         );
 
+        $searchEventOptions = new \CultureFeed_Uitpas_Event_Query_SearchEventsOptions();
+        $searchEventOptions->q = 'foo';
+
+        $searchEventOptionsForCounter = clone $searchEventOptions;
+        $searchEventOptionsForCounter->balieConsumerKey = $this->counterConsumerKey->toNative();
+
         $this->uitpas->expects($this->once())
             ->method('searchEvents')
+            ->with($searchEventOptionsForCounter)
             ->willReturn($result_set);
 
-        $date = DateType::fromNative('today');
-        $limit = new Integer(10);
-        $query = null;
-        $page = null;
+        $query = $this->getMock(SearchOptionsBuilderInterface::class);
+        $query->expects($this->once())
+            ->method('build')
+            ->willReturn($searchEventOptions);
 
-        $actual = $this->service->search($date, $limit, $query, $page);
+        $emptySearchResult = new SearchResult();
+        $this->searchService->expects($this->atLeastOnce())
+            ->method('search')
+            ->willReturn($emptySearchResult);
+
+        $actual = $this->service->search($query);
 
         $expected = array(
             new Activity(
                 new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
                 new StringLiteral('test event 1'),
-                new StringLiteral('test event 1 description'),
-                new StringLiteral('test event 1 date')
+                new StringLiteral(''),
+                new StringLiteral('')
             ),
             new Activity(
                 new StringLiteral('ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj'),
                 new StringLiteral('test event 2'),
-                new StringLiteral('test event 2 description'),
-                new StringLiteral('test event 2 date')
+                new StringLiteral(''),
+                new StringLiteral('')
             ),
         );
 

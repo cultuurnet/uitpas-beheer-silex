@@ -58,4 +58,15 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->description, $this->activity->getDescription());
         $this->assertEquals($this->date, $this->activity->getDate());
     }
+
+    /**
+     * @test
+     */
+    public function it_can_be_json_encoded()
+    {
+        $this->assertJsonEquals(
+            json_encode($this->activity),
+            'Activity/data/activity.json'
+        );
+    }
 }

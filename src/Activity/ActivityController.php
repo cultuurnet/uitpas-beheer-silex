@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity;
 
-use CultuurNet\UiTPASBeheer\Exception\MissingParameterException;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use ValueObjects\Number\Integer;
@@ -15,51 +15,61 @@ class ActivityController
      */
     protected $passHolderService;
 
-    public function __construct(ActivityServiceInterface $activityService)
-    {
+    /**
+     * @var QueryInterface
+     */
+    protected $queryBuilder;
+
+    public function __construct(
+        ActivityServiceInterface $activityService,
+        QueryInterface $queryBuilder
+    ) {
         $this->activityService = $activityService;
+        $this->queryBuilder = $queryBuilder;
     }
 
     /**
      * @param Request $request
      * @return JsonResponse
-     * @throws MissingParameterException
      * @throws DateTypeInvalidException
      */
     public function search(Request $request)
     {
-        // Validate date type.
-        $date_type = null;
-        if (!$request->query->has('date_type')) {
-            throw new MissingParameterException('date_type');
-        }
-        try {
-            $date_type = DateType::fromNative($request->query->get('date_type'));
-        } catch (\InvalidArgumentException $e) {
-            throw new DateTypeInvalidException($request->query->get('date_type'));
+        $searchActivities = $this->queryBuilder;
+
+        $dateType = $request->query->get('date_type');
+        if ($dateType) {
+            try {
+                $searchActivities = $searchActivities->withDateType(
+                    DateType::fromNative($dateType)
+                );
+            } catch (\InvalidArgumentException $e) {
+                throw new DateTypeInvalidException($dateType);
+            }
         }
 
-        // Validate limit.
-        $limit = $request->query->get('limit');
-        if (empty($limit)) {
-            throw new MissingParameterException('limit');
-        }
-        $limit = new Integer((int) $limit);
+        $page = $request->query->getInt('page', 1);
+        $limit = $request->query->getInt('limit', 5);
+        $searchActivities = $searchActivities->withPagination(
+            new Integer($page),
+            new Integer($limit)
+        );
 
-        // Get query value or set default.
-        $query = null;
-        if ($request->query->has('query')) {
-            $query = new StringLiteral((string) $request->query->get('query'));
-        }
-
-        // Get page value or set default.
-        $page = null;
-        if ($request->query->has('page')) {
-            $page = new Integer((int) $request->query->get('page'));
+        $query = $request->query->get('query');
+        if ($query) {
+            $searchActivities = $searchActivities->withQuery(
+                new StringLiteral($query)
+            );
         }
 
-        // Get the events and return them.
-        $events = $this->activityService->search($date_type, $limit, $query, $page);
+        $uiTPASNumber = $request->query->get('uitpas_number');
+        if ($uiTPASNumber) {
+            $searchActivities = $searchActivities->withUiTPASNumber(
+                new UiTPASNumber($uiTPASNumber)
+            );
+        }
+
+        $events = $this->activityService->search($searchActivities);
 
         return JsonResponse::create()
           ->setData($events)

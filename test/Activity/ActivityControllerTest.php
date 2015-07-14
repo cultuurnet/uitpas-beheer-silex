@@ -2,8 +2,9 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity;
 
-use CultuurNet\UiTPASBeheer\Exception\MissingParameterException;
+use CultuurNet\UiTPASBeheer\Activity\CultureFeedUiTPAS\SimpleQuery;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\Request;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
@@ -18,22 +19,98 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
     protected $service;
 
     /**
+     * @var QueryInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $query;
+
+    /**
      * @var ActivityController
      */
     protected $controller;
 
+    /**
+     * @inheritdoc
+     */
     public function setUp()
     {
         $this->service = $this->getMock(ActivityServiceInterface::class);
-        $this->controller = new ActivityController($this->service);
+        $this->query = new SimpleQuery();
+        $this->controller = new ActivityController(
+            $this->service,
+            $this->query
+        );
+    }
+
+    /**
+     *
+     */
+    public function requestsAndCorrespondingQuery()
+    {
+        // No request parameters.
+        $items[] = [
+            [],
+            (new SimpleQuery())
+                ->withPagination(new Integer(1), new Integer(5))
+        ];
+
+        // All possible request parameters.
+        $items[] = [
+            [
+                'date_type' => 'today',
+                'limit' => 10,
+                'query' => 'foo',
+                'page' => 2,
+                'uitpas_number' => '0930000467512',
+            ],
+            (new SimpleQuery())
+                ->withDateType(DateType::TODAY())
+                ->withPagination(new Integer(2), new Integer(10))
+                ->withQuery(new StringLiteral('foo'))
+                ->withUiTPASNumber(new UiTPASNumber('0930000467512'))
+        ];
+
+        $items[] = [
+            [
+                'date_type' => 'next_12_months',
+                'limit' => 20,
+                'query' => 'bar',
+                'page' => 3,
+                'uitpas_number' => '0930000208908',
+            ],
+            (new SimpleQuery())
+                ->withDateType(DateType::NEXT_12_MONTHS())
+                ->withPagination(new Integer(3), new Integer(20))
+                ->withQuery(new StringLiteral('bar'))
+                ->withUiTPASNumber(new UiTPASNumber('0930000208908'))
+
+        ];
+
+        return $items;
+    }
+
+    /**
+     * @test
+     * @dataProvider requestsAndCorrespondingQuery
+     */
+    public function it_builds_a_query_from_request_parameters_and_passes_it_to_search(
+        array $request,
+        SimpleQuery $expectedQuery
+    ) {
+        $request = new Request($request);
+
+        $this->service->expects($this->once())
+            ->method('search')
+            ->with($this->equalTo($expectedQuery));
+
+        $this->controller->search($request);
     }
 
     /**
      * @test
      */
-    public function it_responds_with_a_list_of_activities_on_search()
+    public function it_responds_with_the_json_encoded_activities_returned_by_search()
     {
-        $activities = array(
+        $activities = [
             new Activity(
                 new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
                 new StringLiteral('test event 1'),
@@ -46,42 +123,17 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 new StringLiteral('test event 2 description'),
                 new StringLiteral('test event 2 date')
             ),
-        );
-
-        $dateType = DateType::fromNative('today');
-        $limit = new Integer(10);
-        $query = new StringLiteral('foo');
-        $page = new Integer(2);
+        ];
 
         $this->service
           ->expects($this->once())
           ->method('search')
-          ->with($dateType, $limit, $query, $page)
           ->willReturn($activities);
 
-        $request = new Request([
-            'date_type' => 'today',
-            'limit' => 10,
-            'query' => 'foo',
-            'page' => 2,
-        ]);
-        $response = $this->controller->search($request);
+        $response = $this->controller->search(new Request());
         $content = $response->getContent();
 
         $this->assertJsonEquals($content, 'Activity/data/activities.json');
-    }
-
-    /**
-     * @test
-     */
-    public function it_throws_an_exception_when_date_type_parameter_is_missing()
-    {
-        $request = new Request(['limit' => 10]);
-        $this->setExpectedException(
-            MissingParameterException::class,
-            'Missing parameter "date_type".'
-        );
-        $this->controller->search($request);
     }
 
     /**
@@ -93,19 +145,6 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(
             DateTypeInvalidException::class,
             'Invalid date type "yesterday".'
-        );
-        $this->controller->search($request);
-    }
-
-    /**
-     * @test
-     */
-    public function it_throws_an_exception_when_limit_parameter_is_missing()
-    {
-        $request = new Request(['date_type' => 'today']);
-        $this->setExpectedException(
-            MissingParameterException::class,
-            'Missing parameter "limit".'
         );
         $this->controller->search($request);
     }
