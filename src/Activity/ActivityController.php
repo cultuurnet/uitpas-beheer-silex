@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity;
 
+use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,37 +38,49 @@ class ActivityController
     {
         $searchActivities = $this->queryBuilder;
 
-        $dateType = $request->query->get('date_type');
-        if ($dateType) {
-            try {
-                $searchActivities = $searchActivities->withDateType(
-                    DateType::fromNative($dateType)
-                );
-            } catch (\InvalidArgumentException $e) {
-                throw new DateTypeInvalidException($dateType);
+        foreach ($request->query->all() as $parameter => $value) {
+            switch ($parameter) {
+                case 'date_type':
+                    try {
+                        $searchActivities = $searchActivities->withDateType(
+                            DateType::fromNative($value)
+                        );
+                    } catch (\InvalidArgumentException $e) {
+                        throw new DateTypeInvalidException($value);
+                    };
+                    break;
+
+                case 'query':
+                    $searchActivities = $searchActivities->withQuery(
+                        new StringLiteral($value)
+                    );
+                    break;
+
+                case 'uitpas_number':
+                    $searchActivities = $searchActivities->withUiTPASNumber(
+                        new UiTPASNumber($value)
+                    );
+                    break;
+
+                case 'page':
+                case 'limit':
+                    // These are valid but we ignore them for now, we need them
+                    // both in 1 method call.
+                    break;
+
+                default:
+                    throw new UnknownParameterException($parameter);
+
             }
         }
 
+        // Handle both page and limit parameters together.
         $page = $request->query->getInt('page', 1);
         $limit = $request->query->getInt('limit', 5);
         $searchActivities = $searchActivities->withPagination(
             new Integer($page),
             new Integer($limit)
         );
-
-        $query = $request->query->get('query');
-        if ($query) {
-            $searchActivities = $searchActivities->withQuery(
-                new StringLiteral($query)
-            );
-        }
-
-        $uiTPASNumber = $request->query->get('uitpas_number');
-        if ($uiTPASNumber) {
-            $searchActivities = $searchActivities->withUiTPASNumber(
-                new UiTPASNumber($uiTPASNumber)
-            );
-        }
 
         $events = $this->activityService->search($searchActivities);
 

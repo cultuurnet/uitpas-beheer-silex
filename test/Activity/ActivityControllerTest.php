@@ -3,6 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\Activity;
 
 use CultuurNet\UiTPASBeheer\Activity\CultureFeedUiTPAS\SimpleQuery;
+use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\Request;
@@ -134,6 +135,19 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
         $content = $response->getContent();
 
         $this->assertJsonEquals($content, 'Activity/data/activities.json');
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_on_an_unknown_request_parameter()
+    {
+        $request = new Request(['foo' => 'bar']);
+        $this->setExpectedException(
+            UnknownParameterException::class,
+            'Unknown parameter "foo"'
+        );
+        $this->controller->search($request);
     }
 
     /**
