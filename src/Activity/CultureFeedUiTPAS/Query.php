@@ -34,11 +34,11 @@ class Query extends SimpleQuery implements SearchOptionsBuilderInterface
 
         if ($this->dateType) {
             if ($this->dateType->is(DateType::PAST())) {
-                $options->dateType = null;
+                $options->datetype = null;
                 $options->endDate = $this->getPastEndDate()->getTimestamp();
                 $options->startDate = $this->getPastStartDate()->getTimeStamp();
             } else {
-                $options->dateType = str_replace('_', '', $this->dateType->toNative());
+                $options->datetype = str_replace('_', '', $this->dateType->toNative());
                 $options->endDate = null;
             }
         }
