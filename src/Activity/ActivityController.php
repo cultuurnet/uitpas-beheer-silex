@@ -2,10 +2,13 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity;
 
+use CultuurNet\Hydra\PagedCollection;
+use CultuurNet\Hydra\Symfony\PageUrlGenerator;
 use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -21,12 +24,19 @@ class ActivityController
      */
     protected $queryBuilder;
 
+    /**
+     * @var UrlGeneratorInterface
+     */
+    protected $urlGenerator;
+
     public function __construct(
         ActivityServiceInterface $activityService,
-        QueryInterface $queryBuilder
+        QueryInterface $queryBuilder,
+        UrlGeneratorInterface $urlGenerator
     ) {
         $this->activityService = $activityService;
         $this->queryBuilder = $queryBuilder;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -82,10 +92,23 @@ class ActivityController
             new Integer($limit)
         );
 
-        $events = $this->activityService->search($searchActivities);
+        $activityResultSet = $this->activityService->search($searchActivities);
 
-        return JsonResponse::create()
-          ->setData($events)
+        $pageUrlGenerator = new PageUrlGenerator(
+            $request->query,
+            $this->urlGenerator,
+            $request->attributes->get('_route')
+        );
+
+        $pagedCollection = new PagedCollection(
+            $page,
+            $limit,
+            $activityResultSet->getActivities(),
+            $activityResultSet->getTotal()->toNative(),
+            $pageUrlGenerator
+        );
+
+        return JsonResponse::create($pagedCollection)
           ->setPrivate();
     }
 }

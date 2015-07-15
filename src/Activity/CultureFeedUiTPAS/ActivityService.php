@@ -10,8 +10,10 @@ use CultuurNet\Search\Parameter\Query;
 use CultuurNet\Search\ServiceInterface;
 use CultuurNet\UiTPASBeheer\Activity\Activity;
 use CultuurNet\UiTPASBeheer\Activity\ActivityServiceInterface;
+use CultuurNet\UiTPASBeheer\Activity\PagedResultSet;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
+use ValueObjects\Number\Integer;
 
 class ActivityService extends CounterAwareUitpasService implements ActivityServiceInterface
 {
@@ -44,7 +46,12 @@ class ActivityService extends CounterAwareUitpasService implements ActivityServi
 
         $result = $this->getUitpasService()->searchEvents($searchOptions);
 
-        return $this->combineWithFullEventData($result);
+        $activities = $this->combineWithFullEventData($result);
+
+        return new PagedResultSet(
+            new Integer($result->total),
+            $activities
+        );
     }
 
     /**

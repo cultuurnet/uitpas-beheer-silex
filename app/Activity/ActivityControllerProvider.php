@@ -17,7 +17,8 @@ class ActivityControllerProvider implements ControllerProviderInterface
         $app['activity_controller'] = $app->share(function (Application $app) {
             return new ActivityController(
                 $app['activity_service'],
-                $app['activity_query']
+                $app['activity_query'],
+                $app['url_generator']
             );
         });
 

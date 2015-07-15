@@ -7,7 +7,7 @@ interface ActivityServiceInterface
     /**
      * @param mixed $query
      *
-     * @return Activity[]
+     * @return PagedResultSet
      */
     public function search($query);
 }

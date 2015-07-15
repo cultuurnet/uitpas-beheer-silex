@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8f0b2b6297db597ae44be802a73d6fcf",
+    "hash": "f75a8987a872f3bc186dc050efe3b8e9",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -283,6 +283,44 @@
             ],
             "description": "Internet media type deserialization library",
             "time": "2015-07-02 15:48:32"
+        },
+        {
+            "name": "cultuurnet/hydra",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cultuurnet/Hydra.git",
+                "reference": "077a69ea2f1ce1fc13d917e538f56d72b6533602"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cultuurnet/Hydra/zipball/077a69ea2f1ce1fc13d917e538f56d72b6533602",
+                "reference": "077a69ea2f1ce1fc13d917e538f56d72b6533602",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CultuurNet\\Hydra\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Kristof Coomans",
+                    "email": "kristof@2dotstwice.be"
+                }
+            ],
+            "description": "PHP library implementing concepts of http://www.hydra-cg.com/",
+            "time": "2015-07-15 11:22:36"
         },
         {
             "name": "cultuurnet/search",

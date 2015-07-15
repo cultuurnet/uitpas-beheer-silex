@@ -7,8 +7,10 @@ use CultureFeed_Uitpas_Event_CultureEvent;
 use CultuurNet\Search\SearchResult;
 use CultuurNet\Search\ServiceInterface;
 use CultuurNet\UiTPASBeheer\Activity\Activity;
+use CultuurNet\UiTPASBeheer\Activity\PagedResultSet;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
+use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class ActivityServiceTest extends \PHPUnit_Framework_TestCase
@@ -57,7 +59,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $event_b->title = 'test event 2';
 
         $result_set = new \CultureFeed_ResultSet();
-        $result_set->total = 2;
+        $result_set->total = 20;
         $result_set->objects = array(
             $event_a,
             $event_b,
@@ -86,19 +88,22 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->service->search($query);
 
-        $expected = array(
-            new Activity(
-                new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
-                new StringLiteral('test event 1'),
-                new StringLiteral(''),
-                new StringLiteral('')
-            ),
-            new Activity(
-                new StringLiteral('ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj'),
-                new StringLiteral('test event 2'),
-                new StringLiteral(''),
-                new StringLiteral('')
-            ),
+        $expected = new PagedResultSet(
+            new Integer($result_set->total),
+            [
+                new Activity(
+                    new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
+                    new StringLiteral('test event 1'),
+                    new StringLiteral(''),
+                    new StringLiteral('')
+                ),
+                new Activity(
+                    new StringLiteral('ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj'),
+                    new StringLiteral('test event 2'),
+                    new StringLiteral(''),
+                    new StringLiteral('')
+                ),
+            ]
         );
 
         $this->assertEquals($expected, $actual);

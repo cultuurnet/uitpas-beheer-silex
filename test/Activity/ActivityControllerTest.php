@@ -7,6 +7,7 @@ use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -30,15 +31,22 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
     protected $controller;
 
     /**
+     * @var UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $urlGenerator;
+
+    /**
      * @inheritdoc
      */
     public function setUp()
     {
+        $this->urlGenerator = $this->getMock(UrlGeneratorInterface::class);
         $this->service = $this->getMock(ActivityServiceInterface::class);
         $this->query = new SimpleQuery();
         $this->controller = new ActivityController(
             $this->service,
-            $this->query
+            $this->query,
+            $this->urlGenerator
         );
     }
 
@@ -101,7 +109,8 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->service->expects($this->once())
             ->method('search')
-            ->with($this->equalTo($expectedQuery));
+            ->with($this->equalTo($expectedQuery))
+            ->willReturn(new PagedResultSet(new Integer(0), []));
 
         $this->controller->search($request);
     }
@@ -129,9 +138,29 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
         $this->service
           ->expects($this->once())
           ->method('search')
-          ->willReturn($activities);
+          ->willReturn(
+              new PagedResultSet(new Integer(10), $activities)
+          );
 
-        $response = $this->controller->search(new Request());
+        $routeName = 'route-used-for-activities';
+        $this->urlGenerator->expects($this->exactly(3))
+            ->method('generate')
+            ->withConsecutive(
+                [$routeName, ['page' => 1, 'date_type' => 'today']],
+                [$routeName, ['page' => 3, 'date_type' => 'today']],
+                [$routeName, ['page' => 2, 'date_type' => 'today']]
+            )
+            ->willReturnCallback(
+                function ($routeName, $arguments) {
+                    return 'http://example.com/activities?' . http_build_query($arguments);
+                }
+            );
+
+        $request = new Request();
+        $request->attributes->set('_route', $routeName);
+        $request->query->set('date_type', 'today');
+
+        $response = $this->controller->search($request);
         $content = $response->getContent();
 
         $this->assertJsonEquals($content, 'Activity/data/activities.json');
