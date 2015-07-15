@@ -18,6 +18,9 @@ $app['security.firewalls'] = array(
     'authentication' => array(
         'pattern' => '^/culturefeed/oauth',
     ),
+    'cors-preflight' => array(
+        'pattern' => $app['cors_preflight_request_matcher'],
+    ),
     'secured' => array(
         'pattern' => '^.*$',
         'uitid' => true,
