@@ -26,7 +26,8 @@ class ActivityServiceProvider implements ServiceProviderInterface
 
         $app['activity_query'] = $app->share(
             function (Application $app) {
-                return new Query($app['clock']);
+                $query = new Query($app['clock']);
+                return $query->withSort('permanent desc,availableto asc');
             }
         );
     }
