@@ -465,11 +465,58 @@
         "produces": [
           "application/json"
         ],
+        "parameters": [
+          {
+            "name": "uitpas_number",
+            "in": "query",
+            "description": "The uitpas number of the passholder.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Free search query.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "date_type",
+            "in": "query",
+            "description": "Date range filter.",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "",
+              "today",
+              "next_7_days",
+              "next_30_days",
+              "next_12_months",
+              "past"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of the result set to show. When omitted this defaults to 1 (the first page).",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "How many items should be listed per page. When omitted this defaults to 5.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
         "responses": {
           "200": {
             "description": "The information available about the activities.",
             "schema": {
-              "$ref": "#/definitions/Activity"
+              "$ref": "#/definitions/PagedActivityCollection"
             }
           },
           "403": {
@@ -1550,6 +1597,49 @@
       },
       "required": [
         "id"
+      ]
+    },
+    "PagedActivityCollection": {
+      "properties": {
+        "itemsPerPage": {
+          "type": "integer",
+          "format": "int32",
+          "example": 30
+        },
+        "totalItems": {
+          "type": "integer",
+          "format": "int32",
+          "example": 3562
+        },
+        "member": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Activity"
+          }
+        },
+        "firstPage": {
+          "type": "url",
+          "example": "http://culpas-silex.dev/activities?page=1"
+        },
+        "lastPage": {
+          "type": "url",
+          "example": "http://culpas-silex.dev/activities?page=118"
+        },
+        "previousPage": {
+          "type": "url",
+          "example": "http://culpas-silex.dev/activities?page=1"
+        },
+        "nextPage": {
+          "type": "url",
+          "example": "http://culpas-silex.dev/activities?page=3"
+        }
+      },
+      "required": [
+        "itemsPerPage",
+        "totalItems",
+        "member",
+        "firstPage",
+        "lastPage"
       ]
     },
     "Activity": {
