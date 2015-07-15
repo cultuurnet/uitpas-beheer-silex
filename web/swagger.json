@@ -457,7 +457,7 @@
         ]
       }
     },
-    "/activites": {
+    "/activities": {
       "get": {
         "summary": "Retrieves a list of activities.",
         "description": "Authentication is required.",
