@@ -108,4 +108,11 @@ $app->register(
     ['clock.timezone' => 'Europe/Brussels']
 );
 
+/**
+ * Bootstrap logging facilities (mostly decorating existing services).
+ */
+if ($app['config']['logging'] === true) {
+    require __DIR__ . '/bootstrap-logging.php';
+}
+
 return $app;

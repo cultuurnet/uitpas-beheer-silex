@@ -2,3 +2,4 @@ config.yml
 vendor
 build
 web/swagger
+/log
