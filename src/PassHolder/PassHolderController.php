@@ -80,6 +80,16 @@ class PassHolderController
         $properties = $request->request->all();
         foreach ($properties as $property => $value) {
             $passHolder->{$property} = $value;
+            if ($property == 'gender') {
+                switch ($value) {
+                    case 'FEMALE':
+                        $passHolder->{$property} = 'F';
+                        break;
+                    case 'MALE':
+                        $passHolder->{$property} = 'M';
+                        break;
+                }
+            }
         }
 
         try {
