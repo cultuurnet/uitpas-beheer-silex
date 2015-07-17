@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f75a8987a872f3bc186dc050efe3b8e9",
+    "hash": "7fe0d159c5539316104c5e9b4146fc62",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/Auth.git",
-                "reference": "40e95e60308386dd4d4ddf14fff6696206037ef3"
+                "reference": "e3ba0e080035ad3c55212cf592aaeedbbd851468"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/Auth/zipball/40e95e60308386dd4d4ddf14fff6696206037ef3",
-                "reference": "40e95e60308386dd4d4ddf14fff6696206037ef3",
+                "url": "https://api.github.com/repos/cultuurnet/Auth/zipball/e3ba0e080035ad3c55212cf592aaeedbbd851468",
+                "reference": "e3ba0e080035ad3c55212cf592aaeedbbd851468",
                 "shasum": ""
             },
             "require": {
@@ -51,7 +51,7 @@
                 "Apache-2.0"
             ],
             "description": "Authentication service for CultuurNet web services",
-            "time": "2015-06-30 15:52:03"
+            "time": "2015-07-17 09:39:56"
         },
         {
             "name": "cultuurnet/calendar-summary",
@@ -171,17 +171,67 @@
             "time": "2015-06-08 16:12:34"
         },
         {
+            "name": "cultuurnet/culturefeed-http-guzzle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cultuurnet/culturefeed-http-guzzle.git",
+                "reference": "1e7482bc63a3a93e5c879a2232a0930bfd4c4127"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-http-guzzle/zipball/1e7482bc63a3a93e5c879a2232a0930bfd4c4127",
+                "reference": "1e7482bc63a3a93e5c879a2232a0930bfd4c4127",
+                "shasum": ""
+            },
+            "require": {
+                "cultuurnet/culturefeed-php": "~1.5.2",
+                "guzzle/guzzle": "~3.9.3",
+                "guzzle/plugin-log": "~3.9.2",
+                "psr/log": "~1.0.0"
+            },
+            "require-dev": {
+                "phing/phing": "~2.11",
+                "phpunit/phpunit": "~4.7",
+                "satooshi/php-coveralls": "~0.7",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CultuurNet\\CulturefeedHttpGuzzle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Kristof Coomans",
+                    "email": "kristof@2dotstwice.be"
+                }
+            ],
+            "description": "Library with a Guzzle 3 replacement for the default, custom-made HTTP library of Culturefeed",
+            "time": "2015-07-17 07:49:54"
+        },
+        {
             "name": "cultuurnet/culturefeed-php",
             "version": "dev-feature/UBR",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "cb5ca0642d7cf5823889a8970e2df37d7ba60f5f"
+                "reference": "bee6968346ce4212e6e6c774349c0cc58f133103"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/cb5ca0642d7cf5823889a8970e2df37d7ba60f5f",
-                "reference": "cb5ca0642d7cf5823889a8970e2df37d7ba60f5f",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/bee6968346ce4212e6e6c774349c0cc58f133103",
+                "reference": "bee6968346ce4212e6e6c774349c0cc58f133103",
                 "shasum": ""
             },
             "require": {
@@ -235,7 +285,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-07-01 08:44:54"
+            "time": "2015-07-16 17:27:10"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -290,12 +340,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/Hydra.git",
-                "reference": "077a69ea2f1ce1fc13d917e538f56d72b6533602"
+                "reference": "9b841adab7ddbade97161b2444150c1b9cf4e427"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/Hydra/zipball/077a69ea2f1ce1fc13d917e538f56d72b6533602",
-                "reference": "077a69ea2f1ce1fc13d917e538f56d72b6533602",
+                "url": "https://api.github.com/repos/cultuurnet/Hydra/zipball/9b841adab7ddbade97161b2444150c1b9cf4e427",
+                "reference": "9b841adab7ddbade97161b2444150c1b9cf4e427",
                 "shasum": ""
             },
             "type": "library",
@@ -320,7 +370,7 @@
                 }
             ],
             "description": "PHP library implementing concepts of http://www.hydra-cg.com/",
-            "time": "2015-07-15 11:22:36"
+            "time": "2015-07-15 12:16:58"
         },
         {
             "name": "cultuurnet/search",
@@ -3610,20 +3660,20 @@
         },
         {
             "name": "zendframework/zend-validator",
-            "version": "2.5.1",
+            "version": "2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-validator.git",
-                "reference": "f2c1a1fc786ff4533003cb7fac477495dc007120"
+                "reference": "6b1e4bb249a00603ebbf4023b4b42c867aa79336"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-validator/zipball/f2c1a1fc786ff4533003cb7fac477495dc007120",
-                "reference": "f2c1a1fc786ff4533003cb7fac477495dc007120",
+                "url": "https://api.github.com/repos/zendframework/zend-validator/zipball/6b1e4bb249a00603ebbf4023b4b42c867aa79336",
+                "reference": "6b1e4bb249a00603ebbf4023b4b42c867aa79336",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.23",
+                "php": ">=5.5",
                 "zendframework/zend-stdlib": "~2.5"
             },
             "require-dev": {
@@ -3644,8 +3694,8 @@
                 "zendframework/zend-db": "Zend\\Db component",
                 "zendframework/zend-filter": "Zend\\Filter component, required by the Digits validator",
                 "zendframework/zend-i18n": "Zend\\I18n component to allow translation of validation error messages as well as to use the various Date validators",
+                "zendframework/zend-i18n-resources": "Translations of validator messages",
                 "zendframework/zend-math": "Zend\\Math component",
-                "zendframework/zend-resources": "Translations of validator messages",
                 "zendframework/zend-servicemanager": "Zend\\ServiceManager component to allow using the ValidatorPluginManager and validator chains",
                 "zendframework/zend-session": "Zend\\Session component",
                 "zendframework/zend-uri": "Zend\\Uri component, required by the Uri and Sitemap\\Loc validators"
@@ -3672,7 +3722,7 @@
                 "validator",
                 "zf2"
             ],
-            "time": "2015-06-03 15:32:03"
+            "time": "2015-07-16 19:29:35"
         }
     ],
     "packages-dev": [
@@ -4980,8 +5030,8 @@
     ],
     "aliases": [
         {
-            "alias": "1.5",
-            "alias_normalized": "1.5.0.0",
+            "alias": "1.5.2",
+            "alias_normalized": "1.5.2.0",
             "version": "dev-feature/UBR",
             "package": "cultuurnet/culturefeed-php"
         },

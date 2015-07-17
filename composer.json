@@ -4,10 +4,11 @@
   "license": "GPL-3.0",
   "require": {
     "cultuurnet/silex-uitid-provider": "dev-master",
-    "cultuurnet/culturefeed-php": "dev-feature/UBR as 1.5",
+    "cultuurnet/culturefeed-php": "dev-feature/UBR as 1.5.2",
     "cultuurnet/search": "~1.2",
     "cultuurnet/calendar-summary": "dev-feature/UBR-66 as 1.0",
     "cultuurnet/deserializer": "1.x-dev",
+    "cultuurnet/culturefeed-http-guzzle": "~0.1",
     "deralex/yaml-config-service-provider": "~1.0",
     "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
     "jdesrosiers/silex-cors-provider": "~0.1",
