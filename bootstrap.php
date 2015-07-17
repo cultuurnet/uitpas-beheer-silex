@@ -109,10 +109,12 @@ $app->register(
 );
 
 /**
- * Bootstrap logging facilities (mostly decorating existing services).
+ * Load additional bootstrap files.
  */
-if ($app['config']['logging'] === true) {
-    require __DIR__ . '/bootstrap-logging.php';
+foreach ($app['config']['bootstrap'] as $identifier => $enabled) {
+    if (true === $enabled) {
+        require __DIR__ . "/bootstrap-{$identifier}.php";
+    }
 }
 
 return $app;
