@@ -28,7 +28,7 @@ $app['third_party_api_logger_factory'] = $app->protect(
 $app['cultuurnet_search'] = $app->share(
     $app->extend(
         'cultuurnet_search',
-        function(\CultuurNet\Search\Guzzle\Service $service, \Silex\Application $app) {
+        function (\CultuurNet\Search\Guzzle\Service $service, \Silex\Application $app) {
             /** @var \Psr\Log\LoggerInterface $logger */
             $logger = $app['third_party_api_logger_factory']('cultuurnet_search');
 
@@ -47,7 +47,7 @@ $app['cultuurnet_search'] = $app->share(
 $app['uitid_auth_service'] = $app->share(
     $app->extend(
         'uitid_auth_service',
-        function(\CultuurNet\Auth\Guzzle\Service $service, \Silex\Application $app) {
+        function (\CultuurNet\Auth\Guzzle\Service $service, \Silex\Application $app) {
             /** @var \Psr\Log\LoggerInterface $logger */
             $logger = $app['third_party_api_logger_factory']('cultuurnet_auth');
 
