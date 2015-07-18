@@ -75,8 +75,7 @@ class Activity implements \JsonSerializable
                 $date = new StringLiteral(
                     (string)$formatter->format($calendar, 'xs')
                 );
-            }
-            catch (FormatterException $e) {
+            } catch (FormatterException $e) {
                 // Format not supported for the calendar type, for example for a
                 // CultureFeed_Cdb_Data_Calendar_TimestampList. Leave date empty
                 // in this case.
