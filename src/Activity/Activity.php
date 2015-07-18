@@ -5,6 +5,7 @@ namespace CultuurNet\UiTPASBeheer\Activity;
 use CultureFeed_Uitpas_Event_CultureEvent;
 use CultureFeed_Cdb_Item_Event;
 use CultuurNet\CalendarSummary\CalendarPlainTextFormatter;
+use CultuurNet\CalendarSummary\FormatterException;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class Activity implements \JsonSerializable
@@ -69,7 +70,18 @@ class Activity implements \JsonSerializable
             // Calendar.
             $calendar = $cdbEvent->getCalendar();
             $formatter = new CalendarPlainTextFormatter();
-            $date = new StringLiteral((string) $formatter->format($calendar, 'xs'));
+
+            try {
+                $date = new StringLiteral(
+                    (string)$formatter->format($calendar, 'xs')
+                );
+            }
+            catch (FormatterException $e) {
+                // Format not supported for the calendar type, for example for a
+                // CultureFeed_Cdb_Data_Calendar_TimestampList. Leave date empty
+                // in this case.
+                $date = new StringLiteral('');
+            }
         }
 
         return new static(
