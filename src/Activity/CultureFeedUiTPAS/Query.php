@@ -70,7 +70,10 @@ class Query extends SimpleQuery implements SearchOptionsBuilderInterface
     private function getPastStartDate()
     {
         $now = $this->clock->getDateTime();
-        $date = new \DateTime('@' . $now->getTimestamp(), $now->getTimezone());
+        $date = \DateTime::createFromFormat(
+            \DateTime::W3C,
+            $now->format(\DateTime::W3C)
+        );
         $date->modify('-366 day');
         $date->setTime(0, 0, 0);
 
@@ -83,7 +86,12 @@ class Query extends SimpleQuery implements SearchOptionsBuilderInterface
     private function getPastEndDate()
     {
         $now = $this->clock->getDateTime();
-        $date = new \DateTime('@' . $now->getTimestamp(), $now->getTimezone());
+
+        $date = \DateTime::createFromFormat(
+            \DateTime::W3C,
+            $now->format(\DateTime::W3C)
+        );
+
         $date->modify('-1 day');
         $date->setTime(23, 59, 59);
 
