@@ -2,7 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity;
 
-use CultuurNet\UiTPASBeheer\Activity\CultureFeedUiTPAS\SimpleQuery;
 use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;

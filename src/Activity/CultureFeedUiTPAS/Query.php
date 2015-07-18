@@ -8,6 +8,7 @@ namespace CultuurNet\UiTPASBeheer\Activity\CultureFeedUiTPAS;
 use CultureFeed_Uitpas_Event_Query_SearchEventsOptions;
 use CultuurNet\Clock\Clock;
 use CultuurNet\UiTPASBeheer\Activity\DateType;
+use CultuurNet\UiTPASBeheer\Activity\SimpleQuery;
 use ValueObjects\Number\Integer;
 
 class Query extends SimpleQuery implements SearchOptionsBuilderInterface

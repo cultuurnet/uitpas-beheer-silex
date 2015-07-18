@@ -3,10 +3,8 @@
  * @file
  */
 
-namespace CultuurNet\UiTPASBeheer\Activity\CultureFeedUiTPAS;
+namespace CultuurNet\UiTPASBeheer\Activity;
 
-use CultuurNet\UiTPASBeheer\Activity\DateType;
-use CultuurNet\UiTPASBeheer\Activity\QueryInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
