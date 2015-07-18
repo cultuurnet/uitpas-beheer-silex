@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7fe0d159c5539316104c5e9b4146fc62",
+    "hash": "342061fe6a7094e255f9b1487a173986",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -222,16 +222,16 @@
         },
         {
             "name": "cultuurnet/culturefeed-php",
-            "version": "dev-feature/UBR",
+            "version": "dev-feature/UBR-66",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "bee6968346ce4212e6e6c774349c0cc58f133103"
+                "reference": "f0c0d431c19a970ea936348635791a596bb6f2cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/bee6968346ce4212e6e6c774349c0cc58f133103",
-                "reference": "bee6968346ce4212e6e6c774349c0cc58f133103",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/f0c0d431c19a970ea936348635791a596bb6f2cf",
+                "reference": "f0c0d431c19a970ea936348635791a596bb6f2cf",
                 "shasum": ""
             },
             "require": {
@@ -285,7 +285,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-07-16 17:27:10"
+            "time": "2015-07-16 18:27:22"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -5032,7 +5032,7 @@
         {
             "alias": "1.5.2",
             "alias_normalized": "1.5.2.0",
-            "version": "dev-feature/UBR",
+            "version": "dev-feature/UBR-66",
             "package": "cultuurnet/culturefeed-php"
         },
         {
