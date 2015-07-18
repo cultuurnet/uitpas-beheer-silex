@@ -107,6 +107,7 @@ class ActivityService extends CounterAwareUitpasService implements ActivityServi
 
         $parameters = [
             new BooleanParameter('past', true),
+            new BooleanParameter('unavailable', true),
             new Group(),
             new Query('cdbid:"' . $id . '"')
         ];
