@@ -90,6 +90,9 @@ class PassHolderController
                         break;
                 }
             }
+            else if ($property == 'dateOfBirth') {
+                $passHolder->{$property} = strtotime($value);
+            }
         }
 
         try {
