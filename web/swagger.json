@@ -1651,6 +1651,14 @@
         "title": {
           "type": "string",
           "example": "Fun family time"
+        },
+        "description": {
+          "type": "string",
+          "example": "Dit is een testevent dat tijdens de periode 1 september tot en met 31 oktober 2015 zal plaatsvinden. Dit event gaat betalend zijn"
+        },
+        "when": {
+          "type": "string",
+          "example": "vanaf 1/9"
         }
       },
       "required": [

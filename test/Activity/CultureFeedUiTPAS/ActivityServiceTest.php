@@ -93,15 +93,11 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
             [
                 new Activity(
                     new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
-                    new StringLiteral('test event 1'),
-                    new StringLiteral(''),
-                    new StringLiteral('')
+                    new StringLiteral('test event 1')
                 ),
                 new Activity(
                     new StringLiteral('ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj'),
-                    new StringLiteral('test event 2'),
-                    new StringLiteral(''),
-                    new StringLiteral('')
+                    new StringLiteral('test event 2')
                 ),
             ]
         );

@@ -12,8 +12,10 @@ class Activity implements \JsonSerializable
 {
     /**
      * @var StringLiteral
+     *
+     * Textual indication of when the activity is occurring.
      */
-    protected $date;
+    protected $when;
 
     /**
      * @var StringLiteral
@@ -33,19 +35,19 @@ class Activity implements \JsonSerializable
     /**
      * @param StringLiteral $id
      * @param StringLiteral $title
-     * @param StringLiteral $description
-     * @param StringLiteral $date
+     * @param StringLiteral|null $description
+     * @param StringLiteral|null $when
      */
     public function __construct(
         StringLiteral $id,
         StringLiteral $title,
-        StringLiteral $description,
-        StringLiteral $date
+        StringLiteral $description = null,
+        StringLiteral $when = null
     ) {
         $this->id = $id;
         $this->title = $title;
-        $this->description = $description;
-        $this->date = $date;
+        $this->description = $description ?: new StringLiteral('');
+        $this->when = $when ?: new StringLiteral('');
     }
 
     /**
@@ -59,8 +61,6 @@ class Activity implements \JsonSerializable
     ) {
         $id = new StringLiteral((string) $uitpasEvent->cdbid);
         $title = new StringLiteral((string) $uitpasEvent->title);
-        $description = new StringLiteral('');
-        $date = new StringLiteral('');
 
         if ($cdbEvent) {
             // Description.
@@ -81,22 +81,24 @@ class Activity implements \JsonSerializable
                 // in this case.
                 $date = new StringLiteral('');
             }
+
+            return new static(
+                $id,
+                $title,
+                $description,
+                $date
+            );
         }
 
-        return new static(
-            $id,
-            $title,
-            $description,
-            $date
-        );
+        return new static($id, $title);
     }
 
     /**
      * @return StringLiteral
      */
-    public function getDate()
+    public function getWhen()
     {
-        return $this->date;
+        return $this->when;
     }
 
     /**
@@ -132,7 +134,7 @@ class Activity implements \JsonSerializable
             'id' => $this->id->toNative(),
             'title' => $this->title->toNative(),
             'description' => $this->description->toNative(),
-            'date' => $this->date->toNative(),
+            'when' => $this->when->toNative(),
         ];
     }
 }

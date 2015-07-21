@@ -17,7 +17,7 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
     /**
      * @var StringLiteral
      */
-    protected $date;
+    protected $when;
 
     /**
      * @var StringLiteral
@@ -39,12 +39,12 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->id = new StringLiteral('10');
         $this->title = new StringLiteral('Some title');
         $this->description = new StringLiteral('Some description');
-        $this->date = new StringLiteral('yesterday');
+        $this->when = new StringLiteral('yesterday');
         $this->activity = new Activity(
             $this->id,
             $this->title,
             $this->description,
-            $this->date
+            $this->when
         );
     }
 
@@ -56,7 +56,7 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->id, $this->activity->getId());
         $this->assertEquals($this->title, $this->activity->getTitle());
         $this->assertEquals($this->description, $this->activity->getDescription());
-        $this->assertEquals($this->date, $this->activity->getDate());
+        $this->assertEquals($this->when, $this->activity->getWhen());
     }
 
     /**
