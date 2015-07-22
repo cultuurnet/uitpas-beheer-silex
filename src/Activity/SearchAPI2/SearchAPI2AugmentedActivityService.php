@@ -85,6 +85,10 @@ class SearchAPI2AugmentedActivityService implements ActivityServiceInterface
         return $augmentedResultSet;
     }
 
+    /**
+     * @param Activity $activity
+     * @return Activity
+     */
     private function augmentActivity(Activity $activity)
     {
         $cdbEvent = $this->getCdbEvent($activity);
