@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9be3334ec843e9fc2d85e158e8a65a40",
+    "hash": "a8b67b6c680a1bd4b6bf573810aa6b45",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -3782,16 +3782,16 @@
         },
         {
             "name": "escapestudios/symfony2-coding-standard",
-            "version": "2.6.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/escapestudios/Symfony2-coding-standard.git",
-                "reference": "d4e4794d5cbdfb8945f456d96c4ab133a7f807f6"
+                "url": "https://github.com/2dotstwice/Symfony2-coding-standard.git",
+                "reference": "fa168083ada98e993e61565012c3d4ec9b9d8cf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/escapestudios/Symfony2-coding-standard/zipball/d4e4794d5cbdfb8945f456d96c4ab133a7f807f6",
-                "reference": "d4e4794d5cbdfb8945f456d96c4ab133a7f807f6",
+                "url": "https://api.github.com/repos/2dotstwice/Symfony2-coding-standard/zipball/fa168083ada98e993e61565012c3d4ec9b9d8cf5",
+                "reference": "fa168083ada98e993e61565012c3d4ec9b9d8cf5",
                 "shasum": ""
             },
             "require": {
@@ -3803,7 +3803,6 @@
                     "dev-master": "2.x-dev"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -3820,11 +3819,15 @@
             "description": "CodeSniffer ruleset for the Symfony2 coding standard",
             "homepage": "https://github.com/escapestudios/Symfony2-coding-standard",
             "keywords": [
-                "Coding Standard",
                 "Symfony2",
+                "coding standard",
                 "phpcs"
             ],
-            "time": "2015-06-18 08:56:49"
+            "support": {
+                "source": "https://github.com/escapestudios/Symfony2-coding-standard",
+                "issues": "https://github.com/escapestudios/Symfony2-coding-standard/issues"
+            },
+            "time": "2015-07-22 15:24:34"
         },
         {
             "name": "phing/phing",
@@ -5080,13 +5083,20 @@
             "alias_normalized": "1.5.2.0",
             "version": "dev-feature/UBR",
             "package": "cultuurnet/culturefeed-php"
+        },
+        {
+            "alias": "2.0",
+            "alias_normalized": "2.0.0.0",
+            "version": "9999999-dev",
+            "package": "escapestudios/symfony2-coding-standard"
         }
     ],
     "minimum-stability": "dev",
     "stability-flags": {
         "cultuurnet/silex-uitid-provider": 20,
         "cultuurnet/culturefeed-php": 20,
-        "cultuurnet/deserializer": 20
+        "cultuurnet/deserializer": 20,
+        "escapestudios/symfony2-coding-standard": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

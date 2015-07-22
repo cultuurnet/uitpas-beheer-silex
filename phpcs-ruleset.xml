@@ -1,16 +1,19 @@
 <?xml version="1.0"?>
 <ruleset name="UiTPAS Beheer">
-    <rule ref="Symfony2" />
+    <rule ref="PSR2" />
 
-    <rule ref="Symfony2.Commenting.ClassComment">
+    <rule ref="Symfony2.Arrays.MultiLineArrayComma" />
+    <rule ref="Symfony2.Classes.PropertyDeclaration" />
+    <rule ref="Symfony2.Commenting.FunctionComment" />
+    <rule ref="Symfony2.Commenting.FunctionComment.Missing">
         <exclude-pattern>*</exclude-pattern>
     </rule>
-    <rule ref="Symfony2.Commenting.FunctionComment">
+    <rule ref="Symfony2.NamingConventions.ValidClassName" />
+    <rule ref="Symfony2.NamingConventions.ValidClassName.InvalidAbstractName">
         <exclude-pattern>*</exclude-pattern>
     </rule>
-    <rule ref="Symfony2.Formatting.BlankLineBeforeReturn">
-        <exclude-pattern>*</exclude-pattern>
-    </rule>
+    <rule ref="Symfony2.Objects.ObjectInstantiation" />
+    <rule ref="Symfony2.WhiteSpace.BinaryOperatorSpacing" />
 
     <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
         <exclude-pattern>*/test/*</exclude-pattern>
