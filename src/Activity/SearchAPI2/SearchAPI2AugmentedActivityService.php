@@ -65,7 +65,7 @@ class SearchAPI2AugmentedActivityService implements ActivityServiceInterface
     {
         $resultSet = $this->activityService->search($query);
 
-        $originalActivities = $resultSet->getActivities();
+        $originalActivities = $resultSet->getResults();
         $augmentedActivities = array_map(
             function (Activity $activity) {
                 try {

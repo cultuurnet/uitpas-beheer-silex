@@ -107,7 +107,7 @@ class ActivityController
         $pagedCollection = new PagedCollection(
             $page,
             $limit,
-            $activityResultSet->getActivities(),
+            $activityResultSet->getResults(),
             $activityResultSet->getTotal()->toNative(),
             $pageUrlGenerator
         );

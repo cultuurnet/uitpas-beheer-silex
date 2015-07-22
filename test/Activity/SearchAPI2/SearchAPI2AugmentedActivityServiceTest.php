@@ -101,7 +101,7 @@ class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
     {
         $query = (new SimpleQuery())->withQuery(new StringLiteral('foo'));
         $originalResultSet = $this->setUpDecoratedActivityService($query);
-        $activities = $originalResultSet->getActivities();
+        $activities = $originalResultSet->getResults();
 
         $emptySearchResult = new SearchResult();
         $this->searchService->expects($this->exactly(3))
@@ -144,7 +144,7 @@ class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
     {
         $query = (new SimpleQuery())->withQuery(new StringLiteral('foobar'));
         $originalResultSet = $this->setUpDecoratedActivityService($query);
-        $activities = $originalResultSet->getActivities();
+        $activities = $originalResultSet->getResults();
 
         $this->searchService->expects($this->any())
             ->method('search')
@@ -195,7 +195,7 @@ class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
     {
         $query = (new SimpleQuery())->withQuery(new StringLiteral('foobar'));
         $originalResultSet = $this->setUpDecoratedActivityService($query);
-        $activities = $originalResultSet->getActivities();
+        $activities = $originalResultSet->getResults();
 
         $this->searchService->expects($this->any())
             ->method('search')
