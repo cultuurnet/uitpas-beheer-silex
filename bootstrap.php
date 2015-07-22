@@ -48,19 +48,6 @@ $app->register(new \CultuurNet\UiTIDProvider\CultureFeed\CultureFeedServiceProvi
 ));
 
 /**
- * CultuurNet search.
- */
-$app['cultuurnet_search'] = $app->share(function ($app) {
-    return new \CultuurNet\Search\Guzzle\Service(
-        $app['config']['search']['base_url'],
-        new \CultuurNet\Auth\ConsumerCredentials(
-            $app['config']['uitid']['consumer']['key'],
-            $app['config']['uitid']['consumer']['secret']
-        )
-    );
-});
-
-/**
  * Url generator.
  */
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
@@ -76,9 +63,11 @@ $app->register(new CultuurNet\UiTIDProvider\Auth\AuthServiceProvider());
 $app->register(new CultuurNet\UiTIDProvider\User\UserServiceProvider());
 
 /**
- * UiTPAS service.
+ * CultuurNet services.
  */
-$app->register(new \CultuurNet\UiTPASBeheer\UiTPAS\UiTPASServiceProvider());
+$app->register(new \CultuurNet\UiTPASBeheer\CultuurNetServiceProvider(), array(
+    'cultuurnet.search.endpoint' => $app['config']['search']['base_url'],
+));
 
 /**
  * UiTPAS Counter service.
