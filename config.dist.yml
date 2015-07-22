@@ -6,3 +6,7 @@ uitid:
     key: ***
     secret: ***
   base_url: http://www.uitid.be/uitid/rest/
+search:
+  base_url: http://www.uitid.be/uitid/rest/searchv2
+bootstrap:
+  logging: false

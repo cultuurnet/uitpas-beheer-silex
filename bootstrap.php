@@ -63,9 +63,11 @@ $app->register(new CultuurNet\UiTIDProvider\Auth\AuthServiceProvider());
 $app->register(new CultuurNet\UiTIDProvider\User\UserServiceProvider());
 
 /**
- * UiTPAS service.
+ * CultuurNet services.
  */
-$app->register(new \CultuurNet\UiTPASBeheer\UiTPAS\UiTPASServiceProvider());
+$app->register(new \CultuurNet\UiTPASBeheer\CultuurNetServiceProvider(), array(
+    'cultuurnet.search.endpoint' => $app['config']['search']['base_url'],
+));
 
 /**
  * UiTPAS Counter service.
@@ -76,6 +78,11 @@ $app->register(new \CultuurNet\UiTPASBeheer\Counter\CounterServiceProvider());
  * UiTPAS PassHolder service.
  */
 $app->register(new \CultuurNet\UiTPASBeheer\PassHolder\PassHolderServiceProvider());
+
+/**
+ * UiTPAS Activity service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\Activity\ActivityServiceProvider());
 
 /**
  * UiTPAS Advantage service.
@@ -89,5 +96,14 @@ $app->register(
     new \CultuurNet\UiTPASBeheer\ClockServiceProvider(),
     ['clock.timezone' => 'Europe/Brussels']
 );
+
+/**
+ * Load additional bootstrap files.
+ */
+foreach ($app['config']['bootstrap'] as $identifier => $enabled) {
+    if (true === $enabled) {
+        require __DIR__ . "/bootstrap/{$identifier}.php";
+    }
+}
 
 return $app;
