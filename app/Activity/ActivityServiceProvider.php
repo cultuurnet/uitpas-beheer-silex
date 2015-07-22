@@ -2,8 +2,10 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity;
 
+use CultuurNet\CalendarSummary\CalendarPlainTextFormatter;
 use CultuurNet\UiTPASBeheer\Activity\CultureFeedUiTPAS\ActivityService;
 use CultuurNet\UiTPASBeheer\Activity\CultureFeedUiTPAS\Query;
+use CultuurNet\UiTPASBeheer\Activity\SearchAPI2\SearchAPI2AugmentedActivityService;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
@@ -16,10 +18,13 @@ class ActivityServiceProvider implements ServiceProviderInterface
     {
         $app['activity_service'] = $app->share(
             function (Application $app) {
-                return new ActivityService(
-                    $app['uitpas'],
-                    $app['counter_consumer_key'],
-                    $app['cultuurnet_search']
+                return new SearchAPI2AugmentedActivityService(
+                    new ActivityService(
+                        $app['uitpas'],
+                        $app['counter_consumer_key']
+                    ),
+                    $app['cultuurnet_search'],
+                    new CalendarPlainTextFormatter()
                 );
             }
         );

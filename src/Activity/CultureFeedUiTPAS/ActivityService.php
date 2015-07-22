@@ -2,41 +2,15 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity\CultureFeedUiTPAS;
 
-use CultureFeed_Uitpas;
-use CultuurNet\Search\Guzzle\Service;
-use CultuurNet\Search\Parameter\BooleanParameter;
-use CultuurNet\Search\Parameter\Group;
-use CultuurNet\Search\Parameter\Query;
-use CultuurNet\Search\ServiceInterface;
 use CultuurNet\UiTPASBeheer\Activity\Activity;
 use CultuurNet\UiTPASBeheer\Activity\ActivityServiceInterface;
 use CultuurNet\UiTPASBeheer\Activity\PagedResultSet;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
-use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use ValueObjects\Number\Integer;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class ActivityService extends CounterAwareUitpasService implements ActivityServiceInterface
 {
-    /**
-     * @var Service
-     */
-    private $searchService;
-
-    /**
-     * @param CultureFeed_Uitpas $uitpasService
-     * @param CounterConsumerKey $counterConsumerKey
-     * @param ServiceInterface $searchService
-     */
-    public function __construct(
-        CultureFeed_Uitpas $uitpasService,
-        CounterConsumerKey $counterConsumerKey,
-        ServiceInterface $searchService
-    ) {
-        parent::__construct($uitpasService, $counterConsumerKey);
-
-        $this->searchService = $searchService;
-    }
-
     /**
      * @inheritdoc
      */
@@ -46,7 +20,7 @@ class ActivityService extends CounterAwareUitpasService implements ActivityServi
 
         $result = $this->getUitpasService()->searchEvents($searchOptions);
 
-        $activities = $this->combineWithFullEventData($result);
+        $activities = $this->createActivities($result->objects);
 
         return new PagedResultSet(
             new Integer($result->total),
@@ -67,64 +41,25 @@ class ActivityService extends CounterAwareUitpasService implements ActivityServi
     }
 
     /**
-     * @param \CultureFeed_ResultSet $result
+     * @param \CultureFeed_Uitpas_Event_CultureEvent[] $events
      *
      * @return Activity[]
      */
-    private function combineWithFullEventData(\CultureFeed_ResultSet $result)
+    private function createActivities(array $events)
     {
         return array_map(
-            function (\CultureFeed_Uitpas_Event_CultureEvent $uitpasEventData) {
-                try {
-                    $fullEventData = $this->getFullEventData(
-                        $uitpasEventData->cdbid
-                    );
-                } catch (\RuntimeException $e) {
-                    $fullEventData = null;
-                }
-
-                return Activity::fromCultureFeedUitpasAndCdbEvent(
-                    $uitpasEventData,
-                    $fullEventData
-                );
+            function (\CultureFeed_Uitpas_Event_CultureEvent $event) {
+                return $this->createActivity($event);
             },
-            $result->objects
+            $events
         );
     }
 
-    /**
-     * @param string $id
-     *
-     * @return \CultureFeed_Cdb_Item_Event
-     */
-    private function getFullEventData($id)
+    private function createActivity(\CultureFeed_Uitpas_Event_CultureEvent $event)
     {
-        if (!is_string($id)) {
-            throw new \InvalidArgumentException(
-                'Expected $id to be a string, received value of type ' . gettype($id)
-            );
-        }
-
-        $parameters = [
-            new BooleanParameter('past', true),
-            new BooleanParameter('unavailable', true),
-            new Group(),
-            new Query('cdbid:"' . $id . '"')
-        ];
-
-        $result = $this->searchService->search($parameters);
-
-        if (1 !== $result->getCurrentCount()) {
-            throw new \RuntimeException(
-                'Expected exactly 1 event to be returned, received ' . $result->getCurrentCount() . 'results'
-            );
-        }
-
-        $items = $result->getItems();
-
-        /* @var \CultuurNet\Search\ActivityStatsExtendedEntity $event */
-        $event = reset($items);
-
-        return $event->getEntity();
+        return new Activity(
+            new StringLiteral((string) $event->cdbid),
+            new StringLiteral((string) $event->title)
+        );
     }
 }

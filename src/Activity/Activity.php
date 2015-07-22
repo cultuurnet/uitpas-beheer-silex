@@ -12,18 +12,6 @@ class Activity implements \JsonSerializable
 {
     /**
      * @var StringLiteral
-     *
-     * Textual indication of when the activity is occurring.
-     */
-    protected $when;
-
-    /**
-     * @var StringLiteral
-     */
-    protected $description;
-
-    /**
-     * @var StringLiteral
      */
     protected $id;
 
@@ -33,64 +21,51 @@ class Activity implements \JsonSerializable
     protected $title;
 
     /**
+     * @var StringLiteral
+     */
+    protected $description;
+
+    /**
+     * @var StringLiteral
+     *
+     * Textual indication of when the activity is occurring.
+     */
+    protected $when;
+
+    /**
      * @param StringLiteral $id
      * @param StringLiteral $title
-     * @param StringLiteral|null $description
-     * @param StringLiteral|null $when
      */
     public function __construct(
         StringLiteral $id,
-        StringLiteral $title,
-        StringLiteral $description = null,
-        StringLiteral $when = null
+        StringLiteral $title
     ) {
         $this->id = $id;
         $this->title = $title;
-        $this->description = $description ?: new StringLiteral('');
-        $this->when = $when ?: new StringLiteral('');
+        $this->description = new StringLiteral('');
+        $this->when = new StringLiteral('');
     }
 
     /**
-     * @param CultureFeed_Uitpas_Event_CultureEvent $uitpasEvent
-     * @param CultureFeed_Cdb_Item_Event $cdbEvent
-     * @return static
+     * @param StringLiteral $description
+     * @return Activity
      */
-    public static function fromCultureFeedUitpasAndCdbEvent(
-        CultureFeed_Uitpas_Event_CultureEvent $uitpasEvent,
-        CultureFeed_Cdb_Item_Event $cdbEvent = null
-    ) {
-        $id = new StringLiteral((string) $uitpasEvent->cdbid);
-        $title = new StringLiteral((string) $uitpasEvent->title);
+    public function withDescription(StringLiteral $description)
+    {
+        $c = clone $this;
+        $c->description = $description;
+        return $c;
+    }
 
-        if ($cdbEvent) {
-            // Description.
-            $details = $cdbEvent->getDetails()->getDetailByLanguage('nl');
-            $description = new StringLiteral((string) $details->getShortDescription());
-
-            // Calendar.
-            $calendar = $cdbEvent->getCalendar();
-            $formatter = new CalendarPlainTextFormatter();
-
-            try {
-                $date = new StringLiteral(
-                    (string)$formatter->format($calendar, 'xs')
-                );
-            } catch (FormatterException $e) {
-                // Format not supported for the calendar type, for example for a
-                // CultureFeed_Cdb_Data_Calendar_TimestampList. Leave date empty
-                // in this case.
-                $date = new StringLiteral('');
-            }
-
-            return new static(
-                $id,
-                $title,
-                $description,
-                $date
-            );
-        }
-
-        return new static($id, $title);
+    /**
+     * @param StringLiteral $when
+     * @return Activity
+     */
+    public function withWhen(StringLiteral $when)
+    {
+        $c = clone $this;
+        $c->when = $when;
+        return $c;
     }
 
     /**

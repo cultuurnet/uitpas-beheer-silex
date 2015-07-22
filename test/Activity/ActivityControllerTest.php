@@ -119,27 +119,32 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function it_responds_with_the_json_encoded_activities_returned_by_search()
     {
-        $activities = [
-            new Activity(
-                new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
-                new StringLiteral('test event 1'),
-                new StringLiteral('test event 1 description'),
-                new StringLiteral('test event 1 date')
-            ),
-            new Activity(
-                new StringLiteral('ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj'),
-                new StringLiteral('test event 2'),
-                new StringLiteral('test event 2 description'),
-                new StringLiteral('test event 2 date')
-            ),
-        ];
+        $activities = [];
+
+        $activity1 = new Activity(
+            new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
+            new StringLiteral('test event 1')
+        );
+
+        $activities[] = $activity1
+            ->withDescription(new StringLiteral('test event 1 description'))
+            ->withWhen(new StringLiteral('test event 1 date'));
+
+        $activity2 = new Activity(
+            new StringLiteral('ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj'),
+            new StringLiteral('test event 2')
+        );
+
+        $activities[] = $activity2
+            ->withDescription(new StringLiteral('test event 2 description'))
+            ->withWhen(new StringLiteral('test event 2 date'));
 
         $this->service
-          ->expects($this->once())
-          ->method('search')
-          ->willReturn(
-              new PagedResultSet(new Integer(10), $activities)
-          );
+            ->expects($this->once())
+            ->method('search')
+            ->willReturn(
+                new PagedResultSet(new Integer(10), $activities)
+            );
 
         $routeName = 'route-used-for-activities';
         $this->urlGenerator->expects($this->exactly(3))
@@ -151,7 +156,9 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
             )
             ->willReturnCallback(
                 function ($routeName, $arguments) {
-                    return 'http://example.com/activities?' . http_build_query($arguments);
+                    return 'http://example.com/activities?' . http_build_query(
+                        $arguments
+                    );
                 }
             );
 

@@ -28,11 +28,6 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
     protected $service;
 
     /**
-     * @var \CultuurNet\Search\ServiceInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $searchService;
-
-    /**
      * @var CounterConsumerKey
      */
     protected $counterConsumerKey;
@@ -41,9 +36,11 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->uitpas = $this->getMock(\CultureFeed_Uitpas::class);
         $this->counterConsumerKey = new CounterConsumerKey('key');
-        $this->searchService = $this->getMock(ServiceInterface::class);
 
-        $this->service = new ActivityService($this->uitpas, $this->counterConsumerKey, $this->searchService);
+        $this->service = new ActivityService(
+            $this->uitpas,
+            $this->counterConsumerKey
+        );
     }
 
     /**
@@ -81,10 +78,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
             ->method('build')
             ->willReturn($searchEventOptions);
 
-        $emptySearchResult = new SearchResult();
-        $this->searchService->expects($this->atLeastOnce())
-            ->method('search')
-            ->willReturn($emptySearchResult);
+
 
         $actual = $this->service->search($query);
 

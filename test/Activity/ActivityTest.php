@@ -42,10 +42,11 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->when = new StringLiteral('yesterday');
         $this->activity = new Activity(
             $this->id,
-            $this->title,
-            $this->description,
-            $this->when
+            $this->title
         );
+        $this->activity = $this->activity
+            ->withWhen($this->when)
+            ->withDescription($this->description);
     }
 
     /**
