@@ -4,10 +4,6 @@
 
     <rule ref="Symfony2.Arrays.MultiLineArrayComma" />
     <rule ref="Symfony2.Classes.PropertyDeclaration" />
-    <rule ref="Symfony2.Commenting.FunctionComment" />
-    <rule ref="Symfony2.Commenting.FunctionComment.Missing">
-        <exclude-pattern>*</exclude-pattern>
-    </rule>
     <rule ref="Symfony2.NamingConventions.ValidClassName" />
     <rule ref="Symfony2.NamingConventions.ValidClassName.InvalidAbstractName">
         <exclude-pattern>*</exclude-pattern>
