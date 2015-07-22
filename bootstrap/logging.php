@@ -8,7 +8,7 @@
 $app['third_party_api_log'] = $app->share(
     function () {
         return new \Monolog\Handler\StreamHandler(
-            __DIR__ . '/log/third_party_api.log'
+            __DIR__ . '/../log/third_party_api.log'
         );
     }
 );

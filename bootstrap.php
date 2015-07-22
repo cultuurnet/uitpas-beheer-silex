@@ -113,7 +113,7 @@ $app->register(
  */
 foreach ($app['config']['bootstrap'] as $identifier => $enabled) {
     if (true === $enabled) {
-        require __DIR__ . "/bootstrap-{$identifier}.php";
+        require __DIR__ . "/bootstrap/{$identifier}.php";
     }
 }
 
