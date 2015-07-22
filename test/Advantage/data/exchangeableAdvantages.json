@@ -1,0 +1,14 @@
+[
+  {
+    "id": "welcome--10",
+    "title": "Some title",
+    "points": 0,
+    "exchangeable": true
+  },
+  {
+    "id": "points-promotion--10",
+    "title": "Some title",
+    "points": 5,
+    "exchangeable": true
+  }
+]

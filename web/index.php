@@ -18,6 +18,9 @@ $app['security.firewalls'] = array(
     'authentication' => array(
         'pattern' => '^/culturefeed/oauth',
     ),
+    'cors-preflight' => array(
+        'pattern' => $app['cors_preflight_request_matcher'],
+    ),
     'secured' => array(
         'pattern' => '^.*$',
         'uitid' => true,
@@ -54,5 +57,15 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\Counter\CounterControllerProvider(
  * API callbacks for PassHolders.
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\PassHolder\PassHolderControllerProvider());
+
+/**
+ * API callbacks for Activities.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\Activity\ActivityControllerProvider());
+
+/**
+ * API callbacks for Advantages.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\Advantage\AdvantageControllerProvider());
 
 $app->run();

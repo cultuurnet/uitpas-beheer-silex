@@ -308,6 +308,225 @@
           "Passholder"
         ]
       }
+    },
+    "/passholders/{uitpasNumber}/advantages": {
+      "get": {
+        "summary": "Find all exchangeable advantages for a passholder.",
+        "description": "Authentication and active counter is required.",
+        "operationId": "getExchangeableAdvantages",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of exchangeable advantages for the passholder.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Advantage"
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or has no active counter.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "tags": [
+          "Passholder",
+          "Advantage"
+        ]
+      }
+    },
+    "/passholders/{uitpasNumber}/advantages/{advantageId}": {
+      "get": {
+        "summary": "Find an advantage for a passholder by uitpas number of the passholder and the advantage's id.",
+        "description": "Authentication and active counter is required.",
+        "operationId": "getAdvantage",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "advantageId",
+            "in": "path",
+            "description": "The id of the advantage.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The information about the advantage.",
+            "schema": {
+              "$ref": "#/definitions/Advantage"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or has no active counter.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "No advantage found with this id.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "tags": [
+          "Passholder",
+          "Advantage"
+        ]
+      }
+    },
+    "/passholders/{uitpasNumber}/advantages/exchanges": {
+      "post": {
+        "summary": "Exchange an advantage for a given passholder.",
+        "description": "Authentication is required.",
+        "operationId": "exchangeAdvantage",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the id of the advantage to exchange for the passholder.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/postObjectWithAdvantageId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The advantage that has been exchanged.",
+            "schema": {
+              "$ref": "#/definitions/Advantage"
+            }
+          },
+          "400": {
+            "description": "The advantage is not exchangeable for the given passholder.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "The user in not authenticated or has not active counter.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "No advantage found for the given id and passholder.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "tags": [
+          "Passholder",
+          "Advantage"
+        ]
+      }
+    },
+    "/activities": {
+      "get": {
+        "summary": "Retrieves a list of activities.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "getActivities",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpas_number",
+            "in": "query",
+            "description": "The uitpas number of the passholder.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Free search query.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "date_type",
+            "in": "query",
+            "description": "Date range filter.",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "",
+              "today",
+              "next_7_days",
+              "next_30_days",
+              "next_12_months",
+              "past"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of the result set to show. When omitted this defaults to 1 (the first page).",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "How many items should be listed per page. When omitted this defaults to 5.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The information available about the activities.",
+            "schema": {
+              "$ref": "#/definitions/PagedActivityCollection"
+            }
+          },
+          "403": {
+            "description": "The user in not authenticated or has no active counter."
+          }
+        },
+        "tags": [
+          "Activity"
+        ]
+      }
     }
   },
   "tags": [
@@ -326,6 +545,14 @@
     {
       "name": "Passholder",
       "description": "Operations related to a passholder."
+    },
+    {
+      "name": "Advantage",
+      "description": "Operations related to an advantage."
+    },
+    {
+      "name": "Activity",
+      "description": "Operations related to an activity."
     }
   ],
   "definitions": {
@@ -1215,6 +1442,33 @@
         "name"
       ]
     },
+    "Advantage": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "welcome--390"
+        },
+        "title": {
+          "type": "string",
+          "example": "Korting op theaterticket."
+        },
+        "points": {
+          "type": "integer",
+          "format": "int32",
+          "example": 5
+        },
+        "exchangeable": {
+          "type": "boolean",
+          "example": true
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "points",
+        "exchangeable"
+      ]
+    },
     "postObjectWithCounterId": {
       "properties": {
         "id": {
@@ -1333,6 +1587,84 @@
           "example": "31413BDF-DFC7-7A9F-10403618C2816E44"
         }
       }
+    },
+    "postObjectWithAdvantageId": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "points-promotion--2"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "PagedActivityCollection": {
+      "properties": {
+        "itemsPerPage": {
+          "type": "integer",
+          "format": "int32",
+          "example": 30
+        },
+        "totalItems": {
+          "type": "integer",
+          "format": "int32",
+          "example": 3562
+        },
+        "member": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Activity"
+          }
+        },
+        "firstPage": {
+          "type": "url",
+          "example": "http://culpas-silex.dev/activities?page=1"
+        },
+        "lastPage": {
+          "type": "url",
+          "example": "http://culpas-silex.dev/activities?page=118"
+        },
+        "previousPage": {
+          "type": "url",
+          "example": "http://culpas-silex.dev/activities?page=1"
+        },
+        "nextPage": {
+          "type": "url",
+          "example": "http://culpas-silex.dev/activities?page=3"
+        }
+      },
+      "required": [
+        "itemsPerPage",
+        "totalItems",
+        "member",
+        "firstPage",
+        "lastPage"
+      ]
+    },
+    "Activity": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "34475f7a-d1d5-481d-b205-9537ae0f9e73"
+        },
+        "title": {
+          "type": "string",
+          "example": "Fun family time"
+        },
+        "description": {
+          "type": "string",
+          "example": "Dit is een testevent dat tijdens de periode 1 september tot en met 31 oktober 2015 zal plaatsvinden. Dit event gaat betalend zijn"
+        },
+        "when": {
+          "type": "string",
+          "example": "vanaf 1/9"
+        }
+      },
+      "required": [
+        "id",
+        "title"
+      ]
     }
   }
 }

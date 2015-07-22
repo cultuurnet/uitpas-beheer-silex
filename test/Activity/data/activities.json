@@ -1,0 +1,23 @@
+{
+  "@context": "http:\/\/www.w3.org\/ns\/hydra\/context.jsonld",
+  "@type": "PagedCollection",
+  "itemsPerPage": 5,
+  "totalItems": 10,
+  "member": [
+    {
+      "id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+      "title": "test event 1",
+      "description": "test event 1 description",
+      "when": "test event 1 date"
+    },
+    {
+      "id": "ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj",
+      "title": "test event 2",
+      "description": "test event 2 description",
+      "when": "test event 2 date"
+    }
+  ],
+  "firstPage": "http://example.com/activities?date_type=today&page=1",
+  "lastPage": "http://example.com/activities?date_type=today&page=3",
+  "nextPage": "http://example.com/activities?date_type=today&page=2"
+}
