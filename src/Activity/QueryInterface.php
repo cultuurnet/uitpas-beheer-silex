@@ -29,11 +29,11 @@ interface QueryInterface
     public function withQuery(StringLiteral $query);
 
     /**
-     * @param UiTPASNumber $uiTPASNumber
+     * @param UiTPASNumber $uitpasNumber
      *
      * @return static
      */
-    public function withUiTPASNumber(UiTPASNumber $uiTPASNumber);
+    public function withUiTPASNumber(UiTPASNumber $uitpasNumber);
 
     /**
      * @param string $sort

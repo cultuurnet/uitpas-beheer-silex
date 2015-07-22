@@ -24,7 +24,7 @@ class SimpleQuery implements QueryInterface
     /**
      * @var UiTPASNumber
      */
-    protected $uiTPASNumber;
+    protected $uitpasNumber;
 
     /**
      * @var string
@@ -70,15 +70,15 @@ class SimpleQuery implements QueryInterface
     }
 
     /**
-     * @param UiTPASNumber $uiTPASNumber
+     * @param UiTPASNumber $uitpasNumber
      *
      * @return static
      */
-    public function withUiTPASNumber(UiTPASNumber $uiTPASNumber)
+    public function withUiTPASNumber(UiTPASNumber $uitpasNumber)
     {
         $c = clone $this;
 
-        $c->uiTPASNumber = $uiTPASNumber;
+        $c->uitpasNumber = $uitpasNumber;
 
         return $c;
     }

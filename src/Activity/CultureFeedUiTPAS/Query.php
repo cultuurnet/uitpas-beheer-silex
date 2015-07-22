@@ -57,8 +57,8 @@ class Query extends SimpleQuery implements SearchOptionsBuilderInterface
             $options->q = $this->query->toNative();
         }
 
-        if ($this->uiTPASNumber) {
-            $options->uitpasNumber = $this->uiTPASNumber->toNative();
+        if ($this->uitpasNumber) {
+            $options->uitpasNumber = $this->uitpasNumber->toNative();
         }
 
         return $options;
