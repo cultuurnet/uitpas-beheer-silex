@@ -100,7 +100,7 @@ class SearchAPI2AugmentedActivityService implements ActivityServiceInterface
 
         try {
             $when = new StringLiteral(
-                (string)$this->calendarFormatter->format($calendar, 'xs')
+                (string) $this->calendarFormatter->format($calendar, 'md')
             );
 
             $augmentedActivity = $augmentedActivity->withWhen($when);
