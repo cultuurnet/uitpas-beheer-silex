@@ -19,7 +19,7 @@ $app['debug'] = $app['config']['debug'] === true;
  */
 $app->register(new JDesrosiers\Silex\Provider\CorsServiceProvider(), array(
     'cors.allowOrigin' => implode(' ', $app['config']['cors']['origins']),
-    'cors.allowCredentials' => true
+    'cors.allowCredentials' => true,
 ));
 
 /**

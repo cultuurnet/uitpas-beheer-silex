@@ -51,6 +51,11 @@ class ReadableCodeResponseException extends ResponseException implements Readabl
             $code = '403';
         }
 
-        return new static($exception->getMessage(), $readableCode, $code, $exception);
+        return new static(
+            $exception->getMessage(),
+            $readableCode,
+            $code,
+            $exception
+        );
     }
 }

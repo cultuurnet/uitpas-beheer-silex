@@ -67,7 +67,7 @@ class CounterServiceTest extends \PHPUnit_Framework_TestCase
                 'role' => 'admin',
                 'consumerKey' => 'ghi',
                 'actorId' => 'jkl',
-            ]
+            ],
         ];
 
         $this->counters = array();
