@@ -6,6 +6,7 @@
 namespace CultuurNet\UiTPASBeheer\Activity\SearchAPI2;
 
 use CultuurNet\CalendarSummary\CalendarFormatterInterface;
+use CultuurNet\CalendarSummary\FormatterException;
 use CultuurNet\Search\Parameter\BooleanParameter;
 use CultuurNet\Search\Parameter\Group;
 use CultuurNet\Search\Parameter\Query;
@@ -175,6 +176,46 @@ class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
             $activities[2]
                 ->withDescription(new StringLiteral('description test event 3'))
                 ->withWhen(new StringLiteral('2016-07-01')),
+        ];
+
+        $expectedResultSet = new PagedResultSet(
+            $originalResultSet->getTotal(),
+            $expectedActivities
+        );
+
+        $resultSet = $this->activityService->search($query);
+
+        $this->assertEquals($expectedResultSet, $resultSet);
+    }
+
+    /**
+     * @test
+     */
+    public function it_only_adds_description_to_an_activity_when_formatting_the_calendar_fails()
+    {
+        $query = (new SimpleQuery())->withQuery(new StringLiteral('foobar'));
+        $originalResultSet = $this->setUpDecoratedActivityService($query);
+        $activities = $originalResultSet->getActivities();
+
+        $this->searchService->expects($this->any())
+            ->method('search')
+            ->willReturnCallback(
+                function ($params) {
+                    return $this->searchResultForParams($params);
+                }
+            );
+
+        $this->calendarFormatter->expects($this->any())
+            ->method('format')
+            ->willThrowException(new FormatterException());
+
+        $expectedActivities = [
+            $activities[0]
+                ->withDescription(new StringLiteral('description test event 1')),
+            $activities[1]
+                ->withDescription(new StringLiteral('description test event 2')),
+            $activities[2]
+                ->withDescription(new StringLiteral('description test event 3')),
         ];
 
         $expectedResultSet = new PagedResultSet(
