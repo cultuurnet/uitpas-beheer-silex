@@ -460,7 +460,7 @@
     "/activities": {
       "get": {
         "summary": "Retrieves a list of activities.",
-        "description": "Authentication is required.",
+        "description": "Authentication and an active counter are required.",
         "operationId": "getActivities",
         "produces": [
           "application/json"
@@ -520,7 +520,7 @@
             }
           },
           "403": {
-            "description": "The user is not authenticated."
+            "description": "The user in not authenticated or has no active counter."
           }
         },
         "tags": [
