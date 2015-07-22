@@ -42,7 +42,11 @@ class ActivityController
     /**
      * @param Request $request
      * @return JsonResponse
+     *
      * @throws DateTypeInvalidException
+     *   When an invalid date type was provided.
+     * @throws UnknownParameterException
+     *   When an unknown parameter was provided.
      */
     public function search(Request $request)
     {
