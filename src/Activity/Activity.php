@@ -4,8 +4,6 @@ namespace CultuurNet\UiTPASBeheer\Activity;
 
 use CultureFeed_Uitpas_Event_CultureEvent;
 use CultureFeed_Cdb_Item_Event;
-use CultuurNet\CalendarSummary\CalendarPlainTextFormatter;
-use CultuurNet\CalendarSummary\FormatterException;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class Activity implements \JsonSerializable
