@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "342061fe6a7094e255f9b1487a173986",
+    "hash": "316861bb2269e450370ea2da55a84aed",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -55,16 +55,16 @@
         },
         {
             "name": "cultuurnet/calendar-summary",
-            "version": "dev-feature/UBR-66",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/calendar-summary.git",
-                "reference": "55e509437ffdbc5e7683d4d924788da7b9ac4148"
+                "reference": "1c09392d846cffd407ef6c181b52cc42f72aee89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/calendar-summary/zipball/55e509437ffdbc5e7683d4d924788da7b9ac4148",
-                "reference": "55e509437ffdbc5e7683d4d924788da7b9ac4148",
+                "url": "https://api.github.com/repos/cultuurnet/calendar-summary/zipball/1c09392d846cffd407ef6c181b52cc42f72aee89",
+                "reference": "1c09392d846cffd407ef6c181b52cc42f72aee89",
                 "shasum": ""
             },
             "require": {
@@ -94,7 +94,7 @@
                 "Apache-2.0"
             ],
             "description": "Library to convert a cdbXML input to a readable summary",
-            "time": "2015-07-09 13:53:17"
+            "time": "2015-06-01 14:20:21"
         },
         {
             "name": "cultuurnet/cdb",
@@ -5034,19 +5034,12 @@
             "alias_normalized": "1.5.2.0",
             "version": "dev-feature/UBR-66",
             "package": "cultuurnet/culturefeed-php"
-        },
-        {
-            "alias": "1.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-feature/UBR-66",
-            "package": "cultuurnet/calendar-summary"
         }
     ],
     "minimum-stability": "dev",
     "stability-flags": {
         "cultuurnet/silex-uitid-provider": 20,
         "cultuurnet/culturefeed-php": 20,
-        "cultuurnet/calendar-summary": 20,
         "cultuurnet/deserializer": 20
     },
     "prefer-stable": true,

@@ -6,7 +6,7 @@
     "cultuurnet/silex-uitid-provider": "dev-master",
     "cultuurnet/culturefeed-php": "dev-feature/UBR-66 as 1.5.2",
     "cultuurnet/search": "~1.2",
-    "cultuurnet/calendar-summary": "dev-feature/UBR-66 as 1.0",
+    "cultuurnet/calendar-summary": "~1.0",
     "cultuurnet/deserializer": "1.x-dev",
     "cultuurnet/culturefeed-http-guzzle": "~0.1",
     "deralex/yaml-config-service-provider": "~1.0",
