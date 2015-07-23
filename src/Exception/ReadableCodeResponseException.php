@@ -45,8 +45,8 @@ class ReadableCodeResponseException extends ResponseException implements Readabl
      */
     public static function fromCultureFeedException(\CultureFeed_Exception $exception, $code = 400)
     {
-        // The property 'error_code' is defined by PHP itself, so there's no way for us to fix this coding standards
-        // issue.
+        // The property 'error_code' is defined in the CultureFeed-PHP library, so there's no way for us to fix this
+        // coding standards issue.
         // @codingStandardsIgnoreStart
         $readableCode = $exception->error_code;
         // @codingStandardsIgnoreEnd
