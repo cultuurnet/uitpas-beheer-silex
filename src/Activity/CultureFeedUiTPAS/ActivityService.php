@@ -58,18 +58,35 @@ class ActivityService extends CounterAwareUitpasService implements ActivityServi
         );
     }
 
+    /**
+     * @param \CultureFeed_Uitpas_Event_CultureEvent $event
+     * @return \CultuurNet\UiTPASBeheer\Activity\Activity
+     */
     private function createActivity(\CultureFeed_Uitpas_Event_CultureEvent $event)
     {
-
-        $startDate = \DateTime::createFromFormat(\DateTime::W3C, $event->checkinStartDate);
-        $endDate = \DateTime::createFromFormat('Y-m-d\TH:i:s.uP', $event->checkinEndDate);
+        // For the moment the api has a bug that can return empty checkin
+        // constraint dates for events in the past.
+        $checkinStartDate = \DateTime::createFromFormat('U', 0);
+        if ($event->checkinStartDate) {
+            $checkinStartDate = \DateTime::createFromFormat(\DateTime::W3C, $event->checkinStartDate);
+        }
+        $checkinEndDate = \DateTime::createFromFormat('U', 0);
+        if ($event->checkinEndDate) {
+            // Another bug returns the end date with microseconds.
+            $checkinEndDate = \DateTime::createFromFormat('Y-m-d\TH:i:s.uP', $event->checkinEndDate);
+        }
 
         $checkinConstraint = new CheckinConstraint(
             (bool) $event->checkinAllowed,
-            $startDate ? DateTime::fromNativeDateTime($startDate) : null,
-            $endDate ? DateTime::fromNativeDateTime($endDate) : null,
-            new StringLiteral((string) $event->checkinConstraintReason)
+            DateTime::fromNativeDateTime($checkinStartDate),
+            DateTime::fromNativeDateTime($checkinEndDate)
         );
+
+        if (!$event->checkinAllowed && $event->checkinConstraintReason) {
+            $checkinConstraint = $checkinConstraint->withReason(
+                new StringLiteral((string) $event->checkinConstraintReason)
+            );
+        }
 
         return new Activity(
             new StringLiteral((string) $event->cdbid),

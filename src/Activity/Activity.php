@@ -106,7 +106,8 @@ class Activity implements \JsonSerializable
         return $this->title;
     }
 
-    public function getCheckinConstraint() {
+    public function getCheckinConstraint()
+    {
         return $this->checkinConstraint;
     }
 

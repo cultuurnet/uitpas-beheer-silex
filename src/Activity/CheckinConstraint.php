@@ -5,7 +5,8 @@ namespace CultuurNet\UiTPASBeheer\Activity;
 use ValueObjects\DateTime\DateTime;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class CheckinConstraint implements \JsonSerializable {
+class CheckinConstraint implements \JsonSerializable
+{
 
     /**
      * @var boolean
@@ -31,52 +32,68 @@ class CheckinConstraint implements \JsonSerializable {
      * @param $allowed
      * @param DateTime $startDate
      * @param DateTime $endDate
-     * @param StringLiteral $reason
      */
-    public function __construct($allowed, DateTime $startDate = null, DateTime $endDate = null, StringLiteral $reason) {
+    public function __construct($allowed, DateTime $startDate, DateTime $endDate)
+    {
         $this->allowed = $allowed;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
-        $this->reason = $reason;
+        $this->reason = new StringLiteral('');
     }
 
     /**
      * @return bool
      */
-    public function getAllowed() {
+    public function getAllowed()
+    {
         return $this->allowed;
     }
 
     /**
      * @return DateTime
      */
-    public function getStartDate() {
+    public function getStartDate()
+    {
         return $this->startDate;
     }
 
     /**
      * @return DateTime
      */
-    public function getEndDate() {
+    public function getEndDate()
+    {
         return $this->endDate;
     }
 
     /**
      * @return StringLiteral
      */
-    public function getReason() {
+    public function getReason()
+    {
         return $this->reason;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return [
             'allowed' => $this->allowed,
-            'startDate' => ($this->startDate) ? $this->startDate->toNativeDateTime()->getTimestamp() : null,
-            'endDate' => ($this->endDate) ? $this->endDate->toNativeDateTime()->getTimestamp() : null,
+            'startDate' => $this->startDate->toNativeDateTime()->getTimestamp(),
+            'endDate' => $this->endDate->toNativeDateTime()->getTimestamp(),
             'reason' => $this->reason->toNative(),
         ];
+    }
+
+    /**
+     * @param StringLiteral $reason
+     * @return CheckinConstraint
+     */
+    public function withReason(StringLiteral $reason)
+    {
+        $c = clone $this;
+        $c->reason = $reason;
+        return $c;
     }
 }
