@@ -59,7 +59,9 @@ class ActivityService extends CounterAwareUitpasService implements ActivityServi
     {
         return new Activity(
             new StringLiteral((string) $event->cdbid),
-            new StringLiteral((string) $event->title)
+            new StringLiteral((string) $event->title),
+            $event->checkinAllowed,
+            $event->checkinConstraintReason
         );
     }
 }

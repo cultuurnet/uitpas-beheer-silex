@@ -33,13 +33,19 @@ class Activity implements \JsonSerializable
     /**
      * @param StringLiteral $id
      * @param StringLiteral $title
+     * @param bool $checkinAllowed
+     * @param string $checkinConstraintReason
      */
     public function __construct(
         StringLiteral $id,
-        StringLiteral $title
+        StringLiteral $title,
+        $checkinAllowed,
+        $checkinConstraintReason
     ) {
         $this->id = $id;
         $this->title = $title;
+        $this->checkinAllowed = $checkinAllowed;
+        $this->checkinConstraintReason = $checkinConstraintReason;
         $this->description = new StringLiteral('');
         $this->when = new StringLiteral('');
     }
@@ -108,6 +114,10 @@ class Activity implements \JsonSerializable
             'title' => $this->title->toNative(),
             'description' => $this->description->toNative(),
             'when' => $this->when->toNative(),
+            'checkin' => (object) array(
+                'allowed' => $this->checkinAllowed,
+                'reason' => $this->checkinConstraintReason,
+            ),
         ];
     }
 }
