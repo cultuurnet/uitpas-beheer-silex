@@ -65,7 +65,12 @@ class WelcomeAdvantageService extends CounterAwareUitpasService implements Advan
 
         $options->balieConsumerKey = $this->getCounterConsumerKey();
         $options->cashInBalieConsumerKey = $this->getCounterConsumerKey();
+
+        // The property 'uitpas_number' is defined in the CultureFeed-PHP library, so there's no way for us to fix this
+        // coding standards issue.
+        // @codingStandardsIgnoreStart
         $options->uitpas_number = $uitpasNumber->toNative();
+        // @codingStandardsIgnoreEnd
 
         $currentTimestamp = $this->clock->getDateTime()->getTimestamp();
         $options->cashingPeriodBegin = $options->cashingPeriodEnd = $currentTimestamp;
