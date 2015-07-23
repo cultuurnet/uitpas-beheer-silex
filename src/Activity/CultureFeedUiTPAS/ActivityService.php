@@ -4,8 +4,11 @@ namespace CultuurNet\UiTPASBeheer\Activity\CultureFeedUiTPAS;
 
 use CultuurNet\UiTPASBeheer\Activity\Activity;
 use CultuurNet\UiTPASBeheer\Activity\ActivityServiceInterface;
+use CultuurNet\UiTPASBeheer\Activity\CheckinConstraint;
 use CultuurNet\UiTPASBeheer\Activity\PagedResultSet;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
+use ValueObjects\DateTime\Date;
+use ValueObjects\DateTime\DateTime;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -57,11 +60,21 @@ class ActivityService extends CounterAwareUitpasService implements ActivityServi
 
     private function createActivity(\CultureFeed_Uitpas_Event_CultureEvent $event)
     {
+
+        $startDate = \DateTime::createFromFormat(\DateTime::W3C, $event->checkinStartDate);
+        $endDate = \DateTime::createFromFormat('Y-m-d\TH:i:s.uP', $event->checkinEndDate);
+
+        $checkinConstraint = new CheckinConstraint(
+            (bool) $event->checkinAllowed,
+            $startDate ? DateTime::fromNativeDateTime($startDate) : null,
+            $endDate ? DateTime::fromNativeDateTime($endDate) : null,
+            new StringLiteral((string) $event->checkinConstraintReason)
+        );
+
         return new Activity(
             new StringLiteral((string) $event->cdbid),
             new StringLiteral((string) $event->title),
-            $event->checkinAllowed,
-            $event->checkinConstraintReason
+            $checkinConstraint
         );
     }
 }
