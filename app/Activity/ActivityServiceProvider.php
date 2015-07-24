@@ -35,6 +35,16 @@ class ActivityServiceProvider implements ServiceProviderInterface
                 return $query->withSort('permanent desc,availableto asc');
             }
         );
+
+        $app['checkin_service'] = $app->share(
+            function (Application $app) {
+                return new CheckinService(
+                    $app['uitpas'],
+                    $app['counter_consumer_key']
+                );
+            }
+        );
+
     }
 
     public function boot(Application $app)
