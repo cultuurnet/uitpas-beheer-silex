@@ -45,6 +45,7 @@
     </target>
 
     <target name="test">
+        <phingcall target="composer-validate"/>
         <phingcall target="lint"/>
         <phingcall target="unit-tests"/>
         <phingcall target="coding-standards"/>
