@@ -45,7 +45,6 @@
   },
   "require-dev": {
     "escapestudios/symfony2-coding-standard": "dev-master as 2.0",
-    "phpspec/phpspec": "~2.0",
     "phpunit/phpunit": "~4.3",
     "squizlabs/php_codesniffer": "~2.2",
     "phing/phing": "~2.10",
@@ -62,5 +61,10 @@
     }
   },
   "minimum-stability": "dev",
-  "prefer-stable": true
+  "prefer-stable": true,
+  "scripts": {
+    "post-install-cmd": [
+      "./vendor/bin/phing install-pre-commit-hook"
+    ]
+  }
 }
