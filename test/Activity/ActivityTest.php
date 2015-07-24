@@ -3,6 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\Activity;
 
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
+use ValueObjects\DateTime\DateTime;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class ActivityTest extends \PHPUnit_Framework_TestCase
@@ -34,15 +35,29 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
      */
     protected $title;
 
+    /**
+     * @var CheckinConstraint
+     */
+    protected $checkinConstraint;
+
     public function setUp()
     {
         $this->id = new StringLiteral('10');
         $this->title = new StringLiteral('Some title');
         $this->description = new StringLiteral('Some description');
         $this->when = new StringLiteral('yesterday');
+        $checkinStartDate = \DateTime::createFromFormat('U', 1441098000);
+        $checkinEndDate = \DateTime::createFromFormat('U', 1456848000);
+        $this->checkinConstraint = new CheckinConstraint(
+            false,
+            DateTime::fromNativeDateTime($checkinStartDate),
+            DateTime::fromNativeDateTime($checkinEndDate)
+        );
+        $this->checkinConstraint = $this->checkinConstraint->withReason(new StringLiteral('INVALID_DATE_TIME'));
         $this->activity = new Activity(
             $this->id,
-            $this->title
+            $this->title,
+            $this->checkinConstraint
         );
         $this->activity = $this->activity
             ->withWhen($this->when)
@@ -58,6 +73,7 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->title, $this->activity->getTitle());
         $this->assertEquals($this->description, $this->activity->getDescription());
         $this->assertEquals($this->when, $this->activity->getWhen());
+        $this->assertEquals($this->checkinConstraint, $this->activity->getCheckinConstraint());
     }
 
     /**

@@ -106,6 +106,9 @@ class Activity implements \JsonSerializable
         return $this->title;
     }
 
+    /**
+     * @return CheckinConstraint
+     */
     public function getCheckinConstraint()
     {
         return $this->checkinConstraint;
@@ -121,7 +124,7 @@ class Activity implements \JsonSerializable
             'title' => $this->title->toNative(),
             'description' => $this->description->toNative(),
             'when' => $this->when->toNative(),
-            'checkinConstraint' => $this->checkinConstraint->jsonSerialize(),
+            'checkinConstraint' => $this->checkinConstraint,
         ];
     }
 }

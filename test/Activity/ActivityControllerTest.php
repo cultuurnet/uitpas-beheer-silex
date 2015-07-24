@@ -7,6 +7,7 @@ use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use ValueObjects\DateTime\DateTime;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -121,9 +122,19 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
     {
         $activities = [];
 
+        $checkinStartDate = \DateTime::createFromFormat('U', 1441098000);
+        $checkinEndDate = \DateTime::createFromFormat('U', 1456848000);
+        $checkinConstraint = new CheckinConstraint(
+            false,
+            DateTime::fromNativeDateTime($checkinStartDate),
+            DateTime::fromNativeDateTime($checkinEndDate)
+        );
+        $checkinConstraint = $checkinConstraint->withReason(new StringLiteral('INVALID_DATE_TIME'));
+
         $activity1 = new Activity(
             new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
-            new StringLiteral('test event 1')
+            new StringLiteral('test event 1'),
+            $checkinConstraint
         );
 
         $activities[] = $activity1
@@ -132,7 +143,8 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
 
         $activity2 = new Activity(
             new StringLiteral('ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj'),
-            new StringLiteral('test event 2')
+            new StringLiteral('test event 2'),
+            $checkinConstraint
         );
 
         $activities[] = $activity2
