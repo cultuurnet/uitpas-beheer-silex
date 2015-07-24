@@ -48,18 +48,18 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_search_for_activities()
     {
-        $event_a = new CultureFeed_Uitpas_Event_CultureEvent();
-        $event_a->cdbid = 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee';
-        $event_a->title = 'test event 1';
-        $event_b = new CultureFeed_Uitpas_Event_CultureEvent();
-        $event_b->cdbid = 'ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj';
-        $event_b->title = 'test event 2';
+        $eventA = new CultureFeed_Uitpas_Event_CultureEvent();
+        $eventA->cdbid = 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee';
+        $eventA->title = 'test event 1';
+        $eventB = new CultureFeed_Uitpas_Event_CultureEvent();
+        $eventB->cdbid = 'ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj';
+        $eventB->title = 'test event 2';
 
-        $result_set = new \CultureFeed_ResultSet();
-        $result_set->total = 20;
-        $result_set->objects = array(
-            $event_a,
-            $event_b,
+        $resultSet = new \CultureFeed_ResultSet();
+        $resultSet->total = 20;
+        $resultSet->objects = array(
+            $eventA,
+            $eventB,
         );
 
         $searchEventOptions = new \CultureFeed_Uitpas_Event_Query_SearchEventsOptions();
@@ -71,7 +71,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $this->uitpas->expects($this->once())
             ->method('searchEvents')
             ->with($searchEventOptionsForCounter)
-            ->willReturn($result_set);
+            ->willReturn($resultSet);
 
         $query = $this->getMock(SearchOptionsBuilderInterface::class);
         $query->expects($this->once())
@@ -83,7 +83,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $actual = $this->service->search($query);
 
         $expected = new PagedResultSet(
-            new Integer($result_set->total),
+            new Integer($resultSet->total),
             [
                 new Activity(
                     new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),

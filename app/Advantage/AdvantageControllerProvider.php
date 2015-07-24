@@ -14,21 +14,23 @@ class AdvantageControllerProvider implements ControllerProviderInterface
      */
     public function connect(Application $app)
     {
-        $app['advantage_controller'] = $app->share(function (Application $app) {
-            $controller = new AdvantageController($app['advantage_identifier_json_deserializer']);
+        $app['advantage_controller'] = $app->share(
+            function (Application $app) {
+                $controller = new AdvantageController($app['advantage_identifier_json_deserializer']);
 
-            $controller->registerAdvantageService(
-                AdvantageType::POINTS_PROMOTION(),
-                $app['points_promotion_advantage_service']
-            );
+                $controller->registerAdvantageService(
+                    AdvantageType::POINTS_PROMOTION(),
+                    $app['points_promotion_advantage_service']
+                );
 
-            $controller->registerAdvantageService(
-                AdvantageType::WELCOME(),
-                $app['welcome_advantage_service']
-            );
+                $controller->registerAdvantageService(
+                    AdvantageType::WELCOME(),
+                    $app['welcome_advantage_service']
+                );
 
-            return $controller;
-        });
+                return $controller;
+            }
+        );
 
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];

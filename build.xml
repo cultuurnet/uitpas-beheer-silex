@@ -6,6 +6,8 @@
     </fileset>
 
     <target name="test">
+        <exec command="vendor/bin/phpcs --config-set installed_paths vendor/escapestudios/symfony2-coding-standard"
+              passthru="true" />
         <exec command="composer validate" passthru="true" />
         <phplint>
             <fileset refid="php"/>

@@ -62,7 +62,7 @@ class AdvantageIdentifierTest extends \PHPUnit_Framework_TestCase
                 new AdvantageIdentifier(self::VALID_POINTS_PROMOTION_ADVANTAGE_IDENTIFIER),
                 AdvantageType::POINTS_PROMOTION(),
                 new StringLiteral('10'),
-            ]
+            ],
         ];
     }
 

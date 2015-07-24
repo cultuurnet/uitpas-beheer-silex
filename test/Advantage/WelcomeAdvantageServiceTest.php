@@ -148,7 +148,13 @@ class WelcomeAdvantageServiceTest extends \PHPUnit_Framework_TestCase
         $expectedOptions = new \CultureFeed_Uitpas_Passholder_Query_WelcomeAdvantagesOptions();
         $expectedOptions->balieConsumerKey = $this->counterConsumerKey->toNative();
         $expectedOptions->cashInBalieConsumerKey = $this->counterConsumerKey->toNative();
+
+        // The property 'uitpas_number' is defined in the CultureFeed-PHP library, so there's no way for us to fix this
+        // coding standards issue.
+        // @codingStandardsIgnoreStart
         $expectedOptions->uitpas_number = $uitpasNumber->toNative();
+        // @codingStandardsIgnoreEnd
+
         $expectedOptions->cashingPeriodBegin = $this->currentTime;
         $expectedOptions->cashingPeriodEnd = $this->currentTime;
         $expectedOptions->cashedIn = false;
