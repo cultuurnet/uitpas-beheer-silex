@@ -61,10 +61,5 @@
     }
   },
   "minimum-stability": "dev",
-  "prefer-stable": true,
-  "scripts": {
-    "post-install-cmd": [
-      "./vendor/bin/phing install-pre-commit-hook"
-    ]
-  }
+  "prefer-stable": true
 }
