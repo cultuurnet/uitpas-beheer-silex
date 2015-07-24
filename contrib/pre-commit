@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Redirect output to stderr.
+exec 1>&2
+
+./vendor/bin/phing;
+
+if [ $? -ne 0 ]; then
+  exit 1;
+fi
+
