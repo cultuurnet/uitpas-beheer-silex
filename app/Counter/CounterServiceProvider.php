@@ -19,7 +19,7 @@ class CounterServiceProvider implements ServiceProviderInterface
     public function register(Application $app)
     {
         $app['counter_service'] = $app->share(
-            function ($app) {
+            function (Application $app) {
                 return new CounterService(
                     $app['session'],
                     $app['uitpas'],
@@ -28,17 +28,19 @@ class CounterServiceProvider implements ServiceProviderInterface
             }
         );
 
-        $app['counter_consumer_key'] = $app->share(function (Application $app) {
-            /* @var CounterService $counterService */
-            $counterService = $app['counter_service'];
+        $app['counter_consumer_key'] = $app->share(
+            function (Application $app) {
+                /* @var CounterService $counterService */
+                $counterService = $app['counter_service'];
 
-            try {
-                $counter = $counterService->getActiveCounter();
-                return new CounterConsumerKey($counter->consumerKey);
-            } catch (CounterNotSetException $exception) {
-                throw new CounterNotSetException(Response::HTTP_BAD_REQUEST);
+                try {
+                    $counter = $counterService->getActiveCounter();
+                    return new CounterConsumerKey($counter->consumerKey);
+                } catch (CounterNotSetException $exception) {
+                    throw new CounterNotSetException(Response::HTTP_BAD_REQUEST);
+                }
             }
-        });
+        );
     }
 
     /**

@@ -14,13 +14,15 @@ class ActivityControllerProvider implements ControllerProviderInterface
      */
     public function connect(Application $app)
     {
-        $app['activity_controller'] = $app->share(function (Application $app) {
-            return new ActivityController(
-                $app['activity_service'],
-                $app['activity_query'],
-                $app['url_generator']
-            );
-        });
+        $app['activity_controller'] = $app->share(
+            function (Application $app) {
+                return new ActivityController(
+                    $app['activity_service'],
+                    $app['activity_query'],
+                    $app['url_generator']
+                );
+            }
+        );
 
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];

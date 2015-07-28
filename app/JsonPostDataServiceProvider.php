@@ -16,12 +16,14 @@ class JsonPostDataServiceProvider implements ServiceProviderInterface
         /**
          * @see http://silex.sensiolabs.org/doc/cookbook/json_request_body.html#parsing-the-request-body
          */
-        $app->before(function (Request $request) {
-            if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
-                $data = json_decode($request->getContent(), true);
-                $request->request->replace(is_array($data) ? $data : array());
+        $app->before(
+            function (Request $request) {
+                if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+                    $data = json_decode($request->getContent(), true);
+                    $request->request->replace(is_array($data) ? $data : array());
+                }
             }
-        });
+        );
     }
 
     /**

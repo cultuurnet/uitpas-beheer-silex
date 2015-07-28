@@ -14,9 +14,11 @@ class PassHolderControllerProvider implements ControllerProviderInterface
      */
     public function connect(Application $app)
     {
-        $app['passholder_controller'] = $app->share(function (Application $app) {
-            return new PassHolderController($app['passholder_service']);
-        });
+        $app['passholder_controller'] = $app->share(
+            function (Application $app) {
+                return new PassHolderController($app['passholder_service']);
+            }
+        );
 
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];

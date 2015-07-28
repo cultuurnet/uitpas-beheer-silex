@@ -67,7 +67,7 @@ class CounterServiceTest extends \PHPUnit_Framework_TestCase
                 'role' => 'admin',
                 'consumerKey' => 'ghi',
                 'actorId' => 'jkl',
-            ]
+            ],
         ];
 
         $this->counters = array();
@@ -108,8 +108,8 @@ class CounterServiceTest extends \PHPUnit_Framework_TestCase
         $counter = $this->counterService->getCounter($id);
         $this->assertEquals($this->counters[$id], $counter);
 
-        $non_existent_counter = $this->counterService->getCounter(5);
-        $this->assertNull($non_existent_counter);
+        $nonExistentCounter = $this->counterService->getCounter(5);
+        $this->assertNull($nonExistentCounter);
     }
 
     /**
@@ -151,8 +151,8 @@ class CounterServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function it_fails_to_make_a_non_existing_counter_active()
     {
-        $non_existent_id = 5;
+        $nonExistentId = 5;
         $this->setExpectedException(CounterNotFoundException::class);
-        $this->counterService->setActiveCounterId($non_existent_id);
+        $this->counterService->setActiveCounterId($nonExistentId);
     }
 }

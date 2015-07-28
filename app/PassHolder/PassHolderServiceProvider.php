@@ -17,12 +17,14 @@ class PassHolderServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
-        $app['passholder_service'] = $app->share(function (Application $app) {
-            return new PassHolderService(
-                $app['uitpas'],
-                $app['counter_consumer_key']
-            );
-        });
+        $app['passholder_service'] = $app->share(
+            function (Application $app) {
+                return new PassHolderService(
+                    $app['uitpas'],
+                    $app['counter_consumer_key']
+                );
+            }
+        );
     }
 
     /**

@@ -33,7 +33,7 @@ class ResponseExceptionTest extends \PHPUnit_Framework_TestCase
             ResponseException::class,
             [
                 'The exception message',
-                Response::HTTP_BAD_REQUEST
+                Response::HTTP_BAD_REQUEST,
             ]
         );
 

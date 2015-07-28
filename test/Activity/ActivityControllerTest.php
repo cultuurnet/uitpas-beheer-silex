@@ -60,7 +60,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
             [],
             (new SimpleQuery())
                 ->withPagination(new Integer(1), new Integer(5))
-                ->withUiTPASNumber(new UiTPASNumber('0930000467512'))
+                ->withUiTPASNumber(new UiTPASNumber('0930000467512')),
         ];
 
         // All possible request parameters.
@@ -76,7 +76,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 ->withDateType(DateType::TODAY())
                 ->withPagination(new Integer(2), new Integer(10))
                 ->withQuery(new StringLiteral('foo'))
-                ->withUiTPASNumber(new UiTPASNumber('0930000467512'))
+                ->withUiTPASNumber(new UiTPASNumber('0930000467512')),
         ];
 
         $items[] = [
@@ -91,7 +91,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 ->withDateType(DateType::NEXT_12_MONTHS())
                 ->withPagination(new Integer(3), new Integer(20))
                 ->withQuery(new StringLiteral('bar'))
-                ->withUiTPASNumber(new UiTPASNumber('0930000208908'))
+                ->withUiTPASNumber(new UiTPASNumber('0930000208908')),
 
         ];
 

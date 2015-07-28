@@ -17,25 +17,31 @@ class AdvantageServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
-        $app['advantage_identifier_json_deserializer'] = $app->share(function (Application $app) {
-            return new AdvantageIdentifierJsonDeserializer();
-        });
+        $app['advantage_identifier_json_deserializer'] = $app->share(
+            function () {
+                return new AdvantageIdentifierJsonDeserializer();
+            }
+        );
 
-        $app['welcome_advantage_service'] = $app->share(function (Application $app) {
-            return new WelcomeAdvantageService(
-                $app['uitpas'],
-                $app['counter_consumer_key'],
-                $app['clock']
-            );
-        });
+        $app['welcome_advantage_service'] = $app->share(
+            function (Application $app) {
+                return new WelcomeAdvantageService(
+                    $app['uitpas'],
+                    $app['counter_consumer_key'],
+                    $app['clock']
+                );
+            }
+        );
 
-        $app['points_promotion_advantage_service'] = $app->share(function (Application $app) {
-            return new PointsPromotionAdvantageService(
-                $app['uitpas'],
-                $app['counter_consumer_key'],
-                $app['clock']
-            );
-        });
+        $app['points_promotion_advantage_service'] = $app->share(
+            function (Application $app) {
+                return new PointsPromotionAdvantageService(
+                    $app['uitpas'],
+                    $app['counter_consumer_key'],
+                    $app['clock']
+                );
+            }
+        );
     }
 
     /**

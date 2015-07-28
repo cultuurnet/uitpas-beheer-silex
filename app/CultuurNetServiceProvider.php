@@ -19,19 +19,21 @@ class CultuurNetServiceProvider implements ServiceProviderInterface
     public function register(Application $app)
     {
         $app['uitpas'] = $app->share(
-            function ($app) {
+            function (Application $app) {
                 /* @var \CultureFeed $culturefeed */
                 $culturefeed = $app['culturefeed'];
                 return $culturefeed->uitpas();
             }
         );
 
-        $app['cultuurnet_search'] = $app->share(function ($app) {
-            return new SearchService(
-                $app['cultuurnet.search.endpoint'],
-                $app['culturefeed_consumer_credentials']
-            );
-        });
+        $app['cultuurnet_search'] = $app->share(
+            function (Application $app) {
+                return new SearchService(
+                    $app['cultuurnet.search.endpoint'],
+                    $app['culturefeed_consumer_credentials']
+                );
+            }
+        );
     }
 
     /**

@@ -131,7 +131,7 @@ class WelcomeAdvantageTest extends \PHPUnit_Framework_TestCase
                 null,
                 100,
                 self::EXCHANGEABLE,
-            ]
+            ],
         ];
     }
 }
