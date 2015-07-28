@@ -3,5 +3,6 @@
 
 # Git hooks
 
-For development purposes, we advice you to install the included git hooks with
-`./vendor/bin/phing githooks`.
+For development purposes, we advice you to install the included git hooks with the following command:
+
+    ./vendor/bin/phing githooks
