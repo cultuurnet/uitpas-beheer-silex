@@ -50,25 +50,27 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     *
+     * @return array
      */
     public function requestsAndCorrespondingQuery()
     {
         // No request parameters.
         $items[] = [
+            '0930000467512',
             [],
             (new SimpleQuery())
                 ->withPagination(new Integer(1), new Integer(5))
+                ->withUiTPASNumber(new UiTPASNumber('0930000467512'))
         ];
 
         // All possible request parameters.
         $items[] = [
+            '0930000467512',
             [
                 'date_type' => 'today',
                 'limit' => 10,
                 'query' => 'foo',
                 'page' => 2,
-                'uitpas_number' => '0930000467512',
             ],
             (new SimpleQuery())
                 ->withDateType(DateType::TODAY())
@@ -78,12 +80,12 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
         ];
 
         $items[] = [
+            '0930000208908',
             [
                 'date_type' => 'next_12_months',
                 'limit' => 20,
                 'query' => 'bar',
                 'page' => 3,
-                'uitpas_number' => '0930000208908',
             ],
             (new SimpleQuery())
                 ->withDateType(DateType::NEXT_12_MONTHS())
@@ -98,9 +100,15 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
+     *
+     * @param string $uitpasNumber
+     * @param array $request
+     * @param SimpleQuery $expectedQuery
+     *
      * @dataProvider requestsAndCorrespondingQuery
      */
     public function it_builds_a_query_from_request_parameters_and_passes_it_to_search(
+        $uitpasNumber,
         array $request,
         SimpleQuery $expectedQuery
     ) {
@@ -111,7 +119,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo($expectedQuery))
             ->willReturn(new PagedResultSet(new Integer(0), []));
 
-        $this->controller->search($request);
+        $this->controller->search($request, $uitpasNumber);
     }
 
     /**
@@ -119,6 +127,8 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function it_responds_with_the_json_encoded_activities_returned_by_search()
     {
+        $uitpasNumber = '0930000208908';
+
         $activities = [];
 
         $activity1 = new Activity(
@@ -150,13 +160,17 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
         $this->urlGenerator->expects($this->exactly(3))
             ->method('generate')
             ->withConsecutive(
-                [$routeName, ['page' => 1, 'date_type' => 'today']],
-                [$routeName, ['page' => 3, 'date_type' => 'today']],
-                [$routeName, ['page' => 2, 'date_type' => 'today']]
+                [$routeName, ['page' => 1, 'date_type' => 'today', 'uitpasNumber' => $uitpasNumber]],
+                [$routeName, ['page' => 3, 'date_type' => 'today', 'uitpasNumber' => $uitpasNumber]],
+                [$routeName, ['page' => 2, 'date_type' => 'today', 'uitpasNumber' => $uitpasNumber]]
             )
             ->willReturnCallback(
                 function ($routeName, $arguments) {
-                    return 'http://example.com/activities?' . http_build_query(
+                    // uitpasNumber parameter will used in the path, not the query.
+                    $uitpas = $arguments['uitpasNumber'];
+                    unset($arguments['uitpasNumber']);
+
+                    return 'http://example.com/passholders/' . $uitpas . '/activities?' . http_build_query(
                         $arguments
                     );
                 }
@@ -166,7 +180,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
         $request->attributes->set('_route', $routeName);
         $request->query->set('date_type', 'today');
 
-        $response = $this->controller->search($request);
+        $response = $this->controller->search($request, $uitpasNumber);
         $content = $response->getContent();
 
         $this->assertJsonEquals($content, 'Activity/data/activities.json');
@@ -182,7 +196,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
             UnknownParameterException::class,
             'Unknown parameter "foo"'
         );
-        $this->controller->search($request);
+        $this->controller->search($request, '0930000208908');
     }
 
     /**
@@ -195,6 +209,6 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
             DateTypeInvalidException::class,
             'Invalid date type "yesterday".'
         );
-        $this->controller->search($request);
+        $this->controller->search($request, '0930000208908');
     }
 }
