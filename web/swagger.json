@@ -457,7 +457,7 @@
         ]
       }
     },
-    "/activities": {
+    "/passholders/{uitpasNumber}/activities": {
       "get": {
         "summary": "Retrieves a list of activities.",
         "description": "Authentication and an active counter are required.",
@@ -467,10 +467,10 @@
         ],
         "parameters": [
           {
-            "name": "uitpas_number",
-            "in": "query",
+            "name": "uitpasNumber",
+            "in": "path",
             "description": "The uitpas number of the passholder.",
-            "required": false,
+            "required": true,
             "type": "string"
           },
           {
@@ -524,7 +524,8 @@
           }
         },
         "tags": [
-          "Activity"
+          "Activity",
+          "Passholder"
         ]
       }
     }
