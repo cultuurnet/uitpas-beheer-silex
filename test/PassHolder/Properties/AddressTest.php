@@ -35,10 +35,10 @@ class AddressTest extends \PHPUnit_Framework_TestCase
         $this->postalCode = new StringLiteral('1090');
         $this->city = new StringLiteral('Jette (Brussel)');
 
-        $this->address = new Address(
+        $this->address = (new Address(
             $this->postalCode,
             $this->city
-        );
+        ))->withStreet($this->street);
     }
 
     /**
@@ -46,9 +46,7 @@ class AddressTest extends \PHPUnit_Framework_TestCase
      */
     public function it_encodes_all_data_to_json()
     {
-        $this->address = $this->address->withStreet($this->street);
         $json = json_encode($this->address);
-
         $this->assertJsonEquals($json, 'PassHolder/data/properties/address-complete.json');
     }
 
@@ -57,7 +55,11 @@ class AddressTest extends \PHPUnit_Framework_TestCase
      */
     public function it_omits_optional_properties_from_json()
     {
-        $json = json_encode($this->address);
+        $address = new Address(
+            $this->postalCode,
+            $this->city
+        );
+        $json = json_encode($address);
         $this->assertJsonEquals($json, 'PassHolder/data/properties/address-minimum.json');
     }
 }
