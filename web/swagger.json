@@ -1619,19 +1619,23 @@
           }
         },
         "firstPage": {
-          "type": "url",
+          "type": "string",
+          "format": "url",
           "example": "http://culpas-silex.dev/activities?page=1"
         },
         "lastPage": {
-          "type": "url",
+          "type": "string",
+          "format": "url",
           "example": "http://culpas-silex.dev/activities?page=118"
         },
         "previousPage": {
-          "type": "url",
+          "type": "string",
+          "format": "url",
           "example": "http://culpas-silex.dev/activities?page=1"
         },
         "nextPage": {
-          "type": "url",
+          "type": "string",
+          "format": "url",
           "example": "http://culpas-silex.dev/activities?page=3"
         }
       },
