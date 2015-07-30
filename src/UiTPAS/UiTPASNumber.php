@@ -13,7 +13,7 @@ class UiTPASNumber extends StringLiteral
     /**
      * An UiTPAS number is always exactly 13 digits and start with 0.
      */
-    const FORMAT = '^0\d{12}$';
+    const FORMAT = '^\d{13}$';
 
     /**
      * Contains prefix and serial number.
@@ -40,7 +40,6 @@ class UiTPASNumber extends StringLiteral
      *
      * @throws UiTPASNumberInvalidException
      *   When the provided value is not a string of exactly 13 digits.
-     *   When the provided value does not start with 0.
      *   When the provided value is not valid according to the Luhn algorithm.
      *   When the provided value's second to last digit (kansenstatuut) is not 0 or 1.
      */
@@ -48,7 +47,7 @@ class UiTPASNumber extends StringLiteral
     {
         // Validate length and contents of the string.
         if (!preg_match('/' . self::FORMAT . '/', $value)) {
-            throw new UiTPASNumberInvalidException('The provided value should be exactly 13 digits and start with 0.');
+            throw new UiTPASNumberInvalidException('The provided value should be exactly 13 digits.');
         }
 
         // Make sure the number is valid according to the Luhn algorithm.

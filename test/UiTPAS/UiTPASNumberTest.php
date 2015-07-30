@@ -10,7 +10,6 @@ class UiTPASNumberTest extends \PHPUnit_Framework_TestCase
     const VALID_REGULAR = '0930000420206';
     const VALID_KANSENSTATUUT = '0930000237915';
 
-    const INVALID_START_DIGIT = '1930000420206';
     const INVALID_TOO_SHORT = '093000042020';
     const INVALID_TOO_LONG = '09300004202066';
     const INVALID_CHARACTERS = '09A3B004202066';
@@ -64,23 +63,11 @@ class UiTPASNumberTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_validates_that_the_number_starts_with_zero()
-    {
-        $this->setExpectedException(
-            UiTPASNumberInvalidException::class,
-            'The provided value should be exactly 13 digits and start with 0.'
-        );
-        new UiTPASNumber(self::INVALID_START_DIGIT);
-    }
-
-    /**
-     * @test
-     */
     public function it_validates_that_the_number_is_not_shorter_than_13_digits()
     {
         $this->setExpectedException(
             UiTPASNumberInvalidException::class,
-            'The provided value should be exactly 13 digits and start with 0.'
+            'The provided value should be exactly 13 digits.'
         );
         new UiTPASNumber(self::INVALID_TOO_SHORT);
     }
@@ -92,7 +79,7 @@ class UiTPASNumberTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(
             UiTPASNumberInvalidException::class,
-            'The provided value should be exactly 13 digits and start with 0.'
+            'The provided value should be exactly 13 digits.'
         );
         new UiTPASNumber(self::INVALID_TOO_LONG);
     }
@@ -104,7 +91,7 @@ class UiTPASNumberTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(
             UiTPASNumberInvalidException::class,
-            'The provided value should be exactly 13 digits and start with 0.'
+            'The provided value should be exactly 13 digits.'
         );
         new UiTPASNumber(self::INVALID_CHARACTERS);
     }
