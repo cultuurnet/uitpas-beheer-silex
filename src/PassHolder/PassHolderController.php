@@ -21,27 +21,6 @@ class PassHolderController
     }
 
     /**
-     * @param Request $request
-     * @return JsonResponse
-     *
-     * @throws PassHolderNotFoundException
-     *   When no passholder was found for the provided identification number.
-     */
-    public function getByIdentificationNumber(Request $request)
-    {
-        $identificationNumber = $request->query->get('identification');
-        $passholder = $this->passHolderService->getByIdentificationNumber($identificationNumber);
-
-        if (is_null($passholder)) {
-            throw new PassHolderNotFoundException();
-        }
-
-        return JsonResponse::create()
-            ->setData($passholder)
-            ->setPrivate();
-    }
-
-    /**
      * @param string $uitpasNumber
      * @return JsonResponse
 

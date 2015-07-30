@@ -8,38 +8,20 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 class PassHolderService extends CounterAwareUitpasService implements PassHolderServiceInterface
 {
     /**
-     * @param $identification
-     *
-     * @return \CultureFeed_Uitpas_Passholder|null
-     */
-    public function getByIdentificationNumber($identification)
-    {
-        try {
-            return $this
-                    ->getUitpasService()
-                    ->getPassholderByIdentificationNumber(
-                        $identification,
-                        $this->getCounterConsumerKey()
-                    );
-        } catch (\CultureFeed_Exception $exception) {
-            return null;
-        }
-    }
-
-    /**
      * @param UiTPASNumber $uitpasNumber
      *
-     * @return \CultureFeed_Uitpas_Passholder|null
+     * @return PassHolder|null
      */
     public function getByUitpasNumber(UiTPASNumber $uitpasNumber)
     {
         try {
-            return $this
+            $cfPassHolder = $this
                     ->getUitpasService()
                     ->getPassholderByUitpasNumber(
                         $uitpasNumber->toNative(),
                         $this->getCounterConsumerKey()
                     );
+            return PassHolder::fromCultureFeedPassHolder($cfPassHolder);
         } catch (\CultureFeed_Exception $exception) {
             return null;
         }
