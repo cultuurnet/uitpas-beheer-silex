@@ -33,70 +33,24 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_can_get_a_passholder_by_identification_number()
-    {
-        $identification = 122345;
-
-        $cardSystem = new \CultureFeed_Uitpas_CardSystem(1, 'uitpas');
-        $cardSystem->id = $identification;
-
-        $cardSystemSpecific = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
-        $cardSystemSpecific->cardSystem = $cardSystem;
-
-        $expected = new \CultureFeed_Uitpas_Passholder();
-        $expected->name = 'Foo';
-        $expected->cardSystemSpecific[1] = $cardSystemSpecific;
-
-        $this->uitpas->expects($this->once())
-            ->method('getPassholderByIdentificationNumber')
-            ->with($identification)
-            ->willReturn($expected);
-
-        $actual = $this->service->getByIdentificationNumber($identification);
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * @test
-     */
-    public function it_returns_null_when_a_passholder_cannot_be_found_by_identification_number()
-    {
-        $identification = 122345;
-
-        $this->uitpas->expects($this->once())
-            ->method('getPassholderByIdentificationNumber')
-            ->with($identification)
-            ->willThrowException(new \CultureFeed_Exception('Not found.', 404));
-
-        $passholder = $this->service->getByIdentificationNumber($identification);
-
-        $this->assertNull($passholder);
-    }
-
-    /**
-     * @test
-     */
     public function it_can_get_a_passholder_by_uitpas_number()
     {
         $uitpasNumberValue = '0930000125607';
         $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
 
-        $cardSystem = new \CultureFeed_Uitpas_CardSystem(1, 'uitpas');
-        $cardSystem->id = $uitpasNumberValue;
-
-        $cardSystemSpecific = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
-        $cardSystemSpecific->cardSystem = $cardSystem;
-
-        $expected = new \CultureFeed_Uitpas_Passholder();
-        $expected->name = 'Foo';
-        $expected->cardSystemSpecific[1] = $cardSystemSpecific;
+        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassHolder->name = 'Zyrani';
+        $cfPassHolder->firstName = 'Layla';
+        $cfPassHolder->postalCode = '1090';
+        $cfPassHolder->city = 'Jette (Brussel)';
+        $cfPassHolder->dateOfBirth = 208742400;
 
         $this->uitpas->expects($this->once())
             ->method('getPassholderByUitpasNumber')
             ->with($uitpasNumberValue)
-            ->willReturn($expected);
+            ->willReturn($cfPassHolder);
 
+        $expected = PassHolder::fromCultureFeedPassHolder($cfPassHolder);
         $actual = $this->service->getByUitpasNumber($uitpasNumber);
 
         $this->assertEquals($expected, $actual);

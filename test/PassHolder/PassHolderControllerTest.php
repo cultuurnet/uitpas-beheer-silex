@@ -5,8 +5,15 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformation;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\Request;
+use ValueObjects\DateTime\Date;
+use ValueObjects\DateTime\Month;
+use ValueObjects\DateTime\Year;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -22,62 +29,32 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
      */
     protected $controller;
 
+    /**
+     * @var PassHolder
+     */
+    protected $passHolder;
+
     public function setUp()
     {
         $this->service = $this->getMock(PassHolderServiceInterface::class);
         $this->controller = new PassHolderController($this->service);
-    }
 
-    /**
-     * @test
-     */
-    public function it_responds_the_passholder_matching_a_provided_identification_number()
-    {
-        $identification = '0930000125607';
+        $name = new Name(
+            new StringLiteral('Layla'),
+            new StringLiteral('Zyrani')
+        );
 
-        $cardSystem = new \CultureFeed_Uitpas_CardSystem(1, 'uitpas');
-        $cardSystem->id = $identification;
+        $address = new Address(
+            new StringLiteral('1090'),
+            new StringLiteral('Jette (Brussel)')
+        );
 
-        $cardSystemSpecific = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
-        $cardSystemSpecific->cardSystem = $cardSystem;
+        $birthDate = new \DateTime('1976-08-13');
+        $birthInformation = new BirthInformation(
+            Date::fromNativeDateTime($birthDate)
+        );
 
-        $passholder = new \CultureFeed_Uitpas_Passholder();
-        $passholder->name = 'Foo';
-        $passholder->cardSystemSpecific[1] = $cardSystemSpecific;
-
-        $this->service->expects($this->once())
-            ->method('getByIdentificationNumber')
-            ->with($identification)
-            ->willReturn($passholder);
-
-        $request = new Request(['identification' => $identification]);
-        $response = $this->controller->getByIdentificationNumber($request);
-        $json = $response->getContent();
-
-        $this->assertJsonEquals($json, 'PassHolder/data/passholder.json');
-    }
-
-    /**
-     * @test
-     */
-    public function it_throws_an_exception_when_a_passholder_can_not_be_found_by_identification()
-    {
-        $identification = '0930000125607';
-
-        $this->service->expects($this->once())
-            ->method('getByIdentificationNumber')
-            ->with($identification)
-            ->willReturn(null);
-
-        $request = new Request(['identification' => $identification]);
-
-        try {
-            $this->controller->getByIdentificationNumber($request);
-            $this->fail('getByIdentificationNumber() should throw PassHolderNotFoundException.');
-        } catch (PassHolderNotFoundException $exception) {
-            $this->assertInstanceOf(ReadableCodeExceptionInterface::class, $exception);
-            $this->assertNotEmpty($exception->getReadableCode());
-        }
+        $this->passHolder = new PassHolder($name, $address, $birthInformation);
     }
 
     /**
@@ -88,25 +65,15 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
         $uitpasNumberValue = '0930000125607';
         $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
 
-        $cardSystem = new \CultureFeed_Uitpas_CardSystem(1, 'uitpas');
-        $cardSystem->id = $uitpasNumberValue;
-
-        $cardSystemSpecific = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
-        $cardSystemSpecific->cardSystem = $cardSystem;
-
-        $passholder = new \CultureFeed_Uitpas_Passholder();
-        $passholder->name = 'Foo';
-        $passholder->cardSystemSpecific[1] = $cardSystemSpecific;
-
         $this->service->expects($this->once())
             ->method('getByUitpasNumber')
             ->with($uitpasNumber)
-            ->willReturn($passholder);
+            ->willReturn($this->passHolder);
 
         $response = $this->controller->getByUitpasNumber($uitpasNumberValue);
         $json = $response->getContent();
 
-        $this->assertJsonEquals($json, 'PassHolder/data/passholder.json');
+        $this->assertJsonEquals($json, 'PassHolder/data/passholder-minimum.json');
     }
 
     /**
@@ -150,25 +117,15 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             ->method('update')
             ->with($uitpasNumber, $passHolder);
 
-        $cardSystem = new \CultureFeed_Uitpas_CardSystem(1, 'uitpas');
-        $cardSystem->id = $uitpasNumberValue;
-
-        $cardSystemSpecific = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
-        $cardSystemSpecific->cardSystem = $cardSystem;
-
-        $updated = new \CultureFeed_Uitpas_Passholder();
-        $updated->name = 'Foo';
-        $updated->cardSystemSpecific[1] = $cardSystemSpecific;
-
         $this->service->expects($this->once())
             ->method('getByUitpasNumber')
             ->with($uitpasNumber)
-            ->willReturn($updated);
+            ->willReturn($this->passHolder);
 
         $response = $this->controller->update($request, $uitpasNumberValue);
         $json = $response->getContent();
 
-        $this->assertJsonEquals($json, 'PassHolder/data/passholder.json');
+        $this->assertJsonEquals($json, 'PassHolder/data/passholder-minimum.json');
     }
 
     /**
