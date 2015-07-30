@@ -71,7 +71,10 @@ class UiTPAS implements \JsonSerializable
         $number = new UiTPASNumber($cfCard->uitpasNumber);
         $status = UiTPASStatus::get($cfCard->status);
 
-        $card = new static($number, $status);
+        $card = new static(
+            $number,
+            $status
+        );
 
         if (!empty($cfCard->city)) {
             $card = $card->withCity(new StringLiteral($cfCard->city));

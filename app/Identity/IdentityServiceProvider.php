@@ -13,7 +13,7 @@ class IdentityServiceProvider implements ServiceProviderInterface
     public function register(Application $app)
     {
         $app['identity_service'] = $app->share(
-            function(Application $app) {
+            function (Application $app) {
                 return new IdentityService(
                     $app['uitpas'],
                     $app['counter_consumer_key']
