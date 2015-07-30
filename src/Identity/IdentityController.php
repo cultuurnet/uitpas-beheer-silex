@@ -8,14 +8,14 @@ use Symfony\Component\HttpFoundation\Request;
 class IdentityController
 {
     /**
-     * @var IdentityService
+     * @var IdentityServiceInterface
      */
     protected $identityService;
 
     /**
-     * @param IdentityService $identityService
+     * @param IdentityServiceInterface $identityService
      */
-    public function __construct(IdentityService $identityService)
+    public function __construct(IdentityServiceInterface $identityService)
     {
         $this->identityService = $identityService;
     }

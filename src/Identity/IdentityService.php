@@ -4,7 +4,7 @@ namespace CultuurNet\UiTPASBeheer\Identity;
 
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 
-class IdentityService extends CounterAwareUitpasService
+class IdentityService extends CounterAwareUitpasService implements IdentityServiceInterface
 {
     /**
      * @param $identification
