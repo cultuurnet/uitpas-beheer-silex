@@ -69,15 +69,15 @@ final class ContactInformation implements \JsonSerializable
         $data = [];
 
         if (!is_null($this->email)) {
-            $data['email'] = $this->email;
+            $data['email'] = $this->email->toNative();
         }
 
         if (!is_null($this->telephoneNumber)) {
-            $data['telephoneNumber'] = $this->telephoneNumber;
+            $data['telephoneNumber'] = $this->telephoneNumber->toNative();
         }
 
         if (!is_null($this->mobileNumber)) {
-            $data['mobileNumber'] = $this->mobileNumber;
+            $data['mobileNumber'] = $this->mobileNumber->toNative();
         }
 
         return $data;
