@@ -323,8 +323,13 @@ final class PassHolder implements \JsonSerializable
             );
         }
 
-        $contactInformation = ContactInformation::fromCultureFeedPassHolder($cfPassHolder);
-        $passHolder = $passHolder->withContactInformation($contactInformation);
+        if (!empty($cfPassHolder->email) ||
+            !empty($cfPassHolder->telephone) ||
+            !empty($cfPassHolder->gsm)) {
+            $passHolder = $passHolder->withContactInformation(
+                ContactInformation::fromCultureFeedPassHolder($cfPassHolder)
+            );
+        }
 
         $passHolder = $passHolder->withPrivacyPreferences(
             PrivacyPreferences::fromCultureFeedPassHolder($cfPassHolder)
