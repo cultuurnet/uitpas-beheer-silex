@@ -118,12 +118,6 @@ class PassHolderJsonDeserializer extends JSONDeserializer
             );
         }
 
-        if (isset($data->picture)) {
-            $passHolder = $passHolder->withPicture(
-                new StringLiteral((string) $data->picture)
-            );
-        }
-
         if (isset($data->contact)) {
             try {
                 $passHolder = $passHolder->withContactInformation(
