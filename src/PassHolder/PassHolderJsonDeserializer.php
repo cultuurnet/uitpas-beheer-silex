@@ -71,19 +71,25 @@ class PassHolderJsonDeserializer extends JSONDeserializer
         }
 
         try {
-            $name = $this->nameJsonDeserializer->deserialize($data->name);
+            $name = $this->nameJsonDeserializer->deserialize(
+                new StringLiteral(json_encode($data->name))
+            );
         } catch (MissingPropertyException $e) {
             throw MissingPropertyException::fromMissingChildPropertyException('name', $e);
         }
 
         try {
-            $address = $this->addressJsonDeserializer->deserialize($data->address);
+            $address = $this->addressJsonDeserializer->deserialize(
+                new StringLiteral(json_encode($data->address))
+            );
         } catch (MissingPropertyException $e) {
             throw MissingPropertyException::fromMissingChildPropertyException('address', $e);
         }
 
         try {
-            $birthInformation = $this->addressJsonDeserializer->deserialize($data->birth);
+            $birthInformation = $this->birthInformationJsonDeserializer->deserialize(
+                new StringLiteral(json_encode($data->birth))
+            );
         } catch (MissingPropertyException $e) {
             throw MissingPropertyException::fromMissingChildPropertyException('birth', $e);
         }
@@ -121,7 +127,9 @@ class PassHolderJsonDeserializer extends JSONDeserializer
         if (isset($data->contact)) {
             try {
                 $passHolder = $passHolder->withContactInformation(
-                    $this->contactInformationJsonDeserializer->deserialize($data->contact)
+                    $this->contactInformationJsonDeserializer->deserialize(
+                        new StringLiteral(json_encode($data->contact))
+                    )
                 );
             } catch (MissingPropertyException $e) {
                 throw MissingPropertyException::fromMissingChildPropertyException('contact', $e);
@@ -131,7 +139,9 @@ class PassHolderJsonDeserializer extends JSONDeserializer
         if (isset($data->privacy)) {
             try {
                 $passHolder = $passHolder->withPrivacyPreferences(
-                    $this->privacyPreferencesJsonDeserializer->deserialize($data->privacy)
+                    $this->privacyPreferencesJsonDeserializer->deserialize(
+                        new StringLiteral(json_encode($data->privacy))
+                    )
                 );
             } catch (MissingPropertyException $e) {
                 throw MissingPropertyException::fromMissingChildPropertyException('privacy', $e);
