@@ -54,7 +54,7 @@ class ContactInformationTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_omits_optional_properties_from_json()
+    public function it_omits_empty_properties_from_json()
     {
         $contactInformation = (new ContactInformation())
             ->withEmail($this->email);
@@ -69,15 +69,31 @@ class ContactInformationTest extends \PHPUnit_Framework_TestCase
     public function it_can_extract_properties_from_a_culturefeed_passholder()
     {
         $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
-        $cfPassHolder->name = 'Zyrani';
-        $cfPassHolder->firstName = 'Layla';
-        $cfPassHolder->postalCode = '1090';
-        $cfPassHolder->city = 'Jette (Brussel)';
         $cfPassHolder->email = 'zyrani_.hotmail.com@mailinator.com';
         $cfPassHolder->telephone = '0488694231';
         $cfPassHolder->gsm = '0499748596';
 
         $contactInfo = ContactInformation::fromCultureFeedPassHolder($cfPassHolder);
-        $this->assertJsonEquals(json_encode($contactInfo), 'PassHolder/data/properties/contact-information-complete.json');
+
+        $this->assertEquals(
+            $cfPassHolder->email,
+            $contactInfo
+                ->getEmail()
+                ->toNative()
+        );
+
+        $this->assertEquals(
+            $cfPassHolder->telephone,
+            $contactInfo
+                ->getTelephoneNumber()
+                ->toNative()
+        );
+
+        $this->assertEquals(
+            $cfPassHolder->gsm,
+            $contactInfo
+                ->getMobileNumber()
+                ->toNative()
+        );
     }
 }

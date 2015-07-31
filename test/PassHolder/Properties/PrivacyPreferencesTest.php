@@ -63,13 +63,23 @@ class PrivacyPreferencesTest extends \PHPUnit_Framework_TestCase
     public function it_can_extract_properties_from_a_culturefeed_passholder()
     {
         $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
-        $cfPassHolder->name = 'Zyrani';
-        $cfPassHolder->firstName = 'Layla';
-        $cfPassHolder->secondName = 'Zooni';
         $cfPassHolder->emailPreference = 'ALL_MAILS';
         $cfPassHolder->smsPreference = 'NO_SMS';
 
         $privacyPreferences = PrivacyPreferences::fromCultureFeedPassHolder($cfPassHolder);
-        $this->assertJsonEquals(json_encode($privacyPreferences), 'PassHolder/data/properties/privacy-preferences-complete.json');
+
+        $this->assertEquals(
+            $cfPassHolder->emailPreference,
+            $privacyPreferences
+                ->getEmailPreference()
+                ->toNative()
+        );
+
+        $this->assertEquals(
+            $cfPassHolder->smsPreference,
+            $privacyPreferences
+                ->getSMSPreference()
+                ->toNative()
+        );
     }
 }

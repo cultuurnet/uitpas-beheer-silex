@@ -51,7 +51,7 @@ class NameTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_omits_optional_properties_from_json()
+    public function it_omits_empty_properties_from_json()
     {
         $name = new Name($this->first, $this->last);
         $json = json_encode($name);
@@ -69,7 +69,27 @@ class NameTest extends \PHPUnit_Framework_TestCase
         $cfPassHolder->secondName = 'Zooni';
 
         $name = Name::fromCultureFeedPassHolder($cfPassHolder);
-        $this->assertJsonEquals(json_encode($name), 'PassHolder/data/properties/name-complete.json');
+
+        $this->assertEquals(
+            $cfPassHolder->name,
+            $name
+                ->getLastName()
+                ->toNative()
+        );
+
+        $this->assertEquals(
+            $cfPassHolder->firstName,
+            $name
+                ->getFirstName()
+                ->toNative()
+        );
+
+        $this->assertEquals(
+            $cfPassHolder->secondName,
+            $name
+                ->getMiddleName()
+                ->toNative()
+        );
     }
 
     /**
@@ -80,6 +100,10 @@ class NameTest extends \PHPUnit_Framework_TestCase
         $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
 
         $name = Name::fromCultureFeedPassHolder($cfPassHolder);
-        $this->assertJsonEquals(json_encode($name), 'PassHolder/data/properties/name-empty.json');
+
+        // By using toNative() we check that they're not null, as well as that
+        // their values are empty strings.
+        $this->assertEmpty($name->getLastName()->toNative());
+        $this->assertEmpty($name->getFirstName()->toNative());
     }
 }

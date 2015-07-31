@@ -48,7 +48,7 @@ class BirthInformationTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_omits_optional_data_from_json()
+    public function it_omits_empty_data_from_json()
     {
         $birthInformation = new BirthInformation($this->date);
         $json = json_encode($birthInformation);
@@ -61,14 +61,22 @@ class BirthInformationTest extends \PHPUnit_Framework_TestCase
     public function it_can_extract_properties_from_a_culturefeed_passholder()
     {
         $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
-        $cfPassHolder->name = 'Zyrani';
-        $cfPassHolder->firstName = 'Layla';
-        $cfPassHolder->postalCode = '1090';
-        $cfPassHolder->city = 'Jette (Brussel)';
         $cfPassHolder->dateOfBirth = 208742400;
         $cfPassHolder->placeOfBirth = 'Casablanca';
 
         $birthInfo = BirthInformation::fromCultureFeedPassHolder($cfPassHolder);
-        $this->assertJsonEquals(json_encode($birthInfo), 'PassHolder/data/properties/birth-information-complete.json');
+
+        $this->assertEquals(
+            $cfPassHolder->dateOfBirth,
+            $birthInfo
+                ->getDate()
+                ->toNativeDateTime()
+                ->getTimestamp()
+        );
+
+        $this->assertEquals(
+            $cfPassHolder->placeOfBirth,
+            $birthInfo->getPlace()
+        );
     }
 }
