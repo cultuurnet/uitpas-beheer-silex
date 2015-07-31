@@ -2,22 +2,36 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class PassHolderController
 {
     /**
-     * @param PassHolderServiceInterface $passHolderService
+     * @var PassHolderServiceInterface
      */
     protected $passHolderService;
 
-    public function __construct(PassHolderServiceInterface $passHolderService)
-    {
+    /**
+     * @var DeserializerInterface
+     */
+    protected $passHolderJsonDeserializer;
+
+    /**
+     * @param PassHolderServiceInterface $passHolderService
+     * @param DeserializerInterface $passHolderJsonDeserializer
+     */
+    public function __construct(
+        PassHolderServiceInterface $passHolderService,
+        DeserializerInterface $passHolderJsonDeserializer
+    ) {
         $this->passHolderService = $passHolderService;
+        $this->passHolderJsonDeserializer = $passHolderJsonDeserializer;
     }
 
     /**
@@ -54,12 +68,9 @@ class PassHolderController
     {
         $uitpasNumber = new UiTPASNumber($uitpasNumber);
 
-        $passHolder = new \CultureFeed_Uitpas_Passholder();
-
-        $properties = $request->request->all();
-        foreach ($properties as $property => $value) {
-            $passHolder->{$property} = $value;
-        }
+        $passHolder = $this->passHolderJsonDeserializer->deserialize(
+            new StringLiteral($request->getContent())
+        );
 
         try {
             $this->passHolderService->update($uitpasNumber, $passHolder);

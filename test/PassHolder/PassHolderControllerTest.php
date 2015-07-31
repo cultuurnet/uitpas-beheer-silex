@@ -5,19 +5,18 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformation;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\AddressJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformationJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\NameJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferencesJsonDeserializer;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\Request;
-use ValueObjects\DateTime\Date;
-use ValueObjects\DateTime\Month;
-use ValueObjects\DateTime\Year;
-use ValueObjects\StringLiteral\StringLiteral;
 
 class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
 {
     use JsonAssertionTrait;
+    use PassHolderDataTrait;
 
     /**
      * @var PassHolderServiceInterface|\PHPUnit_Framework_MockObject_MockObject
@@ -25,36 +24,31 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
     protected $service;
 
     /**
+     * @var PassHolderJsonDeserializer|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $deserializer;
+
+    /**
      * @var PassHolderController
      */
     protected $controller;
 
-    /**
-     * @var PassHolder
-     */
-    protected $passHolder;
-
     public function setUp()
     {
         $this->service = $this->getMock(PassHolderServiceInterface::class);
-        $this->controller = new PassHolderController($this->service);
 
-        $name = new Name(
-            new StringLiteral('Layla'),
-            new StringLiteral('Zyrani')
+        $this->deserializer = new PassHolderJsonDeserializer(
+            new NameJsonDeserializer(),
+            new AddressJsonDeserializer(),
+            new BirthInformationJsonDeserializer(),
+            new ContactInformationJsonDeserializer(),
+            new PrivacyPreferencesJsonDeserializer()
         );
 
-        $address = new Address(
-            new StringLiteral('1090'),
-            new StringLiteral('Jette (Brussel)')
+        $this->controller = new PassHolderController(
+            $this->service,
+            $this->deserializer
         );
-
-        $birthDate = new \DateTime('1976-08-13');
-        $birthInformation = new BirthInformation(
-            Date::fromNativeDateTime($birthDate)
-        );
-
-        $this->passHolder = new PassHolder($name, $address, $birthInformation);
     }
 
     /**
@@ -68,12 +62,12 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
         $this->service->expects($this->once())
             ->method('getByUitpasNumber')
             ->with($uitpasNumber)
-            ->willReturn($this->passHolder);
+            ->willReturn($this->getCompletePassHolder());
 
         $response = $this->controller->getByUitpasNumber($uitpasNumberValue);
         $json = $response->getContent();
 
-        $this->assertJsonEquals($json, 'PassHolder/data/passholder-minimum.json');
+        $this->assertJsonEquals($json, 'PassHolder/data/passholder-complete.json');
     }
 
     /**
@@ -101,31 +95,27 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_updates_the_provided_fields_of_a_given_passholder_by_uitpas_number()
+    public function it_updates_a_given_passholder_by_uitpas_number()
     {
         $uitpasNumberValue = '0930000125607';
         $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
 
-        $data = ['name' => 'Foo'];
-
-        $request = new Request([], $data);
-
-        $passHolder = new \CultureFeed_Uitpas_Passholder();
-        $passHolder->name = $data['name'];
+        $data = file_get_contents(__DIR__ . '/data/passholder-update.json');
+        $request = new Request([], [], [], [], [], [], $data);
 
         $this->service->expects($this->once())
             ->method('update')
-            ->with($uitpasNumber, $passHolder);
+            ->with($uitpasNumber, $this->getCompletePassHolderUpdate());
 
         $this->service->expects($this->once())
             ->method('getByUitpasNumber')
             ->with($uitpasNumber)
-            ->willReturn($this->passHolder);
+            ->willReturn($this->getCompletePassHolder());
 
         $response = $this->controller->update($request, $uitpasNumberValue);
         $json = $response->getContent();
 
-        $this->assertJsonEquals($json, 'PassHolder/data/passholder-minimum.json');
+        $this->assertJsonEquals($json, 'PassHolder/data/passholder-complete.json');
     }
 
     /**
@@ -134,21 +124,15 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
     public function it_throws_an_exception_when_a_passholder_can_not_be_updated()
     {
         $uitpasNumberValue = '0930000125607';
-        $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
 
-        $data = ['name' => 'Foo'];
-
-        $request = new Request([], $data);
-
-        $passHolder = new \CultureFeed_Uitpas_Passholder();
-        $passHolder->name = $data['name'];
+        $data = file_get_contents(__DIR__ . '/data/passholder-minimum.json');
+        $request = new Request([], [], [], [], [], [], $data);
 
         $message = 'Something went wrong.';
         $code = 'SOMETHING_WRONG';
 
         $this->service->expects($this->once())
             ->method('update')
-            ->with($uitpasNumber, $passHolder)
             ->willThrowException(new \CultureFeed_Exception($message, $code));
 
         $this->setExpectedException(ReadableCodeResponseException::class);
