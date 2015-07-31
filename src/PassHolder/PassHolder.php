@@ -30,7 +30,7 @@ final class PassHolder implements \JsonSerializable
     protected $birthInformation;
 
     /**
-     * @var INSZNumber
+     * @var INSZNumber|null
      */
     protected $inszNumber;
 
@@ -40,7 +40,7 @@ final class PassHolder implements \JsonSerializable
     protected $gender;
 
     /**
-     * @var StringLiteral
+     * @var StringLiteral|null
      */
     protected $nationality;
 
@@ -55,7 +55,7 @@ final class PassHolder implements \JsonSerializable
     protected $contactInformation;
 
     /**
-     * @var PrivacyPreferences
+     * @var PrivacyPreferences|null
      */
     protected $privacyPreferences;
 
@@ -82,12 +82,44 @@ final class PassHolder implements \JsonSerializable
     }
 
     /**
+     * @return Name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return Address
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @return BirthInformation
+     */
+    public function getBirthInformation()
+    {
+        return $this->birthInformation;
+    }
+
+    /**
      * @param INSZNumber $inszNumber
      * @return PassHolder
      */
     public function withINSZNumber(INSZNumber $inszNumber)
     {
         return $this->with('inszNumber', $inszNumber);
+    }
+
+    /**
+     * @return INSZNumber|null
+     */
+    public function getINSZNumber()
+    {
+        return $this->inszNumber;
     }
 
     /**
@@ -100,12 +132,28 @@ final class PassHolder implements \JsonSerializable
     }
 
     /**
+     * @return Gender|null
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
      * @param StringLiteral $nationality
      * @return PassHolder
      */
     public function withNationality(StringLiteral $nationality)
     {
         return $this->with('nationality', $nationality);
+    }
+
+    /**
+     * @return StringLiteral|null
+     */
+    public function getNationality()
+    {
+        return $this->nationality;
     }
 
     /**
@@ -118,12 +166,28 @@ final class PassHolder implements \JsonSerializable
     }
 
     /**
+     * @return StringLiteral|null
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
      * @param ContactInformation $contactInformation
      * @return PassHolder
      */
     public function withContactInformation(ContactInformation $contactInformation)
     {
         return $this->with('contactInformation', $contactInformation);
+    }
+
+    /**
+     * @return ContactInformation|null
+     */
+    public function getContactInformation()
+    {
+        return $this->contactInformation;
     }
 
     /**
@@ -136,12 +200,28 @@ final class PassHolder implements \JsonSerializable
     }
 
     /**
+     * @return PrivacyPreferences|null
+     */
+    public function getPrivacyPreferences()
+    {
+        return $this->privacyPreferences;
+    }
+
+    /**
      * @param \ValueObjects\Number\Integer $points
      * @return PassHolder
      */
     public function withPoints(Integer $points)
     {
         return $this->with('points', $points);
+    }
+
+    /**
+     * @return \ValueObjects\Number\Integer
+     */
+    public function getPoints()
+    {
+        return $this->points;
     }
 
     /**

@@ -34,6 +34,22 @@ final class Name implements \JsonSerializable
     }
 
     /**
+     * @return StringLiteral
+     */
+    public function getFirstName()
+    {
+        return $this->first;
+    }
+
+    /**
+     * @return StringLiteral
+     */
+    public function getLastName()
+    {
+        return $this->last;
+    }
+
+    /**
      * @param StringLiteral $middle
      * @return Name
      */
@@ -42,6 +58,14 @@ final class Name implements \JsonSerializable
         $c = clone $this;
         $c->middle = $middle;
         return $c;
+    }
+
+    /**
+     * @return StringLiteral|null
+     */
+    public function getMiddleName()
+    {
+        return $this->middle;
     }
 
     /**

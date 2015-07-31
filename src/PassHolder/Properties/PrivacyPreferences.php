@@ -30,6 +30,22 @@ final class PrivacyPreferences implements \JsonSerializable
     }
 
     /**
+     * @return PrivacyPreferenceSMS
+     */
+    public function getSMSPreference()
+    {
+        return $this->smsPreference;
+    }
+
+    /**
+     * @return PrivacyPreferenceEmail
+     */
+    public function getEmailPreference()
+    {
+        return $this->emailPreference;
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()

@@ -32,6 +32,14 @@ final class ContactInformation implements \JsonSerializable
     }
 
     /**
+     * @return EmailAddress|null
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
      * @param StringLiteral $telephoneNumber
      * @return ContactInformation
      */
@@ -41,12 +49,28 @@ final class ContactInformation implements \JsonSerializable
     }
 
     /**
+     * @return StringLiteral|null
+     */
+    public function getTelephoneNumber()
+    {
+        return $this->telephoneNumber;
+    }
+
+    /**
      * @param StringLiteral $mobileNumber
      * @return ContactInformation
      */
     public function withMobileNumber(StringLiteral $mobileNumber)
     {
         return $this->with('mobileNumber', $mobileNumber);
+    }
+
+    /**
+     * @return StringLiteral|null
+     */
+    public function getMobileNumber()
+    {
+        return $this->mobileNumber;
     }
 
     /**

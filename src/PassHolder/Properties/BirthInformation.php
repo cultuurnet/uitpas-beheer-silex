@@ -26,6 +26,14 @@ final class BirthInformation implements \JsonSerializable
     }
 
     /**
+     * @return Date
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
      * @param StringLiteral $place
      * @return BirthInformation
      */
@@ -34,6 +42,14 @@ final class BirthInformation implements \JsonSerializable
         $c = clone $this;
         $c->place = $place;
         return $c;
+    }
+
+    /**
+     * @return StringLiteral|null
+     */
+    public function getPlace()
+    {
+        return $this->place;
     }
 
     /**

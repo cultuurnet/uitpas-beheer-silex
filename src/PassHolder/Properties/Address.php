@@ -34,6 +34,22 @@ final class Address implements \JsonSerializable
     }
 
     /**
+     * @return StringLiteral
+     */
+    public function getPostalCode()
+    {
+        return $this->postalCode;
+    }
+
+    /**
+     * @return StringLiteral
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
      * @param StringLiteral $street
      * @return Address
      */
@@ -42,6 +58,14 @@ final class Address implements \JsonSerializable
         $c = clone $this;
         $c->street = $street;
         return $c;
+    }
+
+    /**
+     * @return StringLiteral|null
+     */
+    public function getStreet()
+    {
+        return $this->street;
     }
 
     /**
