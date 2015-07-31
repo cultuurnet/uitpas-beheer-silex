@@ -29,18 +29,22 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
 
     /**
      * @param UiTPASNumber $uitpasNumber
-     * @param \CultureFeed_Uitpas_Passholder $passHolder
+     * @param PassHolder $passHolder
      */
     public function update(
         UiTPASNumber $uitpasNumber,
-        \CultureFeed_Uitpas_Passholder $passHolder
+        PassHolder $passHolder
     ) {
-        $passHolder->uitpasNumber = $uitpasNumber->toNative();
+        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassHolder->uitpasNumber = $uitpasNumber->toNative();
+
+        // @todo Set all properties from the PassHolder object on the CultureFeed_Passholder object.
+        // @see PassHolderServiceTest
 
         $this
             ->getUitpasService()
             ->updatePassholder(
-                $passHolder,
+                $cfPassHolder,
                 $this->getCounterConsumerKey()
             );
     }

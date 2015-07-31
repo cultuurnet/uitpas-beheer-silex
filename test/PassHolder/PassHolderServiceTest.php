@@ -3,10 +3,25 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformation;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformation;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\INSZNumber;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use ValueObjects\DateTime\Date;
+use ValueObjects\Number\Integer;
+use ValueObjects\StringLiteral\StringLiteral;
+use ValueObjects\Web\EmailAddress;
 
 class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 {
+    use PassHolderDataTrait;
+
     /**
      * @var string
      */
@@ -82,12 +97,32 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $uitpasNumberValue = '0930000125607';
         $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
 
-        $passHolder = new \CultureFeed_Uitpas_Passholder();
-        $passHolder->name = 'Foo';
+        $passHolder = $this->getCompletePassHolder();
+
+        // Picture and points can not be updated with this call,
+        // so they should not be set.
+        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassHolder->uitpasNumber = $uitpasNumberValue;
+        $cfPassHolder->name = 'Zyrani';
+        $cfPassHolder->firstName = 'Layla';
+        $cfPassHolder->postalCode = '1090';
+        $cfPassHolder->city = 'Jette (Brussel)';
+        $cfPassHolder->dateOfBirth = 211420800;
+        $cfPassHolder->street = 'Rue Perdue 101 /0003';
+        $cfPassHolder->placeOfBirth = 'Casablanca';
+        $cfPassHolder->secondName = 'Zoni';
+        $cfPassHolder->gender = 'FEMALE';
+        $cfPassHolder->inszNumber = '93051822361';
+        $cfPassHolder->nationality = 'Maroc';
+        $cfPassHolder->email = 'zyrani_.hotmail.com@mailinator.com';
+        $cfPassHolder->telephone = '0488694231';
+        $cfPassHolder->gsm = '0499748596';
+        $cfPassHolder->smsPreference = 'NO_SMS';
+        $cfPassHolder->emailPreference = 'ALL_MAILS';
 
         $this->uitpas->expects($this->once())
             ->method('updatePassholder')
-            ->with($passHolder, $this->counterConsumerKey);
+            ->with($cfPassHolder, $this->counterConsumerKey);
 
         $this->service->update($uitpasNumber, $passHolder);
     }
