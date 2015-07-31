@@ -8,7 +8,9 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformation;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\INSZNumber;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -55,7 +57,7 @@ final class PassHolder implements \JsonSerializable
     protected $contactInformation;
 
     /**
-     * @var PrivacyPreferences|null
+     * @var PrivacyPreferences
      */
     protected $privacyPreferences;
 
@@ -79,6 +81,11 @@ final class PassHolder implements \JsonSerializable
         $this->birthInformation = $birthInformation;
 
         $this->points = new Integer(0);
+
+        $this->privacyPreferences = new PrivacyPreferences(
+            PrivacyPreferenceEmail::NOTIFICATION(),
+            PrivacyPreferenceSMS::NOTIFICATION()
+        );
     }
 
     /**
