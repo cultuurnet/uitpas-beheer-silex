@@ -53,6 +53,15 @@ final class BirthInformation implements \JsonSerializable
     }
 
     /**
+     * @param BirthInformation $other
+     * @return bool
+     */
+    public function sameValueAs(BirthInformation $other)
+    {
+        return $this->jsonSerialize() === $other->jsonSerialize();
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()

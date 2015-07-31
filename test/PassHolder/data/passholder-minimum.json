@@ -8,7 +8,11 @@
     "city": "Jette (Brussel)"
   },
   "birth": {
-    "date": "1976-08-13"
+    "date": "1976-09-13"
   },
-  "points": 0
+  "points": 0,
+  "privacy": {
+    "email": false,
+    "sms": false
+  }
 }

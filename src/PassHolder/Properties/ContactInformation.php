@@ -86,6 +86,15 @@ final class ContactInformation implements \JsonSerializable
     }
 
     /**
+     * @param ContactInformation $other
+     * @return bool
+     */
+    public function sameValueAs(ContactInformation $other)
+    {
+        return $this->jsonSerialize() === $other->jsonSerialize();
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()

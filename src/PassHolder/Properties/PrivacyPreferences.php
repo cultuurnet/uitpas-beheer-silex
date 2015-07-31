@@ -46,6 +46,15 @@ final class PrivacyPreferences implements \JsonSerializable
     }
 
     /**
+     * @param PrivacyPreferences $other
+     * @return bool
+     */
+    public function sameValueAs(PrivacyPreferences $other)
+    {
+        return $this->jsonSerialize() === $other->jsonSerialize();
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()

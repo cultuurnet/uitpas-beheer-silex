@@ -69,6 +69,15 @@ final class Address implements \JsonSerializable
     }
 
     /**
+     * @param Address $other
+     * @return bool
+     */
+    public function sameValueAs(Address $other)
+    {
+        return $this->jsonSerialize() === $other->jsonSerialize();
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()

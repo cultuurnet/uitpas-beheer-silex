@@ -69,6 +69,15 @@ final class Name implements \JsonSerializable
     }
 
     /**
+     * @param Name $other
+     * @return bool
+     */
+    public function sameValueAs(Name $other)
+    {
+        return $this->jsonSerialize() === $other->jsonSerialize();
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()
