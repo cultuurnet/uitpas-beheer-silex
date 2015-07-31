@@ -35,10 +35,11 @@ class AdvantageControllerProvider implements ControllerProviderInterface
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
+        $controllers->post('/passholders/{uitpasNumber}/advantages/exchanges', 'advantage_controller:exchange');
+
         $controllers->get('/passholders/{uitpasNumber}/advantages', 'advantage_controller:getExchangeable');
         $controllers->get('/passholders/{uitpasNumber}/advantages/{advantageIdentifier}', 'advantage_controller:get');
 
-        $controllers->post('/passholders/{uitpasNumber}/advantages/exchanges', 'advantage_controller:exchange');
 
         return $controllers;
     }
