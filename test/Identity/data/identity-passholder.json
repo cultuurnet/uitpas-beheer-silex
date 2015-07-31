@@ -16,6 +16,10 @@
     "birth": {
       "date": "1976-08-13"
     },
+    "privacy": {
+      "email": false,
+      "sms": false
+    },
     "points": 0
   }
 }

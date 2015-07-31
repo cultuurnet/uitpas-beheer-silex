@@ -188,6 +188,6 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
         $identity = Identity::fromCultureFeedIdentity($cfIdentity);
 
         $json = json_encode($identity);
-        $this->assertJsonEquals($json, 'Identity/data/identity-passholder-privacy.json');
+        $this->assertJsonEquals($json, 'Identity/data/identity-passholder.json');
     }
 }
