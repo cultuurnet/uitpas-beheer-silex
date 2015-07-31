@@ -30,7 +30,6 @@ class ContactInformationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
         $json = file_get_contents(__DIR__ . '/../data/properties/contact-information-complete.json');
 
         $actual = $this->deserializer->deserialize(new StringLiteral($json));
-        //$this->assertTrue($expected->sameValueAs($actual));
-        $this->assertEquals($expected->jsonSerialize(), $actual->jsonSerialize());
+        $this->assertTrue($expected->sameValueAs($actual));
     }
 }
