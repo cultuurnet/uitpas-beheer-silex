@@ -10,6 +10,8 @@ class ContactInformationJsonDeserializer extends JSONDeserializer
 {
     public function deserialize(StringLiteral $data)
     {
+        $data = parent::deserialize($data);
+
         $contactInformation = new ContactInformation();
 
         if (isset($data->email)) {
