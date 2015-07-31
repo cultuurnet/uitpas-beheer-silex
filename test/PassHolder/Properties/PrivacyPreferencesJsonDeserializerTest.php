@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
 
+use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class PrivacyPreferencesJsonDeserializerTest extends \PHPUnit_Framework_TestCase
@@ -30,5 +31,35 @@ class PrivacyPreferencesJsonDeserializerTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->deserializer->deserialize(new StringLiteral($json));
         $this->assertTrue($expected->sameValueAs($actual));
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_email_is_not_set()
+    {
+        $json = '{"sms": true}';
+
+        $this->setExpectedException(
+            MissingPropertyException::class,
+            'Missing property "email".'
+        );
+
+        $this->deserializer->deserialize(new StringLiteral($json));
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_sms_is_not_set()
+    {
+        $json = '{"email": true}';
+
+        $this->setExpectedException(
+            MissingPropertyException::class,
+            'Missing property "sms".'
+        );
+
+        $this->deserializer->deserialize(new StringLiteral($json));
     }
 }

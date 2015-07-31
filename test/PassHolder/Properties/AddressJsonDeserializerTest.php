@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
 
+use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class AddressJsonDeserializerTest extends \PHPUnit_Framework_TestCase
@@ -32,5 +33,32 @@ class AddressJsonDeserializerTest extends \PHPUnit_Framework_TestCase
         $actual = $this->deserializer->deserialize(new StringLiteral($json));
 
         $this->assertTrue($expected->sameValueAs($actual));
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_the_postal_code_is_missing()
+    {
+        $json = '{"city": "Jette (Brussel)"}';
+
+        $this->setExpectedException(
+            MissingPropertyException::class,
+            'Missing property "postalCode".'
+        );
+
+        $this->deserializer->deserialize(new StringLiteral($json));
+    }
+
+    public function it_throws_an_exception_when_the_city_is_missing()
+    {
+        $json = '{"postalCode"; "1090"}';
+
+        $this->setExpectedException(
+            MissingPropertyException::class,
+            'Missing property "city".'
+        );
+
+        $this->deserializer->deserialize(new StringLiteral($json));
     }
 }

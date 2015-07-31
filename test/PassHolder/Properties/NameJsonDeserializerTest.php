@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
 
+use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class NameJsonDeserializerTest extends \PHPUnit_Framework_TestCase
@@ -32,5 +33,35 @@ class NameJsonDeserializerTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->deserializer->deserialize(new StringLiteral($json));
         $this->assertTrue($expected->sameValueAs($actual));
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_first_name_is_not_set()
+    {
+        $json = '{"last": "Zyrani"}';
+
+        $this->setExpectedException(
+            MissingPropertyException::class,
+            'Missing property "first".'
+        );
+
+        $this->deserializer->deserialize(new StringLiteral($json));
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_last_name_is_not_set()
+    {
+        $json = '{"first": "Layla"}';
+
+        $this->setExpectedException(
+            MissingPropertyException::class,
+            'Missing property "last".'
+        );
+
+        $this->deserializer->deserialize(new StringLiteral($json));
     }
 }

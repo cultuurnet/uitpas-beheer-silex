@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
 
+use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use ValueObjects\DateTime\Date;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -34,5 +35,20 @@ class BirthInformationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->deserializer->deserialize(new StringLiteral($json));
         $this->assertTrue($expected->sameValueAs($actual));
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_date_is_not_set()
+    {
+        $json = '{"place": "Casablanca"}';
+
+        $this->setExpectedException(
+            MissingPropertyException::class,
+            'Missing property "date".'
+        );
+
+        $this->deserializer->deserialize(new StringLiteral($json));
     }
 }
