@@ -180,7 +180,8 @@ final class PassHolder implements \JsonSerializable
         if (!is_null($this->picture)) {
             $data['picture'] = $this->picture->toNative();
         }
-        if (!is_null($this->contactInformation)) {
+        if (!is_null($this->contactInformation) &&
+            !empty($this->contactInformation->jsonSerialize())) {
             $data['contact'] = $this->contactInformation;
         }
         if (!is_null($this->privacyPreferences)) {
@@ -236,9 +237,7 @@ final class PassHolder implements \JsonSerializable
         }
 
         $contactInformation = ContactInformation::fromCultureFeedPassHolder($cfPassHolder);
-        if (!empty($contactInformation->jsonSerialize())) {
-            $passHolder = $passHolder->withContactInformation($contactInformation);
-        }
+        $passHolder = $passHolder->withContactInformation($contactInformation);
 
         $passHolder = $passHolder->withPrivacyPreferences(
             PrivacyPreferences::fromCultureFeedPassHolder($cfPassHolder)

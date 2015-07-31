@@ -2,7 +2,9 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformation;
 use ValueObjects\Number\Integer;
+use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 
 class PassHolderTest extends \PHPUnit_Framework_TestCase
 {
@@ -48,12 +50,14 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $cfPassHolder = clone $this->passholderFull;
 
         $passholder = PassHolder::fromCultureFeedPassHolder($cfPassHolder);
-        $this->assertAttributeNotEmpty('inszNumber', $passholder);
-        $this->assertAttributeNotEmpty('gender', $passholder);
-        $this->assertAttributeNotEmpty('nationality', $passholder);
-        $this->assertAttributeNotEmpty('picture', $passholder);
-        $this->assertAttributeNotEmpty('points', $passholder);
-        $this->assertAttributeNotEmpty('contactInformation', $passholder);
+        $this->assertAttributeEquals('93051822361', 'inszNumber', $passholder);
+        $this->assertAttributeEquals('FEMALE', 'gender', $passholder);
+        $this->assertAttributeEquals('Belg', 'nationality', $passholder);
+        $this->assertAttributeEquals('R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw==', 'picture', $passholder);
+        $this->assertAttributeEquals(new Integer(40), 'points', $passholder);
+
+        $contactInformation = ContactInformation::fromCultureFeedPassHolder($cfPassHolder);
+        $this->assertAttributeEquals($contactInformation, 'contactInformation', $passholder);
     }
 
     /**
@@ -68,8 +72,10 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEmpty('gender', $passholder, 'Gender should not be set.');
         $this->assertAttributeEmpty('nationality', $passholder, 'Nationality should not be set.');
         $this->assertAttributeEmpty('picture', $passholder, 'Picture should not be set.');
-        $this->assertAttributeEquals(new Integer(0), 'points', $passholder, 'Points should not be 0 (zero).');
-        $this->assertAttributeEmpty('contactInformation', $passholder, 'Contact information should not be set.');
+        $this->assertAttributeEquals(new Integer(0), 'points', $passholder, 'Points should be 0 (zero).');
+
+        $contactInformation = new ContactInformation();
+        $this->assertAttributeEquals($contactInformation, 'contactInformation', $passholder);
     }
 
     /**
