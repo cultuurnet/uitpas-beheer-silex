@@ -50,9 +50,12 @@ class AddressJsonDeserializerTest extends \PHPUnit_Framework_TestCase
         $this->deserializer->deserialize(new StringLiteral($json));
     }
 
+    /**
+     * @test
+     */
     public function it_throws_an_exception_when_the_city_is_missing()
     {
-        $json = '{"postalCode"; "1090"}';
+        $json = '{"postalCode": "1090"}';
 
         $this->setExpectedException(
             MissingPropertyException::class,
