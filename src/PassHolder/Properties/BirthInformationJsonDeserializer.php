@@ -29,7 +29,7 @@ class BirthInformationJsonDeserializer extends JSONDeserializer
 
         if (isset($data->place)) {
             $birthInformation = $birthInformation->withPlace(
-              new StringLiteral((string) $data->place)
+                new StringLiteral((string) $data->place)
             );
         }
 

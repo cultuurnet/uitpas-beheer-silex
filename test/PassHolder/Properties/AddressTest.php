@@ -79,13 +79,15 @@ class AddressTest extends \PHPUnit_Framework_TestCase
             $cfPassHolder->postalCode,
             $address
                 ->getPostalCode()
-                ->toNative());
+                ->toNative()
+        );
 
         $this->assertEquals(
             $cfPassHolder->city,
             $address
                 ->getCity()
-                ->toNative());
+                ->toNative()
+        );
 
         $this->assertEquals(
             $cfPassHolder->street,

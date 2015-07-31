@@ -98,7 +98,8 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
                         PrivacyPreferenceEmail::NOTIFICATION(),
                         PrivacyPreferenceSMS::NOTIFICATION()
                     )
-                ));
+                )
+        );
 
         $this->assertNull($passHolder->getINSZNumber());
         $this->assertNull($passHolder->getGender());
