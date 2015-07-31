@@ -57,4 +57,29 @@ class NameTest extends \PHPUnit_Framework_TestCase
         $json = json_encode($name);
         $this->assertJsonEquals($json, 'PassHolder/data/properties/name-minimum.json');
     }
+
+    /**
+     * @test
+     */
+    public function it_can_extract_properties_from_a_culturefeed_passholder()
+    {
+        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassHolder->name = 'Zyrani';
+        $cfPassHolder->firstName = 'Layla';
+        $cfPassHolder->secondName = 'Zooni';
+
+        $name = Name::fromCultureFeedPassHolder($cfPassHolder);
+        $this->assertJsonEquals(json_encode($name), 'PassHolder/data/properties/name-complete.json');
+    }
+
+    /**
+     * @test
+     */
+    public function it_sets_filler_values_for_missing_name_information()
+    {
+        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
+
+        $name = Name::fromCultureFeedPassHolder($cfPassHolder);
+        $this->assertJsonEquals(json_encode($name), 'PassHolder/data/properties/name-empty.json');
+    }
 }
