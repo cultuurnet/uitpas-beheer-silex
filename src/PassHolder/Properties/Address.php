@@ -55,10 +55,8 @@ final class Address implements \JsonSerializable
             $data['street'] = $this->street->toNative();
         }
 
-        $data += [
-            'postalCode' => $this->postalCode->toNative(),
-            'city' => $this->city->toNative(),
-        ];
+        $data['postalCode'] = $this->postalCode->toNative();
+        $data['city'] = $this->city->toNative();
 
         return $data;
     }
