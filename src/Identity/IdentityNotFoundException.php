@@ -3,9 +3,10 @@
 namespace CultuurNet\UiTPASBeheer\Identity;
 
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
+use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
 use CultuurNet\UiTPASBeheer\Exception\ResponseException;
 
-class IdentityNotFoundException extends ResponseException implements ReadableCodeExceptionInterface
+class IdentityNotFoundException extends ReadableCodeResponseException
 {
     /**
      * @param int $code
@@ -13,15 +14,11 @@ class IdentityNotFoundException extends ResponseException implements ReadableCod
      */
     public function __construct($code = 404, \Exception $previous = null)
     {
-        $message = 'No identity found with this identification.';
-        parent::__construct($message, $code, $previous);
-    }
-
-    /**
-     * @return string
-     */
-    public function getReadableCode()
-    {
-        return 'IDENTITY_NOT_FOUND';
+        parent::__construct(
+            'No identity could be found with this identification.',
+            'IDENTITY_NOT_FOUND',
+            $code,
+            $previous
+        );
     }
 }

@@ -1,0 +1,25 @@
+{
+  "uitPas": {
+    "number": "1000000035419",
+    "kansenStatuut": true,
+    "status": "ACTIVE"
+  },
+  "passHolder": {
+    "name": {
+      "first": "Layla",
+      "last": "Zyrani"
+    },
+    "address": {
+      "postalCode": "1090",
+      "city": "Jette (Brussel)"
+    },
+    "birth": {
+      "date": "1976-08-13"
+    },
+    "privacy": {
+      "email": false,
+      "sms": false
+    },
+    "points": 0
+  }
+}

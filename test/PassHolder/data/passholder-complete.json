@@ -1,0 +1,29 @@
+{
+  "name": {
+    "first": "Layla",
+    "middle": "Zoni",
+    "last": "Zyrani"
+  },
+  "address": {
+    "street": "Rue Perdue 101 /0003",
+    "postalCode": "1090",
+    "city": "Jette (Brussel)"
+  },
+  "birth": {
+    "date": "1976-09-13",
+    "place": "Casablanca"
+  },
+  "gender": "FEMALE",
+  "nationality": "Maroc",
+  "picture": "R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw==",
+  "contact": {
+    "email": "zyrani_.hotmail.com@mailinator.com",
+    "telephoneNumber": "0488694231",
+    "mobileNumber": "0499748596"
+  },
+  "privacy": {
+    "email": true,
+    "sms": false
+  },
+  "points": 20
+}
