@@ -2,6 +2,11 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\AddressJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformationJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\NameJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferencesJsonDeserializer;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
@@ -22,6 +27,18 @@ class PassHolderServiceProvider implements ServiceProviderInterface
                 return new PassHolderService(
                     $app['uitpas'],
                     $app['counter_consumer_key']
+                );
+            }
+        );
+
+        $app['passholder_json_deserializer'] = $app->share(
+            function (Application $app) {
+                return new PassHolderJsonDeserializer(
+                    new NameJsonDeserializer(),
+                    new AddressJsonDeserializer(),
+                    new BirthInformationJsonDeserializer(),
+                    new ContactInformationJsonDeserializer(),
+                    new PrivacyPreferencesJsonDeserializer()
                 );
             }
         );

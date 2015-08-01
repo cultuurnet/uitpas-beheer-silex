@@ -16,7 +16,10 @@ class PassHolderControllerProvider implements ControllerProviderInterface
     {
         $app['passholder_controller'] = $app->share(
             function (Application $app) {
-                return new PassHolderController($app['passholder_service']);
+                return new PassHolderController(
+                    $app['passholder_service'],
+                    $app['passholder_json_deserializer']
+                );
             }
         );
 
