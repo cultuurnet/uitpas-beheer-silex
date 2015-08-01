@@ -65,10 +65,16 @@ trait PassHolderDataTrait
     }
 
     /**
+     * @param Gender|null $gender
+     *
      * @return PassHolder
      */
-    public function getCompletePassHolder()
+    public function getCompletePassHolder(Gender $gender = null)
     {
+        if (!$gender) {
+            $gender = Gender::FEMALE();
+        }
+
         return (new PassHolder(
             (new Name(
                 new StringLiteral('Layla'),
@@ -90,7 +96,7 @@ trait PassHolderDataTrait
         ))->withINSZNumber(
             new INSZNumber('93051822361')
         )->withGender(
-            Gender::FEMALE()
+            $gender
         )->withNationality(
             new StringLiteral('Maroc')
         )->withPicture(

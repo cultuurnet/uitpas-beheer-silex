@@ -3,20 +3,8 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformation;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformation;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\INSZNumber;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
-use ValueObjects\DateTime\Date;
-use ValueObjects\Number\Integer;
-use ValueObjects\StringLiteral\StringLiteral;
-use ValueObjects\Web\EmailAddress;
 
 class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -39,6 +27,8 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        date_default_timezone_set('Europe/Brussels');
+
         $this->uitpas = $this->getMock(\CultureFeed_Uitpas::class);
         $this->counterConsumerKey = new CounterConsumerKey('key');
 
@@ -89,15 +79,31 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($passholder);
     }
 
+    public function updatePassHolderData()
+    {
+        // Genders are a special case. Normally the gender is indicated by
+        // 'FEMALE' and 'MALE', when updating a passholder though the values
+        // 'F' and 'M' are expected to be used.
+        return [
+            [Gender::FEMALE(), 'F'],
+            [Gender::MALE(), 'M'],
+        ];
+    }
+
     /**
      * @test
+     * @dataProvider updatePassHolderData
+     * @param Gender $gender
+     * @param string $expectedCfPassHolderGender
      */
-    public function it_updates_a_given_passholder()
-    {
+    public function it_updates_a_given_passholder(
+        Gender $gender,
+        $expectedCfPassHolderGender
+    ) {
         $uitpasNumberValue = '0930000125607';
         $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
 
-        $passHolder = $this->getCompletePassHolder();
+        $passHolder = $this->getCompletePassHolder($gender);
 
         // Picture and points can not be updated with this call,
         // so they should not be set.
@@ -107,17 +113,17 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassHolder->firstName = 'Layla';
         $cfPassHolder->postalCode = '1090';
         $cfPassHolder->city = 'Jette (Brussel)';
-        $cfPassHolder->dateOfBirth = 211420800;
+        $cfPassHolder->dateOfBirth = 211417200;
         $cfPassHolder->street = 'Rue Perdue 101 /0003';
         $cfPassHolder->placeOfBirth = 'Casablanca';
         $cfPassHolder->secondName = 'Zoni';
-        $cfPassHolder->gender = 'FEMALE';
+        $cfPassHolder->gender = $expectedCfPassHolderGender;
         $cfPassHolder->inszNumber = '93051822361';
         $cfPassHolder->nationality = 'Maroc';
         $cfPassHolder->email = 'zyrani_.hotmail.com@mailinator.com';
         $cfPassHolder->telephone = '0488694231';
         $cfPassHolder->gsm = '0499748596';
-        $cfPassHolder->smsPreference = 'NO_SMS';
+        $cfPassHolder->smsPreference = 'NOTIFICATION_SMS';
         $cfPassHolder->emailPreference = 'ALL_MAILS';
 
         $this->uitpas->expects($this->once())

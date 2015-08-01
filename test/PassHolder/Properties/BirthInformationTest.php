@@ -66,13 +66,10 @@ class BirthInformationTest extends \PHPUnit_Framework_TestCase
 
         $birthInfo = BirthInformation::fromCultureFeedPassHolder($cfPassHolder);
 
-        $this->assertEquals(
-            $cfPassHolder->dateOfBirth,
-            $birthInfo
-                ->getDate()
-                ->toNativeDateTime()
-                ->getTimestamp()
+        $date = Date::fromNativeDateTime(
+            \DateTime::createFromFormat('U', $cfPassHolder->dateOfBirth)
         );
+        $this->assertTrue($birthInfo->getDate()->sameValueAs($date));
 
         $this->assertEquals(
             $cfPassHolder->placeOfBirth,
