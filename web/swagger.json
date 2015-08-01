@@ -283,7 +283,7 @@
             "description": "An object containing the passholder info to update.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postObjectWithPassHolderInfo"
+              "$ref": "#/definitions/PassHolderUpdateCommand"
             }
           }
         ],
@@ -1076,6 +1076,13 @@
         "status"
       ]
     },
+    "Gender": {
+      "type": "string",
+      "enum": [
+        "MALE",
+        "FEMALE"
+      ]
+    },
     "PassHolder": {
       "properties": {
         "name": {
@@ -1092,11 +1099,7 @@
           "example": "93051822361"
         },
         "gender": {
-          "type": "string",
-          "enum": [
-            "MALE",
-            "FEMALE"
-          ]
+          "$ref": "#/definitions/Gender"
         },
         "nationality": {
           "type": "string",
@@ -1115,6 +1118,41 @@
         "points": {
           "type": "integer",
           "example": 40
+        }
+      },
+      "required": [
+        "name",
+        "address",
+        "birth"
+      ]
+    },
+    "PassHolderUpdateCommand": {
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/PassHolderName"
+        },
+        "address": {
+          "$ref": "#/definitions/PassHolderAddress"
+        },
+        "birth": {
+          "$ref": "#/definitions/PassHolderBirthInformation"
+        },
+        "inszNumber": {
+          "type": "string",
+          "example": "93051822361"
+        },
+        "gender": {
+          "$ref": "#/definitions/Gender"
+        },
+        "nationality": {
+          "type": "string",
+          "example": "Belg"
+        },
+        "contact": {
+          "$ref": "#/definitions/PassHolderContactInformation"
+        },
+        "privacy": {
+          "$ref": "#/definitions/PassHolderPrivacyPreferences"
         }
       },
       "required": [
@@ -1250,113 +1288,6 @@
       "required": [
         "id"
       ]
-    },
-    "postObjectWithPassHolderInfo": {
-      "properties": {
-        "name": {
-          "type": "string",
-          "example": "Boonen"
-        },
-        "firstName": {
-          "type": "string",
-          "example": "Tom"
-        },
-        "email": {
-          "type": "string",
-          "example": "tom@boonen.be"
-        },
-        "emailPreference": {
-          "type": "string",
-          "enum": [
-            "NO_MAILS",
-            "NOTIFICATION_MAILS",
-            "ALL_MAILS"
-          ]
-        },
-        "smsPreference": {
-          "type": "string",
-          "enum": [
-            "NO_sms",
-            "NOTIFICATION_SMS",
-            "ALL_SMS"
-          ]
-        },
-        "inszNumber": {
-          "type": "string",
-          "example": "93051822361"
-        },
-        "dateOfBirth": {
-          "type": "string",
-          "format": "date",
-          "example": "1980-04-15T00:00:00+02:00"
-        },
-        "gender": {
-          "type": "string",
-          "example": "MALE",
-          "enum": [
-            "FEMALE",
-            "MALE"
-          ]
-        },
-        "street": {
-          "type": "string",
-          "example": "Straat"
-        },
-        "number": {
-          "type": "string",
-          "example": 44
-        },
-        "box": {
-          "type": "string",
-          "example": "B"
-        },
-        "postalCode": {
-          "type": "integer",
-          "format": "int32",
-          "example": 2400
-        },
-        "city": {
-          "type": "string",
-          "example": "Mol"
-        },
-        "telephone": {
-          "type": "string",
-          "example": "053781576"
-        },
-        "gsm": {
-          "type": "string",
-          "example": "0485315896"
-        },
-        "nationality": {
-          "type": "string",
-          "example": "Belg"
-        },
-        "placeOfBirth": {
-          "type": "string",
-          "example": "Mol"
-        },
-        "kansenStatuutEndDate": {
-          "type": "string",
-          "format": "date-time",
-          "example": "2013-12-31T23:59:59+01:00"
-        },
-        "verified": {
-          "type": "boolean",
-          "example": true
-        },
-        "moreInfo": {
-          "type": "string",
-          "example": "Proin risus mattis aenean nisl convallis rutrum etiam. Magna fames sem lectus tempor venenatis. Velit"
-        },
-        "schoolConsumerKey": {
-          "type": "string",
-          "example": "31413BDF-DFC7-7A9F-10403618C2816E44"
-        },
-        "balieConsumerKey": {
-          "type": "string",
-          "example": "31413BDF-DFC7-7A9F-10403618C2816E44"
-        }
-      }
     },
     "postObjectWithAdvantageId": {
       "properties": {
