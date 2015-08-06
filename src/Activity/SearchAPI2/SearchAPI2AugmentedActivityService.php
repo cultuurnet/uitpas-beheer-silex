@@ -127,7 +127,7 @@ class SearchAPI2AugmentedActivityService implements ActivityServiceInterface
             new BooleanParameter('past', true),
             new BooleanParameter('unavailable', true),
             new Group(),
-            new Query('cdbid:"' . $activity->getId()->toNative() . '"')
+            new Query('cdbid:"' . $activity->getId()->toNative() . '"'),
         ];
 
         $result = $this->searchService->search($parameters);

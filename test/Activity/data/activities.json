@@ -29,7 +29,7 @@
       }
     }
   ],
-  "firstPage": "http://example.com/activities?date_type=today&page=1",
-  "lastPage": "http://example.com/activities?date_type=today&page=3",
-  "nextPage": "http://example.com/activities?date_type=today&page=2"
+  "firstPage": "http://example.com/passholders/0930000208908/activities?date_type=today&page=1",
+  "lastPage": "http://example.com/passholders/0930000208908/activities?date_type=today&page=3",
+  "nextPage": "http://example.com/passholders/0930000208908/activities?date_type=today&page=2"
 }

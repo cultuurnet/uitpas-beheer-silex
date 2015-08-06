@@ -107,7 +107,7 @@ class AdvantageTest extends \PHPUnit_Framework_TestCase
                 $this->id,
                 $this->title,
                 $this->points,
-                $exchangeable
+                $exchangeable,
             ]
         );
 

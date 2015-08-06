@@ -1,0 +1,18 @@
+{
+  "name": {
+    "first": "Layla",
+    "last": "Zyrani"
+  },
+  "address": {
+    "postalCode": "1090",
+    "city": "Jette (Brussel)"
+  },
+  "birth": {
+    "date": "1976-09-13"
+  },
+  "points": 0,
+  "privacy": {
+    "email": false,
+    "sms": false
+  }
+}

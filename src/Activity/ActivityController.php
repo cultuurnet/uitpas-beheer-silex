@@ -41,6 +41,7 @@ class ActivityController
 
     /**
      * @param Request $request
+     * @param string $uitpasNumber
      * @return JsonResponse
      *
      * @throws DateTypeInvalidException
@@ -48,9 +49,12 @@ class ActivityController
      * @throws UnknownParameterException
      *   When an unknown parameter was provided.
      */
-    public function search(Request $request)
+    public function search(Request $request, $uitpasNumber)
     {
-        $searchActivities = $this->queryBuilder;
+        $uitpasNumber = new UiTPASNumber($uitpasNumber);
+
+        $searchActivities = $this->queryBuilder
+            ->withUiTPASNumber($uitpasNumber);
 
         foreach ($request->query->all() as $parameter => $value) {
             switch ($parameter) {
@@ -67,12 +71,6 @@ class ActivityController
                 case 'query':
                     $searchActivities = $searchActivities->withQuery(
                         new StringLiteral($value)
-                    );
-                    break;
-
-                case 'uitpas_number':
-                    $searchActivities = $searchActivities->withUiTPASNumber(
-                        new UiTPASNumber($value)
                     );
                     break;
 
@@ -98,8 +96,14 @@ class ActivityController
 
         $activityResultSet = $this->activityService->search($searchActivities);
 
+        // From the UrlGeneratorInterface documentation:
+        // Parameters that reference placeholders in the route pattern will substitute them in the
+        // path or host. Extra params are added as query string to the URL.
+        $pageUrlParameters = $request->query;
+        $pageUrlParameters->set('uitpasNumber', $uitpasNumber->toNative());
+
         $pageUrlGenerator = new PageUrlGenerator(
-            $request->query,
+            $pageUrlParameters,
             $this->urlGenerator,
             $request->attributes->get('_route')
         );

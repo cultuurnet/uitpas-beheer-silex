@@ -58,11 +58,13 @@ abstract class AbstractPagedResultSet implements PagedResultSetInterface
     {
         foreach ($results as $result) {
             if (!is_a($result, $this->resultClass)) {
-                throw new \InvalidArgumentException(sprintf(
-                    'Results should only be instances of %s, %s given.',
-                    $this->resultClass,
-                    get_class($result)
-                ));
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        'Results should only be instances of %s, %s given.',
+                        $this->resultClass,
+                        get_class($result)
+                    )
+                );
             }
         }
     }

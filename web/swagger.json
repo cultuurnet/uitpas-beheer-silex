@@ -185,42 +185,42 @@
         ]
       }
     },
-    "/passholders": {
+    "/identities/{identificationNumber}": {
       "get": {
-        "summary": "Find a passholder by identification number.",
+        "summary": "Find an identity by identification number. An identity is a combination of an UiTPAS with a passholder.",
         "description": "Authentication and active counter is required.",
-        "operationId": "findPassholder",
+        "operationId": "findPassHolder",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
-            "name": "identification",
-            "in": "query",
-            "description": "The identification to search the passholder with.",
+            "name": "identificationNumber",
+            "in": "path",
+            "description": "The identification number to search the identity with.",
             "required": true,
             "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "The information about the passholder.",
+            "description": "The information about the identity.",
             "schema": {
-              "$ref": "#/definitions/Passholder"
+              "$ref": "#/definitions/Identity"
             }
           },
           "403": {
             "description": "The user is not authenticated or has no active counter."
           },
           "404": {
-            "description": "No passholder found with this identification.",
+            "description": "No identity found with this identification.",
             "schema": {
               "$ref": "#/definitions/Error"
             }
           }
         },
         "tags": [
-          "Passholder"
+          "Identity", "UiTPAS", "PassHolder"
         ]
       }
     },
@@ -228,7 +228,7 @@
       "get": {
         "summary": "Find a passholder by uitpas number.",
         "description": "Authentication and active counter is required.",
-        "operationId": "getPassholder",
+        "operationId": "getPassHolder",
         "produces": [
           "application/json"
         ],
@@ -245,7 +245,7 @@
           "200": {
             "description": "The information about the passholder.",
             "schema": {
-              "$ref": "#/definitions/Passholder"
+              "$ref": "#/definitions/PassHolder"
             }
           },
           "403": {
@@ -259,13 +259,13 @@
           }
         },
         "tags": [
-          "Passholder"
+          "PassHolder"
         ]
       },
       "post": {
         "summary": "Update a passholder.",
         "description": "Authentication and active counter is required.",
-        "operationId": "updatePassholder",
+        "operationId": "updatePassHolder",
         "produces": [
           "application/json"
         ],
@@ -283,7 +283,7 @@
             "description": "An object containing the passholder info to update.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/postObjectWithPassholderInfo"
+              "$ref": "#/definitions/PassHolderUpdateCommand"
             }
           }
         ],
@@ -291,7 +291,7 @@
           "200": {
             "description": "The information about the passholder.",
             "schema": {
-              "$ref": "#/definitions/Passholder"
+              "$ref": "#/definitions/PassHolder"
             }
           },
           "400": {
@@ -305,7 +305,7 @@
           }
         },
         "tags": [
-          "Passholder"
+          "PassHolder"
         ]
       }
     },
@@ -344,7 +344,7 @@
           }
         },
         "tags": [
-          "Passholder",
+          "PassHolder",
           "Advantage"
         ]
       }
@@ -394,7 +394,7 @@
           }
         },
         "tags": [
-          "Passholder",
+          "PassHolder",
           "Advantage"
         ]
       }
@@ -452,12 +452,12 @@
           }
         },
         "tags": [
-          "Passholder",
+          "PassHolder",
           "Advantage"
         ]
       }
     },
-    "/activities": {
+    "/passholders/{uitpasNumber}/activities": {
       "get": {
         "summary": "Retrieves a list of activities.",
         "description": "Authentication and an active counter are required.",
@@ -467,10 +467,10 @@
         ],
         "parameters": [
           {
-            "name": "uitpas_number",
-            "in": "query",
+            "name": "uitpasNumber",
+            "in": "path",
             "description": "The uitpas number of the passholder.",
-            "required": false,
+            "required": true,
             "type": "string"
           },
           {
@@ -524,7 +524,8 @@
           }
         },
         "tags": [
-          "Activity"
+          "Activity",
+          "PassHolder"
         ]
       }
     }
@@ -543,7 +544,7 @@
       "description": "Operations related to a counter."
     },
     {
-      "name": "Passholder",
+      "name": "PassHolder",
       "description": "Operations related to a passholder."
     },
     {
@@ -553,6 +554,14 @@
     {
       "name": "Activity",
       "description": "Operations related to an activity."
+    },
+    {
+      "name": "Identity",
+      "description": "Operations related to an identity."
+    },
+    {
+      "name": "UiTPAS",
+      "description": "Operations related to an UiTPAS"
     }
   ],
   "definitions": {
@@ -574,7 +583,7 @@
         },
         "password": {
           "type": "string",
-          "example": null
+          "example": "***"
         },
         "givenName": {
           "type": "string",
@@ -1025,421 +1034,220 @@
         "code"
       ]
     },
-    "Passholder": {
+    "Identity": {
+      "properties": {
+        "uitPas": {
+          "$ref": "#/definitions/UiTPAS"
+        },
+        "passHolder": {
+          "$ref": "#/definitions/PassHolder"
+        }
+      },
+      "required": [
+        "uitPas"
+      ]
+    },
+    "UiTPAS": {
+      "properties": {
+        "number": {
+          "type": "string",
+          "example": "0930000422202"
+        },
+        "kansenStatuut": {
+          "type": "boolean",
+          "example": false
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "LOCAL_STOCK",
+            "STOCK",
+            "SENT_TO_BALIE",
+            "PROVISIONED",
+            "ACTIVE",
+            "BLOCKED",
+            "DELETED"
+          ]
+        }
+      },
+      "required": [
+        "number",
+        "kansenStatuut",
+        "status"
+      ]
+    },
+    "Gender": {
+      "type": "string",
+      "enum": [
+        "MALE",
+        "FEMALE"
+      ]
+    },
+    "PassHolder": {
       "properties": {
         "name": {
-          "type": "string",
-          "example": "Boonen"
+          "$ref": "#/definitions/PassHolderName"
         },
-        "firstName": {
-          "type": "string",
-          "example": "Tom"
+        "address": {
+          "$ref": "#/definitions/PassHolderAddress"
         },
-        "email": {
-          "type": "string",
-          "example": "tom@boonen.be"
-        },
-        "emailPreference": {
-          "type": "string",
-          "enum": [
-            "NO_MAILS",
-            "NOTIFICATION_MAILS",
-            "ALL_MAILS"
-          ]
-        },
-        "smsPreference": {
-          "type": "string",
-          "enum": [
-            "NO_sms",
-            "NOTIFICATION_SMS",
-            "ALL_SMS"
-          ]
+        "birth": {
+          "$ref": "#/definitions/PassHolderBirthInformation"
         },
         "inszNumber": {
           "type": "string",
           "example": "93051822361"
         },
-        "dateOfBirth": {
-          "type": "string",
-          "format": "date",
-          "example": "1980-04-15T00:00:00+02:00"
-        },
         "gender": {
-          "type": "string",
-          "example": "MALE",
-          "enum": [
-            "FEMALE",
-            "MALE"
-          ]
-        },
-        "street": {
-          "type": "string",
-          "example": "Straat"
-        },
-        "number": {
-          "type": "string",
-          "example": 44
-        },
-        "box": {
-          "type": "string",
-          "example": "B"
-        },
-        "postalCode": {
-          "type": "integer",
-          "format": "int32",
-          "example": 2400
-        },
-        "city": {
-          "type": "string",
-          "example": "Mol"
-        },
-        "telephone": {
-          "type": "string",
-          "example": "053781576"
-        },
-        "gsm": {
-          "type": "string",
-          "example": "0485315896"
+          "$ref": "#/definitions/Gender"
         },
         "nationality": {
           "type": "string",
           "example": "Belg"
         },
-        "placeOfBirth": {
+        "picture": {
           "type": "string",
-          "example": "Mol"
+          "example": "R0lGODlhDwAPAKECAAAAzMzM/////wAAACwAAAAADwAPAAACIISPeQHsrZ5ModrLlN48CXF8m2iQ3YmmKqVlRtW4MLwWACH+H09wdGltaXplZCBieSBVbGVhZCBTbWFydFNhdmVyIQAAOw=="
         },
-        "price": {
-          "type": "number",
-          "format": "float"
+        "contact": {
+          "$ref": "#/definitions/PassHolderContactInformation"
         },
-        "kansenStatuut": {
-          "type": "boolean",
-          "example": true
-        },
-        "kansenStatuutExpired": {
-          "type": "boolean",
-          "example": false
-        },
-        "kansenStatuutEndDate": {
-          "type": "string",
-          "format": "date-time",
-          "example": "2013-12-31T23:59:59+01:00"
-        },
-        "kansenStatuutInGracePeriod": {
-          "type": "boolean",
-          "example": true
-        },
-        "uitIdUser": {
-          "$ref": "#/definitions/UitIdUser"
-        },
-        "blocked": {
-          "type": "boolean",
-          "example": false
-        },
-        "verified": {
-          "type": "boolean",
-          "example": true
-        },
-        "memberships": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Membership"
-          }
-        },
-        "registrationBalieConsumerKey": {
-          "type": "string",
-          "example": "31413BDF-DFC7-7A9F-10403618C2816E44"
+        "privacy": {
+          "$ref": "#/definitions/PassHolderPrivacyPreferences"
         },
         "points": {
           "type": "integer",
-          "format": "int32",
-          "example": 95
-        },
-        "moreInfo": {
-          "type": "string",
-          "example": "Proin risus mattis aenean nisl convallis rutrum etiam. Magna fames sem lectus tempor venenatis. Velit"
-        },
-        "schoolConsumerKey": {
-          "type": "string",
-          "example": "31413BDF-DFC7-7A9F-10403618C2816E44"
-        },
-        "balieConsumerKey": {
-          "type": "string",
-          "example": "31413BDF-DFC7-7A9F-10403618C2816E44"
-        },
-        "picture": {
-          "type": "string",
-          "description": "A base64 encoded image string",
-          "example": "base64 encoded image strings are to long to place in this file"
-        },
-        "cardSystemSpecific": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CardSystemSpecific"
-          }
+          "example": 40
         }
       },
       "required": [
         "name",
-        "firstName",
-        "email",
-        "dateOfBirth",
-        "gender",
-        "nationality",
-        "uitIdUser",
-        "registrationBalieConsumerKey",
-        "points",
-        "cardSystemSpecific"
+        "address",
+        "birth"
       ]
     },
-    "UitIdUser": {
+    "PassHolderUpdateCommand": {
       "properties": {
-        "id": {
-          "type": "string",
-          "example": "34475f7a-d1d5-481d-b205-9537ae0f9e73"
-        },
-        "nick": {
-          "type": "string",
-          "example": "bomtoonen"
-        }
-      },
-      "required": [
-        "id",
-        "nick"
-      ]
-    },
-    "Membership": {
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int32",
-          "example": 1
-        },
-        "association": {
-          "$ref": "#/definitions/Association"
-        },
-        "endDate": {
-          "type": "string",
-          "format": "date",
-          "example": ""
-        },
-        "expired": {
-          "type": "boolean",
-          "example": false
-        },
-        "renewDate": {
-          "type": "string",
-          "format": "date",
-          "example": ""
-        },
-        "renewable": {
-          "type": "boolean",
-          "example": true
-        }
-      },
-      "required": [
-        "id",
-        "association",
-        "endDate",
-        "expired",
-        "renewDate",
-        "renewable"
-      ]
-    },
-    "Association": {
-      "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int32",
-          "example": 1
-        },
         "name": {
+          "$ref": "#/definitions/PassHolderName"
+        },
+        "address": {
+          "$ref": "#/definitions/PassHolderAddress"
+        },
+        "birth": {
+          "$ref": "#/definitions/PassHolderBirthInformation"
+        },
+        "inszNumber": {
           "type": "string",
-          "example": "Chiro jongens"
+          "example": "93051822361"
         },
-        "cardSystem": {
-          "$ref": "#/definitions/AssociationCardSystem"
+        "gender": {
+          "$ref": "#/definitions/Gender"
         },
-        "enddateCalculation": {
+        "nationality": {
           "type": "string",
-          "example": "FREE",
-          "enum": [
-            "FREE",
-            "BASED_ON_DATE_OF_BIRTH",
-            "BASED_ON_REGISTRATION_DATE"
-          ]
+          "example": "Belg"
         },
-        "enddateCalculationFreeDate": {
-          "type": "string",
-          "format": "date",
-          "example": "2015-12-31T23:59:59+01:00"
+        "contact": {
+          "$ref": "#/definitions/PassHolderContactInformation"
         },
-        "enddateCalculationValidityTime": {
-          "type": "integer",
-          "format": "int32",
-          "example": 2
-        },
-        "permissionRead": {
-          "type": "boolean",
-          "example": true
-        },
-        "permissionRegister": {
-          "type": "boolean",
-          "example": false
+        "privacy": {
+          "$ref": "#/definitions/PassHolderPrivacyPreferences"
         }
       },
       "required": [
-        "id",
         "name",
-        "cardSystem",
-        "enddateCalculation"
+        "address",
+        "birth"
       ]
     },
-    "AssociationCardSystem": {
+    "PassHolderName": {
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int32",
-          "example": 1
-        },
-        "name": {
+        "first": {
           "type": "string",
-          "example": "UiTPAS Regio Aalst"
+          "example": "John"
         },
-        "distributionKeys": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "middle": {
+          "type": "string",
+          "example": "Lupus"
+        },
+        "last": {
+          "type": "string",
+          "example": "Smith"
         }
       },
       "required": [
-        "id",
-        "name"
+        "first",
+        "last"
       ]
     },
-    "CardSystemSpecific": {
+    "PassHolderAddress": {
       "properties": {
-        "currentCard": {
-          "$ref": "#/definitions/CurrentCard"
-        },
-        "emailPreference": {
+        "street": {
           "type": "string",
-          "enum": [
-            "NO_MAILS",
-            "NOTIFICATION_MAILS",
-            "ALL_MAILS"
-          ]
+          "example": "Steenweg op Aalst 94"
         },
-        "smsPreference": {
+        "postalCode": {
           "type": "string",
-          "enum": [
-            "NO_sms",
-            "NOTIFICATION_SMS",
-            "ALL_SMS"
-          ]
+          "example": "9308"
         },
-        "cardSystem": {
-          "$ref": "#/definitions/CardSystemSpecificCardSystem"
-        },
-        "kansenStatuut": {
-          "type": "boolean",
-          "example": true
-        },
-        "kansenStatuutExpired": {
-          "type": "boolean",
-          "example": false
-        },
-        "kansenStatuutEndDate": {
-          "type": "string",
-          "format": "date",
-          "example": "2013-12-31T23:59:59+01:00"
-        },
-        "kansenStatuutInGracePeriod": {
-          "type": "boolean",
-          "example": true
-        },
-        "status": {
-          "type": "string",
-          "example": "ACTIVE",
-          "enum": [
-            "ACTIVE",
-            "BLOCKED",
-            "DELETED",
-            "LOCAL_STOCK",
-            "PROVISIONED",
-            "SENT_TO_BALIE",
-            "STOCK"
-          ]
-        }
-      },
-      "required": [
-        "currentCard",
-        "emailPreference",
-        "smsPreference",
-        "cardSystem",
-        "kansenStatuut",
-        "kansenStatuutExpired",
-        "kansenStatuutInGracePeriod",
-        "status"
-      ]
-    },
-    "CurrentCard": {
-      "properties": {
         "city": {
           "type": "string",
           "example": "Aalst"
-        },
-        "uitpasNumber": {
-          "type": "string",
-          "example": "0930000104008"
-        },
-        "kansenpas": {
-          "type": "boolean",
-          "example": false
-        },
-        "status": {
-          "type": "string",
-          "enum": [
-            "ACTIVE",
-            "BLOCKED",
-            "DELETED",
-            "LOCAL_STOCK",
-            "PROVISIONED",
-            "SENT_TO_BALIE",
-            "STOCK"
-          ],
-          "example": "ACTIVE"
         }
       },
       "required": [
-        "uitpasNumber",
-        "kansenpas",
-        "status"
+        "postalCode",
+        "city"
       ]
     },
-    "CardSystemSpecificCardSystem": {
+    "PassHolderBirthInformation": {
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int32",
-          "example": 1
-        },
-        "name": {
+        "date": {
           "type": "string",
-          "example": "UiTPAS Regio Aalst"
+          "format": "date",
+          "example": "2003-12-26"
         },
-        "distributionKeys": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "place": {
+          "type": "string",
+          "example": "Sint-Agatha-Berchem"
         }
       },
       "required": [
-        "id",
-        "name"
+        "date"
+      ]
+    },
+    "PassHolderContactInformation": {
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "example": "foo@bar.com"
+        },
+        "telephoneNumber": {
+          "type": "string",
+          "example": "016454545"
+        },
+        "mobileNumber": {
+          "type": "string",
+          "example": "+32 498 77 88 99"
+        }
+      }
+    },
+    "PassHolderPrivacyPreferences": {
+      "properties": {
+        "email": {
+          "type": "boolean",
+          "example": true
+        },
+        "sms": {
+          "type": "boolean",
+          "example": false
+        }
+      },
+      "required": [
+        "email",
+        "sms"
       ]
     },
     "Advantage": {
@@ -1481,113 +1289,6 @@
         "id"
       ]
     },
-    "postObjectWithPassholderInfo": {
-      "properties": {
-        "name": {
-          "type": "string",
-          "example": "Boonen"
-        },
-        "firstName": {
-          "type": "string",
-          "example": "Tom"
-        },
-        "email": {
-          "type": "string",
-          "example": "tom@boonen.be"
-        },
-        "emailPreference": {
-          "type": "string",
-          "enum": [
-            "NO_MAILS",
-            "NOTIFICATION_MAILS",
-            "ALL_MAILS"
-          ]
-        },
-        "smsPreference": {
-          "type": "string",
-          "enum": [
-            "NO_sms",
-            "NOTIFICATION_SMS",
-            "ALL_SMS"
-          ]
-        },
-        "inszNumber": {
-          "type": "string",
-          "example": "93051822361"
-        },
-        "dateOfBirth": {
-          "type": "string",
-          "format": "date",
-          "example": "1980-04-15T00:00:00+02:00"
-        },
-        "gender": {
-          "type": "string",
-          "example": "MALE",
-          "enum": [
-            "FEMALE",
-            "MALE"
-          ]
-        },
-        "street": {
-          "type": "string",
-          "example": "Straat"
-        },
-        "number": {
-          "type": "string",
-          "example": 44
-        },
-        "box": {
-          "type": "string",
-          "example": "B"
-        },
-        "postalCode": {
-          "type": "integer",
-          "format": "int32",
-          "example": 2400
-        },
-        "city": {
-          "type": "string",
-          "example": "Mol"
-        },
-        "telephone": {
-          "type": "string",
-          "example": "053781576"
-        },
-        "gsm": {
-          "type": "string",
-          "example": "0485315896"
-        },
-        "nationality": {
-          "type": "string",
-          "example": "Belg"
-        },
-        "placeOfBirth": {
-          "type": "string",
-          "example": "Mol"
-        },
-        "kansenStatuutEndDate": {
-          "type": "string",
-          "format": "date-time",
-          "example": "2013-12-31T23:59:59+01:00"
-        },
-        "verified": {
-          "type": "boolean",
-          "example": true
-        },
-        "moreInfo": {
-          "type": "string",
-          "example": "Proin risus mattis aenean nisl convallis rutrum etiam. Magna fames sem lectus tempor venenatis. Velit"
-        },
-        "schoolConsumerKey": {
-          "type": "string",
-          "example": "31413BDF-DFC7-7A9F-10403618C2816E44"
-        },
-        "balieConsumerKey": {
-          "type": "string",
-          "example": "31413BDF-DFC7-7A9F-10403618C2816E44"
-        }
-      }
-    },
     "postObjectWithAdvantageId": {
       "properties": {
         "id": {
@@ -1618,19 +1319,23 @@
           }
         },
         "firstPage": {
-          "type": "url",
+          "type": "string",
+          "format": "url",
           "example": "http://culpas-silex.dev/activities?page=1"
         },
         "lastPage": {
-          "type": "url",
+          "type": "string",
+          "format": "url",
           "example": "http://culpas-silex.dev/activities?page=118"
         },
         "previousPage": {
-          "type": "url",
+          "type": "string",
+          "format": "url",
           "example": "http://culpas-silex.dev/activities?page=1"
         },
         "nextPage": {
-          "type": "url",
+          "type": "string",
+          "format": "url",
           "example": "http://culpas-silex.dev/activities?page=3"
         }
       },

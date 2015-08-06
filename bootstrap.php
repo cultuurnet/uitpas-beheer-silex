@@ -17,10 +17,13 @@ $app['debug'] = $app['config']['debug'] === true;
 /**
  * Configure CORS.
  */
-$app->register(new JDesrosiers\Silex\Provider\CorsServiceProvider(), array(
-    'cors.allowOrigin' => implode(' ', $app['config']['cors']['origins']),
-    'cors.allowCredentials' => true
-));
+$app->register(
+    new JDesrosiers\Silex\Provider\CorsServiceProvider(),
+    array(
+        'cors.allowOrigin' => implode(' ', $app['config']['cors']['origins']),
+        'cors.allowCredentials' => true,
+    )
+);
 
 /**
  * Exception handling.
@@ -41,11 +44,14 @@ $app->register(new \CultuurNet\UiTIDProvider\Security\UiTIDSecurityServiceProvid
 /**
  * CultureFeed services.
  */
-$app->register(new \CultuurNet\UiTIDProvider\CultureFeed\CultureFeedServiceProvider(), array(
-    'culturefeed.endpoint' => $app['config']['uitid']['base_url'],
-    'culturefeed.consumer.key' => $app['config']['uitid']['consumer']['key'],
-    'culturefeed.consumer.secret' => $app['config']['uitid']['consumer']['secret'],
-));
+$app->register(
+    new \CultuurNet\UiTIDProvider\CultureFeed\CultureFeedServiceProvider(),
+    array(
+        'culturefeed.endpoint' => $app['config']['uitid']['base_url'],
+        'culturefeed.consumer.key' => $app['config']['uitid']['consumer']['key'],
+        'culturefeed.consumer.secret' => $app['config']['uitid']['consumer']['secret'],
+    )
+);
 
 /**
  * Url generator.
@@ -65,14 +71,22 @@ $app->register(new CultuurNet\UiTIDProvider\User\UserServiceProvider());
 /**
  * CultuurNet services.
  */
-$app->register(new \CultuurNet\UiTPASBeheer\CultuurNetServiceProvider(), array(
-    'cultuurnet.search.endpoint' => $app['config']['search']['base_url'],
-));
+$app->register(
+    new \CultuurNet\UiTPASBeheer\CultuurNetServiceProvider(),
+    array(
+        'cultuurnet.search.endpoint' => $app['config']['search']['base_url'],
+    )
+);
 
 /**
  * UiTPAS Counter service.
  */
 $app->register(new \CultuurNet\UiTPASBeheer\Counter\CounterServiceProvider());
+
+/**
+ * UiTPAS Identity service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\Identity\IdentityServiceProvider());
 
 /**
  * UiTPAS PassHolder service.

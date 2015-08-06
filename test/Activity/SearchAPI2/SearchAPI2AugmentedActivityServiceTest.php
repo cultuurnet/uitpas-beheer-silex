@@ -301,7 +301,7 @@ class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
             new BooleanParameter('past', true),
             new BooleanParameter('unavailable', true),
             new Group(),
-            new Query('cdbid:"' . $id->toNative() . '"')
+            new Query('cdbid:"' . $id->toNative() . '"'),
         ];
     }
 }

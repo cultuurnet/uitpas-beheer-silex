@@ -50,26 +50,26 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_search_for_activities()
     {
-        $event_a = new CultureFeed_Uitpas_Event_CultureEvent();
-        $event_a->cdbid = 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee';
-        $event_a->title = 'test event 1';
-        $event_a->checkinAllowed = false;
-        $event_a->checkinStartDate = "2015-09-01T09:00:00+02:00";
-        $event_a->checkinEndDate = "2016-03-01T16:00:00.000+02:00";
-        $event_a->checkinConstraintReason = "INVALID_DATE_TIME";
-        $event_b = new CultureFeed_Uitpas_Event_CultureEvent();
-        $event_b->cdbid = 'ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj';
-        $event_b->title = 'test event 2';
-        $event_b->checkinAllowed = false;
-        $event_b->checkinStartDate = "2015-09-01T09:00:00+02:00";
-        $event_b->checkinEndDate = "2016-03-01T16:00:00.000+02:00";
-        $event_b->checkinConstraintReason = "INVALID_DATE_TIME";
+        $eventA = new CultureFeed_Uitpas_Event_CultureEvent();
+        $eventA->cdbid = 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee';
+        $eventA->title = 'test event 1';
+        $eventA->checkinAllowed = false;
+        $eventA->checkinStartDate = "2015-09-01T09:00:00+02:00";
+        $eventA->checkinEndDate = "2016-03-01T16:00:00.000+02:00";
+        $eventA->checkinConstraintReason = "INVALID_DATE_TIME";
+        $eventB = new CultureFeed_Uitpas_Event_CultureEvent();
+        $eventB->cdbid = 'ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj';
+        $eventB->title = 'test event 2';
+        $eventB->checkinAllowed = false;
+        $eventB->checkinStartDate = "2015-09-01T09:00:00+02:00";
+        $eventB->checkinEndDate = "2016-03-01T16:00:00.000+02:00";
+        $eventB->checkinConstraintReason = "INVALID_DATE_TIME";
 
-        $result_set = new \CultureFeed_ResultSet();
-        $result_set->total = 20;
-        $result_set->objects = array(
-            $event_a,
-            $event_b,
+        $resultSet = new \CultureFeed_ResultSet();
+        $resultSet->total = 20;
+        $resultSet->objects = array(
+            $eventA,
+            $eventB,
         );
 
         $searchEventOptions = new \CultureFeed_Uitpas_Event_Query_SearchEventsOptions();
@@ -81,7 +81,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $this->uitpas->expects($this->once())
             ->method('searchEvents')
             ->with($searchEventOptionsForCounter)
-            ->willReturn($result_set);
+            ->willReturn($resultSet);
 
         $query = $this->getMock(SearchOptionsBuilderInterface::class);
         $query->expects($this->once())
@@ -102,7 +102,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $checkinConstraint = $checkinConstraint->withReason(new StringLiteral('INVALID_DATE_TIME'));
 
         $expected = new PagedResultSet(
-            new Integer($result_set->total),
+            new Integer($resultSet->total),
             [
                 new Activity(
                     new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),

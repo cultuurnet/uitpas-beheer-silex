@@ -18,9 +18,11 @@ class ExceptionHandlerServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
-        $app->error(function (ResponseException $exception) {
-            return new JsonErrorResponse($exception);
-        });
+        $app->error(
+            function (ResponseException $exception) {
+                return new JsonErrorResponse($exception);
+            }
+        );
     }
 
     /**

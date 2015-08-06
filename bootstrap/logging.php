@@ -73,7 +73,7 @@ $app['culturefeed_oauth_client'] = $app->share(
             $httpClient = new \CultuurNet\CulturefeedHttpGuzzle\HttpClient(
                 $guzzleClient
             );
-            $httpClient->setTimeout(1);
+            $httpClient->setTimeout(10);
 
             $oauthClient->setHttpClient($httpClient);
 
