@@ -30,11 +30,13 @@ class ActivityControllerProvider implements ControllerProviderInterface
         $controllers->get('/activities', 'activity_controller:search');
         $controllers->get('/passholders/{uitpasNumber}/activities', 'activity_controller:search');
 
-        $app['checkin_controller'] = $app->share(function (Application $app) {
-            return new CheckinController(
-                $app['checkin_service']
-            );
-        });
+        $app['checkin_controller'] = $app->share(
+            function (Application $app) {
+                return new CheckinController(
+                    $app['checkin_service']
+                );
+            }
+        );
 
         $controllers->post('/passholders/{uitpasNumber}/activities/checkins', 'checkin_controller:checkin');
 
