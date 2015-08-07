@@ -1434,7 +1434,7 @@
       "properties": {
         "allowed": {
           "type": "boolean",
-          "description": "Indicates if a user is allowed to checkin an activity."
+          "description": "Indicates if a user is allowed to check in an activity."
         },
         "startDate": {
           "type": "integer",
@@ -1450,7 +1450,7 @@
         },
         "reason": {
           "type": "string",
-          "description": "The reason why a user is not allowed to checking an activity.",
+          "description": "The reason why a user is not allowed to check in an activity.",
           "enum": [
             "MAXIMUM_REACHED",
             "INVALID_DATE_TIME",
