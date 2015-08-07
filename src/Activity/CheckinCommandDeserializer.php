@@ -15,7 +15,7 @@ class CheckinCommandDeserializer extends JSONDeserializer
         $data = parent::deserialize($data);
 
         if (empty($data->eventCdbid)) {
-            throw new MissingPropertyException('event cdbid');
+            throw new MissingPropertyException('eventCdbid');
         }
 
         $checkinCommand = new CheckinCommand(

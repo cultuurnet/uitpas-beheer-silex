@@ -89,6 +89,7 @@ class SearchAPI2AugmentedActivityService implements ActivityServiceInterface
 
     /**
      * @param Cdbid $eventCdbid
+     * @param UiTPASNumber $uitpasNumber
      * @return Activity
      */
     public function get(UiTPASNumber $uitpasNumber, Cdbid $eventCdbid)

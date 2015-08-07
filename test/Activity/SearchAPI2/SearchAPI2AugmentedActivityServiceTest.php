@@ -13,10 +13,13 @@ use CultuurNet\Search\Parameter\Query;
 use CultuurNet\Search\SearchResult;
 use CultuurNet\Search\ServiceInterface;
 use CultuurNet\UiTPASBeheer\Activity\Activity;
+use CultuurNet\UiTPASBeheer\Activity\ActivityNotFoundException;
 use CultuurNet\UiTPASBeheer\Activity\ActivityServiceInterface;
+use CultuurNet\UiTPASBeheer\Activity\Cdbid;
 use CultuurNet\UiTPASBeheer\Activity\CheckinConstraint;
 use CultuurNet\UiTPASBeheer\Activity\PagedResultSet;
 use CultuurNet\UiTPASBeheer\Activity\SimpleQuery;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\DateTime\DateTime;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
@@ -128,6 +131,45 @@ class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
             ->willReturn($emptySearchResult);
 
         $this->activityService->search($query);
+    }
+
+    /**
+     * @test
+     */
+    public function it_augments_activities_retrieved_from_the_decorated_service()
+    {
+        $uitpasNumber = new UiTPASNumber('0930000420206');
+        $eventId = new Cdbid('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee');
+
+        $checkinStartDate = \DateTime::createFromFormat('U', 1441098000);
+        $checkinEndDate = \DateTime::createFromFormat('U', 1456848000);
+        $checkinConstraint = new CheckinConstraint(
+            false,
+            DateTime::fromNativeDateTime($checkinStartDate),
+            DateTime::fromNativeDateTime($checkinEndDate)
+        );
+        $checkinConstraint = $checkinConstraint->withReason(new StringLiteral('INVALID_DATE_TIME'));
+
+        $expectedActivity = new Activity(
+            new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
+            new StringLiteral('test event 1'),
+            $checkinConstraint
+        );
+
+        $this->decoratedActivityService
+            ->expects($this->once())
+            ->method('get')
+            ->with($uitpasNumber, $eventId)
+            ->willReturn($expectedActivity);
+
+        $emptySearchResult = new SearchResult();
+        $this->searchService->expects($this->once())
+            ->method('search')
+            ->willReturn($emptySearchResult);
+
+        $activity = $this->activityService->get($uitpasNumber, $eventId);
+
+        $this->assertEquals($expectedActivity, $activity);
     }
 
     /**
