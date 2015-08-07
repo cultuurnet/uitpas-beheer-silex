@@ -3,10 +3,13 @@
 namespace CultuurNet\UiTPASBeheer\Activity\CultureFeedUiTPAS;
 
 use CultuurNet\UiTPASBeheer\Activity\Activity;
+use CultuurNet\UiTPASBeheer\Activity\ActivityNotFoundException;
 use CultuurNet\UiTPASBeheer\Activity\ActivityServiceInterface;
+use CultuurNet\UiTPASBeheer\Activity\Cdbid;
 use CultuurNet\UiTPASBeheer\Activity\CheckinConstraint;
 use CultuurNet\UiTPASBeheer\Activity\PagedResultSet;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
 use ValueObjects\Number\Integer;
@@ -29,6 +32,31 @@ class ActivityService extends CounterAwareUitpasService implements ActivityServi
             new Integer($result->total),
             $activities
         );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function get(UiTPASNumber $uitpasNumber, Cdbid $eventCdbid)
+    {
+        $searchOptions = new \CultureFeed_Uitpas_Event_Query_SearchEventsOptions();
+        $searchOptions->cdbid = $eventCdbid->toNative();
+        $searchOptions->uitpasNumber = $uitpasNumber->getNumber();
+        $searchOptions->balieConsumerKey = $this->getCounterConsumerKey();
+
+        $result = $this->getUitpasService()->searchEvents($searchOptions);
+
+        if ($result->total !== 1) {
+            throw new ActivityNotFoundException($eventCdbid);
+        }
+
+        /* @var \CultureFeed_Uitpas_Event_CultureEvent $event */
+        $event = array_values($result->objects)[0];
+
+        $activity = $this->createActivity($event);
+
+        return $activity;
+
     }
 
     /**

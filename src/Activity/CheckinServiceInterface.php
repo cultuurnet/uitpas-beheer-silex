@@ -3,14 +3,15 @@
 namespace CultuurNet\UiTPASBeheer\Activity;
 
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use CultuurNet\UiTPASBeheer\Activity\Cdbid;
 
 interface CheckinServiceInterface
 {
     /**
      * @param UiTPASNumber $uitpasNumber
-     * @param string $eventCdbid
+     * @param Cdbid $eventCdbid
      *
      * @return int
      */
-    public function checkin(UiTPASNumber $uitpasNumber, $eventCdbid);
+    public function checkin(UiTPASNumber $uitpasNumber, Cdbid $eventCdbid);
 }

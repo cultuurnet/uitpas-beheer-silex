@@ -6,19 +6,59 @@ use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use CultuurNet\UiTPASBeheer\Activity\CheckinCommandDeserializer;
+use CultuurNet\UiTPASBeheer\Activity\CheckinCommand;
+use CultuurNet\Deserializer\DeserializerInterface;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class CheckinController
 {
     /**
-     * @param checkinServiceInterface $checkinService
+     * @var CheckinServiceInterface
      */
     protected $checkinService;
 
+    /**
+     * @var ActivityServiceInterface
+     */
+    protected $activityService;
+
+    /**
+     * @var DeserializerInterface
+     */
+    protected $checkinCommandDeserializer;
 
     public function __construct(
-        CheckinServiceInterface $checkinService
+        CheckinServiceInterface $checkinService,
+        ActivityServiceInterface $activityService,
+        DeserializerInterface $checkinCommandDeserializer
     ) {
         $this->checkinService = $checkinService;
+        $this->activityService = $activityService;
+        $this->checkinCommandDeserializer = $checkinCommandDeserializer;
+    }
+
+    /**
+     * @param UiTPASNumber $uitpasNumber
+     * @param Cdbid $eventCdbid
+     * @return JsonResponse
+     * @throws ActivityNotFoundException
+     *   When no advantage was found for the specified advantage identifier.
+     */
+    protected function getActivityJsonResponse($uitpasNumber, Cdbid $eventCdbid)
+    {
+        $activity = $this->activityService->get(
+            $uitpasNumber,
+            $eventCdbid
+        );
+
+        if (is_null($activity)) {
+            throw new ActivityNotFoundException($eventCdbid);
+        }
+
+        return JsonResponse::create()
+            ->setData($activity)
+            ->setPrivate(true);
     }
 
     /**
@@ -32,17 +72,22 @@ class CheckinController
     public function checkin(Request $request, $uitpasNumber)
     {
         $uitpasNumber = new UiTPASNumber($uitpasNumber);
-        $eventCdbid = $request->request->get('event_cdbid');
 
-        $this->checkinService->checkin($uitpasNumber, $eventCdbid);
+        /**
+         * @var CheckinCommand $checkinCommand
+         */
+        $checkinCommand = $this
+            ->checkinCommandDeserializer
+            ->deserialize(new StringLiteral($request->getContent()));
+
+        $eventCdbid = $checkinCommand->getEventCdbid();
+
         try {
-            $points = $this->checkinService->checkin($uitpasNumber, $eventCdbid);
+            $this->checkinService->checkin($uitpasNumber, $eventCdbid);
         } catch (\CultureFeed_Exception $exception) {
             throw ReadableCodeResponseException::fromCultureFeedException($exception);
         }
 
-        return JsonResponse::create()
-            ->setData($points)
-            ->setPrivate();
+        return $this->getActivityJsonResponse($uitpasNumber, $eventCdbid);
     }
 }

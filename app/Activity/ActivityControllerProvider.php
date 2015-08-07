@@ -33,7 +33,9 @@ class ActivityControllerProvider implements ControllerProviderInterface
         $app['checkin_controller'] = $app->share(
             function (Application $app) {
                 return new CheckinController(
-                    $app['checkin_service']
+                    $app['checkin_service'],
+                    $app['activity_service'],
+                    new CheckinCommandDeserializer()
                 );
             }
         );

@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "e09e9450b205e07667bfda9e7542cda9",
@@ -226,12 +226,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "fb136e1d5f9285dbea2deb2df0d9d8d37f53abda"
+                "reference": "1b81eb24274d67cbeb34d434a35b135639329a26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/fb136e1d5f9285dbea2deb2df0d9d8d37f53abda",
-                "reference": "fb136e1d5f9285dbea2deb2df0d9d8d37f53abda",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/1b81eb24274d67cbeb34d434a35b135639329a26",
+                "reference": "1b81eb24274d67cbeb34d434a35b135639329a26",
                 "shasum": ""
             },
             "require": {
@@ -285,7 +285,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-07-23 12:01:58"
+            "time": "2015-08-06 07:50:32"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -1988,7 +1988,7 @@
         },
         {
             "name": "symfony/browser-kit",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/BrowserKit.git",
@@ -2043,7 +2043,7 @@
         },
         {
             "name": "symfony/config",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Config.git",
@@ -2093,16 +2093,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Console.git",
-                "reference": "8cf484449130cabfd98dcb4694ca9945802a21ed"
+                "reference": "d6cf02fe73634c96677e428f840704bfbcaec29e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Console/zipball/8cf484449130cabfd98dcb4694ca9945802a21ed",
-                "reference": "8cf484449130cabfd98dcb4694ca9945802a21ed",
+                "url": "https://api.github.com/repos/symfony/Console/zipball/d6cf02fe73634c96677e428f840704bfbcaec29e",
+                "reference": "d6cf02fe73634c96677e428f840704bfbcaec29e",
                 "shasum": ""
             },
             "require": {
@@ -2146,11 +2146,11 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-09 16:07:40"
+            "time": "2015-07-28 15:18:12"
         },
         {
             "name": "symfony/css-selector",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/CssSelector.git",
@@ -2263,7 +2263,7 @@
         },
         {
             "name": "symfony/dom-crawler",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/DomCrawler.git",
@@ -2374,7 +2374,7 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
@@ -2423,7 +2423,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Finder.git",
@@ -2472,16 +2472,16 @@
         },
         {
             "name": "symfony/form",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Form.git",
-                "reference": "40056885583dd9bd203dba9e39fd8ba882258748"
+                "reference": "834bfe69221e5e060296f61755e95a8037aa9666"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Form/zipball/40056885583dd9bd203dba9e39fd8ba882258748",
-                "reference": "40056885583dd9bd203dba9e39fd8ba882258748",
+                "url": "https://api.github.com/repos/symfony/Form/zipball/834bfe69221e5e060296f61755e95a8037aa9666",
+                "reference": "834bfe69221e5e060296f61755e95a8037aa9666",
                 "shasum": ""
             },
             "require": {
@@ -2538,7 +2538,7 @@
             ],
             "description": "Symfony Form Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-13 09:09:54"
+            "time": "2015-07-22 10:11:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -2750,7 +2750,7 @@
         },
         {
             "name": "symfony/locale",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Locale.git",
@@ -2800,7 +2800,7 @@
         },
         {
             "name": "symfony/monolog-bridge",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/MonologBridge.git",
@@ -2912,7 +2912,7 @@
         },
         {
             "name": "symfony/process",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Process.git",
@@ -3021,7 +3021,7 @@
         },
         {
             "name": "symfony/routing",
-            "version": "v2.6.10",
+            "version": "v2.6.11",
             "target-dir": "Symfony/Component/Routing",
             "source": {
                 "type": "git",
@@ -3090,16 +3090,16 @@
         },
         {
             "name": "symfony/security",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Security.git",
-                "reference": "2d3106bc00eabe7706adb66ea4dc5fcca244a694"
+                "reference": "3d137c73cd8c6cb584e3f478b52de00e751d2289"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Security/zipball/2d3106bc00eabe7706adb66ea4dc5fcca244a694",
-                "reference": "2d3106bc00eabe7706adb66ea4dc5fcca244a694",
+                "url": "https://api.github.com/repos/symfony/Security/zipball/3d137c73cd8c6cb584e3f478b52de00e751d2289",
+                "reference": "3d137c73cd8c6cb584e3f478b52de00e751d2289",
                 "shasum": ""
             },
             "require": {
@@ -3162,20 +3162,20 @@
             ],
             "description": "Symfony Security Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-09 16:07:40"
+            "time": "2015-07-28 14:07:07"
         },
         {
             "name": "symfony/serializer",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Serializer.git",
-                "reference": "4ce2211d3a5d3a3605de7cc040af2808882f3c95"
+                "reference": "143d318457ecc298a846506acc8e80dea30d2548"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Serializer/zipball/4ce2211d3a5d3a3605de7cc040af2808882f3c95",
-                "reference": "4ce2211d3a5d3a3605de7cc040af2808882f3c95",
+                "url": "https://api.github.com/repos/symfony/Serializer/zipball/143d318457ecc298a846506acc8e80dea30d2548",
+                "reference": "143d318457ecc298a846506acc8e80dea30d2548",
                 "shasum": ""
             },
             "require": {
@@ -3223,11 +3223,11 @@
             ],
             "description": "Symfony Serializer Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-08 06:12:51"
+            "time": "2015-07-22 19:42:44"
         },
         {
             "name": "symfony/translation",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Translation.git",
@@ -3288,16 +3288,16 @@
         },
         {
             "name": "symfony/twig-bridge",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/TwigBridge.git",
-                "reference": "4c8be3f7f1b44599b2cbec68b2b1b0e78ded2014"
+                "reference": "1d7c50fc20f89c5ca4d440ed54abf049dc882c6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/TwigBridge/zipball/4c8be3f7f1b44599b2cbec68b2b1b0e78ded2014",
-                "reference": "4c8be3f7f1b44599b2cbec68b2b1b0e78ded2014",
+                "url": "https://api.github.com/repos/symfony/TwigBridge/zipball/1d7c50fc20f89c5ca4d440ed54abf049dc882c6e",
+                "reference": "1d7c50fc20f89c5ca4d440ed54abf049dc882c6e",
                 "shasum": ""
             },
             "require": {
@@ -3309,7 +3309,7 @@
                 "symfony/console": "~2.7",
                 "symfony/expression-language": "~2.4",
                 "symfony/finder": "~2.3",
-                "symfony/form": "~2.7,>=2.7.1",
+                "symfony/form": "~2.7,>=2.7.2",
                 "symfony/http-kernel": "~2.3",
                 "symfony/intl": "~2.3",
                 "symfony/phpunit-bridge": "~2.7",
@@ -3362,20 +3362,20 @@
             ],
             "description": "Symfony Twig Bridge",
             "homepage": "https://symfony.com",
-            "time": "2015-07-09 16:07:40"
+            "time": "2015-07-26 06:32:57"
         },
         {
             "name": "symfony/validator",
-            "version": "v2.7.2",
+            "version": "v2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Validator.git",
-                "reference": "26a190dbdf7a19fc2251c2d59547a717918b6c77"
+                "reference": "646df03e635a8a232804274401449ccdf5f03cad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Validator/zipball/26a190dbdf7a19fc2251c2d59547a717918b6c77",
-                "reference": "26a190dbdf7a19fc2251c2d59547a717918b6c77",
+                "url": "https://api.github.com/repos/symfony/Validator/zipball/646df03e635a8a232804274401449ccdf5f03cad",
+                "reference": "646df03e635a8a232804274401449ccdf5f03cad",
                 "shasum": ""
             },
             "require": {
@@ -3432,7 +3432,7 @@
             ],
             "description": "Symfony Validator Component",
             "homepage": "https://symfony.com",
-            "time": "2015-07-02 06:17:05"
+            "time": "2015-07-31 06:49:15"
         },
         {
             "name": "symfony/yaml",

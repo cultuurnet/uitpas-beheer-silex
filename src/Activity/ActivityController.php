@@ -15,9 +15,9 @@ use ValueObjects\StringLiteral\StringLiteral;
 class ActivityController
 {
     /**
-     * @param ActivityServiceInterface $activityService
+     * @param $activityService
      */
-    protected $passHolderService;
+    protected $activityService;
 
     /**
      * @var QueryInterface

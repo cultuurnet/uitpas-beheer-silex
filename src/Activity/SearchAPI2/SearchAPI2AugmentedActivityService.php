@@ -14,7 +14,9 @@ use CultuurNet\Search\ServiceInterface;
 use CultuurNet\UiTPASBeheer\Activity\Activity;
 use CultuurNet\UiTPASBeheer\Activity\ActivityServiceInterface;
 use CultuurNet\UiTPASBeheer\Activity\PagedResultSet;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\StringLiteral\StringLiteral;
+use CultuurNet\UiTPASBeheer\Activity\Cdbid;
 
 /**
  * Augments the available activity data from another ActivityServiceInterface
@@ -83,6 +85,23 @@ class SearchAPI2AugmentedActivityService implements ActivityServiceInterface
         );
 
         return $augmentedResultSet;
+    }
+
+    /**
+     * @param Cdbid $eventCdbid
+     * @return Activity
+     */
+    public function get(UiTPASNumber $uitpasNumber, Cdbid $eventCdbid)
+    {
+        $activity = $this->activityService->get($uitpasNumber, $eventCdbid);
+
+        try {
+            $augmentedActivity = $this->augmentActivity($activity);
+        } catch (\Exception $e) {
+            $augmentedActivity = $activity;
+        }
+
+        return $augmentedActivity;
     }
 
     /**
