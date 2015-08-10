@@ -4,8 +4,6 @@ namespace CultuurNet\UiTPASBeheer\Activity\CultureFeedUiTPAS;
 
 use CultureFeed_ResultSet;
 use CultureFeed_Uitpas_Event_CultureEvent;
-use CultuurNet\Search\SearchResult;
-use CultuurNet\Search\ServiceInterface;
 use CultuurNet\UiTPASBeheer\Activity\Activity;
 use CultuurNet\UiTPASBeheer\Activity\ActivityNotFoundException;
 use CultuurNet\UiTPASBeheer\Activity\Cdbid;
