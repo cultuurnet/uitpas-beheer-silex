@@ -27,7 +27,6 @@ class ActivityControllerProvider implements ControllerProviderInterface
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
-        $controllers->get('/activities', 'activity_controller:search');
         $controllers->get('/passholders/{uitpasNumber}/activities', 'activity_controller:search');
 
         $app['checkin_controller'] = $app->share(
