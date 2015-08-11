@@ -87,22 +87,39 @@ class ActivityService extends CounterAwareUitpasService implements ActivityServi
     }
 
     /**
+     * Create a checkin start or end date.
+     *
+     * @param $dateString
+     * @return \DateTime
+     */
+    private function createCheckinDateFromString($dateString)
+    {
+        // For the moment the api has a bug that can return empty checkin
+        // constraint dates for events in the past.
+        if ($dateString) {
+            // Another bug sometime returns the end date with microseconds.
+            $checkinDate = \DateTime::createFromFormat('Y-m-d\TH:i:s.uP', $dateString);
+            // When the microseconds are left out, the create above fails.
+            // We check if the checkin date is set and else try to create it using
+            // the default format.
+            if (!$checkinDate) {
+                $checkinDate = \DateTime::createFromFormat(\DateTime::W3C, $dateString);
+            }
+        } else {
+            $checkinDate = \DateTime::createFromFormat('U', 0);
+        }
+
+        return $checkinDate;
+    }
+
+    /**
      * @param \CultureFeed_Uitpas_Event_CultureEvent $event
      * @return \CultuurNet\UiTPASBeheer\Activity\Activity
      */
     private function createActivity(\CultureFeed_Uitpas_Event_CultureEvent $event)
     {
-        // For the moment the api has a bug that can return empty checkin
-        // constraint dates for events in the past.
-        $checkinStartDate = \DateTime::createFromFormat('U', 0);
-        if ($event->checkinStartDate) {
-            $checkinStartDate = \DateTime::createFromFormat(\DateTime::W3C, $event->checkinStartDate);
-        }
-        $checkinEndDate = \DateTime::createFromFormat('U', 0);
-        if ($event->checkinEndDate) {
-            // Another bug returns the end date with microseconds.
-            $checkinEndDate = \DateTime::createFromFormat('Y-m-d\TH:i:s.uP', $event->checkinEndDate);
-        }
+        $checkinStartDate = $this->createCheckinDateFromString($event->checkinStartDate);
+        $checkinEndDate = $this->createCheckinDateFromString($event->checkinEndDate);
 
         $checkinConstraint = new CheckinConstraint(
             (bool) $event->checkinAllowed,
