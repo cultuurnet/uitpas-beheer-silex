@@ -56,7 +56,6 @@ class ActivityService extends CounterAwareUitpasService implements ActivityServi
         $activity = $this->createActivity($event);
 
         return $activity;
-
     }
 
     /**
@@ -94,10 +93,12 @@ class ActivityService extends CounterAwareUitpasService implements ActivityServi
      */
     private function createCheckinDateFromString($dateString)
     {
+        $checkinDate = \DateTime::createFromFormat('U', 0);
+
         // For the moment the api has a bug that can return empty checkin
         // constraint dates for events in the past.
         if ($dateString) {
-            // Another bug sometime returns the end date with microseconds.
+            // Another bug sometimes returns the end date with microseconds.
             $checkinDate = \DateTime::createFromFormat('Y-m-d\TH:i:s.uP', $dateString);
             // When the microseconds are left out, the create above fails.
             // We check if the checkin date is set and else try to create it using
@@ -105,8 +106,6 @@ class ActivityService extends CounterAwareUitpasService implements ActivityServi
             if (!$checkinDate) {
                 $checkinDate = \DateTime::createFromFormat(\DateTime::W3C, $dateString);
             }
-        } else {
-            $checkinDate = \DateTime::createFromFormat('U', 0);
         }
 
         return $checkinDate;
