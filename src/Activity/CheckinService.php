@@ -15,7 +15,7 @@ class CheckinService extends CounterAwareUitpasService implements CheckinService
     public function checkin(UiTPASNumber $uitpasNumber, Cdbid $eventCdbid)
     {
         $checkinOptions = new CultureFeed_Uitpas_Passholder_Query_CheckInPassholderOptions();
-        $checkinOptions->uitpasNumber = $uitpasNumber->getNumber();
+        $checkinOptions->uitpasNumber = $uitpasNumber->toNative();
         $checkinOptions->cdbid = $eventCdbid->toNative();
         $checkinOptions->balieConsumerKey = $this->getCounterConsumerKey();
 

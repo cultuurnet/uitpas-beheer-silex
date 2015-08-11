@@ -72,14 +72,6 @@ class UiTPASNumber extends StringLiteral
     }
 
     /**
-     * @return string
-     */
-    public function getNumber()
-    {
-        return $this->number . $this->kansenStatuutDigit . $this->checkDigit;
-    }
-
-    /**
      * @return bool
      */
     public function hasKansenStatuut()

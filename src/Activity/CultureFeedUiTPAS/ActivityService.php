@@ -41,7 +41,7 @@ class ActivityService extends CounterAwareUitpasService implements ActivityServi
     {
         $searchOptions = new \CultureFeed_Uitpas_Event_Query_SearchEventsOptions();
         $searchOptions->cdbid = $eventCdbid->toNative();
-        $searchOptions->uitpasNumber = $uitpasNumber->getNumber();
+        $searchOptions->uitpasNumber = $uitpasNumber->toNative();
         $searchOptions->balieConsumerKey = $this->getCounterConsumerKey();
 
         $result = $this->getUitpasService()->searchEvents($searchOptions);

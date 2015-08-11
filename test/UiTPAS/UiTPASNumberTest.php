@@ -19,15 +19,6 @@ class UiTPASNumberTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_can_return_the_number_without_kansenstatuut_and_check_digit()
-    {
-        $number = new UiTPASNumber(self::VALID_REGULAR);
-        $this->assertTrue(0 === strcmp('0930000420206', $number->getNumber()));
-    }
-
-    /**
-     * @test
-     */
     public function it_can_return_kansenstatuut_status()
     {
         $regular = new UiTPASNumber(self::VALID_REGULAR);
