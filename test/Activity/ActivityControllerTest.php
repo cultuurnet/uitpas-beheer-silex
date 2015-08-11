@@ -7,7 +7,15 @@ use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
+use ValueObjects\DateTime\Hour;
+use ValueObjects\DateTime\Minute;
+use ValueObjects\DateTime\Month;
+use ValueObjects\DateTime\MonthDay;
+use ValueObjects\DateTime\Second;
+use ValueObjects\DateTime\Time;
+use ValueObjects\DateTime\Year;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -132,12 +140,36 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
 
         $activities = [];
 
-        $checkinStartDate = \DateTime::createFromFormat('U', 1441098000);
-        $checkinEndDate = \DateTime::createFromFormat('U', 1456848000);
+        $checkinStartDate = new DateTime(
+            new Date(
+                Year::fromNative(2015),
+                Month::getByName('SEPTEMBER'),
+                MonthDay::fromNative(1)
+            ),
+            new Time(
+                Hour::fromNative(9),
+                Minute::fromNative(0),
+                Second::fromNative(0)
+            )
+        );
+
+        $checkinEndDate = new DateTime(
+            new Date(
+                Year::fromNative(2016),
+                Month::getByName('MARCH'),
+                MonthDay::fromNative(1)
+            ),
+            new Time(
+                Hour::fromNative(16),
+                Minute::fromNative(0),
+                Second::fromNative(0)
+            )
+        );
+
         $checkinConstraint = new CheckinConstraint(
             false,
-            DateTime::fromNativeDateTime($checkinStartDate),
-            DateTime::fromNativeDateTime($checkinEndDate)
+            $checkinStartDate,
+            $checkinEndDate
         );
         $checkinConstraint = $checkinConstraint->withReason(new StringLiteral('INVALID_DATE_TIME'));
 

@@ -3,7 +3,15 @@
 namespace CultuurNet\UiTPASBeheer\Activity;
 
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
+use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
+use ValueObjects\DateTime\Hour;
+use ValueObjects\DateTime\Minute;
+use ValueObjects\DateTime\Month;
+use ValueObjects\DateTime\MonthDay;
+use ValueObjects\DateTime\Second;
+use ValueObjects\DateTime\Time;
+use ValueObjects\DateTime\Year;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class CheckinConstraintTest extends \PHPUnit_Framework_TestCase
@@ -37,12 +45,34 @@ class CheckinConstraintTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $checkinStartDate = \DateTime::createFromFormat('U', 1441098000);
-        $checkinEndDate = \DateTime::createFromFormat('U', 1456848000);
-
         $this->allowed = false;
-        $this->startDate = DateTime::fromNativeDateTime($checkinStartDate);
-        $this->endDate = DateTime::fromNativeDateTime($checkinEndDate);
+
+        $this->startDate = new DateTime(
+            new Date(
+                Year::fromNative(2015),
+                Month::getByName('SEPTEMBER'),
+                MonthDay::fromNative(1)
+            ),
+            new Time(
+                Hour::fromNative(9),
+                Minute::fromNative(0),
+                Second::fromNative(0)
+            )
+        );
+
+        $this->endDate = new DateTime(
+            new Date(
+                Year::fromNative(2016),
+                Month::getByName('MARCH'),
+                MonthDay::fromNative(1)
+            ),
+            new Time(
+                Hour::fromNative(16),
+                Minute::fromNative(0),
+                Second::fromNative(0)
+            )
+        );
+
         $this->reason = new StringLiteral('INVALID_DATE_TIME');
         $this->checkinConstraint = new checkinConstraint(
             $this->allowed,

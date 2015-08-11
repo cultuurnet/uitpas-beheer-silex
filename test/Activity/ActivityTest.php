@@ -3,7 +3,15 @@
 namespace CultuurNet\UiTPASBeheer\Activity;
 
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
+use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
+use ValueObjects\DateTime\Hour;
+use ValueObjects\DateTime\Minute;
+use ValueObjects\DateTime\Month;
+use ValueObjects\DateTime\MonthDay;
+use ValueObjects\DateTime\Second;
+use ValueObjects\DateTime\Time;
+use ValueObjects\DateTime\Year;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class ActivityTest extends \PHPUnit_Framework_TestCase
@@ -46,12 +54,37 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->title = new StringLiteral('Some title');
         $this->description = new StringLiteral('Some description');
         $this->when = new StringLiteral('yesterday');
-        $checkinStartDate = \DateTime::createFromFormat('U', 1441098000);
-        $checkinEndDate = \DateTime::createFromFormat('U', 1456848000);
+
+        $checkinStartDate = new DateTime(
+            new Date(
+                Year::fromNative(2015),
+                Month::getByName('SEPTEMBER'),
+                MonthDay::fromNative(1)
+            ),
+            new Time(
+                Hour::fromNative(9),
+                Minute::fromNative(0),
+                Second::fromNative(0)
+            )
+        );
+
+        $checkinEndDate = new DateTime(
+            new Date(
+                Year::fromNative(2016),
+                Month::getByName('MARCH'),
+                MonthDay::fromNative(1)
+            ),
+            new Time(
+                Hour::fromNative(16),
+                Minute::fromNative(0),
+                Second::fromNative(0)
+            )
+        );
+
         $this->checkinConstraint = new CheckinConstraint(
             false,
-            DateTime::fromNativeDateTime($checkinStartDate),
-            DateTime::fromNativeDateTime($checkinEndDate)
+            $checkinStartDate,
+            $checkinEndDate
         );
         $this->checkinConstraint = $this->checkinConstraint->withReason(new StringLiteral('INVALID_DATE_TIME'));
         $this->activity = new Activity(
