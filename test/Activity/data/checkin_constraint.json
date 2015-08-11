@@ -1,6 +1,6 @@
 {
   "allowed": false,
-  "startDate": "1441098000",
-  "endDate": "1456848000",
+  "startDate": "2015-09-01T09:00:00+00:00",
+  "endDate": "2016-03-01T16:00:00+00:00",
   "reason": "INVALID_DATE_TIME"
 }

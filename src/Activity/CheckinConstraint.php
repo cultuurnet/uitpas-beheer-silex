@@ -80,8 +80,8 @@ class CheckinConstraint implements \JsonSerializable
     {
         return [
             'allowed' => $this->allowed,
-            'startDate' => $this->startDate->toNativeDateTime()->getTimestamp(),
-            'endDate' => $this->endDate->toNativeDateTime()->getTimestamp(),
+            'startDate' => $this->startDate->toNativeDateTime()->format(\DateTime::RFC3339),
+            'endDate' => $this->endDate->toNativeDateTime()->format(\DateTime::RFC3339),
             'reason' => $this->reason->toNative(),
         ];
     }
