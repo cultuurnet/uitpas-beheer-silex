@@ -59,8 +59,8 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $eventA->cdbid = 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee';
         $eventA->title = 'test event 1';
         $eventA->checkinAllowed = false;
-        $eventA->checkinStartDate = "2015-09-01T09:00:00+02:00";
-        $eventA->checkinEndDate = "2016-03-01T16:00:00.000+02:00";
+        $eventA->checkinStartDate = 1441098000;
+        $eventA->checkinEndDate = 1456848000;
         $eventA->checkinConstraintReason = "INVALID_DATE_TIME";
         $this->eventA = $eventA;
 
@@ -68,8 +68,8 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $eventB->cdbid = 'ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj';
         $eventB->title = 'test event 2';
         $eventB->checkinAllowed = false;
-        $eventB->checkinStartDate = "2015-09-01T09:00:00+02:00";
-        $eventB->checkinEndDate = "2016-03-01T16:00:00.000+02:00";
+        $eventB->checkinStartDate = 1441098000;
+        $eventB->checkinEndDate = 1456848000;
         $eventB->checkinConstraintReason = "INVALID_DATE_TIME";
         $this->eventB = $eventB;
     }
