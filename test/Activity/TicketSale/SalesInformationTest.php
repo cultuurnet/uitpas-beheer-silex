@@ -39,43 +39,4 @@ class SalesInformationTest extends \PHPUnit_Framework_TestCase
         $json = json_encode($this->getSampleSalesInformationWithTariffs());
         $this->assertJsonEquals($json, 'Activity/data/ticket-sale/sales-information.json');
     }
-
-    /**
-     * @test
-     */
-    public function it_sets_maximum_reached_to_true_only_if_all_tariffs_have_reached_their_maximum()
-    {
-        $salesInformation = $this->getSampleSalesInformation()
-            ->withTariff(
-                $this->getSampleKansentariefTariff()
-                    ->withMaximumReached(true)
-            )
-            ->withTariff(
-                $this->getSampleCouponTariff()
-                    ->withMaximumReached(true)
-            );
-        $this->assertTrue($salesInformation->isMaximumReached());
-
-        $salesInformation = $this->getSampleSalesInformation()
-            ->withTariff(
-                $this->getSampleKansentariefTariff()
-                    ->withMaximumReached(false)
-            )
-            ->withTariff(
-                $this->getSampleCouponTariff()
-                    ->withMaximumReached(true)
-            );
-        $this->assertFalse($salesInformation->isMaximumReached());
-
-        $salesInformation = $this->getSampleSalesInformation()
-            ->withTariff(
-                $this->getSampleKansentariefTariff()
-                    ->withMaximumReached(true)
-            )
-            ->withTariff(
-                $this->getSampleCouponTariff()
-                    ->withMaximumReached(false)
-            );
-        $this->assertFalse($salesInformation->isMaximumReached());
-    }
 }

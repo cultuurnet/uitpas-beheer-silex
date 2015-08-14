@@ -4,7 +4,7 @@ namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
 
 use ValueObjects\Number\Real;
 
-final class Prices implements \JsonSerializable
+final class Prices implements \Iterator, \JsonSerializable
 {
     /**
      * @var Real[]
@@ -63,5 +63,48 @@ final class Prices implements \JsonSerializable
             $prices[$key] = $price->toNative();
         }
         return $prices;
+    }
+
+    /**
+     * @return Real
+     */
+    public function current()
+    {
+        return current($this->prices);
+    }
+
+    /**
+     * @return string
+     */
+    public function key()
+    {
+        return key($this->prices);
+    }
+
+    /**
+     * @return bool
+     */
+    public function valid()
+    {
+        $key = key($this->prices);
+        return ($key !== null && $key !== false);
+    }
+
+    public function next()
+    {
+        next($this->prices);
+    }
+
+    public function rewind()
+    {
+        reset($this->prices);
+    }
+
+    /**
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->prices);
     }
 }

@@ -15,10 +15,10 @@ class TariffTest extends \PHPUnit_Framework_TestCase
     public function it_returns_the_maximum_reached_status()
     {
         $tariff = $this->getSampleCouponTariff();
-        $this->assertFalse($tariff->isMaximumReached());
+        $this->assertFalse($tariff->hasReachedMaximum());
 
         $tariff = $tariff->withMaximumReached(true);
-        $this->assertTrue($tariff->isMaximumReached());
+        $this->assertTrue($tariff->hasReachedMaximum());
     }
 
     /**
