@@ -14,7 +14,8 @@
         "startDate": "2015-09-01T09:00:00+00:00",
         "endDate": "2016-03-01T16:00:00+00:00",
         "reason": "INVALID_DATE_TIME"
-      }
+      },
+      "free": true
     },
     {
       "id": "ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj",
@@ -26,7 +27,8 @@
         "startDate": "2015-09-01T09:00:00+00:00",
         "endDate": "2016-03-01T16:00:00+00:00",
         "reason": "INVALID_DATE_TIME"
-      }
+      },
+      "free": true
     }
   ],
   "firstPage": "http://example.com/passholders/0930000208908/activities?date_type=today&page=1",
