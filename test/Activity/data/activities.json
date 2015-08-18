@@ -2,7 +2,7 @@
   "@context": "http:\/\/www.w3.org\/ns\/hydra\/context.jsonld",
   "@type": "PagedCollection",
   "itemsPerPage": 5,
-  "totalItems": 10,
+  "totalItems": 11,
   "member": [
     {
       "id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
