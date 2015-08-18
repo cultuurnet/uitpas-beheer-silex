@@ -141,14 +141,12 @@ class SalesInformation implements \JsonSerializable
         // of the ticketSales (which contain both the base price, and the
         // tariff).
         $basePrices = new Prices();
-        if (!is_null($event->ticketSales)) {
-            foreach ($event->ticketSales as $ticketSale) {
-                foreach ($ticketSale->priceClasses as $priceClass) {
-                    $basePrices = $basePrices->withPricing(
-                        new PriceClass($priceClass->name),
-                        new Real($priceClass->price)
-                    );
-                }
+        foreach ($event->ticketSales as $ticketSale) {
+            foreach ($ticketSale->priceClasses as $priceClass) {
+                $basePrices = $basePrices->withPricing(
+                    new PriceClass($priceClass->name),
+                    new Real($priceClass->price)
+                );
             }
         }
         if (empty($basePrices->count())) {
@@ -163,22 +161,19 @@ class SalesInformation implements \JsonSerializable
             );
         }
 
-        $tariffs = array();
-        if (!is_null($event->ticketSales)) {
-            foreach ($event->ticketSales as $ticketSale) {
-                $constraint = $ticketSale->buyConstraintReason;
-                if (is_null($constraint) ||
-                    $constraint == \CultureFeed_Uitpas_Event_TicketSale_Opportunity::BUY_CONSTRAINT_MAXIMUM_REACHED
-                ) {
-                    $tariffs[] = Tariff::fromCultureFeedTicketSaleOpportunity($ticketSale);
-                }
+        $salesInformation = new SalesInformation($basePrices);
+
+        foreach ($event->ticketSales as $ticketSale) {
+            $constraint = $ticketSale->buyConstraintReason;
+            if (is_null($constraint) ||
+                $constraint == \CultureFeed_Uitpas_Event_TicketSale_Opportunity::BUY_CONSTRAINT_MAXIMUM_REACHED
+            ) {
+                $salesInformation = $salesInformation->withTariff(
+                    Tariff::fromCultureFeedTicketSaleOpportunity($ticketSale)
+                );
             }
         }
 
-        $salesInformation = new SalesInformation($basePrices);
-        foreach ($tariffs as $tariff) {
-            $salesInformation = $salesInformation->withTariff($tariff);
-        }
         return $salesInformation;
     }
 }
