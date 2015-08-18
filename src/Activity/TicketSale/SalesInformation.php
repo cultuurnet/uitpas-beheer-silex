@@ -7,7 +7,6 @@ use CultuurNet\UiTPASBeheer\Activity\TicketSale\Specifications\HasAvailableKanse
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\Specifications\HasDifferentiation;
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\Specifications\HasReachedMaximumSales;
 use ValueObjects\Number\Real;
-use ValueObjects\StringLiteral\StringLiteral;
 
 class SalesInformation implements \JsonSerializable
 {
