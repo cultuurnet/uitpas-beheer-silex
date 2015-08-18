@@ -12,12 +12,22 @@ class TariffTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_returns_the_maximum_reached_status()
+    public function it_returns_the_tariff_data()
     {
         $tariff = $this->getSampleCouponTariff();
+
+        $this->assertEquals(
+            TariffType::COUPON(),
+            $tariff->getType()
+        );
+        $this->assertEquals(
+            $this->getSamplePrices(),
+            $tariff->getPrices()
+        );
         $this->assertFalse($tariff->hasReachedMaximum());
 
         $tariff = $tariff->withMaximumReached(true);
+
         $this->assertTrue($tariff->hasReachedMaximum());
     }
 
