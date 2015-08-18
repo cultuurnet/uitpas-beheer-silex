@@ -1423,6 +1423,13 @@
         },
         "checkinConstraint": {
           "$ref": "#/definitions/CheckinConstraint"
+        },
+        "free": {
+          "type": "boolean",
+          "description": "Indicates whether or not tickets for the activity are free."
+        },
+        "sales": {
+          "$ref": "#/definitions/SalesInformation"
         }
       },
       "required": [
@@ -1459,6 +1466,80 @@
             "KANSENSTATUUT_EXPIRED",
             "ACTION_FAILED"
           ]
+        }
+      }
+    },
+    "SalesInformation": {
+      "properties": {
+        "maximumReached": {
+          "type": "boolean",
+          "description": "Indicates whether or not the total maximum of ticket sales has been reached."
+        },
+        "differentiation": {
+          "type": "boolean",
+          "description": "Indicates whether or not there is price differentiation."
+        },
+        "base": {
+          "type": "object",
+          "description": "Object with price classes as properties, and base prices as their values.",
+          "example": "{\"Rang 1\": 10.5, \"Rang 2\": 7.5, \"Rang 3+\": 5}"
+        },
+        "tariffs": {
+          "$ref": "#/definitions/Tariffs"
+        }
+      },
+      "required": [
+        "maximumReached",
+        "differentiation",
+        "base"
+      ]
+    },
+    "Tariffs": {
+      "properties": {
+        "lowestAvailable": {
+          "type": "number",
+          "format": "float",
+          "description": "Lowest available tariff.",
+          "example": 3.5
+        },
+        "kansentariefAvailable": {
+          "type": "boolean",
+          "description": "Whether or not kansentarief is available."
+        },
+        "couponAvailable": {
+          "type": "boolean",
+          "description": "Whether or not at least one coupon is available."
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tariff"
+          }
+        }
+      }
+    },
+    "Tariff": {
+      "properties": {
+        "maximumReached": {
+          "type": "boolean",
+          "description": "Indicates whether or not the maximum of ticket sales for this tariff has been reached."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the tarif.",
+          "example": "Kansentarief"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "KANSENTARIEF",
+            "COUPON"
+          ]
+        },
+        "prices": {
+          "type": "object",
+          "description": "Object with price classes as properties, and tariff prices as their values.",
+          "example": "{\"Rang 1\": 10.5, \"Rang 2\": 7.5, \"Rang 3+\": 5}"
         }
       }
     }
