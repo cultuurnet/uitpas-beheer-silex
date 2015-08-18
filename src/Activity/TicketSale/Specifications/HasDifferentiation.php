@@ -23,7 +23,7 @@ class HasDifferentiation implements SalesInformationSpecificationInterface
             }
         }
 
-        // There is price differentation if there is at least one price class,
+        // There is price differentiation if there is at least one price class,
         // at least one available tariff, and either multiple price classes or
         // multiple available tariffs.
         // For example:
@@ -32,6 +32,7 @@ class HasDifferentiation implements SalesInformationSpecificationInterface
         // - 1 price class and 1 available tariff = no differentiation.
         // - 2 price classes and 1 available tariff = differentiation.
         // - 1 price class and 2 available tariffs = differentiation.
+        // - 2 price classes and 2 available tariffs = differentiation.
         return $amountOfPriceClasses > 0 && $amountOfAvailableTariffs > 0 &&
             ($amountOfPriceClasses > 1 || $amountOfAvailableTariffs > 1);
     }
