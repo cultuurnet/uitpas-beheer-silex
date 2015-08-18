@@ -200,7 +200,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 new PagedResultSet(
                     // The default limit is 5, so to have 3 pages of results we
                     // need a total of at least 11 results.
-                    new Integer(11),
+                    new Integer(15),
                     $activities
                 )
             );
