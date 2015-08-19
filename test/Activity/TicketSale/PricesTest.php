@@ -55,4 +55,68 @@ class PricesTest extends \PHPUnit_Framework_TestCase
             );
         $this->assertFalse($different->containsOnlyPriceClassesOf($base));
     }
+
+    /**
+     * @test
+     */
+    public function it_implements_the_iterator_interface()
+    {
+        $prices = $this->getSamplePrices();
+
+        $this->assertInstanceOf(
+            \Iterator::class,
+            $prices
+        );
+
+        $this->assertEquals(
+            new Real(22),
+            $prices->current()
+        );
+        $this->assertEquals(
+            'Rang 1',
+            $prices->key()
+        );
+
+        $prices->next();
+
+        $this->assertEquals(
+            new Real(11),
+            $prices->current()
+        );
+        $this->assertEquals(
+            'Rang 2',
+            $prices->key()
+        );
+
+        $prices->next();
+
+        $this->assertEquals(
+            new Real(5.5),
+            $prices->current()
+        );
+        $this->assertEquals(
+            'Rang 3+',
+            $prices->key()
+        );
+
+        $prices->next();
+
+        $this->assertTrue(
+            false === $prices->current()
+        );
+        $this->assertTrue(
+            null === $prices->key()
+        );
+
+        $prices->rewind();
+
+        $this->assertEquals(
+            new Real(22),
+            $prices->current()
+        );
+        $this->assertEquals(
+            'Rang 1',
+            $prices->key()
+        );
+    }
 }

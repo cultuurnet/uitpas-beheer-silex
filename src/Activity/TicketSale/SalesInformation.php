@@ -98,31 +98,37 @@ class SalesInformation implements \JsonSerializable
                 }
             }
 
+            if (!is_null($lowestAvailable)) {
+                $data['tariffs']['lowestAvailable'] = $lowestAvailable;
+            }
+
             // Sort the json encoded tariffs so the kansentarief tariff
             // is always on top.
             usort(
                 $encodedTariffs,
                 function (array $a, array $b) {
-                    if ($a['type'] == $b['type']) {
-                        // A and B have the same type, so have an equal weight.
-                        return 0;
-                    } elseif ($a['type'] == TariffType::KANSENTARIEF) {
-                        // A has kansentarief, so A is lighter than B.
+                    if ($a['type'] == TariffType::KANSENTARIEF &&
+                        $b['type'] !== TariffType::KANSENTARIEF) {
+                        // A is kansentarief and B isn't, so A is lighter than
+                        // B.
                         return -1;
-                    } elseif ($b['type'] == TariffType::KANSENTARIEF) {
-                        // B has kansentarief, so A is heavier than B.
+                    } elseif ($a['type'] !== TariffType::KANSENTARIEF &&
+                        $b['type'] == TariffType::KANSENTARIEF) {
+                        // A isn't kansentarief and B is, so A is heavier than
+                        // B.
                         return 1;
                     } else {
-                        // Neither A nor B has kansentarief, so they have equal weight.
-                        return 0;
+                        // A and B have the same type, so sort them
+                        // alphabetically by name.
+                        return strcasecmp(
+                            (string) $a['name'],
+                            (string) $b['name']
+                        );
                     }
                 }
             );
 
-            $data['tariffs'] += array(
-                'lowestAvailable' => $lowestAvailable,
-                'list' => $encodedTariffs,
-            );
+            $data['tariffs']['list'] = $encodedTariffs;
         }
 
         return $data;

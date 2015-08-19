@@ -2,6 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity;
 
+use CultuurNet\UiTPASBeheer\Activity\TicketSale\SalesInformation;
+use CultuurNet\UiTPASBeheer\Activity\TicketSale\SalesInformationTestDataTrait;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
@@ -18,6 +20,7 @@ use ValueObjects\StringLiteral\StringLiteral;
 class ActivityTest extends \PHPUnit_Framework_TestCase
 {
     use JsonAssertionTrait;
+    use SalesInformationTestDataTrait;
 
     /**
      * @var Activity
@@ -53,6 +56,11 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
      * @var Integer
      */
     protected $points;
+
+    /**
+     * @var SalesInformation
+     */
+    protected $salesInformation;
 
     public function setUp()
     {
@@ -94,21 +102,26 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
             $checkinEndDate
         );
         $this->checkinConstraint = $this->checkinConstraint->withReason(new StringLiteral('INVALID_DATE_TIME'));
+
         $this->activity = new Activity(
             $this->id,
             $this->title,
             $this->checkinConstraint,
             $this->points
         );
+
+        $this->salesInformation = $this->getSampleInformationWithTariffs();
+
         $this->activity = $this->activity
             ->withWhen($this->when)
-            ->withDescription($this->description);
+            ->withDescription($this->description)
+            ->withSalesInformation($this->salesInformation);
     }
 
     /**
      * @test
      */
-    public function it_can_return_the_data_from_the_constructor()
+    public function it_can_return_the_properties()
     {
         $this->assertEquals($this->id, $this->activity->getId());
         $this->assertEquals($this->title, $this->activity->getTitle());
@@ -116,6 +129,7 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->when, $this->activity->getWhen());
         $this->assertEquals($this->checkinConstraint, $this->activity->getCheckinConstraint());
         $this->assertEquals($this->points, $this->activity->getPoints());
+        $this->assertEquals($this->salesInformation, $this->activity->getSalesInformation());
     }
 
     /**
@@ -126,6 +140,60 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->assertJsonEquals(
             json_encode($this->activity),
             'Activity/data/activity.json'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_be_instantiated_from_a_culturefeed_uitpas_event()
+    {
+        $cfEvent = new \CultureFeed_Uitpas_Event_CultureEvent();
+
+        $cfEvent->cdbid = $this->id->toNative();
+        $cfEvent->title = $this->title->toNative();
+        $cfEvent->checkinAllowed = $this->checkinConstraint->getAllowed();
+        $cfEvent->checkinStartDate = $this->checkinConstraint->getStartDate()->toNativeDateTime()->format('U');
+        $cfEvent->checkinEndDate = $this->checkinConstraint->getEndDate()->toNativeDateTime()->format('U');
+
+        $cfFirstPriceClass = new \CultureFeed_Uitpas_Event_PriceClass();
+        $cfFirstPriceClass->name = 'Rang 1';
+        $cfFirstPriceClass->price = 30;
+        $cfFirstPriceClass->tariff = 22;
+
+        $cfSecondPriceClass = new \CultureFeed_Uitpas_Event_PriceClass();
+        $cfSecondPriceClass->name = 'Rang 2';
+        $cfSecondPriceClass->price = 15;
+        $cfSecondPriceClass->tariff = 11;
+
+        $cfThirdPriceClass = new \CultureFeed_Uitpas_Event_PriceClass();
+        $cfThirdPriceClass->name = 'Rang 3+';
+        $cfThirdPriceClass->price = 7.5;
+        $cfThirdPriceClass->tariff = 5.5;
+
+        $cfKansentarief = new \CultureFeed_Uitpas_Event_TicketSale_Opportunity();
+        $cfKansentarief->type = \CultureFeed_Uitpas_Event_TicketSale_Opportunity::TYPE_DEFAULT;
+        $cfKansentarief->priceClasses = array(
+            $cfFirstPriceClass,
+            $cfSecondPriceClass,
+            $cfThirdPriceClass,
+        );
+
+        $cfTicketSaleCoupon = new \CultureFeed_Uitpas_Event_TicketSale_Coupon();
+        $cfTicketSaleCoupon->name = 'Cultuurwaardebon';
+
+        $cfCoupon = new \CultureFeed_Uitpas_Event_TicketSale_Opportunity();
+        $cfCoupon->type = \CultureFeed_Uitpas_Event_TicketSale_Opportunity::TYPE_COUPON;
+        $cfCoupon->priceClasses = array(
+            $cfFirstPriceClass,
+            $cfSecondPriceClass,
+            $cfThirdPriceClass,
+        );
+        $cfCoupon->ticketSaleCoupon = $cfTicketSaleCoupon;
+
+        $cfEvent->ticketSales = array(
+            $cfKansentarief,
+            $cfCoupon,
         );
     }
 }
