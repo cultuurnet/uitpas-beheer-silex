@@ -56,7 +56,7 @@ class Activity implements \JsonSerializable
      * @param StringLiteral $id
      * @param StringLiteral $title
      * @param CheckinConstraint $checkinConstraint
-     * @param Integer $points
+     * @param \ValueObjects\Number\Integer $points
      */
     public function __construct(
         StringLiteral $id,
