@@ -5,6 +5,8 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberInvalidException;
+use ValueObjects\Identity\UUID;
 
 class PassHolderService extends CounterAwareUitpasService implements PassHolderServiceInterface
 {
@@ -36,25 +38,71 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         UiTPASNumber $uitpasNumber,
         PassHolder $passHolder
     ) {
-        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassHolder = $this->createCultureFeedPassholder($passHolder);
         $cfPassHolder->uitpasNumber = $uitpasNumber->toNative();
 
-        $cfPassHolder->firstName =$passHolder->getName()->getFirstName()->toNative();
-        $cfPassHolder->name = $passHolder->getName()->getLastName()->toNative();
-        if ($passHolder->getName()->getMiddleName()) {
-            $cfPassHolder->secondName = $passHolder
+        $this
+            ->getUitpasService()
+            ->updatePassholder(
+                $cfPassHolder,
+                $this->getCounterConsumerKey()
+            );
+    }
+
+    /**
+     * {@inheritdoc}
+     **/
+    public function register(
+        UiTPASNumber $uitpasNumber,
+        Passholder $passholder,
+        VoucherNumber $voucherNumber = null
+    ) {
+        $existingPassholder = $this->getByUitpasNumber($uitpasNumber);
+
+        if ($existingPassholder) {
+            throw new UiTPASNumberAlreadyUsedException();
+        };
+
+        $cfPassHolder = $this->createCultureFeedPassholder($passholder);
+        $cfPassHolder->uitpasNumber = $uitpasNumber->toNative();
+
+        if ($voucherNumber) {
+            // not sure how to pass a voucher along so I'm giving this a try
+            $cfPassHolder->voucherNumber = $voucherNumber->toNative();
+        }
+
+        $uuid = UUID::fromNative(
+            $this->getUitpasService()->createPassholder($cfPassHolder)
+        );
+
+        return $uuid;
+    }
+
+    /**
+     * @param Passholder $passholder
+     *
+     * @return \CultureFeed_Uitpas_Passholder
+     */
+    private function createCultureFeedPassholder(Passholder $passholder)
+    {
+        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
+
+        $cfPassHolder->firstName =$passholder->getName()->getFirstName()->toNative();
+        $cfPassHolder->name = $passholder->getName()->getLastName()->toNative();
+        if ($passholder->getName()->getMiddleName()) {
+            $cfPassHolder->secondName = $passholder
                 ->getName()
                 ->getMiddleName()
                 ->toNative();
         }
 
-        if ($passHolder->getNationality()) {
-            $cfPassHolder->nationality = $passHolder
+        if ($passholder->getNationality()) {
+            $cfPassHolder->nationality = $passholder
                 ->getNationality()
                 ->toNative();
         }
 
-        $birthInformation = $passHolder->getBirthInformation();
+        $birthInformation = $passholder->getBirthInformation();
 
         if ($birthInformation->getPlace()) {
             $cfPassHolder->placeOfBirth = $birthInformation
@@ -67,13 +115,13 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
             ->toNativeDateTime()
             ->getTimestamp();
 
-        if ($passHolder->getGender()) {
+        if ($passholder->getGender()) {
             $cfPassHolder->gender = $this->getCfPassholderGenderForUpdate(
-                $passHolder->getGender()
+                $passholder->getGender()
             );
         }
 
-        $address = $passHolder->getAddress();
+        $address = $passholder->getAddress();
 
         if ($address->getStreet()) {
             $cfPassHolder->street = $address->getStreet()->toNative();
@@ -83,7 +131,7 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         $cfPassHolder->postalCode = $address->getPostalCode()->toNative();
 
 
-        $contactInformation = $passHolder->getContactInformation();
+        $contactInformation = $passholder->getContactInformation();
         if ($contactInformation) {
             if ($contactInformation->getMobileNumber()) {
                 $cfPassHolder->gsm = $contactInformation
@@ -104,7 +152,7 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
             }
         }
 
-        $privacyPreferences = $passHolder->getPrivacyPreferences();
+        $privacyPreferences = $passholder->getPrivacyPreferences();
 
         if ($privacyPreferences) {
             $cfPassHolder->emailPreference = $privacyPreferences
@@ -115,19 +163,15 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
                 ->toNative();
         }
 
-        if ($passHolder->getINSZNumber()) {
-            $cfPassHolder->inszNumber = $passHolder
+        if ($passholder->getINSZNumber()) {
+            $cfPassHolder->inszNumber = $passholder
                 ->getINSZNumber()
                 ->toNative();
         }
 
-        $this
-            ->getUitpasService()
-            ->updatePassholder(
-                $cfPassHolder,
-                $this->getCounterConsumerKey()
-            );
+        return $cfPassHolder;
     }
+
 
     /**
      * Get the right gender string value for updating a pass holder.

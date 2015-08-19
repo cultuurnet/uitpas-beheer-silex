@@ -3,6 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use ValueObjects\Identity\UUID;
 
 interface PassHolderServiceInterface
 {
@@ -18,4 +19,20 @@ interface PassHolderServiceInterface
      * @param PassHolder $passHolder
      */
     public function update(UiTPASNumber $uitpasNumber, PassHolder $passHolder);
+
+    /**
+     * Register a new passholder to an existing UiTPAS-number.
+     *
+     * @param UiTPASNumber $uitpasNumber
+     * @param Passholder $passholder
+     * @param VoucherNumber $voucherNumber
+     *
+     * @return UUID
+     *  The UUID assigned to the new passholder.
+     **/
+    public function register(
+        UiTPASNumber $uitpasNumber,
+        Passholder $passholder,
+        VoucherNumber $voucherNumber = null
+    );
 }

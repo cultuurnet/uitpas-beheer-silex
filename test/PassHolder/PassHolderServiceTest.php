@@ -5,6 +5,7 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use ValueObjects\Identity\UUID;
 
 class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -131,5 +132,69 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
             ->with($cfPassHolder, $this->counterConsumerKey);
 
         $this->service->update($uitpasNumber, $passHolder);
+    }
+
+    /**
+     * @test
+     * @dataProvider updatePassHolderData
+     * @param Gender $gender
+     * @param string $expectedCfPassHolderGender
+     */
+    public function it_should_register_a_new_passholder_linked_to_a_given_UiTPAS_number_and_return_a_UUID(
+        Gender $gender,
+        $expectedCfPassHolderGender
+    ) {
+        $uitpasNumberValue = '0930000125607';
+        $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
+
+        $passholder = $this->getCompletePassHolder($gender);
+
+        $cfPassholder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassholder->uitpasNumber = $uitpasNumberValue;
+        $cfPassholder->name = 'Zyrani';
+        $cfPassholder->firstName = 'Layla';
+        $cfPassholder->postalCode = '1090';
+        $cfPassholder->city = 'Jette (Brussel)';
+        $cfPassholder->dateOfBirth = 211417200;
+        $cfPassholder->street = 'Rue Perdue 101 /0003';
+        $cfPassholder->placeOfBirth = 'Casablanca';
+        $cfPassholder->secondName = 'Zoni';
+        $cfPassholder->gender = $expectedCfPassHolderGender;
+        $cfPassholder->inszNumber = '93051822361';
+        $cfPassholder->nationality = 'Maroc';
+        $cfPassholder->email = 'zyrani_.hotmail.com@mailinator.com';
+        $cfPassholder->telephone = '0488694231';
+        $cfPassholder->gsm = '0499748596';
+        $cfPassholder->smsPreference = 'NOTIFICATION_SMS';
+        $cfPassholder->emailPreference = 'ALL_MAILS';
+
+        $this->uitpas->expects($this->once())
+            ->method('getPassholderByUitpasNumber')
+            ->with($uitpasNumberValue)
+            ->willThrowException(new \CultureFeed_Exception('Not found.', 404));
+
+        $this->uitpas->expects($this->once())
+            ->method('createPassholder')
+            ->with($cfPassholder)
+            ->willReturn('de305d54-75b4-431b-adb2-eb6b9e546014');
+
+        $newPassholderUUID = $this->service->register(
+            $uitpasNumber,
+            $passholder
+        );
+
+        $expectedUUID = new UUID('de305d54-75b4-431b-adb2-eb6b9e546014');
+
+        $this->assertEquals($expectedUUID, $newPassholderUUID);
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_not_try_to_register_a_new_passholder_with_an_already_used_UiTPAS_number()
+    {
+        $this->markTestIncomplete(
+            'This test has not been implemented yet.'
+        );
     }
 }
