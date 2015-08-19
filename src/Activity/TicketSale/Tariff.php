@@ -95,7 +95,10 @@ final class Tariff implements \JsonSerializable
 
     /**
      * @param \CultureFeed_Uitpas_Event_TicketSale_Opportunity $ticketSale
-     * @return Tariff|null
+     * @return Tariff
+     *
+     * @throws \InvalidArgumentException
+     *   When the provided ticketSale is of an unknown type.
      */
     public static function fromCultureFeedTicketSaleOpportunity(
         \CultureFeed_Uitpas_Event_TicketSale_Opportunity $ticketSale
@@ -113,9 +116,10 @@ final class Tariff implements \JsonSerializable
                 break;
 
             default:
-                // Return null as we don't know how to handle any other kind of
-                // ticketSale.
-                return null;
+                throw new \InvalidArgumentException(sprintf(
+                    'Provided $ticketSale argument is of an unknown type "%s".',
+                    $ticketSale->type
+                ));
                 break;
         }
 
