@@ -143,4 +143,25 @@ class SalesInformationTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * @test
+     */
+    public function it_falls_back_to_the_old_price_property_when_instantiating_from_a_culturefeed_uitpas_event()
+    {
+        $cfEvent = new \CultureFeed_Uitpas_Event_CultureEvent();
+        $cfEvent->price = 30;
+
+        $expected = new SalesInformation(
+            (new Prices())
+                ->withPricing(
+                    new PriceClass('Standaard'),
+                    new Real(30)
+                )
+        );
+
+        $actual = SalesInformation::fromCultureFeedUitpasEvent($cfEvent);
+
+        $this->assertEquals($expected, $actual);
+    }
 }
