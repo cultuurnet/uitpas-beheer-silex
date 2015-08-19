@@ -116,10 +116,12 @@ final class Tariff implements \JsonSerializable
                 break;
 
             default:
-                throw new \InvalidArgumentException(sprintf(
-                    'Provided $ticketSale argument is of an unknown type "%s".',
-                    $ticketSale->type
-                ));
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        'Provided $ticketSale argument is of an unknown type "%s".',
+                        $ticketSale->type
+                    )
+                );
                 break;
         }
 

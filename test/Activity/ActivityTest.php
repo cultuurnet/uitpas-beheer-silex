@@ -95,6 +95,7 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
             $checkinEndDate
         );
         $this->checkinConstraint = $this->checkinConstraint->withReason(new StringLiteral('INVALID_DATE_TIME'));
+
         $this->activity = new Activity(
             $this->id,
             $this->title,
