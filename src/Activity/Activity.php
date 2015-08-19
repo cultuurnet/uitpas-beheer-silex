@@ -168,8 +168,8 @@ class Activity implements \JsonSerializable
             'id' => $this->id->toNative(),
             'title' => $this->title->toNative(),
             'checkinConstraint' => $this->checkinConstraint,
-            'free' => IsFree::isSatisfiedBy($this),
             'points' => $this->points->toNative(),
+            'free' => IsFree::isSatisfiedBy($this),
         ];
 
         if (!is_null($this->description)) {
@@ -197,7 +197,7 @@ class Activity implements \JsonSerializable
             StringLiteral::fromNative((string) $event->cdbid),
             StringLiteral::fromNative((string) $event->title),
             CheckinConstraint::fromCultureFeedUitpasEvent($event),
-            Integer::fromNative($event->numberOfPoints)
+            Integer::fromNative((int) $event->numberOfPoints)
         );
 
         $salesInformation = SalesInformation::fromCultureFeedUitpasEvent($event);

@@ -155,6 +155,7 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $cfEvent->checkinAllowed = $this->checkinConstraint->getAllowed();
         $cfEvent->checkinStartDate = $this->checkinConstraint->getStartDate()->toNativeDateTime()->format('U');
         $cfEvent->checkinEndDate = $this->checkinConstraint->getEndDate()->toNativeDateTime()->format('U');
+        $cfEvent->numberOfPoints = 1;
 
         $cfFirstPriceClass = new \CultureFeed_Uitpas_Event_PriceClass();
         $cfFirstPriceClass->name = 'Rang 1';
