@@ -76,7 +76,7 @@ class SalesInformationTest extends \PHPUnit_Framework_TestCase
         $cfKansentarief->priceClasses = array(
             $cfFirstPriceClass,
             $cfSecondPriceClass,
-            $cfThirdPriceClass
+            $cfThirdPriceClass,
         );
 
         $cfTicketSaleCoupon = new \CultureFeed_Uitpas_Event_TicketSale_Coupon();
@@ -87,7 +87,7 @@ class SalesInformationTest extends \PHPUnit_Framework_TestCase
         $cfCoupon->priceClasses = array(
             $cfFirstPriceClass,
             $cfSecondPriceClass,
-            $cfThirdPriceClass
+            $cfThirdPriceClass,
         );
         $cfCoupon->ticketSaleCoupon = $cfTicketSaleCoupon;
 
@@ -98,7 +98,7 @@ class SalesInformationTest extends \PHPUnit_Framework_TestCase
         $cfEvent->ticketSales = array(
             $cfKansentarief,
             $cfCoupon,
-            $cfMaximumReachedCoupon
+            $cfMaximumReachedCoupon,
         );
 
         $expected = (new SalesInformation(
