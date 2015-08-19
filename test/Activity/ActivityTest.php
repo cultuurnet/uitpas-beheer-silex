@@ -112,13 +112,14 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_can_return_the_data_from_the_constructor()
+    public function it_can_return_the_properties()
     {
         $this->assertEquals($this->id, $this->activity->getId());
         $this->assertEquals($this->title, $this->activity->getTitle());
         $this->assertEquals($this->description, $this->activity->getDescription());
         $this->assertEquals($this->when, $this->activity->getWhen());
         $this->assertEquals($this->checkinConstraint, $this->activity->getCheckinConstraint());
+        $this->assertEquals($this->salesInformation, $this->activity->getSalesInformation());
     }
 
     /**
