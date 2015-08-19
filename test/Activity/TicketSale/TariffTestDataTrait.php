@@ -16,7 +16,8 @@ trait TariffTestDataTrait
         return new Tariff(
             new StringLiteral('Cultuurwaardebon'),
             TariffType::COUPON(),
-            $this->getSamplePrices()
+            $this->getSamplePrices(),
+            new StringLiteral('coupon-id-1')
         );
     }
 

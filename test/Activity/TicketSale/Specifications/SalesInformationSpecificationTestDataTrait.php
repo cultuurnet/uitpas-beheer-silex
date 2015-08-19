@@ -34,9 +34,7 @@ trait SalesInformationSpecificationTestDataTrait
      */
     public function getCouponTariff($maximumReached)
     {
-        $maximumReached = (bool) $maximumReached;
-
-        return new Tariff(
+        return (new Tariff(
             new StringLiteral('Cultuurnet Waardebon'),
             TariffType::COUPON(),
             (new Prices())
@@ -44,7 +42,23 @@ trait SalesInformationSpecificationTestDataTrait
                     new PriceClass('Rang 1'),
                     new Real(2.5)
                 ),
-            $maximumReached
+            new StringLiteral('coupon-id-1')
+        ))->withMaximumReached((bool) $maximumReached);
+    }
+
+    /**
+     * @return Tariff
+     */
+    public function getAvailableKansentariefTariff()
+    {
+        return new Tariff(
+            new StringLiteral('Kansentarief'),
+            TariffType::KANSENTARIEF(),
+            (new Prices())
+                ->withPricing(
+                    new PriceClass('Rang 1'),
+                    new Real(5.0)
+                )
         );
     }
 }

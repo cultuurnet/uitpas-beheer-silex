@@ -68,6 +68,7 @@ class TariffTest extends \PHPUnit_Framework_TestCase
     {
         $cfTicketSaleCoupon = new \CultureFeed_Uitpas_Event_TicketSale_Coupon();
         $cfTicketSaleCoupon->name = 'Cultuurwaardebon';
+        $cfTicketSaleCoupon->id = 'coupon-id-1';
 
         $cfCoupon = new \CultureFeed_Uitpas_Event_TicketSale_Opportunity();
         $cfCoupon->type = \CultureFeed_Uitpas_Event_TicketSale_Opportunity::TYPE_COUPON;
@@ -77,7 +78,8 @@ class TariffTest extends \PHPUnit_Framework_TestCase
         $expected = new Tariff(
             new StringLiteral('Cultuurwaardebon'),
             TariffType::COUPON(),
-            $this->getSamplePrices()
+            $this->getSamplePrices(),
+            new StringLiteral('coupon-id-1')
         );
 
         $actual = Tariff::fromCultureFeedTicketSaleOpportunity($cfCoupon);
@@ -96,12 +98,11 @@ class TariffTest extends \PHPUnit_Framework_TestCase
         $cfKansentarief->buyConstraintReason =
             \CultureFeed_Uitpas_Event_TicketSale_Opportunity::BUY_CONSTRAINT_MAXIMUM_REACHED;
 
-        $expected = new Tariff(
+        $expected = (new Tariff(
             new StringLiteral('Kansentarief'),
             TariffType::KANSENTARIEF(),
-            $this->getSamplePrices(),
-            true
-        );
+            $this->getSamplePrices()
+        ))->withMaximumReached();
 
         $actual = Tariff::fromCultureFeedTicketSaleOpportunity($cfKansentarief);
 

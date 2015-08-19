@@ -175,23 +175,4 @@ class HasDifferentiationTest extends \PHPUnit_Framework_TestCase
                 new Real(5.0)
             );
     }
-
-    /**
-     * @return Tariff
-     */
-    private function getAvailableKansentariefTariff()
-    {
-        $maximumReached = false;
-
-        return new Tariff(
-            new StringLiteral('Kansentarief'),
-            TariffType::KANSENTARIEF(),
-            (new Prices())
-                ->withPricing(
-                    new PriceClass('Rang 1'),
-                    new Real(5.0)
-                ),
-            $maximumReached
-        );
-    }
 }

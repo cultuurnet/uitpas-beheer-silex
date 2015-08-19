@@ -65,7 +65,8 @@ class HasAvailableKansentariefTest extends \PHPUnit_Framework_TestCase
                 ->withPricing(
                     new PriceClass('Rang 2'),
                     new Real(1.5)
-                )
+                ),
+            new StringLiteral('coupon-id-1')
         );
 
         $this->salesInformation = $this->salesInformation->withTariff($tariff);
@@ -105,7 +106,7 @@ class HasAvailableKansentariefTest extends \PHPUnit_Framework_TestCase
     {
         $maximumReached = (bool) $maximumReached;
 
-        return new Tariff(
+        return (new Tariff(
             new StringLiteral('Kansentarief'),
             TariffType::KANSENTARIEF(),
             (new Prices())
@@ -116,8 +117,7 @@ class HasAvailableKansentariefTest extends \PHPUnit_Framework_TestCase
                 ->withPricing(
                     new PriceClass('Rang 2'),
                     new Real(1.5)
-                ),
-            $maximumReached
-        );
+                )
+        ))->withMaximumReached($maximumReached);
     }
 }

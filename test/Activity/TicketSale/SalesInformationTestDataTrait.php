@@ -48,7 +48,8 @@ trait SalesInformationTestDataTrait
                 new Tariff(
                     new StringLiteral('Cultuurwaardebon'),
                     TariffType::COUPON(),
-                    $this->getSamplePrices()
+                    $this->getSamplePrices(),
+                    new StringLiteral('coupon-id-1')
                 )
             );
     }
@@ -65,7 +66,8 @@ trait SalesInformationTestDataTrait
                 new Tariff(
                     new StringLiteral('Cultuurwaardebon 2'),
                     TariffType::COUPON(),
-                    $this->getSamplePrices()
+                    $this->getSamplePrices(),
+                    new StringLiteral('coupon-id-2')
                 )
             )
             ->withTariff(
@@ -79,7 +81,8 @@ trait SalesInformationTestDataTrait
                 new Tariff(
                     new StringLiteral('Cultuurwaardebon 1'),
                     TariffType::COUPON(),
-                    $this->getSamplePrices()
+                    $this->getSamplePrices(),
+                    new StringLiteral('coupon-id-1')
                 )
             )
             ->withTariff(
@@ -98,12 +101,11 @@ trait SalesInformationTestDataTrait
     {
         return $this->getSampleSalesInformation()
             ->withTariff(
-                new Tariff(
+                (new Tariff(
                     new StringLiteral('Kansentarief'),
                     TariffType::KANSENTARIEF(),
-                    $this->getSamplePrices(),
-                    true
-                )
+                    $this->getSamplePrices()
+                ))->withMaximumReached()
             );
     }
 }

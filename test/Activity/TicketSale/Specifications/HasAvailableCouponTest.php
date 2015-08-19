@@ -103,7 +103,7 @@ class HasAvailableCouponTest extends \PHPUnit_Framework_TestCase
     {
         $maximumReached = (bool) $maximumReached;
 
-        return new Tariff(
+        return (new Tariff(
             new StringLiteral('Cultuurnet Waardebon'),
             TariffType::COUPON(),
             (new Prices())
@@ -115,7 +115,7 @@ class HasAvailableCouponTest extends \PHPUnit_Framework_TestCase
                     new PriceClass('Rang 2'),
                     new Real(1.5)
                 ),
-            $maximumReached
-        );
+            new StringLiteral('coupon-id-1')
+        ))->withMaximumReached($maximumReached);
     }
 }
