@@ -2,6 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity;
 
+use CultuurNet\UiTPASBeheer\Activity\TicketSale\SalesInformation;
+use CultuurNet\UiTPASBeheer\Activity\TicketSale\SalesInformationTestDataTrait;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
@@ -17,6 +19,7 @@ use ValueObjects\StringLiteral\StringLiteral;
 class ActivityTest extends \PHPUnit_Framework_TestCase
 {
     use JsonAssertionTrait;
+    use SalesInformationTestDataTrait;
 
     /**
      * @var Activity
@@ -47,6 +50,11 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
      * @var CheckinConstraint
      */
     protected $checkinConstraint;
+
+    /**
+     * @var SalesInformation
+     */
+    protected $salesInformation;
 
     public function setUp()
     {
@@ -92,9 +100,13 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
             $this->title,
             $this->checkinConstraint
         );
+
+        $this->salesInformation = $this->getSampleInformationWithTariffs();
+
         $this->activity = $this->activity
             ->withWhen($this->when)
-            ->withDescription($this->description);
+            ->withDescription($this->description)
+            ->withSalesInformation($this->salesInformation);
     }
 
     /**

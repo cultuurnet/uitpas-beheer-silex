@@ -36,7 +36,7 @@ class SalesInformationTest extends \PHPUnit_Framework_TestCase
      */
     public function it_encodes_to_json()
     {
-        $json = json_encode($this->getSampleSalesInformationWithTariffs());
+        $json = json_encode($this->getSampleSalesInformationWithUnsortedTariffs());
         $this->assertJsonEquals($json, 'Activity/data/ticket-sale/sales-information.json');
     }
 

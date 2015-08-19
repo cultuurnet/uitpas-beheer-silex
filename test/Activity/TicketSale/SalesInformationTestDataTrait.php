@@ -34,7 +34,29 @@ trait SalesInformationTestDataTrait
     /**
      * @return SalesInformation
      */
-    public function getSampleSalesInformationWithTariffs()
+    public function getSampleInformationWithTariffs()
+    {
+        return $this->getSampleSalesInformation()
+            ->withTariff(
+                new Tariff(
+                    new StringLiteral('Kansentarief'),
+                    TariffType::KANSENTARIEF(),
+                    $this->getSamplePrices()
+                )
+            )
+            ->withTariff(
+                new Tariff(
+                    new StringLiteral('Cultuurwaardebon'),
+                    TariffType::COUPON(),
+                    $this->getSamplePrices()
+                )
+            );
+    }
+
+    /**
+     * @return SalesInformation
+     */
+    public function getSampleSalesInformationWithUnsortedTariffs()
     {
         // Tariffs are intentionally not sorted, so we can test the sorting
         // when encoding to json.
