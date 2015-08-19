@@ -340,12 +340,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/Hydra.git",
-                "reference": "72fbe5e83aab7162099d66481065928f511013bf"
+                "reference": "e915ca1a69707de8d41b8132363d1c105ccaeb3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/Hydra/zipball/72fbe5e83aab7162099d66481065928f511013bf",
-                "reference": "72fbe5e83aab7162099d66481065928f511013bf",
+                "url": "https://api.github.com/repos/cultuurnet/Hydra/zipball/e915ca1a69707de8d41b8132363d1c105ccaeb3b",
+                "reference": "e915ca1a69707de8d41b8132363d1c105ccaeb3b",
                 "shasum": ""
             },
             "require-dev": {
@@ -380,7 +380,7 @@
                 }
             ],
             "description": "PHP library implementing concepts of http://www.hydra-cg.com/",
-            "time": "2015-08-14 12:32:39"
+            "time": "2015-08-19 08:05:13"
         },
         {
             "name": "cultuurnet/search",
