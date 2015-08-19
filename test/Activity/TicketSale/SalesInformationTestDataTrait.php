@@ -68,4 +68,20 @@ trait SalesInformationTestDataTrait
                 )
             );
     }
+
+    /**
+     * @return SalesInformation
+     */
+    public function getSampleSalesInformationWithMaximumReached()
+    {
+        return $this->getSampleSalesInformation()
+            ->withTariff(
+                new Tariff(
+                    new StringLiteral('Kansentarief'),
+                    TariffType::KANSENTARIEF(),
+                    $this->getSamplePrices(),
+                    true
+                )
+            );
+    }
 }

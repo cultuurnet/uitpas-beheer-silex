@@ -39,4 +39,13 @@ class SalesInformationTest extends \PHPUnit_Framework_TestCase
         $json = json_encode($this->getSampleSalesInformationWithTariffs());
         $this->assertJsonEquals($json, 'Activity/data/ticket-sale/sales-information.json');
     }
+
+    /**
+     * @test
+     */
+    public function it_omits_lowest_available_from_json_if_all_tariffs_have_reached_maximum_sales()
+    {
+        $json = json_encode($this->getSampleSalesInformationWithMaximumReached());
+        $this->assertJsonEquals($json, 'Activity/data/ticket-sale/sales-information-maximum-reached.json');
+    }
 }
