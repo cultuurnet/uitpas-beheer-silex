@@ -6,8 +6,13 @@ use CultureFeed_Uitpas_Event_CultureEvent;
 use CultureFeed_Cdb_Item_Event;
 use CultuurNet\UiTPASBeheer\Activity\Specifications\IsFree;
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\SalesInformation;
+use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
+/**
+ * Class Activity
+ * @package CultuurNet\UiTPASBeheer\Activity
+ */
 class Activity implements \JsonSerializable
 {
     /**
@@ -43,18 +48,26 @@ class Activity implements \JsonSerializable
     protected $salesInformation;
 
     /**
+     * @var Integer
+     */
+    protected $points;
+
+    /**
      * @param StringLiteral $id
      * @param StringLiteral $title
      * @param CheckinConstraint $checkinConstraint
+     * @param Integer $points
      */
     public function __construct(
         StringLiteral $id,
         StringLiteral $title,
-        CheckinConstraint $checkinConstraint
+        CheckinConstraint $checkinConstraint,
+        Integer $points
     ) {
         $this->id = $id;
         $this->title = $title;
         $this->checkinConstraint = $checkinConstraint;
+        $this->points = $points;
     }
 
     /**
@@ -139,6 +152,14 @@ class Activity implements \JsonSerializable
     }
 
     /**
+     * @return Integer
+     */
+    public function getPoints()
+    {
+        return $this->points;
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()
@@ -148,6 +169,7 @@ class Activity implements \JsonSerializable
             'title' => $this->title->toNative(),
             'checkinConstraint' => $this->checkinConstraint,
             'free' => IsFree::isSatisfiedBy($this),
+            'points' => $this->points->toNative(),
         ];
 
         if (!is_null($this->description)) {
@@ -174,7 +196,8 @@ class Activity implements \JsonSerializable
         $activity = new Activity(
             StringLiteral::fromNative((string) $event->cdbid),
             StringLiteral::fromNative((string) $event->title),
-            CheckinConstraint::fromCultureFeedUitpasEvent($event)
+            CheckinConstraint::fromCultureFeedUitpasEvent($event),
+            Integer::fromNative($event->numberOfPoints)
         );
 
         $salesInformation = SalesInformation::fromCultureFeedUitpasEvent($event);

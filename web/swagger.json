@@ -1430,6 +1430,10 @@
         },
         "sales": {
           "$ref": "#/definitions/SalesInformation"
+        },
+        "points": {
+          "type": "integer",
+          "description": "The number of points that can be earned when checking in this activity."
         }
       },
       "required": [

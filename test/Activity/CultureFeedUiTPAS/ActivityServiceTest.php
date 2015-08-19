@@ -67,6 +67,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $eventA->checkinEndDate = 1456848000;
         $eventA->checkinConstraintReason = "INVALID_DATE_TIME";
         $eventA->price = 0.0;
+        $eventA->numberOfPoints = 1;
         $this->eventA = $eventA;
 
         $eventB = new CultureFeed_Uitpas_Event_CultureEvent();
@@ -77,6 +78,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $eventB->checkinEndDate = 1456848000;
         $eventB->checkinConstraintReason = "INVALID_DATE_TIME";
         $eventB->price = 0.0;
+        $eventB->numberOfPoints = 1;
         $this->eventB = $eventB;
     }
 
@@ -136,12 +138,14 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
                 (new Activity(
                     new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
                     new StringLiteral('test event 1'),
-                    $checkinConstraint
+                    $checkinConstraint,
+                    new Integer(1)
                 ))->withSalesInformation($salesInformation),
                 (new Activity(
                     new StringLiteral('ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj'),
                     new StringLiteral('test event 2'),
-                    $checkinConstraint
+                    $checkinConstraint,
+                    new Integer(1)
                 ))->withSalesInformation($salesInformation),
             ]
         );
@@ -181,7 +185,8 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $expectedActivity = (new Activity(
             new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
             new StringLiteral('test event 1'),
-            $checkinConstraint
+            $checkinConstraint,
+            new Integer(1)
         ))->withSalesInformation(
             new SalesInformation(
                 (new Prices())

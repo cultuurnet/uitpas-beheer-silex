@@ -12,6 +12,7 @@ use ValueObjects\DateTime\MonthDay;
 use ValueObjects\DateTime\Second;
 use ValueObjects\DateTime\Time;
 use ValueObjects\DateTime\Year;
+use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class ActivityTest extends \PHPUnit_Framework_TestCase
@@ -48,12 +49,18 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
      */
     protected $checkinConstraint;
 
+    /**
+     * @var Integer
+     */
+    protected $points;
+
     public function setUp()
     {
         $this->id = new StringLiteral('10');
         $this->title = new StringLiteral('Some title');
         $this->description = new StringLiteral('Some description');
         $this->when = new StringLiteral('yesterday');
+        $this->points = new Integer(1);
 
         $checkinStartDate = new DateTime(
             new Date(
@@ -90,7 +97,8 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->activity = new Activity(
             $this->id,
             $this->title,
-            $this->checkinConstraint
+            $this->checkinConstraint,
+            $this->points
         );
         $this->activity = $this->activity
             ->withWhen($this->when)
@@ -107,6 +115,7 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->description, $this->activity->getDescription());
         $this->assertEquals($this->when, $this->activity->getWhen());
         $this->assertEquals($this->checkinConstraint, $this->activity->getCheckinConstraint());
+        $this->assertEquals($this->points, $this->activity->getPoints());
     }
 
     /**
