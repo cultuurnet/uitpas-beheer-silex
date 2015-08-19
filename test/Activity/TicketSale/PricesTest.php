@@ -101,13 +101,11 @@ class PricesTest extends \PHPUnit_Framework_TestCase
 
         $prices->next();
 
-        $this->assertEquals(
-            new Real(5.5),
-            $prices->current()
+        $this->assertTrue(
+            false === $prices->current()
         );
-        $this->assertEquals(
-            'Rang 3+',
-            $prices->key()
+        $this->assertTrue(
+            null === $prices->key()
         );
 
         $prices->rewind();
