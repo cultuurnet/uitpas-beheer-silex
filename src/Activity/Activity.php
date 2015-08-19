@@ -159,7 +159,7 @@ class Activity implements \JsonSerializable
         }
 
         if (!is_null($this->salesInformation) && !$data['free']) {
-            $data['salesInformation'] = $this->salesInformation->jsonSerialize();
+            $data['sales'] = $this->salesInformation->jsonSerialize();
         }
 
         return $data;
