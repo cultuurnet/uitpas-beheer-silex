@@ -125,7 +125,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $salesInformation = new SalesInformation(
             (new Prices())
                 ->withPricing(
-                    new PriceClass('Standaard'),
+                    new PriceClass('Basisprijs'),
                     new Real(0.0)
                 )
         );
@@ -186,7 +186,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
             new SalesInformation(
                 (new Prices())
                     ->withPricing(
-                        new PriceClass('Standaard'),
+                        new PriceClass('Basisprijs'),
                         new Real(0.0)
                     )
             )

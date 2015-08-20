@@ -158,7 +158,7 @@ class SalesInformationTest extends \PHPUnit_Framework_TestCase
         $expected = new SalesInformation(
             (new Prices())
                 ->withPricing(
-                    new PriceClass('Standaard'),
+                    new PriceClass('Basisprijs'),
                     new Real(30)
                 )
         );

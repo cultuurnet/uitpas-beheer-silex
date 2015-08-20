@@ -161,7 +161,7 @@ class SalesInformation implements \JsonSerializable
             // price higher than zero.
             /* @var Prices $basePrices */
             $basePrices = $basePrices->withPricing(
-                new PriceClass('Standaard'),
+                new PriceClass('Basisprijs'),
                 new Real((float) $event->price)
             );
         }
