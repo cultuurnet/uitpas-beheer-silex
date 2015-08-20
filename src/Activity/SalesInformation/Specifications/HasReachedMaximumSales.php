@@ -1,8 +1,8 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Specifications;
+namespace CultuurNet\UiTPASBeheer\Activity\SalesInformation\Specifications;
 
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\SalesInformation;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation;
 
 class HasReachedMaximumSales implements SalesInformationSpecificationInterface
 {

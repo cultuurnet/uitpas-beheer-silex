@@ -9,9 +9,9 @@ use CultuurNet\UiTPASBeheer\Activity\ActivityNotFoundException;
 use CultuurNet\UiTPASBeheer\Activity\Cdbid;
 use CultuurNet\UiTPASBeheer\Activity\CheckinConstraint;
 use CultuurNet\UiTPASBeheer\Activity\PagedResultSet;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\PriceClass;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\Prices;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\SalesInformation;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\Prices;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
@@ -127,7 +127,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $salesInformation = new SalesInformation(
             (new Prices())
                 ->withPricing(
-                    new PriceClass('Standaard'),
+                    new PriceClass('Basisprijs'),
                     new Real(0.0)
                 )
         );
@@ -191,7 +191,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
             new SalesInformation(
                 (new Prices())
                     ->withPricing(
-                        new PriceClass('Standaard'),
+                        new PriceClass('Basisprijs'),
                         new Real(0.0)
                     )
             )

@@ -1,9 +1,9 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Specifications;
+namespace CultuurNet\UiTPASBeheer\Activity\SalesInformation\Specifications;
 
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\SalesInformation;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\TariffType;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Tariff\TariffType;
 
 class HasAvailableCoupon implements SalesInformationSpecificationInterface
 {

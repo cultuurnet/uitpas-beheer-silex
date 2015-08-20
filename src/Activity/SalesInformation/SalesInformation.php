@@ -1,11 +1,15 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
+namespace CultuurNet\UiTPASBeheer\Activity\SalesInformation;
 
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\Specifications\HasAvailableCoupon;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\Specifications\HasAvailableKansentarief;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\Specifications\HasDifferentiation;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\Specifications\HasReachedMaximumSales;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\Prices;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Specifications\HasAvailableCoupon;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Specifications\HasAvailableKansentarief;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Specifications\HasDifferentiation;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Specifications\HasReachedMaximumSales;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Tariff\Tariff;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Tariff\TariffType;
 use ValueObjects\Number\Real;
 
 class SalesInformation implements \JsonSerializable
@@ -159,9 +163,9 @@ class SalesInformation implements \JsonSerializable
             // old price property on $event. Otherwise the IsFree specification
             // thinks that the activity is free, as there would be no base
             // price higher than zero.
-            /* @var Prices $basePrices */
+            /* @var \CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\Prices $basePrices */
             $basePrices = $basePrices->withPricing(
-                new PriceClass('Standaard'),
+                new PriceClass('Basisprijs'),
                 new Real((float) $event->price)
             );
         }

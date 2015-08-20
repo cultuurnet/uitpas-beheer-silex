@@ -1,7 +1,8 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
+namespace CultuurNet\UiTPASBeheer\Activity\SalesInformation\Tariff;
 
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\Prices;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -25,11 +26,42 @@ class TariffTest extends \PHPUnit_Framework_TestCase
             $this->getSamplePrices(),
             $tariff->getPrices()
         );
+        $this->assertEquals(
+            new StringLiteral('coupon-id-1'),
+            $tariff->getId()
+        );
         $this->assertFalse($tariff->hasReachedMaximum());
 
         $tariff = $tariff->withMaximumReached(true);
 
         $this->assertTrue($tariff->hasReachedMaximum());
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_an_id_is_provided_to_a_kansentarief_tariff()
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+        new Tariff(
+            new StringLiteral('Kansentarief'),
+            TariffType::KANSENTARIEF(),
+            new Prices(),
+            new StringLiteral('coupon-id-1')
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_an_id_is_not_provided_to_a_non_kansentarief_tariff()
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+        new Tariff(
+            new StringLiteral('Cultuurwaardebon'),
+            TariffType::COUPON(),
+            new Prices()
+        );
     }
 
     /**

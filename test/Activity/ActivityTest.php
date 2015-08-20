@@ -2,8 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity;
 
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\SalesInformation;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\SalesInformationTestDataTrait;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformationTestDataTrait;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;

@@ -1,16 +1,16 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Specifications;
+namespace CultuurNet\UiTPASBeheer\Activity\SalesInformation\Specifications;
 
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\PriceClass;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\Prices;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\SalesInformation;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\Tariff;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\TariffType;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\Prices;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Tariff\Tariff;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Tariff\TariffType;
 use ValueObjects\Number\Real;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class HasAvailableKansentariefTest extends \PHPUnit_Framework_TestCase
+class HasAvailableCouponTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var SalesInformation
@@ -36,7 +36,7 @@ class HasAvailableKansentariefTest extends \PHPUnit_Framework_TestCase
                 )
         );
 
-        $this->specification = new HasAvailableKansentarief();
+        $this->specification = new HasAvailableCoupon();
     }
 
     /**
@@ -52,11 +52,11 @@ class HasAvailableKansentariefTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_is_not_satisfied_by_an_available_coupon_tariff()
+    public function it_is_not_satisfied_by_an_available_kansentarief_tariff()
     {
         $tariff = new Tariff(
-            new StringLiteral('Cultuurnet Waardebon'),
-            TariffType::COUPON(),
+            new StringLiteral('Kansentarief'),
+            TariffType::KANSENTARIEF(),
             (new Prices())
                 ->withPricing(
                     new PriceClass('Rang 1'),
@@ -65,8 +65,7 @@ class HasAvailableKansentariefTest extends \PHPUnit_Framework_TestCase
                 ->withPricing(
                     new PriceClass('Rang 2'),
                     new Real(1.5)
-                ),
-            new StringLiteral('coupon-id-1')
+                )
         );
 
         $this->salesInformation = $this->salesInformation->withTariff($tariff);
@@ -79,22 +78,20 @@ class HasAvailableKansentariefTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_is_satisfied_when_a_kansentarief_tariff_is_found_which_has_not_reached_maximum_sales()
+    public function it_is_satisfied_when_at_least_one_coupon_tariff_is_found_which_has_not_reached_maximum_sales()
     {
-        // Kansentarief exists, but it has reached its maximum number of sales.
-        $maximumReachedTariff = $this->getSampleKansentariefTariffWithMaximumReached(true);
+        // One coupon found, but it has reached its maximum number of sales.
+        $maximumReachedTariff = $this->getSampleCouponTariffWithMaximumReached(true);
+        $this->salesInformation = $this->salesInformation->withTariff($maximumReachedTariff);
         $this->assertFalse(
-            $this->specification->isSatisfiedBy(
-                $this->salesInformation->withTariff($maximumReachedTariff)
-            )
+            $this->specification->isSatisfiedBy($this->salesInformation)
         );
 
-        // Kansentarief which has not reached its maximum number of sales.
-        $availableTariff = $this->getSampleKansentariefTariffWithMaximumReached(false);
+        // A second coupon, which has not reached its maximum number of sales.
+        $availableTariff = $this->getSampleCouponTariffWithMaximumReached(false);
+        $this->salesInformation = $this->salesInformation->withTariff($availableTariff);
         $this->assertTrue(
-            $this->specification->isSatisfiedBy(
-                $this->salesInformation->withTariff($availableTariff)
-            )
+            $this->specification->isSatisfiedBy($this->salesInformation)
         );
     }
 
@@ -102,13 +99,13 @@ class HasAvailableKansentariefTest extends \PHPUnit_Framework_TestCase
      * @param $maximumReached
      * @return Tariff
      */
-    private function getSampleKansentariefTariffWithMaximumReached($maximumReached)
+    private function getSampleCouponTariffWithMaximumReached($maximumReached)
     {
         $maximumReached = (bool) $maximumReached;
 
         return (new Tariff(
-            new StringLiteral('Kansentarief'),
-            TariffType::KANSENTARIEF(),
+            new StringLiteral('Cultuurnet Waardebon'),
+            TariffType::COUPON(),
             (new Prices())
                 ->withPricing(
                     new PriceClass('Rang 1'),
@@ -117,7 +114,8 @@ class HasAvailableKansentariefTest extends \PHPUnit_Framework_TestCase
                 ->withPricing(
                     new PriceClass('Rang 2'),
                     new Real(1.5)
-                )
+                ),
+            new StringLiteral('coupon-id-1')
         ))->withMaximumReached($maximumReached);
     }
 }

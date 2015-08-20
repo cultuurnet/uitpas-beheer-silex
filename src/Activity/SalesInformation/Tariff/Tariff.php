@@ -1,17 +1,12 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
+namespace CultuurNet\UiTPASBeheer\Activity\SalesInformation\Tariff;
 
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\Prices;
 use ValueObjects\Number\Real;
 use ValueObjects\StringLiteral\StringLiteral;
 
-/**
- * Class Tariff
- * @package CultuurNet\UiTPASBeheer\Activity\TicketSale
- *
- * @todo Refactor so this becomes an abstract class and we have two
- * other classes eg. KansentariefTariff and CouponTariff?
- */
 final class Tariff implements \JsonSerializable
 {
     /**
@@ -171,8 +166,8 @@ final class Tariff implements \JsonSerializable
         $prices = new Prices();
         foreach ($ticketSale->priceClasses as $priceClass) {
             $prices = $prices->withPricing(
-                new PriceClass($priceClass->name),
-                new Real($priceClass->tariff)
+                new PriceClass((string) $priceClass->name),
+                new Real((float) $priceClass->tariff)
             );
         }
 

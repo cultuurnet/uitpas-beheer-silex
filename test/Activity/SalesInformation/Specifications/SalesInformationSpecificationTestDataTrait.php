@@ -1,11 +1,11 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Specifications;
+namespace CultuurNet\UiTPASBeheer\Activity\SalesInformation\Specifications;
 
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\PriceClass;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\Prices;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\Tariff;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\TariffType;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\Prices;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Tariff\Tariff;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Tariff\TariffType;
 use ValueObjects\Number\Real;
 use ValueObjects\StringLiteral\StringLiteral;
 

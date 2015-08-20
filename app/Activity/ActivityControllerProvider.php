@@ -2,6 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity;
 
+use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\RegistrationJsonDeserializer;
+use CultuurNet\UiTPASBeheer\Activity\TicketSale\TicketSaleController;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
@@ -34,12 +36,23 @@ class ActivityControllerProvider implements ControllerProviderInterface
             }
         );
 
+        $app['ticketsale_controller'] = $app->share(
+            function (Application $app) {
+                return new TicketSaleController(
+                    $app['ticketsale_service'],
+                    new RegistrationJsonDeserializer()
+                );
+            }
+        );
+
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
         $controllers->get('/passholders/{uitpasNumber}/activities', 'activity_controller:search');
 
         $controllers->post('/passholders/{uitpasNumber}/activities/checkins', 'checkin_controller:checkin');
+
+        $controllers->post('/passholders/{uitpasNumber}/activities/ticket-sales', 'ticketsale_controller:register');
 
         return $controllers;
     }

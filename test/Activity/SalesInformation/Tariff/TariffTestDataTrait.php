@@ -1,7 +1,8 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
+namespace CultuurNet\UiTPASBeheer\Activity\SalesInformation\Tariff;
 
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PricesTestDataTrait;
 use ValueObjects\StringLiteral\StringLiteral;
 
 trait TariffTestDataTrait

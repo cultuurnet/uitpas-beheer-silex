@@ -1,14 +1,11 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Specifications;
+namespace CultuurNet\UiTPASBeheer\Activity\SalesInformation\Specifications;
 
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\PriceClass;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\Prices;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\SalesInformation;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\Tariff;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\TariffType;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\Prices;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation;
 use ValueObjects\Number\Real;
-use ValueObjects\StringLiteral\StringLiteral;
 
 /**
  * Requirements for satisfaction:
@@ -101,7 +98,7 @@ class HasDifferentiationTest extends \PHPUnit_Framework_TestCase
             $this->getSinglePrice()
         );
 
-        /* @var SalesInformation $salesInformation */
+        /* @var \CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation $salesInformation */
         // Third tariff is unavailable on purpose.
         $salesInformation = $salesInformation
             ->withTariff($this->getAvailableKansentariefTariff())
@@ -165,7 +162,7 @@ class HasDifferentiationTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @return Prices
+     * @return \CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\Prices
      */
     private function getMultiplePrices()
     {

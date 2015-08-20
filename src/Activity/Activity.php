@@ -4,8 +4,8 @@ namespace CultuurNet\UiTPASBeheer\Activity;
 
 use CultureFeed_Uitpas_Event_CultureEvent;
 use CultureFeed_Cdb_Item_Event;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation;
 use CultuurNet\UiTPASBeheer\Activity\Specifications\IsFree;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\SalesInformation;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -189,7 +189,7 @@ class Activity implements \JsonSerializable
 
     /**
      * @param \CultureFeed_Uitpas_Event_CultureEvent $event
-     * @return \CultuurNet\UiTPASBeheer\Activity\Activity
+     * @return Activity
      */
     public static function fromCultureFeedUitpasEvent(\CultureFeed_Uitpas_Event_CultureEvent $event)
     {
