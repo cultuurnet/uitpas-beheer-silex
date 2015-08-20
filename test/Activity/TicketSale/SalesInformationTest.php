@@ -71,35 +71,37 @@ class SalesInformationTest extends \PHPUnit_Framework_TestCase
         $cfThirdPriceClass->price = 7.5;
         $cfThirdPriceClass->tariff = 5.5;
 
-        $cfKansentarief = new \CultureFeed_Uitpas_Event_TicketSale_Opportunity();
-        $cfKansentarief->type = \CultureFeed_Uitpas_Event_TicketSale_Opportunity::TYPE_DEFAULT;
-        $cfKansentarief->priceClasses = array(
+        $cfPriceClasses = array(
             $cfFirstPriceClass,
             $cfSecondPriceClass,
             $cfThirdPriceClass,
         );
 
-        $cfTicketSaleCoupon = new \CultureFeed_Uitpas_Event_TicketSale_Coupon();
-        $cfTicketSaleCoupon->name = 'Cultuurwaardebon';
+        $cfKansentarief = new \CultureFeed_Uitpas_Event_TicketSale_Opportunity();
+        $cfKansentarief->type = \CultureFeed_Uitpas_Event_TicketSale_Opportunity::TYPE_DEFAULT;
+        $cfKansentarief->priceClasses = $cfPriceClasses;
+
+        $cfEvent->ticketSales[] = $cfKansentarief;
 
         $cfCoupon = new \CultureFeed_Uitpas_Event_TicketSale_Opportunity();
         $cfCoupon->type = \CultureFeed_Uitpas_Event_TicketSale_Opportunity::TYPE_COUPON;
-        $cfCoupon->priceClasses = array(
-            $cfFirstPriceClass,
-            $cfSecondPriceClass,
-            $cfThirdPriceClass,
-        );
-        $cfCoupon->ticketSaleCoupon = $cfTicketSaleCoupon;
+        $cfCoupon->priceClasses = $cfPriceClasses;
+        $cfCoupon->ticketSaleCoupon = new \CultureFeed_Uitpas_Event_TicketSale_Coupon();
+        $cfCoupon->ticketSaleCoupon->name = 'Cultuurwaardebon 1';
+        $cfCoupon->ticketSaleCoupon->id = 'coupon-id-1';
 
-        $cfMaximumReachedCoupon = clone $cfCoupon;
+        $cfEvent->ticketSales[] = $cfCoupon;
+
+        $cfMaximumReachedCoupon = new \CultureFeed_Uitpas_Event_TicketSale_Opportunity();
+        $cfMaximumReachedCoupon->type = \CultureFeed_Uitpas_Event_TicketSale_Opportunity::TYPE_COUPON;
+        $cfMaximumReachedCoupon->priceClasses = $cfPriceClasses;
+        $cfMaximumReachedCoupon->ticketSaleCoupon = new \CultureFeed_Uitpas_Event_TicketSale_Coupon();
+        $cfMaximumReachedCoupon->ticketSaleCoupon->name = 'Cultuurwaardebon 2';
+        $cfMaximumReachedCoupon->ticketSaleCoupon->id = 'coupon-id-2';
         $cfMaximumReachedCoupon->buyConstraintReason =
             \CultureFeed_Uitpas_Event_TicketSale_Opportunity::BUY_CONSTRAINT_MAXIMUM_REACHED;
 
-        $cfEvent->ticketSales = array(
-            $cfKansentarief,
-            $cfCoupon,
-            $cfMaximumReachedCoupon,
-        );
+        $cfEvent->ticketSales[] = $cfMaximumReachedCoupon;
 
         $expected = (new SalesInformation(
             (new Prices())
@@ -125,18 +127,19 @@ class SalesInformationTest extends \PHPUnit_Framework_TestCase
             )
             ->withTariff(
                 new Tariff(
-                    new StringLiteral('Cultuurwaardebon'),
+                    new StringLiteral('Cultuurwaardebon 1'),
                     TariffType::COUPON(),
-                    $this->getSamplePrices()
+                    $this->getSamplePrices(),
+                    new StringLiteral('coupon-id-1')
                 )
             )
             ->withTariff(
-                new Tariff(
-                    new StringLiteral('Cultuurwaardebon'),
+                (new Tariff(
+                    new StringLiteral('Cultuurwaardebon 2'),
                     TariffType::COUPON(),
                     $this->getSamplePrices(),
-                    true
-                )
+                    new StringLiteral('coupon-id-2')
+                ))->withMaximumReached()
             );
 
         $actual = SalesInformation::fromCultureFeedUitpasEvent($cfEvent);

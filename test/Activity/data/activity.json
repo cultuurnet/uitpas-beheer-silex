@@ -12,39 +12,41 @@
   "points": 1,
   "free": false,
   "sales": {
-    "maximumReached": false,
-    "differentiation": true,
-    "base": {
-      "Rang 1": 30,
-      "Rang 2": 15,
-      "Rang 3+": 7.5
-    },
-    "tariffs": {
-      "lowestAvailable": 5.5,
-      "kansentariefAvailable": true,
-      "couponAvailable": true,
-      "list": [
-        {
-          "name": "Kansentarief",
-          "type": "KANSENTARIEF",
-          "maximumReached": false,
-          "prices": {
-            "Rang 1": 22,
-            "Rang 2": 11,
-            "Rang 3+": 5.5
-          }
-        },
-        {
-          "name": "Cultuurwaardebon",
-          "type": "COUPON",
-          "maximumReached": false,
-          "prices": {
-            "Rang 1": 22,
-            "Rang 2": 11,
-            "Rang 3+": 5.5
-          }
+  "maximumReached": false,
+  "differentiation": true,
+  "base": {
+    "Rang 1": 30,
+    "Rang 2": 15,
+    "Rang 3+": 7.5
+  },
+  "tariffs": {
+    "lowestAvailable": 5.5,
+    "kansentariefAvailable": true,
+    "couponAvailable": true,
+    "list": [
+      {
+        "name": "Kansentarief",
+        "type": "KANSENTARIEF",
+        "maximumReached": false,
+        "prices": {
+          "Rang 1": 22,
+          "Rang 2": 11,
+          "Rang 3+": 5.5
         }
-      ]
-    }
+      },
+      {
+        "name": "Cultuurwaardebon",
+        "type": "COUPON",
+        "maximumReached": false,
+        "prices": {
+          "Rang 1": 22,
+          "Rang 2": 11,
+          "Rang 3+": 5.5
+        },
+        "id": "coupon-id-1"
+      }
+    ]
   }
+}
+
 }

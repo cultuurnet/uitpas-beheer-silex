@@ -5,6 +5,13 @@ namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
 use ValueObjects\Number\Real;
 use ValueObjects\StringLiteral\StringLiteral;
 
+/**
+ * Class Tariff
+ * @package CultuurNet\UiTPASBeheer\Activity\TicketSale
+ *
+ * @todo Refactor so this becomes an abstract class and we have two
+ * other classes eg. KansentariefTariff and CouponTariff?
+ */
 final class Tariff implements \JsonSerializable
 {
     /**
@@ -28,21 +35,40 @@ final class Tariff implements \JsonSerializable
     protected $prices;
 
     /**
+     * @var StringLiteral
+     */
+    protected $id;
+
+    /**
      * @param StringLiteral $name
      * @param TariffType $type
      * @param Prices $prices
-     * @param bool $maximumReached
+     * @param StringLiteral $id
      */
     public function __construct(
         StringLiteral $name,
         TariffType $type,
         Prices $prices,
-        $maximumReached = false
+        StringLiteral $id = null
     ) {
+        if (is_null($id) && !$type->is(TariffType::KANSENTARIEF())) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Required argument id missing for type "%s".',
+                    $type->toNative()
+                )
+            );
+        } elseif (!is_null($id) && $type->is(TariffType::KANSENTARIEF())) {
+            throw new \InvalidArgumentException(
+                'Argument id should be null for type "KANSENTARIEF".'
+            );
+        }
+
         $this->name = $name;
         $this->type = $type;
         $this->prices = $prices;
-        $this->maximumReached = (bool) $maximumReached;
+        $this->id = $id;
+        $this->maximumReached = false;
     }
 
     /**
@@ -62,10 +88,18 @@ final class Tariff implements \JsonSerializable
     }
 
     /**
+     * @return StringLiteral|null
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * @param bool $reached
      * @return Tariff
      */
-    public function withMaximumReached($reached)
+    public function withMaximumReached($reached = true)
     {
         $c = clone $this;
         $c->maximumReached = (bool) $reached;
@@ -85,12 +119,18 @@ final class Tariff implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        return array(
+        $data = array(
             'name' => $this->name->toNative(),
             'type' => $this->type->toNative(),
             'maximumReached' => $this->maximumReached,
             'prices' => $this->prices->jsonSerialize(),
         );
+
+        if (!is_null($this->id)) {
+            $data['id'] = $this->id->toNative();
+        }
+
+        return $data;
     }
 
     /**
@@ -106,13 +146,15 @@ final class Tariff implements \JsonSerializable
         // Determine the ticketSale's type and name.
         switch ($ticketSale->type) {
             case \CultureFeed_Uitpas_Event_TicketSale_Opportunity::TYPE_DEFAULT:
-                $tariffName = new StringLiteral('Kansentarief');
-                $tariffType = TariffType::KANSENTARIEF();
+                $name = new StringLiteral('Kansentarief');
+                $type = TariffType::KANSENTARIEF();
+                $id = null;
                 break;
 
             case \CultureFeed_Uitpas_Event_TicketSale_Opportunity::TYPE_COUPON:
-                $tariffName = new StringLiteral($ticketSale->ticketSaleCoupon->name);
-                $tariffType = TariffType::COUPON();
+                $name = new StringLiteral($ticketSale->ticketSaleCoupon->name);
+                $type = TariffType::COUPON();
+                $id = new StringLiteral($ticketSale->ticketSaleCoupon->id);
                 break;
 
             default:
@@ -126,9 +168,9 @@ final class Tariff implements \JsonSerializable
         }
 
         // Determine this tariff's prices.
-        $tariffPrices = new Prices();
+        $prices = new Prices();
         foreach ($ticketSale->priceClasses as $priceClass) {
-            $tariffPrices = $tariffPrices->withPricing(
+            $prices = $prices->withPricing(
                 new PriceClass($priceClass->name),
                 new Real($priceClass->tariff)
             );
@@ -139,11 +181,11 @@ final class Tariff implements \JsonSerializable
         $maximumReached = $ticketSale->buyConstraintReason ===
             \CultureFeed_Uitpas_Event_TicketSale_Opportunity::BUY_CONSTRAINT_MAXIMUM_REACHED;
 
-        return new Tariff(
-            $tariffName,
-            $tariffType,
-            $tariffPrices,
-            $maximumReached
-        );
+        return (new Tariff(
+            $name,
+            $type,
+            $prices,
+            $id
+        ))->withMaximumReached($maximumReached);
     }
 }
