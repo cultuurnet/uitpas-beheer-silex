@@ -136,18 +136,13 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider updatePassHolderData
-     * @param Gender $gender
-     * @param string $expectedCfPassHolderGender
      */
-    public function it_should_register_a_new_passholder_linked_to_a_given_UiTPAS_number_and_return_a_UUID(
-        Gender $gender,
-        $expectedCfPassHolderGender
-    ) {
+    public function it_should_register_a_new_passholder_linked_to_a_given_UiTPAS_number_and_return_a_UUID()
+    {
         $uitpasNumberValue = '0930000125607';
         $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
 
-        $passholder = $this->getCompletePassHolder($gender);
+        $passholder = $this->getCompletePassHolder(Gender::FEMALE());
 
         $cfPassholder = new \CultureFeed_Uitpas_Passholder();
         $cfPassholder->uitpasNumber = $uitpasNumberValue;
@@ -159,7 +154,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->street = 'Rue Perdue 101 /0003';
         $cfPassholder->placeOfBirth = 'Casablanca';
         $cfPassholder->secondName = 'Zoni';
-        $cfPassholder->gender = $expectedCfPassHolderGender;
+        $cfPassholder->gender = 'F';
         $cfPassholder->inszNumber = '93051822361';
         $cfPassholder->nationality = 'Maroc';
         $cfPassholder->email = 'zyrani_.hotmail.com@mailinator.com';
@@ -193,8 +188,40 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_not_try_to_register_a_new_passholder_with_an_already_used_UiTPAS_number()
     {
-        $this->markTestIncomplete(
-            'This test has not been implemented yet.'
+        $uitpasNumberValue = '0930000125607';
+        $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
+
+        $passholder = $this->getCompletePassHolder(Gender::FEMALE());
+
+        $cfPassholder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassholder->uitpasNumber = $uitpasNumberValue;
+        $cfPassholder->name = 'Zyrani';
+        $cfPassholder->firstName = 'Layla';
+        $cfPassholder->postalCode = '1090';
+        $cfPassholder->city = 'Jette (Brussel)';
+        $cfPassholder->dateOfBirth = 211417200;
+        $cfPassholder->street = 'Rue Perdue 101 /0003';
+        $cfPassholder->placeOfBirth = 'Casablanca';
+        $cfPassholder->secondName = 'Zoni';
+        $cfPassholder->gender = 'FEMALE';
+        $cfPassholder->inszNumber = '93051822361';
+        $cfPassholder->nationality = 'Maroc';
+        $cfPassholder->email = 'zyrani_.hotmail.com@mailinator.com';
+        $cfPassholder->telephone = '0488694231';
+        $cfPassholder->gsm = '0499748596';
+        $cfPassholder->smsPreference = 'NOTIFICATION_SMS';
+        $cfPassholder->emailPreference = 'ALL_MAILS';
+
+        $this->uitpas->expects($this->once())
+            ->method('getPassholderByUitpasNumber')
+            ->with($uitpasNumberValue)
+            ->willReturn($cfPassholder);
+
+        $this->setExpectedException(UiTPASNumberAlreadyUsedException::class);
+
+        $this->service->register(
+            $uitpasNumber,
+            $passholder
         );
     }
 }

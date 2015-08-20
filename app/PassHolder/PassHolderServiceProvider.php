@@ -42,6 +42,14 @@ class PassHolderServiceProvider implements ServiceProviderInterface
                 );
             }
         );
+
+        $app['registration_json_deserializer'] = $app->share(
+            function (Application $app) {
+                return new RegistrationJsonDeserializer(
+                    $app['passholder_json_deserializer']
+                );
+            }
+        );
     }
 
     /**

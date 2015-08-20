@@ -26,7 +26,12 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
     /**
      * @var PassHolderJsonDeserializer|\PHPUnit_Framework_MockObject_MockObject
      */
-    protected $deserializer;
+    protected $passholderDeserializer;
+
+    /**
+     * @var RegistrationJsonDeserializer|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $registrationDeserializer;
 
     /**
      * @var PassHolderController
@@ -37,7 +42,7 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
     {
         $this->service = $this->getMock(PassHolderServiceInterface::class);
 
-        $this->deserializer = new PassHolderJsonDeserializer(
+        $this->passholderDeserializer = new PassHolderJsonDeserializer(
             new NameJsonDeserializer(),
             new AddressJsonDeserializer(),
             new BirthInformationJsonDeserializer(),
@@ -45,9 +50,14 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             new PrivacyPreferencesJsonDeserializer()
         );
 
+        $this->registrationDeserializer = new RegistrationJsonDeserializer(
+            $this->passholderDeserializer
+        );
+
         $this->controller = new PassHolderController(
             $this->service,
-            $this->deserializer
+            $this->passholderDeserializer,
+            $this->registrationDeserializer
         );
     }
 

@@ -71,11 +71,14 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
             $cfPassHolder->voucherNumber = $voucherNumber->toNative();
         }
 
-        $uuid = UUID::fromNative(
-            $this->getUitpasService()->createPassholder($cfPassHolder)
+        $UUIDString = $this->getUitpasService()->createPassholder(
+            $cfPassHolder,
+            $this->getCounterConsumerKey()
         );
 
-        return $uuid;
+        $UUID = UUID::fromNative($UUIDString);
+
+        return $UUID;
     }
 
     /**

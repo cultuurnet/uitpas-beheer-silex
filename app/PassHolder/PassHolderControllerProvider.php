@@ -18,7 +18,8 @@ class PassHolderControllerProvider implements ControllerProviderInterface
             function (Application $app) {
                 return new PassHolderController(
                     $app['passholder_service'],
-                    $app['passholder_json_deserializer']
+                    $app['passholder_json_deserializer'],
+                    $app['registration_json_deserializer']
                 );
             }
         );
@@ -28,6 +29,7 @@ class PassHolderControllerProvider implements ControllerProviderInterface
 
         $controllers->get('/passholders/{uitpasNumber}', 'passholder_controller:getByUitpasNumber');
         $controllers->post('/passholders/{uitpasNumber}', 'passholder_controller:update');
+        $controllers->post('/passholders/{uitpasNumber}/registration', 'passholder_controller:register');
 
         return $controllers;
     }

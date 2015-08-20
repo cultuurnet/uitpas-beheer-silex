@@ -23,15 +23,23 @@ class PassHolderController
     protected $passHolderJsonDeserializer;
 
     /**
+     * @var RegistrationJsonDeserializer
+     */
+    protected $registrationJsonDeserializer;
+
+    /**
      * @param PassHolderServiceInterface $passHolderService
      * @param DeserializerInterface $passHolderJsonDeserializer
+     * @param DeserializerInterface $registrationJsonDeserializer
      */
     public function __construct(
         PassHolderServiceInterface $passHolderService,
-        DeserializerInterface $passHolderJsonDeserializer
+        DeserializerInterface $passHolderJsonDeserializer,
+        DeserializerInterface $registrationJsonDeserializer
     ) {
         $this->passHolderService = $passHolderService;
         $this->passHolderJsonDeserializer = $passHolderJsonDeserializer;
+        $this->registrationJsonDeserializer = $registrationJsonDeserializer;
     }
 
     /**
@@ -79,5 +87,40 @@ class PassHolderController
         }
 
         return $this->getByUitpasNumber($uitpasNumber->toNative());
+    }
+
+    /**
+     * @param Request $request
+     * @param string $uitpasNumber
+     *
+     * @return JsonResponse
+     *
+     * @throws ReadableCodeResponseException
+     *   When a CultureFeed_Exception is encountered.
+     */
+    public function register(Request $request, $uitpasNumber)
+    {
+        $uitpasNumber = new UiTPASNumber($uitpasNumber);
+
+        $registration = $this->registrationJsonDeserializer->deserialize(
+            new StringLiteral($request->getContent())
+        );
+
+        try {
+            $this->passHolderService->register(
+                $uitpasNumber,
+                $registration->getPassholder(),
+                $registration->getVoucherNumber()
+            );
+        } catch (\CultureFeed_Exception $exception) {
+            throw ReadableCodeResponseException::fromCultureFeedException($exception);
+        }
+
+        // return the registered passholder
+        $passholder = $this->passHolderService->getByUitpasNumber($uitpasNumber);
+
+        return JsonResponse::create()
+            ->setData($passholder)
+            ->setPrivate();
     }
 }
