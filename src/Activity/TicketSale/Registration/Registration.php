@@ -2,8 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration;
 
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\TariffType;
-use ValueObjects\Number\Integer;
+use CultuurNet\UiTPASBeheer\Activity\TicketSale\PriceClass;
 use ValueObjects\StringLiteral\StringLiteral;
 
 final class Registration
@@ -14,37 +13,28 @@ final class Registration
     protected $activityId;
 
     /**
+     * @var PriceClass
+     */
+    protected $priceClass;
+
+    /**
      * @var StringLiteral|null
      */
     protected $tariffId;
 
     /**
-     * @var \ValueObjects\Number\Integer
-     */
-    protected $amount;
-
-    /**
      * @param StringLiteral $activityId
+     * @param PriceClass $priceClass
      * @param StringLiteral $tariffId
      */
     public function __construct(
         StringLiteral $activityId,
+        PriceClass $priceClass,
         StringLiteral $tariffId = null
     ) {
         $this->activityId = $activityId;
+        $this->priceClass = $priceClass;
         $this->tariffId = $tariffId;
-        $this->amount = new Integer(1);
-    }
-
-    /**
-     * @param \ValueObjects\Number\Integer $amount
-     * @return Registration
-     */
-    public function withAmount(Integer $amount)
-    {
-        $c = clone $this;
-        $c->amount = $amount;
-        return $c;
     }
 
     /**
@@ -56,18 +46,29 @@ final class Registration
     }
 
     /**
+     * @return PriceClass
+     */
+    public function getPriceClass()
+    {
+        return $this->priceClass;
+    }
+
+    /**
+     * @param StringLiteral $tariffId
+     * @return Registration
+     */
+    public function withTariffId(StringLiteral $tariffId)
+    {
+        $c = clone $this;
+        $c->tariffId = $tariffId;
+        return $c;
+    }
+
+    /**
      * @return StringLiteral
      */
     public function getTariffId()
     {
         return $this->tariffId;
-    }
-
-    /**
-     * @return \ValueObjects\Number\Integer
-     */
-    public function getAmount()
-    {
-        return $this->amount;
     }
 }

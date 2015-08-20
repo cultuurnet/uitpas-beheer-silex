@@ -4,6 +4,8 @@ namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
 
 use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -19,6 +21,10 @@ class TicketSaleController
      */
     protected $jsonDeserializer;
 
+    /**
+     * @param TicketSaleService $service
+     * @param DeserializerInterface $registrationJsonDeserializer
+     */
     public function __construct(
         TicketSaleService $service,
         DeserializerInterface $registrationJsonDeserializer
@@ -30,6 +36,8 @@ class TicketSaleController
     /**
      * @param Request $request
      * @param $uitpasNumber
+     *
+     * @return Response
      */
     public function register(Request $request, $uitpasNumber)
     {
@@ -39,6 +47,9 @@ class TicketSaleController
             new StringLiteral($request->getContent())
         );
 
-        $this->service->register($uitpasNumber, $registration);
+        $ticketSale = $this->service->register($uitpasNumber, $registration);
+
+        return JsonResponse::create($ticketSale)
+            ->setPrivate();
     }
 }
