@@ -171,8 +171,8 @@ final class Tariff implements \JsonSerializable
         $prices = new Prices();
         foreach ($ticketSale->priceClasses as $priceClass) {
             $prices = $prices->withPricing(
-                new PriceClass($priceClass->name),
-                new Real($priceClass->tariff)
+                new PriceClass((string) $priceClass->name),
+                new Real((float) $priceClass->tariff)
             );
         }
 
