@@ -59,7 +59,7 @@ final class TicketSale implements \JsonSerializable
      */
     public function getCreationDate()
     {
-       return $this->creationDate;
+        return $this->creationDate;
     }
 
     /**

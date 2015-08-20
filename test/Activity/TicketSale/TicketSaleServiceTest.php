@@ -180,8 +180,9 @@ class TicketSaleServiceTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($expectedCode, $e->getReadableCode());
             $this->assertEquals(400, $e->getCode());
         } catch (\Exception $e) {
-            $this->fail('A ReadableCodeResponseException should have been thrown. Caught ' . get_class($e) .
-                ' instead.');
+            $this->fail(
+                'A ReadableCodeResponseException should have been thrown. Caught ' . get_class($e) . ' instead.'
+            );
         }
     }
 }
