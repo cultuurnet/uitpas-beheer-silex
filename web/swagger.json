@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "UiTPAS Admin",
-    "description": "An administration interface fot UiTPAS, a system to manage users and activities of cultural offers in the Flanders region.\n\n\nMost operations require that you authenticate first with your UiTID.",
+    "description": "An administration interface fot UiTPAS, a system to manage users and activities of cultural offers in the Flanders region.\n\n\n\n\nMost operations require that you authenticate first with your UiTID.",
     "version": "3.0.0",
     "contact": {
       "name": "CultuurNet Vlaanderen vzw",
@@ -570,6 +570,51 @@
         },
         "tags": [
           "Activity",
+          "PassHolder"
+        ]
+      }
+    },
+    "/passholders/{uitpasNumber}/registration": {
+      "post": {
+        "summary": "Register a passholder.",
+        "description": "Authentication and an active counter are required. The uitpas number should not be linked to a passholder.",
+        "operationId": "registerPassholder",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "the uitpas number of an new card.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "A collection of registration info.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Registration"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The newly created passholder.",
+            "schema": {
+              "$ref": "#/definitions/PassHolder"
+            }
+          },
+          "400": {
+            "description": "The uitpas number is already in use."
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
           "PassHolder"
         ]
       }
@@ -1461,6 +1506,20 @@
           ]
         }
       }
+    },
+    "Registration": {
+      "properties": {
+        "voucherNumber": {
+          "type": "string",
+          "description": "An optional voucher number to redeem."
+        },
+        "passholder": {
+          "$ref": "#/definitions/PassHolder"
+        }
+      },
+      "required": [
+        "passholder"
+      ]
     }
   }
 }
