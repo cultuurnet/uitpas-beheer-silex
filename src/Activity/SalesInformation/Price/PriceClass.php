@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
+namespace CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price;
 
 use ValueObjects\StringLiteral\StringLiteral;
 

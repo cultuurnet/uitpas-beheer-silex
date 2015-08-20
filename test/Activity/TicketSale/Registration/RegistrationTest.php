@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration;
 
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\PriceClass;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class RegistrationTest extends \PHPUnit_Framework_TestCase

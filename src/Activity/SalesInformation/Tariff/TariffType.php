@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
+namespace CultuurNet\UiTPASBeheer\Activity\SalesInformation\Tariff;
 
 use ValueObjects\Enum\Enum;
 

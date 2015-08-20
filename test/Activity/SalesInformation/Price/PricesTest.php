@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
+namespace CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price;
 
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use ValueObjects\Number\Real;
@@ -8,7 +8,7 @@ use ValueObjects\Number\Real;
 class PricesTest extends \PHPUnit_Framework_TestCase
 {
     use JsonAssertionTrait;
-    use PricesTestDataTrait;
+    use \CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PricesTestDataTrait;
 
     /**
      * @test

@@ -6,20 +6,10 @@ use CultuurNet\UiTPASBeheer\Activity\Activity;
 use CultuurNet\UiTPASBeheer\Activity\ActivityNotFoundException;
 use CultuurNet\UiTPASBeheer\Activity\ActivityServiceInterface;
 use CultuurNet\UiTPASBeheer\Activity\Cdbid;
-use CultuurNet\UiTPASBeheer\Activity\CheckinConstraint;
 use CultuurNet\UiTPASBeheer\Activity\PagedResultSet;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\PriceClass;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\Prices;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\SalesInformation;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\Tariff;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\TariffType;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
-use ValueObjects\DateTime\Date;
-use ValueObjects\DateTime\DateTime;
 use ValueObjects\Number\Integer;
-use ValueObjects\Number\Real;
-use ValueObjects\StringLiteral\StringLiteral;
 
 class ActivityService extends CounterAwareUitpasService implements ActivityServiceInterface
 {

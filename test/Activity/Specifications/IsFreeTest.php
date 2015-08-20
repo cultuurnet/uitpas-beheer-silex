@@ -4,9 +4,9 @@ namespace CultuurNet\UiTPASBeheer\Activity\Specifications;
 
 use CultuurNet\UiTPASBeheer\Activity\Activity;
 use CultuurNet\UiTPASBeheer\Activity\CheckinConstraint;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\PriceClass;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\Prices;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\SalesInformation;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\Prices;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation;
 use ValueObjects\DateTime\DateTime;
 use ValueObjects\Number\Real;
 use ValueObjects\StringLiteral\StringLiteral;

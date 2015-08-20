@@ -3,7 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration;
 
 use CultuurNet\Deserializer\JSONDeserializer;
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\PriceClass;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use ValueObjects\StringLiteral\StringLiteral;
 

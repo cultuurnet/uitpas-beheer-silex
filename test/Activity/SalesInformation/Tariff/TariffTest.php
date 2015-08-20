@@ -1,7 +1,8 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
+namespace CultuurNet\UiTPASBeheer\Activity\SalesInformation\Tariff;
 
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\Prices;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use ValueObjects\StringLiteral\StringLiteral;
 
