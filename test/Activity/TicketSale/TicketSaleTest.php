@@ -41,6 +41,8 @@ class TicketSaleTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        date_default_timezone_set('UTC');
+
         $this->id = new StringLiteral('30818');
         $this->price = new Real(2.0);
         $this->creationDate = new DateTime(
