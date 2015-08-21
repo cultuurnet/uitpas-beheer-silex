@@ -8,7 +8,7 @@ use ValueObjects\Number\Real;
 class PricesTest extends \PHPUnit_Framework_TestCase
 {
     use JsonAssertionTrait;
-    use \CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PricesTestDataTrait;
+    use PricesTestDataTrait;
 
     /**
      * @test
