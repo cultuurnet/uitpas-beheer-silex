@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d368602fd7fdac1f35987ce5b251af51",
+    "hash": "da5b8187ac1f4f449b7f65caa8d9eeac",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -222,16 +222,16 @@
         },
         {
             "name": "cultuurnet/culturefeed-php",
-            "version": "dev-feature/UBR-135",
+            "version": "dev-feature/UBR",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "f64fc3592f7b8dbd1b041072780b22de4a46b8b8"
+                "reference": "dcf6f8f67b95905b5fdfa916cae9eba1a07ab90d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/f64fc3592f7b8dbd1b041072780b22de4a46b8b8",
-                "reference": "f64fc3592f7b8dbd1b041072780b22de4a46b8b8",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/dcf6f8f67b95905b5fdfa916cae9eba1a07ab90d",
+                "reference": "dcf6f8f67b95905b5fdfa916cae9eba1a07ab90d",
                 "shasum": ""
             },
             "require": {
@@ -285,7 +285,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-08-21 13:14:05"
+            "time": "2015-08-21 14:45:25"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -515,24 +515,25 @@
         },
         {
             "name": "deralex/yaml-config-service-provider",
-            "version": "1.0.1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/deralex/YamlConfigServiceProvider.git",
-                "reference": "5923f60e6fbb16432e47310cf9680fe658c8dc0e"
+                "reference": "08ce96bf19f0014feaeb9606ef29c164bd4a43de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/deralex/YamlConfigServiceProvider/zipball/5923f60e6fbb16432e47310cf9680fe658c8dc0e",
-                "reference": "5923f60e6fbb16432e47310cf9680fe658c8dc0e",
+                "url": "https://api.github.com/repos/deralex/YamlConfigServiceProvider/zipball/08ce96bf19f0014feaeb9606ef29c164bd4a43de",
+                "reference": "08ce96bf19f0014feaeb9606ef29c164bd4a43de",
                 "shasum": ""
             },
             "require": {
-                "silex/silex": ">=1.0 <=1.3",
+                "silex/silex": ">=1.0",
                 "symfony/yaml": "~2.4"
             },
             "require-dev": {
-                "phpspec/phpspec": "2.0.*@dev"
+                "phpspec/phpspec": "2.0.*@dev",
+                "symfony/yaml": "~2.4"
             },
             "suggest": {
                 "symfony/yaml": "~2.4"
@@ -562,7 +563,7 @@
             "keywords": [
                 "silex"
             ],
-            "time": "2015-03-10 12:58:27"
+            "time": "2014-01-29 15:54:57"
         },
         {
             "name": "doctrine/annotations",
@@ -1863,16 +1864,16 @@
         },
         {
             "name": "silex/silex",
-            "version": "v1.3.0",
+            "version": "v1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silexphp/Silex.git",
-                "reference": "2d623a4853c37005d3790e5e7897a2c30b492caf"
+                "reference": "0507b772519ab0d9dd258bb39748921229ad5c46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silexphp/Silex/zipball/2d623a4853c37005d3790e5e7897a2c30b492caf",
-                "reference": "2d623a4853c37005d3790e5e7897a2c30b492caf",
+                "url": "https://api.github.com/repos/silexphp/Silex/zipball/0507b772519ab0d9dd258bb39748921229ad5c46",
+                "reference": "0507b772519ab0d9dd258bb39748921229ad5c46",
                 "shasum": ""
             },
             "require": {
@@ -1941,7 +1942,7 @@
             "keywords": [
                 "microframework"
             ],
-            "time": "2015-06-04 21:27:48"
+            "time": "2015-08-04 10:41:12"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4982,7 +4983,7 @@
         {
             "alias": "1.5.2",
             "alias_normalized": "1.5.2.0",
-            "version": "dev-feature/UBR-135",
+            "version": "dev-feature/UBR",
             "package": "cultuurnet/culturefeed-php"
         },
         {
