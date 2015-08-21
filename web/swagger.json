@@ -1483,7 +1483,11 @@
         "base": {
           "type": "object",
           "description": "Object with price classes as properties, and base prices as their values.",
-          "example": "{\"Rang 1\": 10.5, \"Rang 2\": 7.5, \"Rang 3+\": 5}"
+          "example": {
+            "Rang 1": 10.5,
+            "Rang 2": 7.5,
+            "Rang 3+": 5
+          }
         },
         "tariffs": {
           "$ref": "#/definitions/Tariffs"
@@ -1540,9 +1544,12 @@
         "prices": {
           "type": "object",
           "description": "Object with price classes as properties, and tariff prices as their values.",
-          "example": "{\"Rang 1\": 10.5, \"Rang 2\": 7.5, \"Rang 3+\": 5}"
+          "example": {
+            "Rang 1": 10.5,
+            "Rang 2": 7.5,
+            "Rang 3+": 5
+          }
         }
-      }
     }
   }
 }
