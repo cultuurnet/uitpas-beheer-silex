@@ -121,6 +121,8 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
                 ->toNative();
         }
 
+        $cfPassHolder->toPostDataKeepEmptySecondName();
+
         $this
             ->getUitpasService()
             ->updatePassholder(
