@@ -1515,10 +1515,29 @@
         },
         "passholder": {
           "$ref": "#/definitions/PassHolder"
+        },
+        "kansenstatuut": {
+          "$ref": "#/definitions/Kansenstatuut"
         }
       },
       "required": [
         "passholder"
+      ]
+    },
+    "Kansenstatuut": {
+      "properties": {
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "description": "The end date of the kansenstatuut."
+        },
+        "remarks": {
+          "type": "string",
+          "description": "Additional remarks concerning the kansenstatuut."
+        }
+      },
+      "required": [
+        "endDate"
       ]
     }
   }
