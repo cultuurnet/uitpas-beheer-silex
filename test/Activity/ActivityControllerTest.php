@@ -48,6 +48,8 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
+        date_default_timezone_set('UTC');
+
         $this->urlGenerator = $this->getMock(UrlGeneratorInterface::class);
         $this->service = $this->getMock(ActivityServiceInterface::class);
         $this->query = new SimpleQuery();
@@ -197,7 +199,12 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method('search')
             ->willReturn(
-                new PagedResultSet(new Integer(10), $activities)
+                new PagedResultSet(
+                    // The default limit is 5, so to have 3 pages of results we
+                    // need a total of at least 11 results.
+                    new Integer(15),
+                    $activities
+                )
             );
 
         $routeName = 'route-used-for-activities';

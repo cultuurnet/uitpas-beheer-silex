@@ -6,6 +6,7 @@ use CultuurNet\CalendarSummary\CalendarPlainTextFormatter;
 use CultuurNet\UiTPASBeheer\Activity\CultureFeedUiTPAS\ActivityService;
 use CultuurNet\UiTPASBeheer\Activity\CultureFeedUiTPAS\Query;
 use CultuurNet\UiTPASBeheer\Activity\SearchAPI2\SearchAPI2AugmentedActivityService;
+use CultuurNet\UiTPASBeheer\Activity\TicketSale\TicketSaleService;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
@@ -45,6 +46,14 @@ class ActivityServiceProvider implements ServiceProviderInterface
             }
         );
 
+        $app['ticketsale_service'] = $app->share(
+            function (Application $app) {
+                return new TicketSaleService(
+                    $app['uitpas'],
+                    $app['counter_consumer_key']
+                );
+            }
+        );
     }
 
     public function boot(Application $app)

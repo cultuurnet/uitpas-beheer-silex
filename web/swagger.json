@@ -489,7 +489,6 @@
             "required": false,
             "type": "string",
             "enum": [
-              "",
               "today",
               "next_7_days",
               "next_30_days",
@@ -562,6 +561,49 @@
             "description": "The activity with updated check-in constraints.",
             "schema": {
               "$ref": "#/definitions/Activity"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "Activity",
+          "PassHolder"
+        ]
+      }
+    },
+    "/passholders/{uitpasNumber}/activities/ticket-sales": {
+      "post": {
+        "summary": "Sell a ticket to a passholder.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "sellTicketToPassholder",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the ticket sale info.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegisterTicketSaleCommand"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The registered ticket sale.",
+            "schema": {
+              "$ref": "#/definitions/TicketSale"
             }
           },
           "403": {
@@ -1209,12 +1251,28 @@
     "PassHolderCheckinCommand": {
       "properties": {
         "eventCdbid": {
-          "type": "string",
-          "example": "e71f3381-21aa-4f73-a860-17cf3e31f013"
+          "$ref": "#/definitions/ActivityId"
         }
       },
       "required": [
         "eventCdbid"
+      ]
+    },
+    "RegisterTicketSaleCommand": {
+      "properties": {
+        "activityId": {
+          "$ref": "#/definitions/ActivityId"
+        },
+        "priceClass": {
+          "$ref": "#/definitions/PriceClass"
+        },
+        "tariffId": {
+          "$ref": "#/definitions/TariffId"
+        }
+      },
+      "required": [
+        "activityId",
+        "priceClass"
       ]
     },
     "PassHolderName": {
@@ -1403,11 +1461,14 @@
         "lastPage"
       ]
     },
+    "ActivityId": {
+      "type": "string",
+      "example": "34475f7a-d1d5-481d-b205-9537ae0f9e73"
+    },
     "Activity": {
       "properties": {
         "id": {
-          "type": "string",
-          "example": "34475f7a-d1d5-481d-b205-9537ae0f9e73"
+          "$ref": "#/definitions/ActivityId"
         },
         "title": {
           "type": "string",
@@ -1423,6 +1484,13 @@
         },
         "checkinConstraint": {
           "$ref": "#/definitions/CheckinConstraint"
+        },
+        "free": {
+          "type": "boolean",
+          "description": "Indicates whether or not tickets for the activity are free."
+        },
+        "sales": {
+          "$ref": "#/definitions/SalesInformation"
         }
       },
       "required": [
@@ -1461,6 +1529,138 @@
           ]
         }
       }
+    },
+    "SalesInformation": {
+      "properties": {
+        "maximumReached": {
+          "type": "boolean",
+          "description": "Indicates whether or not the total maximum of ticket sales has been reached."
+        },
+        "differentiation": {
+          "type": "boolean",
+          "description": "Indicates whether or not there is price differentiation."
+        },
+        "base": {
+          "type": "object",
+          "description": "Object with price classes as properties, and base prices as their values.",
+          "additionalProperties": {
+            "$ref": "#/definitions/Price"
+          },
+          "example": {
+            "Rang 1": 10.5,
+            "Rang 2": 7.5,
+            "Rang 3+": 5
+          }
+        },
+        "tariffs": {
+          "$ref": "#/definitions/Tariffs"
+        }
+      },
+      "required": [
+        "maximumReached",
+        "differentiation",
+        "base"
+      ]
+    },
+    "Tariffs": {
+      "properties": {
+        "lowestAvailable": {
+          "type": "number",
+          "format": "float",
+          "description": "Lowest available tariff.",
+          "example": 3.5
+        },
+        "kansentariefAvailable": {
+          "type": "boolean",
+          "description": "Whether or not kansentarief is available."
+        },
+        "couponAvailable": {
+          "type": "boolean",
+          "description": "Whether or not at least one coupon is available."
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tariff"
+          }
+        }
+      }
+    },
+    "Tariff": {
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/TariffId"
+        },
+        "maximumReached": {
+          "type": "boolean",
+          "description": "Indicates whether or not the maximum of ticket sales for this tariff has been reached."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the tarif.",
+          "example": "Kansentarief"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "KANSENTARIEF",
+            "COUPON"
+          ]
+        },
+        "prices": {
+          "type": "object",
+          "description": "Object with price classes as properties, and tariff prices as their values.",
+          "additionalProperties": {
+            "$ref": "#/definitions/Price"
+          },
+          "example": {
+            "Rang 1": 10.5,
+            "Rang 2": 7.5,
+            "Rang 3+": 5
+          }
+        }
+      },
+      "required": [
+        "maximumReached",
+        "name",
+        "type",
+        "prices"
+      ]
+    },
+    "TariffId": {
+      "type": "string",
+      "description": "Id of the tariff.",
+      "example": "10"
+    },
+    "PriceClass": {
+      "type": "string",
+      "example": "Rang 1"
+    },
+    "TicketSale": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "30819"
+        },
+        "price": {
+          "$ref": "#/definitions/Price"
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "price",
+        "creationDate"
+      ]
+    },
+    "Price": {
+      "type": "number",
+      "format": "float",
+      "example": 1.5
     }
   }
 }

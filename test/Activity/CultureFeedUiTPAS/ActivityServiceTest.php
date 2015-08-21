@@ -9,11 +9,15 @@ use CultuurNet\UiTPASBeheer\Activity\ActivityNotFoundException;
 use CultuurNet\UiTPASBeheer\Activity\Cdbid;
 use CultuurNet\UiTPASBeheer\Activity\CheckinConstraint;
 use CultuurNet\UiTPASBeheer\Activity\PagedResultSet;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\Prices;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\DateTime\DateTime;
 use ValueObjects\Number\Integer;
+use ValueObjects\Number\Real;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class ActivityServiceTest extends \PHPUnit_Framework_TestCase
@@ -62,6 +66,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $eventA->checkinStartDate = 1441098000;
         $eventA->checkinEndDate = 1456848000;
         $eventA->checkinConstraintReason = "INVALID_DATE_TIME";
+        $eventA->price = 0.0;
         $this->eventA = $eventA;
 
         $eventB = new CultureFeed_Uitpas_Event_CultureEvent();
@@ -71,6 +76,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $eventB->checkinStartDate = 1441098000;
         $eventB->checkinEndDate = 1456848000;
         $eventB->checkinConstraintReason = "INVALID_DATE_TIME";
+        $eventB->price = 0.0;
         $this->eventB = $eventB;
     }
 
@@ -116,19 +122,27 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         );
         $checkinConstraint = $checkinConstraint->withReason(new StringLiteral('INVALID_DATE_TIME'));
 
+        $salesInformation = new SalesInformation(
+            (new Prices())
+                ->withPricing(
+                    new PriceClass('Basisprijs'),
+                    new Real(0.0)
+                )
+        );
+
         $expected = new PagedResultSet(
             new Integer($resultSet->total),
             [
-                new Activity(
+                (new Activity(
                     new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
                     new StringLiteral('test event 1'),
                     $checkinConstraint
-                ),
-                new Activity(
+                ))->withSalesInformation($salesInformation),
+                (new Activity(
                     new StringLiteral('ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj'),
                     new StringLiteral('test event 2'),
                     $checkinConstraint
-                ),
+                ))->withSalesInformation($salesInformation),
             ]
         );
 
@@ -164,10 +178,18 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
 
         $actualActivity = $this->service->get($uitpasNumber, $eventId);
 
-        $expectedActivity = new Activity(
+        $expectedActivity = (new Activity(
             new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
             new StringLiteral('test event 1'),
             $checkinConstraint
+        ))->withSalesInformation(
+            new SalesInformation(
+                (new Prices())
+                    ->withPricing(
+                        new PriceClass('Basisprijs'),
+                        new Real(0.0)
+                    )
+            )
         );
 
         $this->assertEquals($expectedActivity, $actualActivity);
