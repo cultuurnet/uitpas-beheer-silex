@@ -1,0 +1,35 @@
+{
+  "passholder": {
+    "name": {
+      "first": "Layla",
+      "middle": "Zoni",
+      "last": "Zyrani"
+    },
+    "address": {
+      "street": "Rue Perdue 101 /0003",
+      "postalCode": "1090",
+      "city": "Jette (Brussel)"
+    },
+    "birth": {
+      "date": "1976-09-13",
+      "place": "Casablanca"
+    },
+    "inszNumber": "93051822361",
+    "gender": "FEMALE",
+    "nationality": "Maroc",
+    "contact": {
+      "email": "zyrani_.hotmail.com@mailinator.com",
+      "telephoneNumber": "0488694231",
+      "mobileNumber": "0499748596"
+    },
+    "privacy": {
+      "email": true,
+      "sms": false
+    }
+  },
+  "voucherNumber": "i-am-voucher",
+  "kansenstatuut": {
+    "endDate": "2345-09-13T00:00:00+01:00",
+    "remarks": "I am remarkable"
+  }
+}

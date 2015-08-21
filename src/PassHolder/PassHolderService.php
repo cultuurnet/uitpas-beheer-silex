@@ -3,7 +3,9 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
+use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Kansenstatuut;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberInvalidException;
 use ValueObjects\Identity\UUID;
@@ -55,7 +57,8 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
     public function register(
         UiTPASNumber $uitpasNumber,
         Passholder $passholder,
-        VoucherNumber $voucherNumber = null
+        VoucherNumber $voucherNumber = null,
+        Kansenstatuut $kansenstatuut = null
     ) {
         $existingPassholder = $this->getByUitpasNumber($uitpasNumber);
 
@@ -67,8 +70,19 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         $cfPassHolder->uitpasNumber = $uitpasNumber->toNative();
 
         if ($voucherNumber) {
-            // not sure how to pass a voucher along so I'm giving this a try
             $cfPassHolder->voucherNumber = $voucherNumber->toNative();
+        }
+
+        if ($uitpasNumber->hasKansenStatuut()) {
+            if (is_null($kansenstatuut)) {
+                throw new MissingPropertyException('kansenstatuut');
+            } else {
+                $cfPassHolder->kansenStatuut = true;
+                $cfPassHolder->kansenStatuutEndDate = $kansenstatuut
+                    ->getEndDate()
+                    ->toNativeDateTime()
+                    ->format('c');
+            }
         }
 
         $UUIDString = $this->getUitpasService()->createPassholder(

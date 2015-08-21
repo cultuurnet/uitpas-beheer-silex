@@ -110,7 +110,8 @@ class PassHolderController
             $this->passHolderService->register(
                 $uitpasNumber,
                 $registration->getPassholder(),
-                $registration->getVoucherNumber()
+                $registration->getVoucherNumber(),
+                $registration->getKansenstatuut()
             );
         } catch (\CultureFeed_Exception $exception) {
             throw ReadableCodeResponseException::fromCultureFeedException($exception);
@@ -119,8 +120,10 @@ class PassHolderController
         // return the registered passholder
         $passholder = $this->passHolderService->getByUitpasNumber($uitpasNumber);
 
-        return JsonResponse::create()
+        $response =  JsonResponse::create()
             ->setData($passholder)
             ->setPrivate();
+
+        return $response;
     }
 }

@@ -8,6 +8,7 @@ use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\AddressJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenstatuutJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\NameJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferencesJsonDeserializer;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
@@ -51,7 +52,8 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->registrationDeserializer = new RegistrationJsonDeserializer(
-            $this->passholderDeserializer
+            $this->passholderDeserializer,
+            new KansenstatuutJsonDeserializer()
         );
 
         $this->controller = new PassHolderController(
@@ -147,5 +149,51 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException(ReadableCodeResponseException::class);
         $this->controller->update($request, $uitpasNumberValue);
+    }
+
+    /**
+     * @test
+     */
+    public function it_registers_passholder_with_an_uitpas_number()
+    {
+        $uitpasNumberValue = '0930000125607';
+        $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
+
+        $data = file_get_contents(__DIR__ . '/data/passholder-registration.json');
+        $request = new Request([], [], [], [], [], [], $data);
+
+        $this->service->expects($this->once())
+            ->method('register')
+            ->with($uitpasNumber, $this->getCompletePassHolderUpdate());
+
+        $this->service->expects($this->once())
+            ->method('getByUitpasNumber')
+            ->with($uitpasNumber)
+            ->willReturn($this->getCompletePassHolder());
+
+        $response = $this->controller->register($request, $uitpasNumberValue);
+
+        $this->assertJsonEquals($response->getContent(), 'PassHolder/data/passholder-complete.json');
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_a_readable_error_when_failing_to_create_a_passholder()
+    {
+        $uitpasNumberValue = '0930000125607';
+
+        $data = file_get_contents(__DIR__ . '/data/passholder-registration.json');
+        $request = new Request([], [], [], [], [], [], $data);
+
+        $message = 'Something went wrong.';
+        $code = 'SOMETHING_WRONG';
+
+        $this->service->expects($this->once())
+            ->method('register')
+            ->willThrowException(new \CultureFeed_Exception($message, $code));
+
+        $this->setExpectedException(ReadableCodeResponseException::class);
+        $this->controller->register($request, $uitpasNumberValue);
     }
 }

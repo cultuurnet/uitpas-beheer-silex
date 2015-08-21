@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Kansenstatuut;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\Identity\UUID;
 
@@ -26,6 +27,7 @@ interface PassHolderServiceInterface
      * @param UiTPASNumber $uitpasNumber
      * @param Passholder $passholder
      * @param VoucherNumber $voucherNumber
+     * @param Kansenstatuut $kansenstatuut
      *
      * @return UUID
      *  The UUID assigned to the new passholder.
@@ -33,6 +35,7 @@ interface PassHolderServiceInterface
     public function register(
         UiTPASNumber $uitpasNumber,
         Passholder $passholder,
-        VoucherNumber $voucherNumber = null
+        VoucherNumber $voucherNumber = null,
+        Kansenstatuut $kansenstatuut = null
     );
 }

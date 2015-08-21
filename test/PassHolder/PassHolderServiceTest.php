@@ -3,8 +3,12 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
+use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Kansenstatuut;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use ValueObjects\DateTime\Date;
 use ValueObjects\Identity\UUID;
 
 class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
@@ -218,6 +222,110 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
             ->willReturn($cfPassholder);
 
         $this->setExpectedException(UiTPASNumberAlreadyUsedException::class);
+
+        $this->service->register(
+            $uitpasNumber,
+            $passholder
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_provide_additional_kansenstatuut_info_when_registering_a_kansenpas()
+    {
+        $uitpasNumberValue = '0930000125615';
+        $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
+
+        $kansenstatuut = new Kansenstatuut(
+            Date::fromNativeDateTime(new \DateTime('2345-09-13'))
+        );
+        $kansenstatuut = $kansenstatuut->withRemarks(
+            new Remarks('This is a kansenstatuut remark, please don\'t read me')
+        );
+
+        $passholder = $this->getCompletePassHolder(Gender::FEMALE());
+
+        $cfPassholder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassholder->uitpasNumber = $uitpasNumberValue;
+        $cfPassholder->name = 'Zyrani';
+        $cfPassholder->firstName = 'Layla';
+        $cfPassholder->postalCode = '1090';
+        $cfPassholder->city = 'Jette (Brussel)';
+        $cfPassholder->dateOfBirth = 211417200;
+        $cfPassholder->street = 'Rue Perdue 101 /0003';
+        $cfPassholder->placeOfBirth = 'Casablanca';
+        $cfPassholder->secondName = 'Zoni';
+        $cfPassholder->gender = 'F';
+        $cfPassholder->inszNumber = '93051822361';
+        $cfPassholder->nationality = 'Maroc';
+        $cfPassholder->email = 'zyrani_.hotmail.com@mailinator.com';
+        $cfPassholder->telephone = '0488694231';
+        $cfPassholder->gsm = '0499748596';
+        $cfPassholder->smsPreference = 'NOTIFICATION_SMS';
+        $cfPassholder->emailPreference = 'ALL_MAILS';
+        $cfPassholder->kansenStatuut = true;
+        $cfPassholder->kansenStatuutEndDate = '2345-09-13T00:00:00+01:00';
+        $cfPassholder->voucherNumber = 'i-am-a-voucher';
+
+        $this->uitpas->expects($this->once())
+            ->method('getPassholderByUitpasNumber')
+            ->with($uitpasNumberValue)
+            ->willThrowException(new \CultureFeed_Exception('Not found.', 404));
+
+        $this->uitpas->expects($this->once())
+            ->method('createPassholder')
+            ->with($cfPassholder)
+            ->willReturn('de305d54-75b4-431b-adb2-eb6b9e546014');
+
+        $this->service->register(
+            $uitpasNumber,
+            $passholder,
+            new VoucherNumber('i-am-a-voucher'),
+            $kansenstatuut
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_not_allow_registration_of_a_kansenpas_without_kansenstatuut_info()
+    {
+        $uitpasNumberValue = '0930000125615';
+        $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
+
+        $passholder = $this->getCompletePassHolder(Gender::FEMALE());
+
+        $cfPassholder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassholder->uitpasNumber = $uitpasNumberValue;
+        $cfPassholder->name = 'Zyrani';
+        $cfPassholder->firstName = 'Layla';
+        $cfPassholder->postalCode = '1090';
+        $cfPassholder->city = 'Jette (Brussel)';
+        $cfPassholder->dateOfBirth = 211417200;
+        $cfPassholder->street = 'Rue Perdue 101 /0003';
+        $cfPassholder->placeOfBirth = 'Casablanca';
+        $cfPassholder->secondName = 'Zoni';
+        $cfPassholder->gender = 'F';
+        $cfPassholder->inszNumber = '93051822361';
+        $cfPassholder->nationality = 'Maroc';
+        $cfPassholder->email = 'zyrani_.hotmail.com@mailinator.com';
+        $cfPassholder->telephone = '0488694231';
+        $cfPassholder->gsm = '0499748596';
+        $cfPassholder->smsPreference = 'NOTIFICATION_SMS';
+        $cfPassholder->emailPreference = 'ALL_MAILS';
+        $cfPassholder->kansenStatuut = true;
+        $cfPassholder->kansenStatuutEndDate = '2345-09-13T00:00:00+01:00';
+
+        $this->uitpas->expects($this->once())
+            ->method('getPassholderByUitpasNumber')
+            ->with($uitpasNumberValue)
+            ->willThrowException(new \CultureFeed_Exception('Not found.', 404));
+
+        $this->uitpas->expects($this->never())
+            ->method('createPassholder');
+
+        $this->setExpectedException(MissingPropertyException::class);
 
         $this->service->register(
             $uitpasNumber,
