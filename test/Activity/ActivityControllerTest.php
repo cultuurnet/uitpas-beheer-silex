@@ -48,6 +48,8 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
+        date_default_timezone_set('UTC');
+
         $this->urlGenerator = $this->getMock(UrlGeneratorInterface::class);
         $this->service = $this->getMock(ActivityServiceInterface::class);
         $this->query = new SimpleQuery();
