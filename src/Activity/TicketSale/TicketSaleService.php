@@ -30,10 +30,9 @@ class TicketSaleService extends CounterAwareUitpasService implements TicketSaleS
             $cfTicketSale = $this->getUitpasService()->registerTicketSale(
                 $uitpasNumber->toNative(),
                 $registration->getActivityId()->toNative(),
+                $this->getCounterConsumerKey(),
                 $registration->getPriceClass()->toNative(),
-                $tariffId,
-                null,
-                $this->getCounterConsumerKey()
+                $tariffId
             );
         } catch (\CultureFeed_Exception $e) {
             throw ReadableCodeResponseException::fromCultureFeedException($e);

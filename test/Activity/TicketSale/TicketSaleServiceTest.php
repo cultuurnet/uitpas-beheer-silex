@@ -93,10 +93,10 @@ class TicketSaleServiceTest extends \PHPUnit_Framework_TestCase
             ->with(
                 $this->uitpasNumber->toNative(),
                 $this->registration->getActivityId()->toNative(),
+                $this->counterConsumerKey->toNative(),
                 $this->registration->getPriceClass()->toNative(),
                 null,
-                null,
-                $this->counterConsumerKey->toNative()
+                null
             )
             ->willReturn($this->cfTicketSale);
 
@@ -138,10 +138,10 @@ class TicketSaleServiceTest extends \PHPUnit_Framework_TestCase
             ->with(
                 $this->uitpasNumber->toNative(),
                 $this->registration->getActivityId()->toNative(),
+                $this->counterConsumerKey->toNative(),
                 $this->registration->getPriceClass()->toNative(),
                 $this->tariffId->toNative(),
-                null,
-                $this->counterConsumerKey->toNative()
+                null
             )
             ->willReturn($this->cfTicketSale);
 
