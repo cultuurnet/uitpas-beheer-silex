@@ -65,7 +65,7 @@ final class Registration
     }
 
     /**
-     * @return StringLiteral
+     * @return StringLiteral|null
      */
     public function getTariffId()
     {
