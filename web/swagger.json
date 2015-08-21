@@ -572,9 +572,52 @@
           "PassHolder"
         ]
       }
-                  }
-              },
-          "tags": [
+    },
+    "/passholders/{uitpasNumber}/activities/ticket-sales": {
+      "post": {
+        "summary": "Sell a ticket to a passholder.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "sellTicketToPassholder",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the ticket sale info.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegisterTicketSaleCommand"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The registered ticket sale.",
+            "schema": {
+              "$ref": "#/definitions/TicketSale"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "Activity",
+          "PassHolder"
+        ]
+      }
+    }
+  },
+  "tags": [
     {
       "name": "OAuth",
       "description": "Operations related to authentication with OAuth."
@@ -1215,6 +1258,23 @@
         "eventCdbid"
       ]
     },
+    "RegisterTicketSaleCommand": {
+      "properties": {
+        "activityId": {
+          "$ref": "#/definitions/ActivityId"
+        },
+        "priceClass": {
+          "$ref": "#/definitions/PriceClass"
+        },
+        "tariffId": {
+          "$ref": "#/definitions/TariffId"
+        }
+      },
+      "required": [
+        "activityId",
+        "priceClass"
+      ]
+    },
     "PassHolderName": {
       "properties": {
         "first": {
@@ -1525,6 +1585,9 @@
     },
     "Tariff": {
       "properties": {
+        "id": {
+          "$ref": "#/definitions/TariffId"
+        },
         "maximumReached": {
           "type": "boolean",
           "description": "Indicates whether or not the maximum of ticket sales for this tariff has been reached."
@@ -1550,6 +1613,44 @@
             "Rang 3+": 5
           }
         }
+      },
+      "required": [
+        "maximumReached",
+        "name",
+        "type",
+        "prices"
+      ]
+    },
+    "TariffId": {
+      "type": "string",
+      "description": "Id of the tariff.",
+      "example": "10"
+    },
+    "PriceClass": {
+      "type": "string",
+      "example": "Rang 1"
+    },
+    "TicketSale": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "30819"
+        },
+        "price": {
+          "type": "long",
+          "example": 1.5
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "price",
+        "creationDate"
+      ]
     }
   }
 }
