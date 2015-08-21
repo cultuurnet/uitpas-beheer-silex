@@ -489,7 +489,6 @@
             "required": false,
             "type": "string",
             "enum": [
-              "",
               "today",
               "next_7_days",
               "next_30_days",
@@ -573,9 +572,9 @@
           "PassHolder"
         ]
       }
-    }
-  },
-  "tags": [
+                  }
+              },
+          "tags": [
     {
       "name": "OAuth",
       "description": "Operations related to authentication with OAuth."
