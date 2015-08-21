@@ -8,6 +8,7 @@ use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
 use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\Prices;
 use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation;
 use ValueObjects\DateTime\DateTime;
+use ValueObjects\Number\Integer;
 use ValueObjects\Number\Real;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -32,7 +33,8 @@ class IsFreeTest extends \PHPUnit_Framework_TestCase
                 false,
                 DateTime::fromNativeDateTime(new \DateTime('@0')),
                 DateTime::fromNativeDateTime(new \DateTime('@0'))
-            )
+            ),
+            new Integer(1)
         );
 
         $this->specification = new IsFree();

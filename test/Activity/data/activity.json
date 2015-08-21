@@ -9,6 +9,7 @@
     "endDate": "2016-03-01T16:00:00+00:00",
     "reason": "INVALID_DATE_TIME"
   },
+  "points": 1,
   "free": false,
   "sales": {
   "maximumReached": false,

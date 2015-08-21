@@ -14,6 +14,7 @@ use ValueObjects\DateTime\MonthDay;
 use ValueObjects\DateTime\Second;
 use ValueObjects\DateTime\Time;
 use ValueObjects\DateTime\Year;
+use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class ActivityTest extends \PHPUnit_Framework_TestCase
@@ -52,6 +53,11 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
     protected $checkinConstraint;
 
     /**
+     * @var Integer
+     */
+    protected $points;
+
+    /**
      * @var SalesInformation
      */
     protected $salesInformation;
@@ -62,6 +68,7 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->title = new StringLiteral('Some title');
         $this->description = new StringLiteral('Some description');
         $this->when = new StringLiteral('yesterday');
+        $this->points = new Integer(1);
 
         $checkinStartDate = new DateTime(
             new Date(
@@ -99,7 +106,8 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->activity = new Activity(
             $this->id,
             $this->title,
-            $this->checkinConstraint
+            $this->checkinConstraint,
+            $this->points
         );
 
         $this->salesInformation = $this->getSampleInformationWithTariffs();
@@ -120,6 +128,7 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->description, $this->activity->getDescription());
         $this->assertEquals($this->when, $this->activity->getWhen());
         $this->assertEquals($this->checkinConstraint, $this->activity->getCheckinConstraint());
+        $this->assertEquals($this->points, $this->activity->getPoints());
         $this->assertEquals($this->salesInformation, $this->activity->getSalesInformation());
     }
 
@@ -146,6 +155,7 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $cfEvent->checkinAllowed = $this->checkinConstraint->getAllowed();
         $cfEvent->checkinStartDate = $this->checkinConstraint->getStartDate()->toNativeDateTime()->format('U');
         $cfEvent->checkinEndDate = $this->checkinConstraint->getEndDate()->toNativeDateTime()->format('U');
+        $cfEvent->numberOfPoints = 1;
 
         $cfFirstPriceClass = new \CultureFeed_Uitpas_Event_PriceClass();
         $cfFirstPriceClass->name = 'Rang 1';

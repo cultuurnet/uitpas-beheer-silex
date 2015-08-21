@@ -178,7 +178,8 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
         $activity1 = new Activity(
             new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
             new StringLiteral('test event 1'),
-            $checkinConstraint
+            $checkinConstraint,
+            new Integer(1)
         );
 
         $activities[] = $activity1
@@ -188,7 +189,8 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
         $activity2 = new Activity(
             new StringLiteral('ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj'),
             new StringLiteral('test event 2'),
-            $checkinConstraint
+            $checkinConstraint,
+            new Integer(1)
         );
 
         $activities[] = $activity2

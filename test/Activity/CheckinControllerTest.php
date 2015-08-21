@@ -7,6 +7,7 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use ValueObjects\DateTime\DateTime;
+use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class CheckinControllerTest extends \PHPUnit_Framework_TestCase
@@ -59,7 +60,8 @@ class CheckinControllerTest extends \PHPUnit_Framework_TestCase
         $updatedActivity = new Activity(
             new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
             new StringLiteral('test event 1'),
-            $checkinConstraint
+            $checkinConstraint,
+            new Integer(1)
         );
 
         $this->activityService->expects($this->once())
