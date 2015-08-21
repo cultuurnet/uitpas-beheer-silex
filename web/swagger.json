@@ -1208,8 +1208,7 @@
     "PassHolderCheckinCommand": {
       "properties": {
         "eventCdbid": {
-          "type": "string",
-          "example": "e71f3381-21aa-4f73-a860-17cf3e31f013"
+          "$ref": "#/definitions/ActivityId"
         }
       },
       "required": [
@@ -1402,11 +1401,14 @@
         "lastPage"
       ]
     },
+    "ActivityId": {
+      "type": "string",
+      "example": "34475f7a-d1d5-481d-b205-9537ae0f9e73"
+    },
     "Activity": {
       "properties": {
         "id": {
-          "type": "string",
-          "example": "34475f7a-d1d5-481d-b205-9537ae0f9e73"
+          "$ref": "#/definitions/ActivityId"
         },
         "title": {
           "type": "string",
