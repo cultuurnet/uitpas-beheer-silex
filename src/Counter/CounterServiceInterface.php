@@ -17,17 +17,12 @@ interface CounterServiceInterface
     public function getCounter($id);
 
     /**
-     * @param string $id
+     * @param \CultureFeed_Uitpas_Counter_Employee $counter
      *
      * @throws CounterNotFoundException
      *   If the provided counter can not be found or is not available for the current user.
      */
-    public function setActiveCounterId($id);
-
-    /**
-     * @return string
-     */
-    public function getActiveCounterId();
+    public function setActiveCounter(\CultureFeed_Uitpas_Counter_Employee $counter);
 
     /**
      * @return \CultureFeed_Uitpas_Counter_Employee
