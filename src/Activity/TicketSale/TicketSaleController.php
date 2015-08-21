@@ -12,7 +12,7 @@ use ValueObjects\StringLiteral\StringLiteral;
 class TicketSaleController
 {
     /**
-     * @var TicketSaleService
+     * @var TicketSaleServiceInterface
      */
     protected $service;
 
@@ -22,11 +22,11 @@ class TicketSaleController
     protected $jsonDeserializer;
 
     /**
-     * @param TicketSaleService $service
+     * @param TicketSaleServiceInterface $service
      * @param DeserializerInterface $registrationJsonDeserializer
      */
     public function __construct(
-        TicketSaleService $service,
+        TicketSaleServiceInterface $service,
         DeserializerInterface $registrationJsonDeserializer
     ) {
         $this->service = $service;

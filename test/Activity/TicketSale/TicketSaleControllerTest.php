@@ -28,7 +28,7 @@ class TicketSaleControllerTest extends \PHPUnit_Framework_TestCase
     protected $controller;
 
     /**
-     * @var TicketSaleService|\PHPUnit_Framework_MockObject_MockObject
+     * @var TicketSaleServiceInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $service;
 
@@ -41,9 +41,7 @@ class TicketSaleControllerTest extends \PHPUnit_Framework_TestCase
     {
         date_default_timezone_set('UTC');
 
-        $callOriginalConstructor = false;
-        $this->service = $this->getMock(TicketSaleService::class, [], [], '', $callOriginalConstructor);
-
+        $this->service = $this->getMock(TicketSaleServiceInterface::class);
         $this->registrationJsonDeserializer = new RegistrationJsonDeserializer();
 
         $this->controller = new TicketSaleController(
