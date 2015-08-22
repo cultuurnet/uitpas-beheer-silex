@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "cultuurnet/silex-uitid-provider": "dev-feature/UBR-162",
+    "cultuurnet/silex-uitid-provider": "dev-master",
     "cultuurnet/culturefeed-php": "dev-feature/UBR as 1.5.2",
     "cultuurnet/search": "~1.2",
     "cultuurnet/calendar-summary": "~1.0",

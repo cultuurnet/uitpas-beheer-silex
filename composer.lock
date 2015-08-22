@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "166381404bb97996c339f23ced901661",
+    "hash": "da5b8187ac1f4f449b7f65caa8d9eeac",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -430,16 +430,16 @@
         },
         {
             "name": "cultuurnet/silex-uitid-provider",
-            "version": "dev-feature/UBR-162",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/silex-uitid-provider.git",
-                "reference": "ec6baaeb8e1d4af86df770d4cadb84f9e9881080"
+                "reference": "0ed46162d600528e73e2b9565bab4ee62d6788d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/ec6baaeb8e1d4af86df770d4cadb84f9e9881080",
-                "reference": "ec6baaeb8e1d4af86df770d4cadb84f9e9881080",
+                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/0ed46162d600528e73e2b9565bab4ee62d6788d4",
+                "reference": "0ed46162d600528e73e2b9565bab4ee62d6788d4",
                 "shasum": ""
             },
             "require": {
@@ -470,7 +470,7 @@
                 "GPL-3.0"
             ],
             "description": "Silex UiTID authentication provider.",
-            "time": "2015-08-21 14:23:42"
+            "time": "2015-08-22 07:22:14"
         },
         {
             "name": "cultuurnet/udb3-symfony",
