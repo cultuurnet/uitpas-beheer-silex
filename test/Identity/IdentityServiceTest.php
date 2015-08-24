@@ -6,6 +6,7 @@ use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
 
 class IdentityServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -59,6 +60,7 @@ class IdentityServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassHolderCard->uitpasNumber = $this->uitpasNumber->toNative();
         $cfPassHolderCard->kansenpas = $this->uitpasNumber->hasKansenStatuut();
         $cfPassHolderCard->status = UiTPASStatus::LOCAL_STOCK();
+        $cfPassHolderCard->type = UiTPASType::CARD();
 
         $cfIdentity = new \CultureFeed_Uitpas_Identity();
         $cfIdentity->card = $cfPassHolderCard;
@@ -73,7 +75,8 @@ class IdentityServiceTest extends \PHPUnit_Framework_TestCase
 
         $uitpas = new UiTPAS(
             $this->uitpasNumber,
-            UiTPASStatus::LOCAL_STOCK()
+            UiTPASStatus::LOCAL_STOCK(),
+            UiTPASType::CARD()
         );
 
         $expected = new Identity($uitpas);

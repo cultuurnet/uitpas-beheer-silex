@@ -17,6 +17,11 @@ class UiTPAS implements \JsonSerializable
     protected $status;
 
     /**
+     * @var UiTPASType
+     */
+    protected $type;
+
+    /**
      * @var StringLiteral|null
      */
     protected $city;
@@ -24,13 +29,16 @@ class UiTPAS implements \JsonSerializable
     /**
      * @param UiTPASNumber $number
      * @param UiTPASStatus $status
+     * @param UiTPASType $type
      */
     public function __construct(
         UiTPASNumber $number,
-        UiTPASStatus $status
+        UiTPASStatus $status,
+        UiTPASType $type
     ) {
         $this->number = $number;
         $this->status = $status;
+        $this->type = $type;
     }
 
     /**
@@ -53,6 +61,7 @@ class UiTPAS implements \JsonSerializable
             'number' => $this->number->toNative(),
             'kansenStatuut' => $this->number->hasKansenStatuut(),
             'status' => $this->status->toNative(),
+            'type' => $this->type->toNative(),
         ];
 
         if (!is_null($this->city)) {
@@ -70,10 +79,12 @@ class UiTPAS implements \JsonSerializable
     {
         $number = new UiTPASNumber($cfCard->uitpasNumber);
         $status = UiTPASStatus::get($cfCard->status);
+        $type = UiTPASType::get($cfCard->type);
 
         $card = new static(
             $number,
-            $status
+            $status,
+            $type
         );
 
         if (!empty($cfCard->city)) {

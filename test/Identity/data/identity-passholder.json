@@ -2,7 +2,8 @@
   "uitPas": {
     "number": "1000000035419",
     "kansenStatuut": true,
-    "status": "ACTIVE"
+    "status": "ACTIVE",
+    "type": "CARD"
   },
   "passHolder": {
     "name": {

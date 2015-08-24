@@ -30,6 +30,7 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
     {
         $this->passholderCardMinimal = new \CultureFeed_Uitpas_Passholder_Card();
         $this->passholderCardMinimal->status = UiTPASStatus::ACTIVE;
+        $this->passholderCardMinimal->type = UiTPASType::CARD();
         $this->passholderCardMinimal->uitpasNumber = $this->number;
 
         $this->passholderCardFull = clone $this->passholderCardMinimal;
@@ -47,6 +48,7 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
         $this->assertAttributeEquals(new UiTPASNumber($this->number), 'number', $uitpas);
         $this->assertAttributeEquals(UiTPASStatus::ACTIVE, 'status', $uitpas);
         $this->assertAttributeEquals(new StringLiteral($this->city), 'city', $uitpas);
+        $this->assertAttributeEquals(UiTPASType::CARD, 'type', $uitpas);
     }
 
     /**
@@ -59,6 +61,7 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
         $uitpas = UiTPAS::fromCultureFeedPassHolderCard($cfPassHolderCard);
         $this->assertAttributeEquals(new UiTPASNumber($this->number), 'number', $uitpas);
         $this->assertAttributeEquals(UiTPASStatus::ACTIVE, 'status', $uitpas);
+        $this->assertAttributeEquals(UiTPASType::CARD, 'type', $uitpas);
         $this->assertAttributeEmpty('city', $uitpas);
     }
 
@@ -75,6 +78,7 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('kansenStatuut', $data, 'The kansenStatuut key is missing.');
         $this->assertArrayHasKey('status', $data, 'The status key is missing.');
         $this->assertArrayHasKey('city', $data, 'The city key is missing.');
+        $this->assertArrayHasKey('type', $data, 'The type key is missing.');
     }
 
     /**
@@ -89,6 +93,7 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('number', $data, 'The number key is missing.');
         $this->assertArrayHasKey('kansenStatuut', $data, 'The kansenStatuut key is missing.');
         $this->assertArrayHasKey('status', $data, 'The status key is missing.');
+        $this->assertArrayHasKey('type', $data, 'The type` key is missing.');
         $this->assertArrayNotHasKey('city', $data, 'The city key should not be present.');
     }
 }

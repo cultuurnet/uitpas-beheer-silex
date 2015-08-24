@@ -6,6 +6,7 @@ use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
 
 class IdentityControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -42,7 +43,8 @@ class IdentityControllerTest extends \PHPUnit_Framework_TestCase
         $identity = new Identity(
             new UiTPAS(
                 new UiTPASNumber($this->identification),
-                UiTPASStatus::LOCAL_STOCK()
+                UiTPASStatus::LOCAL_STOCK(),
+                UiTPASType::CARD()
             )
         );
 

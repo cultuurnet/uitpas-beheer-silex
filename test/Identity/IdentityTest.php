@@ -10,6 +10,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
 use ValueObjects\DateTime\Date;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -111,14 +112,16 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
 
         $this->localStockUitpas = new UiTPAS(
             $this->uitpasNumber,
-            UiTPASStatus::LOCAL_STOCK()
+            UiTPASStatus::LOCAL_STOCK(),
+            UiTPASType::CARD()
         );
 
         $this->identity = new Identity($this->localStockUitpas);
 
         $this->activeUitpas = new UiTPAS(
             $this->uitpasNumber,
-            UiTPASStatus::ACTIVE()
+            UiTPASStatus::ACTIVE(),
+            UiTPASType::CARD()
         );
 
         $this->identityWithPassHolder = (new Identity($this->activeUitpas))
@@ -150,6 +153,7 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
     {
         $cfPassHolderCard = new \CultureFeed_Uitpas_Passholder_Card();
         $cfPassHolderCard->status = UiTPASStatus::LOCAL_STOCK();
+        $cfPassHolderCard->type = UiTPASType::CARD();
         $cfPassHolderCard->uitpasNumber = $this->uitpasNumber->toNative();
         $cfPassHolderCard->kansenpas = $this->uitpasNumber->hasKansenStatuut();
 
@@ -169,6 +173,7 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
     {
         $cfPassHolderCard = new \CultureFeed_Uitpas_Passholder_Card();
         $cfPassHolderCard->status = UiTPASStatus::ACTIVE();
+        $cfPassHolderCard->type = UiTPASType::CARD();
         $cfPassHolderCard->uitpasNumber = $this->uitpasNumber->toNative();
         $cfPassHolderCard->kansenpas = $this->uitpasNumber->hasKansenStatuut();
 
