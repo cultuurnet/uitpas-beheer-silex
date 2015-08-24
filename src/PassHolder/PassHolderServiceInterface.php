@@ -4,6 +4,7 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Kansenstatuut;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASOffer;
 use ValueObjects\Identity\UUID;
 
 interface PassHolderServiceInterface
@@ -38,4 +39,10 @@ interface PassHolderServiceInterface
         VoucherNumber $voucherNumber = null,
         Kansenstatuut $kansenstatuut = null
     );
+
+    /**
+     * Get a list of all the passholder registration offers.
+     * @return UiTPASOffer[]
+     */
+    public function getOffers();
 }

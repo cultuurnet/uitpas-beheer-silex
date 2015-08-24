@@ -120,10 +120,22 @@ class PassHolderController
         // return the registered passholder
         $passholder = $this->passHolderService->getByUitpasNumber($uitpasNumber);
 
-        $response =  JsonResponse::create()
+        $response = JsonResponse::create()
             ->setData($passholder)
             ->setPrivate();
 
         return $response;
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function getOffers()
+    {
+        $offers = $this->passHolderService->getOffers();
+
+        return JsonResponse::create()
+            ->setData($offers)
+            ->setPrivate();
     }
 }
