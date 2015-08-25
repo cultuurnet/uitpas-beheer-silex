@@ -117,7 +117,7 @@ class CounterServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_retrieve_the_active_counter()
     {
-        $this->counterService->setActiveCounterId(10);
+        $this->counterService->setActiveCounter($this->counters[10]);
 
         $this->assertEquals(
             $this->counters[10],
@@ -130,29 +130,7 @@ class CounterServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function it_fails_to_retrieve_the_active_counter_when_there_is_none()
     {
-        $this->assertNull($this->counterService->getActiveCounterId());
-
         $this->setExpectedException(CounterNotSetException::class);
         $this->counterService->getActiveCounter();
-    }
-
-    /**
-     * @test
-     */
-    public function it_stores_the_active_counter_id()
-    {
-        $id = 10;
-        $this->counterService->setActiveCounterId($id);
-        $this->assertEquals($id, $this->counterService->getActiveCounterId());
-    }
-
-    /**
-     * @test
-     */
-    public function it_fails_to_make_a_non_existing_counter_active()
-    {
-        $nonExistentId = 5;
-        $this->setExpectedException(CounterNotFoundException::class);
-        $this->counterService->setActiveCounterId($nonExistentId);
     }
 }
