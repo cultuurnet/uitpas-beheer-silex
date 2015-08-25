@@ -123,7 +123,6 @@ class UiTPASPrice implements \JsonSerializable
         $currency = new Currency(CurrencyCode::EUR());
         $ageRange = AgeRange::fromCultureFeedUitpasAgeRange($uitpasPrice->ageRange);
 
-
         $price = new static(
             new Money($priceInCents, $currency),
             $uitpasPrice->kansenStatuut,

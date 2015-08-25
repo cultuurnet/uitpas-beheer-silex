@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "UiTPAS Admin",
-    "description": "An administration interface fot UiTPAS, a system to manage users and activities of cultural offers in the Flanders region.\n\n\n\n\nMost operations require that you authenticate first with your UiTID.",
+    "description": "An administration interface fot UiTPAS, a system to manage users and activities of cultural offers in the Flanders region. Most operations require that you authenticate first with your UiTID.",
     "version": "3.0.0",
     "contact": {
       "name": "CultuurNet Vlaanderen vzw",
@@ -609,6 +609,29 @@
           },
           "400": {
             "description": "The uitpas number is already in use."
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "PassHolder"
+        ]
+      }
+    },
+    "/uitpas-prices": {
+      "get": {
+        "summary": "Retrieve a list of the UiTPAS prices for the active balie",
+        "operationId": "getPrices",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of prices.",
+            "schema": {
+              "$ref": "#/definitions/Price"
+            }
           },
           "403": {
             "description": "The user is not authenticated or does not have an active counter."
@@ -1538,6 +1561,55 @@
       },
       "required": [
         "endDate"
+      ]
+    },
+    "Price": {
+      "properties": {
+        "price": {
+          "type": "integer",
+          "description": "The UiTPAS price in cents."
+        },
+        "kansenstatuut": {
+          "type": "boolean",
+          "description": "Whether or not this price is available for people with a kansenstatuut"
+        },
+        "ageRange": {
+          "$ref": "#/definitions/AgeRange"
+        },
+        "voucherType": {
+          "$ref": "#/definitions/VoucherType"
+        }
+      },
+      "required": [
+        "price",
+        "kansenstatuut",
+        "ageRange"
+      ]
+    },
+    "AgeRange": {
+      "properties": {
+        "from": {
+          "type": "integer"
+        },
+        "to": {
+          "type": "integer"
+        }
+      }
+    },
+    "VoucherType": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the voucher."
+        },
+        "prefix": {
+          "type": "string",
+          "description": "A prefix that can used to validate the voucher type."
+        }
+      },
+      "required": [
+        "name",
+        "prefix"
       ]
     }
   }
