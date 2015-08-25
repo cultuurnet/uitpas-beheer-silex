@@ -7,7 +7,6 @@ use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Kansenstatuut;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
-use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberInvalidException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASPrice;
 use ValueObjects\Identity\UUID;
 
@@ -125,19 +124,19 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
      */
     private function createCultureFeedPassholder(Passholder $passholder)
     {
-        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassholder = new \CultureFeed_Uitpas_Passholder();
 
-        $cfPassHolder->firstName =$passholder->getName()->getFirstName()->toNative();
-        $cfPassHolder->name = $passholder->getName()->getLastName()->toNative();
+        $cfPassholder->firstName =$passholder->getName()->getFirstName()->toNative();
+        $cfPassholder->name = $passholder->getName()->getLastName()->toNative();
         if ($passholder->getName()->getMiddleName()) {
-            $cfPassHolder->secondName = $passholder
+            $cfPassholder->secondName = $passholder
                 ->getName()
                 ->getMiddleName()
                 ->toNative();
         }
 
         if ($passholder->getNationality()) {
-            $cfPassHolder->nationality = $passholder
+            $cfPassholder->nationality = $passholder
                 ->getNationality()
                 ->toNative();
         }
@@ -145,18 +144,18 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         $birthInformation = $passholder->getBirthInformation();
 
         if ($birthInformation->getPlace()) {
-            $cfPassHolder->placeOfBirth = $birthInformation
+            $cfPassholder->placeOfBirth = $birthInformation
                 ->getPlace()
                 ->toNative();
         }
 
-        $cfPassHolder->dateOfBirth = $birthInformation
+        $cfPassholder->dateOfBirth = $birthInformation
             ->getDate()
             ->toNativeDateTime()
             ->getTimestamp();
 
         if ($passholder->getGender()) {
-            $cfPassHolder->gender = $this->getCfPassholderGenderForUpdate(
+            $cfPassholder->gender = $this->getCfPassholderGenderForUpdate(
                 $passholder->getGender()
             );
         }
@@ -164,29 +163,29 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         $address = $passholder->getAddress();
 
         if ($address->getStreet()) {
-            $cfPassHolder->street = $address->getStreet()->toNative();
+            $cfPassholder->street = $address->getStreet()->toNative();
         }
 
-        $cfPassHolder->city = $address->getCity()->toNative();
-        $cfPassHolder->postalCode = $address->getPostalCode()->toNative();
+        $cfPassholder->city = $address->getCity()->toNative();
+        $cfPassholder->postalCode = $address->getPostalCode()->toNative();
 
 
         $contactInformation = $passholder->getContactInformation();
         if ($contactInformation) {
             if ($contactInformation->getMobileNumber()) {
-                $cfPassHolder->gsm = $contactInformation
+                $cfPassholder->gsm = $contactInformation
                     ->getMobileNumber()
                     ->toNative();
             }
 
             if ($contactInformation->getTelephoneNumber()) {
-                $cfPassHolder->telephone = $contactInformation
+                $cfPassholder->telephone = $contactInformation
                     ->getTelephoneNumber()
                     ->toNative();
             }
 
             if ($contactInformation->getEmail()) {
-                $cfPassHolder->email = $contactInformation
+                $cfPassholder->email = $contactInformation
                     ->getEmail()
                     ->toNative();
             }
@@ -195,23 +194,24 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         $privacyPreferences = $passholder->getPrivacyPreferences();
 
         if ($privacyPreferences) {
-            $cfPassHolder->emailPreference = $privacyPreferences
+            $cfPassholder->emailPreference = $privacyPreferences
                 ->getEmailPreference()
                 ->toNative();
-            $cfPassHolder->smsPreference = $privacyPreferences
+            $cfPassholder->smsPreference = $privacyPreferences
                 ->getSMSPreference()
                 ->toNative();
         }
 
         if ($passholder->getINSZNumber()) {
-            $cfPassHolder->inszNumber = $passholder
+            $cfPassholder->inszNumber = $passholder
                 ->getINSZNumber()
                 ->toNative();
         }
 
-        return $cfPassHolder;
-    }
+        $cfPassholder->toPostDataKeepEmptySecondName();
 
+        return $cfPassholder;
+    }
 
     /**
      * Get the right gender string value for updating a pass holder.

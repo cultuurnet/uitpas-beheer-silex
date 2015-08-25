@@ -84,17 +84,20 @@ class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
             new Activity(
                 new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
                 new StringLiteral('test event 1'),
-                $checkinConstraint
+                $checkinConstraint,
+                new Integer(1)
             ),
             new Activity(
                 new StringLiteral('ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj'),
                 new StringLiteral('test event 2'),
-                $checkinConstraint
+                $checkinConstraint,
+                new Integer(1)
             ),
             new Activity(
                 new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-jjjjjjjjjjjj'),
                 new StringLiteral('test event 3'),
-                $checkinConstraint
+                $checkinConstraint,
+                new Integer(1)
             ),
         ];
 
@@ -153,7 +156,8 @@ class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
         $expectedActivity = new Activity(
             new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
             new StringLiteral('test event 1'),
-            $checkinConstraint
+            $checkinConstraint,
+            new Integer(1)
         );
 
         $this->decoratedActivityService

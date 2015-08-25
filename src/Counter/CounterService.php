@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CounterService implements CounterServiceInterface
 {
-    const COUNTER_ID_VARIABLE = 'counter_id';
+    const COUNTER_SESSION_VARIABLE = 'counter';
 
     /**
      * @var \CultureFeed_Uitpas
@@ -68,23 +68,9 @@ class CounterService implements CounterServiceInterface
     /**
      * @inheritdoc
      */
-    public function setActiveCounterId($id)
+    public function setActiveCounter(\CultureFeed_Uitpas_Counter_Employee $counter)
     {
-        $id = (string) $id;
-
-        if (is_null($this->getCounter($id))) {
-            throw new CounterNotFoundException($id, Response::HTTP_BAD_REQUEST);
-        }
-
-        $this->session->set(self::COUNTER_ID_VARIABLE, $id);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getActiveCounterId()
-    {
-        return $this->session->get(self::COUNTER_ID_VARIABLE);
+        $this->session->set(self::COUNTER_SESSION_VARIABLE, $counter);
     }
 
     /**
@@ -92,13 +78,9 @@ class CounterService implements CounterServiceInterface
      */
     public function getActiveCounter()
     {
-        $id = $this->getActiveCounterId();
+        $counter = $this->session->get(self::COUNTER_SESSION_VARIABLE);
 
-        if (!is_null($id)) {
-            $counter = $this->getCounter($id);
-        }
-
-        if (empty($counter)) {
+        if (is_null($counter)) {
             throw new CounterNotSetException();
         }
 

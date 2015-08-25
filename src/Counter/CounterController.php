@@ -39,9 +39,10 @@ class CounterController
     public function setActiveCounter(Request $request)
     {
         $id = $request->request->get('id');
-        $this->service->setActiveCounterId($id);
+        $counter = $this->service->getCounter($id);
 
-        $counter = $this->service->getActiveCounter();
+        $this->service->setActiveCounter($counter);
+
         return new JsonResponse($counter);
     }
 

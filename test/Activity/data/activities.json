@@ -2,7 +2,7 @@
   "@context": "http:\/\/www.w3.org\/ns\/hydra\/context.jsonld",
   "@type": "PagedCollection",
   "itemsPerPage": 5,
-  "totalItems": 10,
+  "totalItems": 15,
   "member": [
     {
       "id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
@@ -14,7 +14,9 @@
         "startDate": "2015-09-01T09:00:00+00:00",
         "endDate": "2016-03-01T16:00:00+00:00",
         "reason": "INVALID_DATE_TIME"
-      }
+      },
+      "free": true,
+      "points": 1
     },
     {
       "id": "ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj",
@@ -26,7 +28,9 @@
         "startDate": "2015-09-01T09:00:00+00:00",
         "endDate": "2016-03-01T16:00:00+00:00",
         "reason": "INVALID_DATE_TIME"
-      }
+      },
+      "free": true,
+      "points": 1
     }
   ],
   "firstPage": "http://example.com/passholders/0930000208908/activities?date_type=today&page=1",

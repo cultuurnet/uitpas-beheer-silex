@@ -1,0 +1,25 @@
+{
+  "maximumReached": true,
+  "differentiation": false,
+  "base": {
+    "Rang 1": 30,
+    "Rang 2": 15,
+    "Rang 3+": 7.5
+  },
+  "tariffs": {
+    "kansentariefAvailable": false,
+    "couponAvailable": false,
+    "list": [
+      {
+        "name": "Kansentarief",
+        "type": "KANSENTARIEF",
+        "maximumReached": true,
+        "prices": {
+          "Rang 1": 22,
+          "Rang 2": 11,
+          "Rang 3+": 5.5
+        }
+      }
+    ]
+  }
+}

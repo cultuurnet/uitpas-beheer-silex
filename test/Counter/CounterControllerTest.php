@@ -74,18 +74,19 @@ class CounterControllerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_sets_the_active_counter_id_and_responds_the_counters_data()
+    public function it_sets_the_active_counter_and_responds_the_counters_data()
     {
         $counter = new \CultureFeed_Uitpas_Counter_Employee();
         $counter->id = 10;
 
         $this->service->expects($this->once())
-            ->method('setActiveCounterId')
-            ->with($counter->id);
+            ->method('getCounter')
+            ->with($counter->id)
+            ->willReturn($counter);
 
         $this->service->expects($this->once())
-            ->method('getActiveCounter')
-            ->willReturn($counter);
+            ->method('setActiveCounter')
+            ->with($counter);
 
         $request = new Request([], ['id' => $counter->id]);
 

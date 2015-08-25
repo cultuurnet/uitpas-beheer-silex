@@ -4,8 +4,15 @@ namespace CultuurNet\UiTPASBeheer\Activity;
 
 use CultureFeed_Uitpas_Event_CultureEvent;
 use CultureFeed_Cdb_Item_Event;
+use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation;
+use CultuurNet\UiTPASBeheer\Activity\Specifications\IsFree;
+use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
+/**
+ * Class Activity
+ * @package CultuurNet\UiTPASBeheer\Activity
+ */
 class Activity implements \JsonSerializable
 {
     /**
@@ -19,12 +26,12 @@ class Activity implements \JsonSerializable
     protected $title;
 
     /**
-     * @var StringLiteral
+     * @var StringLiteral|null
      */
     protected $description;
 
     /**
-     * @var StringLiteral
+     * @var StringLiteral|null
      *
      * Textual indication of when the activity is occurring.
      */
@@ -36,20 +43,31 @@ class Activity implements \JsonSerializable
     protected $checkinConstraint;
 
     /**
+     * @var SalesInformation|null
+     */
+    protected $salesInformation;
+
+    /**
+     * @var Integer
+     */
+    protected $points;
+
+    /**
      * @param StringLiteral $id
      * @param StringLiteral $title
      * @param CheckinConstraint $checkinConstraint
+     * @param \ValueObjects\Number\Integer $points
      */
     public function __construct(
         StringLiteral $id,
         StringLiteral $title,
-        CheckinConstraint $checkinConstraint
+        CheckinConstraint $checkinConstraint,
+        Integer $points
     ) {
         $this->id = $id;
         $this->title = $title;
         $this->checkinConstraint = $checkinConstraint;
-        $this->description = new StringLiteral('');
-        $this->when = new StringLiteral('');
+        $this->points = $points;
     }
 
     /**
@@ -75,7 +93,18 @@ class Activity implements \JsonSerializable
     }
 
     /**
-     * @return StringLiteral
+     * @param SalesInformation $salesInformation
+     * @return Activity
+     */
+    public function withSalesInformation(SalesInformation $salesInformation)
+    {
+        $c = clone $this;
+        $c->salesInformation = $salesInformation;
+        return $c;
+    }
+
+    /**
+     * @return StringLiteral|null
      */
     public function getWhen()
     {
@@ -83,7 +112,7 @@ class Activity implements \JsonSerializable
     }
 
     /**
-     * @return StringLiteral
+     * @return StringLiteral|null
      */
     public function getDescription()
     {
@@ -115,16 +144,65 @@ class Activity implements \JsonSerializable
     }
 
     /**
+     * @return SalesInformation|null
+     */
+    public function getSalesInformation()
+    {
+        return $this->salesInformation;
+    }
+
+    /**
+     * @return Integer
+     */
+    public function getPoints()
+    {
+        return $this->points;
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()
     {
-        return [
+        $data = [
             'id' => $this->id->toNative(),
             'title' => $this->title->toNative(),
-            'description' => $this->description->toNative(),
-            'when' => $this->when->toNative(),
             'checkinConstraint' => $this->checkinConstraint,
+            'points' => $this->points->toNative(),
+            'free' => IsFree::isSatisfiedBy($this),
         ];
+
+        if (!is_null($this->description)) {
+            $data['description'] = $this->description->toNative();
+        }
+
+        if (!is_null($this->when)) {
+            $data['when'] = $this->when->toNative();
+        }
+
+        if (!is_null($this->salesInformation) && !$data['free']) {
+            $data['sales'] = $this->salesInformation->jsonSerialize();
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param \CultureFeed_Uitpas_Event_CultureEvent $event
+     * @return Activity
+     */
+    public static function fromCultureFeedUitpasEvent(\CultureFeed_Uitpas_Event_CultureEvent $event)
+    {
+        $activity = new Activity(
+            StringLiteral::fromNative((string) $event->cdbid),
+            StringLiteral::fromNative((string) $event->title),
+            CheckinConstraint::fromCultureFeedUitpasEvent($event),
+            Integer::fromNative((int) $event->numberOfPoints)
+        );
+
+        $salesInformation = SalesInformation::fromCultureFeedUitpasEvent($event);
+        $activity = $activity->withSalesInformation($salesInformation);
+
+        return $activity;
     }
 }

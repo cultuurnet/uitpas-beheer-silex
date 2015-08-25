@@ -1,0 +1,58 @@
+{
+  "maximumReached": false,
+  "differentiation": true,
+  "base": {
+    "Rang 1": 30,
+    "Rang 2": 15,
+    "Rang 3+": 7.5
+  },
+  "tariffs": {
+    "lowestAvailable": 5.5,
+    "kansentariefAvailable": true,
+    "couponAvailable": true,
+    "list": [
+      {
+        "name": "Kansentarief 1",
+        "type": "KANSENTARIEF",
+        "maximumReached": false,
+        "prices": {
+          "Rang 1": 22,
+          "Rang 2": 11,
+          "Rang 3+": 5.5
+        }
+      },
+      {
+        "name": "Kansentarief 2",
+        "type": "KANSENTARIEF",
+        "maximumReached": false,
+        "prices": {
+          "Rang 1": 22,
+          "Rang 2": 11,
+          "Rang 3+": 5.5
+        }
+      },
+      {
+        "name": "Cultuurwaardebon 1",
+        "type": "COUPON",
+        "maximumReached": false,
+        "prices": {
+          "Rang 1": 22,
+          "Rang 2": 11,
+          "Rang 3+": 5.5
+        },
+        "id": "coupon-id-1"
+      },
+      {
+        "name": "Cultuurwaardebon 2",
+        "type": "COUPON",
+        "maximumReached": false,
+        "prices": {
+          "Rang 1": 22,
+          "Rang 2": 11,
+          "Rang 3+": 5.5
+        },
+        "id": "coupon-id-2"
+      }
+    ]
+  }
+}
