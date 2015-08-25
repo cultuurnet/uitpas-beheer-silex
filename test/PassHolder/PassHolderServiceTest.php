@@ -108,6 +108,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         // Picture and points can not be updated with this call,
         // so they should not be set.
         $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassHolder->toPostDataKeepEmptySecondName();
         $cfPassHolder->uitpasNumber = $uitpasNumberValue;
         $cfPassHolder->name = 'Zyrani';
         $cfPassHolder->firstName = 'Layla';
