@@ -8,7 +8,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Kansenstatuut;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberInvalidException;
-use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASOffer;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASPrice;
 use ValueObjects\Identity\UUID;
 
 class PassHolderService extends CounterAwareUitpasService implements PassHolderServiceInterface
@@ -99,7 +99,7 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
     /**
      * @inheritDoc
      */
-    public function getOffers()
+    public function getPrices()
     {
         $uitpas = $this->getUitpasService();
         $prices = $uitpas->getPrice($this->getCounterConsumerKey())->objects;
@@ -111,7 +111,7 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         $eligiblePrices = array_filter($prices, $isEligible);
 
         $offers = array_map(
-            array(UiTPASOffer::class, 'fromCultureFeedUiTPASPrice'),
+            array(UiTPASPrice::class, 'fromCultureFeedUiTPASPrice'),
             $eligiblePrices
         );
 

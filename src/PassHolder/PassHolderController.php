@@ -130,9 +130,9 @@ class PassHolderController
     /**
      * @return JsonResponse
      */
-    public function getOffers()
+    public function getPrices()
     {
-        $offers = $this->passHolderService->getOffers();
+        $offers = $this->passHolderService->getPrices();
 
         return JsonResponse::create()
             ->setData($offers)

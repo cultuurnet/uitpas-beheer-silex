@@ -7,9 +7,17 @@ use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Kansenstatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
+use CultuurNet\UiTPASBeheer\UiTPAS\properties\AgeRange;
+use CultuurNet\UiTPASBeheer\UiTPAS\properties\VoucherType;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASPrice;
 use ValueObjects\DateTime\Date;
 use ValueObjects\Identity\UUID;
+use ValueObjects\Money\Currency;
+use ValueObjects\Money\Money;
+use ValueObjects\Number\Integer;
+use ValueObjects\Person\Age;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -331,5 +339,57 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
             $uitpasNumber,
             $passholder
         );
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_return_a_list_with_uitpas_pricing_information()
+    {
+        $culturefeedPriceSet = new \CultureFeed_ResultSet(
+            1,
+            [$this->getCultureFeedUiTPASPrice()]
+        );
+
+        $this->uitpas->expects($this->once())
+            ->method('getPrice')
+            ->willReturn($culturefeedPriceSet);
+
+        $prices = $this->service->getPrices();
+
+        $price = new Money(new Integer(500), Currency::fromNative('EUR'));
+        $ageRange = new AgeRange(new Age(5), new Age(10));
+
+        $uitpasPrice = new UiTPASPrice($price, true, $ageRange);
+
+        $voucherType = new VoucherType(
+            new StringLiteral('voucher one'),
+            new StringLiteral('voucher prefix')
+        );
+        $uitpasPrice = $uitpasPrice->withVoucherType($voucherType);
+        $expectedPrices = [$uitpasPrice];
+
+        $this->assertEquals($expectedPrices, $prices);
+    }
+
+    private function getCultureFeedUiTPASPrice()
+    {
+        $culturefeedPrice = new \CultureFeed_Uitpas_Passholder_UitpasPrice();
+        $culturefeedPrice->id = 'id&t';
+        $culturefeedPrice->price = 5.00;
+        $culturefeedPrice->kansenStatuut = true;
+        $culturefeedPrice->reason = "FIRST_CARD";
+
+        $voucherType = new \CultureFeed_Uitpas_Passholder_VoucherType();
+        $voucherType->name = 'voucher one';
+        $voucherType->prefix = 'voucher prefix';
+        $culturefeedPrice->voucherType = $voucherType;
+
+        $ageRange = new \CultureFeed_Uitpas_Passholder_AgeRange();
+        $ageRange->ageFrom = 5;
+        $ageRange->ageTo = 10;
+        $culturefeedPrice->ageRange = $ageRange;
+
+        return $culturefeedPrice;
     }
 }

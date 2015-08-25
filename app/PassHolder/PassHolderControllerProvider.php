@@ -31,7 +31,7 @@ class PassHolderControllerProvider implements ControllerProviderInterface
         $controllers->post('/passholders/{uitpasNumber}', 'passholder_controller:update');
         $controllers->post('/passholders', 'passholder_controller:register');
 
-        $controllers->get('/uitpas-offers', 'passholder_controller:getOffers');
+        $controllers->get('/uitpas-prices', 'passholder_controller:getPrices');
 
         return $controllers;
     }

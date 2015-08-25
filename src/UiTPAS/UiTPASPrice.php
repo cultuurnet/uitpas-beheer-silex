@@ -10,7 +10,7 @@ use ValueObjects\Money\Money;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class UiTPASOffer implements \JsonSerializable
+class UiTPASPrice implements \JsonSerializable
 {
     /**
      * @var Money
@@ -32,12 +32,19 @@ class UiTPASOffer implements \JsonSerializable
      */
     protected $ageRange;
 
+    /**
+     * @param Money $price
+     * @param boolean $kansenstatuut
+     * @param AgeRange $ageRange
+     */
     public function __construct(
         Money $price,
-        $kansenstatuut = false
+        $kansenstatuut,
+        AgeRange $ageRange
     ) {
         $this->price = $price;
-        $this->kansenstatuut = $kansenstatuut;
+        $this->kansenstatuut = $kansenstatuut ? true : false;
+        $this->ageRange = $ageRange;
     }
 
     /**
@@ -75,20 +82,12 @@ class UiTPASOffer implements \JsonSerializable
     /**
      * @param VoucherType $voucherType
      *
-     * @return UiTPASOffer
+     * @return UiTPASPrice
      */
     public function withVoucherType(VoucherType $voucherType)
     {
         $offer = clone $this;
         $offer->voucherType = $voucherType;
-
-        return $offer;
-    }
-
-    public function withAgeRange(AgeRange $ageRange)
-    {
-        $offer = clone $this;
-        $offer->ageRange = $ageRange;
 
         return $offer;
     }
@@ -113,11 +112,6 @@ class UiTPASOffer implements \JsonSerializable
         return $jsonData;
     }
 
-    public function equals(UiTPASOffer $uitpasOffer)
-    {
-        return $this == $uitpasOffer;
-    }
-
     /**
      * @param \CultureFeed_Uitpas_Passholder_UitpasPrice
      * @return static
@@ -127,24 +121,24 @@ class UiTPASOffer implements \JsonSerializable
         // UiTPAS returns the price as a float, convert it to cents to use as money
         $priceInCents = Integer::fromNative($uitpasPrice->price*100);
         $currency = new Currency(CurrencyCode::EUR());
-
-        $offer = new static(
-            new Money($priceInCents, $currency),
-            $uitpasPrice->kansenStatuut
-        );
-
         $ageRange = AgeRange::fromCultureFeedUitpasAgeRange($uitpasPrice->ageRange);
-        $offer = $offer->withAgeRange($ageRange);
+
+
+        $price = new static(
+            new Money($priceInCents, $currency),
+            $uitpasPrice->kansenStatuut,
+            $ageRange
+        );
 
         if ($uitpasPrice->voucherType) {
             $voucherType = new VoucherType(
                 new StringLiteral($uitpasPrice->voucherType->name),
                 new StringLiteral($uitpasPrice->voucherType->prefix)
             );
-            $offer = $offer->withVoucherType($voucherType);
+            $price = $price->withVoucherType($voucherType);
         }
 
-        return $offer;
+        return $price;
 
     }
 }

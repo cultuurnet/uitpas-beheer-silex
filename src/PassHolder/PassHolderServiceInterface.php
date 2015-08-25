@@ -4,7 +4,7 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Kansenstatuut;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
-use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASOffer;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASPrice;
 use ValueObjects\Identity\UUID;
 
 interface PassHolderServiceInterface
@@ -42,7 +42,7 @@ interface PassHolderServiceInterface
 
     /**
      * Get a list of all the passholder registration offers.
-     * @return UiTPASOffer[]
+     * @return UiTPASPrice[]
      */
-    public function getOffers();
+    public function getPrices();
 }
