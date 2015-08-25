@@ -5,7 +5,7 @@ namespace CultuurNet\UiTPASBeheer\Activity;
 use ValueObjects\DateTime\DateTime;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class CheckinConstraint implements \JsonSerializable
+final class CheckinConstraint implements \JsonSerializable
 {
 
     /**
@@ -24,21 +24,20 @@ class CheckinConstraint implements \JsonSerializable
     protected $endDate;
 
     /**
-     * @var StringLiteral
+     * @var StringLiteral|null
      */
     protected $reason;
 
     /**
-     * @param $allowed
+     * @param bool $allowed
      * @param DateTime $startDate
      * @param DateTime $endDate
      */
     public function __construct($allowed, DateTime $startDate, DateTime $endDate)
     {
-        $this->allowed = $allowed;
+        $this->allowed = (bool) $allowed;
         $this->startDate = $startDate;
         $this->endDate = $endDate;
-        $this->reason = new StringLiteral('');
     }
 
     /**
@@ -66,7 +65,7 @@ class CheckinConstraint implements \JsonSerializable
     }
 
     /**
-     * @return StringLiteral
+     * @return StringLiteral|null
      */
     public function getReason()
     {
@@ -78,12 +77,17 @@ class CheckinConstraint implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        return [
+        $data = [
             'allowed' => $this->allowed,
             'startDate' => $this->startDate->toNativeDateTime()->format(\DateTime::RFC3339),
             'endDate' => $this->endDate->toNativeDateTime()->format(\DateTime::RFC3339),
-            'reason' => $this->reason->toNative(),
         ];
+
+        if (!is_null($this->reason)) {
+            $data['reason'] = $this->reason->toNative();
+        }
+
+        return $data;
     }
 
     /**
@@ -95,5 +99,37 @@ class CheckinConstraint implements \JsonSerializable
         $c = clone $this;
         $c->reason = $reason;
         return $c;
+    }
+
+    /**
+     * @param \CultureFeed_Uitpas_Event_CultureEvent $event
+     * @return CheckinConstraint
+     */
+    public static function fromCultureFeedUitpasEvent(\CultureFeed_Uitpas_Event_CultureEvent $event)
+    {
+        $checkinConstraint = new CheckinConstraint(
+            $event->checkinAllowed,
+            CheckinConstraint::dateTimeFromTimestamp($event->checkinStartDate),
+            CheckinConstraint::dateTimeFromTimestamp($event->checkinEndDate)
+        );
+
+        if (!$event->checkinAllowed && $event->checkinConstraintReason) {
+            $checkinConstraint = $checkinConstraint->withReason(
+                new StringLiteral((string) $event->checkinConstraintReason)
+            );
+        }
+
+        return $checkinConstraint;
+    }
+
+    /**
+     * @param int $timestamp
+     * @return DateTime
+     */
+    protected static function dateTimeFromTimestamp($timestamp)
+    {
+        $timestamp = (int) $timestamp;
+        $native = new \DateTime('@' . $timestamp);
+        return DateTime::fromNativeDateTime($native);
     }
 }

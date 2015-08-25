@@ -23,8 +23,7 @@ class PagedResultSetTest extends \PHPUnit_Framework_TestCase
                 DateTime::fromNativeDateTime(new \DateTime()),
                 DateTime::fromNativeDateTime(new \DateTime())
             ),
-            new StringLiteral('Description of activity 1'),
-            new StringLiteral('Each Wednesday')
+            new Integer(1)
         );
 
         $activities[] = new \stdClass();

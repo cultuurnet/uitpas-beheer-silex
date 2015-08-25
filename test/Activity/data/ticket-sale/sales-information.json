@@ -1,17 +1,4 @@
 {
-  "id": "10",
-  "title": "Some title",
-  "description": "Some description",
-  "when": "yesterday",
-  "checkinConstraint": {
-    "allowed": false,
-    "startDate": "2015-09-01T09:00:00+00:00",
-    "endDate": "2016-03-01T16:00:00+00:00",
-    "reason": "INVALID_DATE_TIME"
-  },
-  "points": 1,
-  "free": false,
-  "sales": {
   "maximumReached": false,
   "differentiation": true,
   "base": {
@@ -25,7 +12,7 @@
     "couponAvailable": true,
     "list": [
       {
-        "name": "Kansentarief",
+        "name": "Kansentarief 1",
         "type": "KANSENTARIEF",
         "maximumReached": false,
         "prices": {
@@ -35,7 +22,17 @@
         }
       },
       {
-        "name": "Cultuurwaardebon",
+        "name": "Kansentarief 2",
+        "type": "KANSENTARIEF",
+        "maximumReached": false,
+        "prices": {
+          "Rang 1": 22,
+          "Rang 2": 11,
+          "Rang 3+": 5.5
+        }
+      },
+      {
+        "name": "Cultuurwaardebon 1",
         "type": "COUPON",
         "maximumReached": false,
         "prices": {
@@ -44,9 +41,18 @@
           "Rang 3+": 5.5
         },
         "id": "coupon-id-1"
+      },
+      {
+        "name": "Cultuurwaardebon 2",
+        "type": "COUPON",
+        "maximumReached": false,
+        "prices": {
+          "Rang 1": 22,
+          "Rang 2": 11,
+          "Rang 3+": 5.5
+        },
+        "id": "coupon-id-2"
       }
     ]
   }
-}
-
 }
