@@ -90,7 +90,7 @@ class UiTPASPriceTest extends \PHPUnit_Framework_TestCase
         $jsonData = json_encode($uitpasPrice);
         $jsonData = json_decode($jsonData, true);
         $expectedJsonData = [
-            "price" => 500,
+            "price" => 5,
             "kansenStatuut" => true,
             "voucherType" => [
                 "name" => "voucher one",

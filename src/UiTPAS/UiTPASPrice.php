@@ -100,7 +100,7 @@ class UiTPASPrice implements \JsonSerializable
         $priceInCents = $this->getPrice()->getAmount()->toNative();
 
         $jsonData = [
-            'price' => $priceInCents,
+            'price' => $priceInCents / 100,
             'kansenStatuut' => $this->isKansenStatuut(),
             'ageRange' => $this->ageRange,
         ];
@@ -119,8 +119,8 @@ class UiTPASPrice implements \JsonSerializable
     public static function fromCultureFeedUiTPASPrice(\CultureFeed_Uitpas_Passholder_UitpasPrice $uitpasPrice)
     {
         // UiTPAS returns the price as a float, convert it to cents to use as money
-        $priceInCents = Integer::fromNative($uitpasPrice->price*100);
-        $currency = new Currency(CurrencyCode::EUR());
+        $priceInCents = Integer::fromNative($uitpasPrice->price * 100);
+        $currency = new Currency(CurrencyCode::getByName('EUR'));
         $ageRange = AgeRange::fromCultureFeedUitpasAgeRange($uitpasPrice->ageRange);
 
         $price = new static(
