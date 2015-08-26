@@ -4,8 +4,8 @@ namespace CultuurNet\UiTPASBeheer\UiTPAS\Price;
 
 use CultuurNet\Clock\FrozenClock;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;
-use CultuurNet\UiTPASBeheer\UiTPAS\properties\AgeRange;
-use CultuurNet\UiTPASBeheer\UiTPAS\properties\VoucherType;
+use CultuurNet\UiTPASBeheer\UiTPAS\Properties\AgeRange;
+use CultuurNet\UiTPASBeheer\UiTPAS\Properties\VoucherType;
 use ValueObjects\Money\Currency;
 use ValueObjects\Money\Money;
 use ValueObjects\Number\Integer;

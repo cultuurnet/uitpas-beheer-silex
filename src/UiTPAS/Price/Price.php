@@ -2,8 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\UiTPAS\Price;
 
-use CultuurNet\UiTPASBeheer\UiTPAS\properties\AgeRange;
-use CultuurNet\UiTPASBeheer\UiTPAS\properties\VoucherType;
+use CultuurNet\UiTPASBeheer\UiTPAS\Properties\AgeRange;
+use CultuurNet\UiTPASBeheer\UiTPAS\Properties\VoucherType;
 use ValueObjects\Money\Currency;
 use ValueObjects\Money\CurrencyCode;
 use ValueObjects\Money\Money;

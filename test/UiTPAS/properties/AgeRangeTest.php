@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\UiTPAS\properties;
+namespace CultuurNet\UiTPASBeheer\UiTPAS\Properties;
 
 use CultuurNet\Clock\FrozenClock;
 use ValueObjects\Person\Age;
