@@ -20,7 +20,7 @@ class UiTPASPrice implements \JsonSerializable
     /**
      * @var boolean
      */
-    protected $kansenstatuut;
+    protected $kansenStatuut;
 
     /**
      * @var VoucherType
@@ -34,16 +34,16 @@ class UiTPASPrice implements \JsonSerializable
 
     /**
      * @param Money $price
-     * @param boolean $kansenstatuut
+     * @param boolean $kansenStatuut
      * @param AgeRange $ageRange
      */
     public function __construct(
         Money $price,
-        $kansenstatuut,
+        $kansenStatuut,
         AgeRange $ageRange
     ) {
         $this->price = $price;
-        $this->kansenstatuut = $kansenstatuut ? true : false;
+        $this->kansenStatuut = $kansenStatuut ? true : false;
         $this->ageRange = $ageRange;
     }
 
@@ -58,9 +58,9 @@ class UiTPASPrice implements \JsonSerializable
     /**
      * @return boolean
      */
-    public function isKansenstatuut()
+    public function isKansenStatuut()
     {
-        return $this->kansenstatuut;
+        return $this->kansenStatuut;
     }
 
     /**
@@ -101,7 +101,7 @@ class UiTPASPrice implements \JsonSerializable
 
         $jsonData = [
             'price' => $priceInCents,
-            'kansenstatuut' => $this->isKansenstatuut(),
+            'kansenStatuut' => $this->isKansenStatuut(),
             'ageRange' => $this->ageRange,
         ];
 

@@ -32,7 +32,7 @@ class UiTPASPriceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($price, $uitpasPrice->getPrice());
         $this->assertEquals($ageRange, $uitpasPrice->getAgeRange());
-        $this->assertEquals(true, $uitpasPrice->isKansenstatuut());
+        $this->assertEquals(true, $uitpasPrice->isKansenStatuut());
         $this->assertEquals($voucherType, $uitpasPrice->getVoucherType());
     }
 
@@ -62,7 +62,7 @@ class UiTPASPriceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectedPrice, $uitpasPrice->getPrice());
         $this->assertInstanceOf(AgeRange::class, $uitpasPrice->getAgeRange());
-        $this->assertEquals(true, $uitpasPrice->isKansenstatuut());
+        $this->assertEquals(true, $uitpasPrice->isKansenStatuut());
     }
 
     /**
@@ -91,7 +91,7 @@ class UiTPASPriceTest extends \PHPUnit_Framework_TestCase
         $jsonData = json_decode($jsonData, true);
         $expectedJsonData = [
             "price" => 500,
-            "kansenstatuut" => true,
+            "kansenStatuut" => true,
             "voucherType" => [
                 "name" => "voucher one",
                 "prefix" => "voucher prefix",
