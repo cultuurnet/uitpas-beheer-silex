@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "da5b8187ac1f4f449b7f65caa8d9eeac",
+    "hash": "ad6091286d3dab4b2dee154efdeffae3",
     "packages": [
         {
             "name": "cultuurnet/auth",
@@ -98,16 +98,16 @@
         },
         {
             "name": "cultuurnet/cdb",
-            "version": "v2.1.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/Cdb.git",
-                "reference": "1273c561d60a5d548260f3184312f0c7bbe81ea4"
+                "reference": "ceb5b3e9abb3a7dc4d3994957183d756ee197c17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/Cdb/zipball/1273c561d60a5d548260f3184312f0c7bbe81ea4",
-                "reference": "1273c561d60a5d548260f3184312f0c7bbe81ea4",
+                "url": "https://api.github.com/repos/cultuurnet/Cdb/zipball/ceb5b3e9abb3a7dc4d3994957183d756ee197c17",
+                "reference": "ceb5b3e9abb3a7dc4d3994957183d756ee197c17",
                 "shasum": ""
             },
             "require-dev": {
@@ -127,7 +127,7 @@
                 "Apache-2.0"
             ],
             "description": "PHP library for hydrating/manipulating CultuurNet's Cdb XML documents",
-            "time": "2015-05-22 08:48:28"
+            "time": "2015-08-26 08:03:12"
         },
         {
             "name": "cultuurnet/clock",
@@ -222,16 +222,16 @@
         },
         {
             "name": "cultuurnet/culturefeed-php",
-            "version": "dev-feature/UBR",
+            "version": "dev-feature/UBR-138",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "24a8252d08d92ccd6d734dab15bfe5374dfcdfa4"
+                "reference": "6607d262bc3401208a168a10c2d8b618809ab931"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/24a8252d08d92ccd6d734dab15bfe5374dfcdfa4",
-                "reference": "24a8252d08d92ccd6d734dab15bfe5374dfcdfa4",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/6607d262bc3401208a168a10c2d8b618809ab931",
+                "reference": "6607d262bc3401208a168a10c2d8b618809ab931",
                 "shasum": ""
             },
             "require": {
@@ -285,7 +285,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-08-25 11:55:43"
+            "time": "2015-08-26 13:38:15"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -3496,16 +3496,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.21.0",
+            "version": "v1.21.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "913d282caca9ee0e8d05940c6caa486d58810dd4"
+                "reference": "ca8d3aa90b6a01c82e07909fe815d6b443e75a23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/913d282caca9ee0e8d05940c6caa486d58810dd4",
-                "reference": "913d282caca9ee0e8d05940c6caa486d58810dd4",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/ca8d3aa90b6a01c82e07909fe815d6b443e75a23",
+                "reference": "ca8d3aa90b6a01c82e07909fe815d6b443e75a23",
                 "shasum": ""
             },
             "require": {
@@ -3553,7 +3553,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-08-24 09:51:18"
+            "time": "2015-08-26 08:58:31"
         },
         {
             "name": "willdurand/geocoder",
@@ -4989,7 +4989,7 @@
         {
             "alias": "1.5.2",
             "alias_normalized": "1.5.2.0",
-            "version": "dev-feature/UBR",
+            "version": "dev-feature/UBR-138",
             "package": "cultuurnet/culturefeed-php"
         },
         {
