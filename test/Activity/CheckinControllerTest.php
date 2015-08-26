@@ -3,6 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\Activity;
 
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +13,8 @@ use ValueObjects\StringLiteral\StringLiteral;
 
 class CheckinControllerTest extends \PHPUnit_Framework_TestCase
 {
+    use JsonAssertionTrait;
+
     /**
      * @var CheckinController
      */
@@ -71,11 +74,10 @@ class CheckinControllerTest extends \PHPUnit_Framework_TestCase
 
         $updatedActivityResponse = $this->controller->checkin($request, $uitpasNumber);
 
-        $expectedResponse = JsonResponse::create()
-            ->setData($updatedActivity)
-            ->setPrivate();
-
-        $this->assertEquals($expectedResponse, $updatedActivityResponse);
+        $this->assertJsonEquals(
+            $updatedActivityResponse->getContent(),
+            'Activity/data/activity-updated.json'
+        );
     }
 
     /**
