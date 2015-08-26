@@ -117,7 +117,7 @@ class PassHolderController
             throw ReadableCodeResponseException::fromCultureFeedException($exception);
         }
 
-        // return the registered passholder
+        // Return the registered passholder.
         $passholder = $this->passHolderService->getByUitpasNumber($uitpasNumber);
 
         $response = JsonResponse::create()
