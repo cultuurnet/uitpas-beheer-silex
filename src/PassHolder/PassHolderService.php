@@ -7,7 +7,7 @@ use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuut;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
-use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASPrice;
+use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;
 use ValueObjects\Identity\UUID;
 
 class PassHolderService extends CounterAwareUitpasService implements PassHolderServiceInterface
@@ -110,7 +110,7 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         $eligiblePrices = array_filter($prices, $isEligible);
 
         $offers = array_map(
-            array(UiTPASPrice::class, 'fromCultureFeedUiTPASPrice'),
+            array(Price::class, 'fromCultureFeedUiTPASPrice'),
             $eligiblePrices
         );
 

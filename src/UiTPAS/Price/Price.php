@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\UiTPAS;
+namespace CultuurNet\UiTPASBeheer\UiTPAS\Price;
 
 use CultuurNet\UiTPASBeheer\UiTPAS\properties\AgeRange;
 use CultuurNet\UiTPASBeheer\UiTPAS\properties\VoucherType;
@@ -10,7 +10,7 @@ use ValueObjects\Money\Money;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class UiTPASPrice implements \JsonSerializable
+class Price implements \JsonSerializable
 {
     /**
      * @var Money
@@ -82,7 +82,7 @@ class UiTPASPrice implements \JsonSerializable
     /**
      * @param VoucherType $voucherType
      *
-     * @return UiTPASPrice
+     * @return Price
      */
     public function withVoucherType(VoucherType $voucherType)
     {

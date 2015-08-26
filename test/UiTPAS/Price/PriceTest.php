@@ -1,8 +1,9 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\UiTPAS;
+namespace CultuurNet\UiTPASBeheer\UiTPAS\Price;
 
 use CultuurNet\Clock\FrozenClock;
+use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;
 use CultuurNet\UiTPASBeheer\UiTPAS\properties\AgeRange;
 use CultuurNet\UiTPASBeheer\UiTPAS\properties\VoucherType;
 use ValueObjects\Money\Currency;
@@ -11,7 +12,7 @@ use ValueObjects\Number\Integer;
 use ValueObjects\Person\Age;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class UiTPASPriceTest extends \PHPUnit_Framework_TestCase
+class PriceTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
@@ -21,7 +22,7 @@ class UiTPASPriceTest extends \PHPUnit_Framework_TestCase
         $price = new Money(new Integer(500), Currency::fromNative('EUR'));
         $ageRange = new AgeRange(new Age(5), new Age(10));
 
-        $uitpasPrice = new UiTPASPrice($price, true, $ageRange);
+        $uitpasPrice = new Price($price, true, $ageRange);
 
         // voucherInfo is optional
         $voucherType = new VoucherType(
@@ -56,7 +57,7 @@ class UiTPASPriceTest extends \PHPUnit_Framework_TestCase
         $ageRange->ageTo = 10;
         $culturefeedPrice->ageRange = $ageRange;
 
-        $uitpasPrice = UiTPASPrice::fromCultureFeedUiTPASPrice($culturefeedPrice);
+        $uitpasPrice = Price::fromCultureFeedUiTPASPrice($culturefeedPrice);
 
         $expectedPrice = new Money(new Integer(500), Currency::fromNative('EUR'));
 
@@ -78,7 +79,7 @@ class UiTPASPriceTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $uitpasPrice = new UiTPASPrice($price, true, $ageRange);
+        $uitpasPrice = new Price($price, true, $ageRange);
 
         // voucherInfo is optional but we want to make sure it's formatted correctly
         $voucherType = new VoucherType(

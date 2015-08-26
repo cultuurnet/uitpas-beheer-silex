@@ -10,7 +10,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
 use CultuurNet\UiTPASBeheer\UiTPAS\properties\AgeRange;
 use CultuurNet\UiTPASBeheer\UiTPAS\properties\VoucherType;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
-use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASPrice;
+use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;
 use ValueObjects\DateTime\Date;
 use ValueObjects\Identity\UUID;
 use ValueObjects\Money\Currency;
@@ -365,7 +365,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $price = new Money(new Integer(500), Currency::fromNative('EUR'));
         $ageRange = new AgeRange(new Age(5), new Age(10));
 
-        $uitpasPrice = new UiTPASPrice($price, true, $ageRange);
+        $uitpasPrice = new Price($price, true, $ageRange);
 
         $voucherType = new VoucherType(
             new StringLiteral('voucher one'),
