@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Kansenstatuut;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuut;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 
 final class Registration
@@ -18,7 +18,7 @@ final class Registration
     protected $voucherNumber;
 
     /**
-     * @var Kansenstatuut
+     * @var KansenStatuut
      */
     protected $kansenstatuut;
 
@@ -53,7 +53,7 @@ final class Registration
     }
 
     /**
-     * @return Kansenstatuut|null
+     * @return KansenStatuut|null
      */
     public function getKansenstatuut()
     {
@@ -70,10 +70,10 @@ final class Registration
     }
 
     /**
-     * @param Kansenstatuut $kansenstatuut
+     * @param KansenStatuut $kansenstatuut
      * @return PassHolder
      */
-    public function withKansenstatuut(Kansenstatuut $kansenstatuut)
+    public function withKansenstatuut(KansenStatuut $kansenstatuut)
     {
         return $this->with('kansenstatuut', $kansenstatuut);
     }

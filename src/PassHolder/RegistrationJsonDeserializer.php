@@ -5,8 +5,8 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\Deserializer\JSONDeserializer;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Kansenstatuut;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenstatuutJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuut;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuutJsonDeserializer;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class RegistrationJsonDeserializer extends JSONDeserializer
@@ -14,19 +14,19 @@ class RegistrationJsonDeserializer extends JSONDeserializer
     /**
      * @var DeserializerInterface
      */
-    protected $passholderJsonDeserializer;
+    protected $passHolderJsonDeserializer;
 
     /**
-     * @var KansenstatuutJsonDeserializer
+     * @var DeserializerInterface
      */
-    protected $kansenstatuutJsonDeserializer;
+    protected $kansenStatuutJsonDeserializer;
 
     public function __construct(
-        DeserializerInterface $passholderJsonDeserializer,
-        DeserializerInterface $kansenstatuutJsonDeserializer
+        DeserializerInterface $passHolderJsonDeserializer,
+        DeserializerInterface $kansenStatuutJsonDeserializer
     ) {
-        $this->passholderJsonDeserializer = $passholderJsonDeserializer;
-        $this->kansenstatuutJsonDeserializer = $kansenstatuutJsonDeserializer;
+        $this->passHolderJsonDeserializer = $passHolderJsonDeserializer;
+        $this->kansenStatuutJsonDeserializer = $kansenStatuutJsonDeserializer;
     }
 
     /**
@@ -39,34 +39,34 @@ class RegistrationJsonDeserializer extends JSONDeserializer
     {
         $data = parent::deserialize($data);
 
-        // passholder
-        if (empty($data->passholder)) {
-            throw new MissingPropertyException('passholder');
+        // PassHolder.
+        if (empty($data->passHolder)) {
+            throw new MissingPropertyException('passHolder');
         }
         try {
-            $passholder = $this->passholderJsonDeserializer->deserialize(
-                new StringLiteral(json_encode($data->passholder))
+            $passHolder = $this->passHolderJsonDeserializer->deserialize(
+                new StringLiteral(json_encode($data->passHolder))
             );
-            $registration = new Registration($passholder);
+            $registration = new Registration($passHolder);
         } catch (MissingPropertyException $e) {
-            throw MissingPropertyException::fromMissingChildPropertyException('passholder', $e);
+            throw MissingPropertyException::fromMissingChildPropertyException('passHolder', $e);
         }
 
-        // optional voucher number
+        // Optional voucher number.
         if (!empty($data->voucherNumber)) {
             $voucherNumber = new VoucherNumber($data->voucherNumber);
             $registration = $registration->withVoucherNumber($voucherNumber);
         }
 
-        // optional kansenstatuut info
-        if (!empty($data->kansenstatuut)) {
+        // Optional kansenstatuut info.
+        if (!empty($data->kansenStatuut)) {
             try {
-                $kansenstatuut = $this->kansenstatuutJsonDeserializer->deserialize(
-                    new StringLiteral(json_encode($data->kansenstatuut))
+                $kansenStatuut = $this->kansenStatuutJsonDeserializer->deserialize(
+                    new StringLiteral(json_encode($data->kansenStatuut))
                 );
-                $registration = $registration->withKansenstatuut($kansenstatuut);
+                $registration = $registration->withKansenstatuut($kansenStatuut);
             } catch (MissingPropertyException $e) {
-                throw MissingPropertyException::fromMissingChildPropertyException('kansenstatuut', $e);
+                throw MissingPropertyException::fromMissingChildPropertyException('kansenStatuut', $e);
             }
         }
 

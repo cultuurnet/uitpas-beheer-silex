@@ -5,7 +5,7 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Kansenstatuut;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
 use CultuurNet\UiTPASBeheer\UiTPAS\properties\AgeRange;
 use CultuurNet\UiTPASBeheer\UiTPAS\properties\VoucherType;
@@ -248,7 +248,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $uitpasNumberValue = '0930000125615';
         $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
 
-        $kansenstatuut = new Kansenstatuut(
+        $kansenstatuut = new KansenStatuut(
             Date::fromNativeDateTime(new \DateTime('2345-09-13'))
         );
         $kansenstatuut = $kansenstatuut->withRemarks(

@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Kansenstatuut;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
 use ValueObjects\DateTime\Date;
 
@@ -25,7 +25,7 @@ class RegistrationTest extends \PHPUnit_Framework_TestCase
 
         $registration = $registration
             ->withVoucherNumber(new VoucherNumber('v-to-the-oucher'))
-            ->withKansenstatuut(new Kansenstatuut(Date::now()));
+            ->withKansenstatuut(new KansenStatuut(Date::now()));
 
         $this->assertNotNull($registration->getPassholder());
         $this->assertNotNull($registration->getVoucherNumber());

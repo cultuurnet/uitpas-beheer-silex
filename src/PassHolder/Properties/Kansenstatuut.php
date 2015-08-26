@@ -4,7 +4,7 @@ namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
 
 use ValueObjects\DateTime\Date;
 
-final class Kansenstatuut
+final class KansenStatuut
 {
     /**
      * @var Date

@@ -1,5 +1,5 @@
 {
-  "passholder": {
+  "passHolder": {
     "name": {
       "first": "Layla",
       "middle": "Zoni",
@@ -28,7 +28,7 @@
     }
   },
   "voucherNumber": "i-am-voucher",
-  "kansenstatuut": {
+  "kansenStatuut": {
     "endDate": "2345-09-13T00:00:00+01:00",
     "remarks": "I am remarkable"
   }

@@ -11,7 +11,7 @@ class KansenstatuutTest extends \PHPUnit_Framework_TestCase
      */
     public function it_requires_an_end_date_and_optional_remarks()
     {
-        $kansenstatuut = new Kansenstatuut(Date::now());
+        $kansenstatuut = new KansenStatuut(Date::now());
         $kansenstatuut = $kansenstatuut->withRemarks(new Remarks('beep boop'));
 
         $this->assertInstanceOf(Date::class, $kansenstatuut->getEndDate());

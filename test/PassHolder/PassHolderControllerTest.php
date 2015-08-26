@@ -8,7 +8,7 @@ use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\AddressJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserializer;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenstatuutJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuutJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\NameJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferencesJsonDeserializer;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
@@ -53,7 +53,7 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->registrationDeserializer = new RegistrationJsonDeserializer(
             $this->passholderDeserializer,
-            new KansenstatuutJsonDeserializer()
+            new KansenStatuutJsonDeserializer()
         );
 
         $this->controller = new PassHolderController(

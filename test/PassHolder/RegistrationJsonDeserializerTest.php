@@ -4,8 +4,8 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Kansenstatuut;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenstatuutJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuut;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuutJsonDeserializer;
 use ValueObjects\DateTime\Date;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -14,28 +14,28 @@ class RegistrationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
     use PassHolderDataTrait;
 
     /**
-     * @var PassHolderJsonDeserializer
+     * @var RegistrationJsonDeserializer
      */
     protected $deserializer;
 
     /**
-     * @var DeserializerInterface
+     * @var DeserializerInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $passholderDeserializer;
 
     /**
-     * @var DeserializerInterface
+     * @var DeserializerInterface|\PHPUnit_Framework_MockObject_MockObject
      */
-    protected $kansenstatuutDeserializer;
+    protected $kansenStatuutDeserializer;
 
     public function setUp()
     {
         $this->passholderDeserializer = $this->getMock(DeserializerInterface::class);
-        $this->kansenstatuutDeserializer = $this->getMock(DeserializerInterface::class);
+        $this->kansenStatuutDeserializer = $this->getMock(DeserializerInterface::class);
 
         $this->deserializer = new RegistrationJsonDeserializer(
             $this->passholderDeserializer,
-            $this->kansenstatuutDeserializer
+            $this->kansenStatuutDeserializer
         );
     }
 
@@ -49,10 +49,10 @@ class RegistrationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
             ->method('deserialize')
             ->willReturn($this->getCompletePassHolder());
 
-        $this->kansenstatuutDeserializer
+        $this->kansenStatuutDeserializer
             ->expects($this->once())
             ->method('deserialize')
-            ->willReturn(new Kansenstatuut(Date::now()));
+            ->willReturn(new KansenStatuut(Date::now()));
 
         $registration = $this->deserializer->deserialize(
             new StringLiteral($this->getPassholderRegistrationSample(false))
@@ -60,7 +60,7 @@ class RegistrationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('i-am-voucher', $registration->getVoucherNumber());
         $this->assertInstanceOf(PassHolder::class, $registration->getPassholder());
-        $this->assertInstanceOf(Kansenstatuut::class, $registration->getKansenstatuut());
+        $this->assertInstanceOf(KansenStatuut::class, $registration->getKansenstatuut());
     }
 
     /**
@@ -69,11 +69,11 @@ class RegistrationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
     public function it_refuses_to_deserialize_when_a_passholder_is_missing()
     {
         $json = $this->getPassholderRegistrationSample();
-        unset($json->passholder);
+        unset($json->passHolder);
 
         $this->setExpectedException(
             MissingPropertyException::class,
-            'Missing property "passholder".'
+            'Missing property "passHolder".'
         );
 
         $this->deserializer->deserialize(
@@ -99,7 +99,7 @@ class RegistrationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             MissingPropertyException::class,
-            'Missing property "passholder->email".'
+            'Missing property "passHolder->email".'
         );
 
         $this->deserializer->deserialize(
@@ -110,14 +110,14 @@ class RegistrationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_refuses_to_deserialize_when_the_kansenstatuut_is_malformed()
+    public function it_refuses_to_deserialize_when_the_kansenStatuut_is_malformed()
     {
         $this->passholderDeserializer
             ->expects($this->once())
             ->method('deserialize')
             ->willReturn($this->getCompletePassHolder());
 
-        $this->kansenstatuutDeserializer
+        $this->kansenStatuutDeserializer
             ->expects($this->once())
             ->method('deserialize')
             ->will(
@@ -128,7 +128,7 @@ class RegistrationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException(
             MissingPropertyException::class,
-            'Missing property "kansenstatuut->required-property".'
+            'Missing property "kansenStatuut->required-property".'
         );
 
         $this->deserializer->deserialize(

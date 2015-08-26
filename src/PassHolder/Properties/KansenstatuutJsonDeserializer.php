@@ -7,11 +7,11 @@ use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use ValueObjects\DateTime\Date;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class KansenstatuutJsonDeserializer extends JSONDeserializer
+class KansenStatuutJsonDeserializer extends JSONDeserializer
 {
     /**
      * @param StringLiteral $data
-     * @return Kansenstatuut
+     * @return KansenStatuut
      * @throws MissingPropertyException
      */
     public function deserialize(StringLiteral $data)
@@ -23,15 +23,15 @@ class KansenstatuutJsonDeserializer extends JSONDeserializer
         }
 
         $dateTime = new \DateTime($data->endDate);
-        $kansenstatuut = new Kansenstatuut(
+        $kansenStatuut = new KansenStatuut(
             Date::fromNativeDateTime($dateTime)
         );
 
         if (!empty($data->remarks)) {
             $remarks = Remarks::fromNative($data->remarks);
-            $kansenstatuut = $kansenstatuut->withRemarks($remarks);
+            $kansenStatuut = $kansenStatuut->withRemarks($remarks);
         }
 
-        return $kansenstatuut;
+        return $kansenStatuut;
     }
 }

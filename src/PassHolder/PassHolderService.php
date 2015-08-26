@@ -5,7 +5,7 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Kansenstatuut;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuut;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASPrice;
 use ValueObjects\Identity\UUID;
@@ -58,7 +58,7 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         UiTPASNumber $uitpasNumber,
         Passholder $passholder,
         VoucherNumber $voucherNumber = null,
-        Kansenstatuut $kansenstatuut = null
+        KansenStatuut $kansenstatuut = null
     ) {
         $existingPassholder = $this->getByUitpasNumber($uitpasNumber);
 

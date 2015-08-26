@@ -1649,22 +1649,22 @@
     },
     "Registration": {
       "properties": {
+        "passHolder": {
+          "$ref": "#/definitions/PassHolder"
+        },
         "voucherNumber": {
           "type": "string",
           "description": "An optional voucher number to redeem."
         },
-        "passholder": {
-          "$ref": "#/definitions/PassHolder"
-        },
-        "kansenstatuut": {
-          "$ref": "#/definitions/Kansenstatuut"
+        "kansenStatuut": {
+          "$ref": "#/definitions/KansenStatuut"
         }
       },
       "required": [
         "passholder"
       ]
     },
-    "Kansenstatuut": {
+    "KansenStatuut": {
       "properties": {
         "endDate": {
           "type": "string",
@@ -1687,7 +1687,7 @@
           "format": "float",
           "description": "The UiTPAS price in cents."
         },
-        "kansenstatuut": {
+        "kansenStatuut": {
           "type": "boolean",
           "description": "Whether or not this price is available for people with a kansenstatuut."
         },
@@ -1700,7 +1700,7 @@
       },
       "required": [
         "price",
-        "kansenstatuut",
+        "kansenStatuut",
         "ageRange"
       ]
     },
