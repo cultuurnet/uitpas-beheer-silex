@@ -27,8 +27,8 @@ class KansenStatuutJsonDeserializer extends JSONDeserializer
             Date::fromNativeDateTime($dateTime)
         );
 
-        if (!empty($data->remarks)) {
-            $remarks = Remarks::fromNative($data->remarks);
+        if (isset($data->remarks)) {
+            $remarks = new Remarks($data->remarks);
             $kansenStatuut = $kansenStatuut->withRemarks($remarks);
         }
 

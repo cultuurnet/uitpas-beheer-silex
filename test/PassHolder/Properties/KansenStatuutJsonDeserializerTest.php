@@ -44,4 +44,18 @@ class KansenStatuutJsonDeserializerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectedRemarks, $kansenStatuut->getRemarks());
     }
+
+    /**
+     * @test
+     */
+    public function it_should_include_empty_but_provided_remarks()
+    {
+        $kansenStatuutData = new StringLiteral('{"endDate": "2345-09-13T00:00:00+01:00", "remarks": ""}');
+
+        $kansenStatuut = $this->deserializer->deserialize($kansenStatuutData);
+
+        $expectedRemarks = new Remarks("");
+
+        $this->assertEquals($expectedRemarks, $kansenStatuut->getRemarks());
+    }
 }
