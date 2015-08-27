@@ -2,7 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\UiTPAS\Properties;
 
-use CultuurNet\Clock\FrozenClock;
 use ValueObjects\Person\Age;
 
 class AgeRangeTest extends \PHPUnit_Framework_TestCase
@@ -55,22 +54,11 @@ class AgeRangeTest extends \PHPUnit_Framework_TestCase
     public function it_should_serialize_an_age_range_in_a_json_friendly_format()
     {
         $expectedJsonData = [
-            "from" => [
-                "age" => 5,
-                "date" => "2010-07-24T00:00:00+02:00",
-            ],
-            "to" => [
-                "age" => 10,
-                "date" => "2000-07-24T00:00:00+02:00",
-            ],
+            "from" => 5,
+            "to" => 10,
         ];
 
         $ageRange = new AgeRange(new Age(5), new Age(10));
-        $ageRange->overclock(
-            new FrozenClock(
-                new \DateTime('2015-7-24', new \DateTimeZone('Europe/Brussels'))
-            )
-        );
 
         $this->assertEquals($expectedJsonData, $ageRange->jsonSerialize());
     }

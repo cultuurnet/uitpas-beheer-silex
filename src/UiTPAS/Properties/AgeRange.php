@@ -2,8 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\UiTPAS\Properties;
 
-use CultuurNet\Clock\Clock;
-use CultuurNet\Clock\SystemClock;
 use ValueObjects\Person\Age;
 
 class AgeRange implements \JsonSerializable
@@ -19,11 +17,6 @@ class AgeRange implements \JsonSerializable
     protected $to;
 
     /**
-     * @var Clock
-     */
-    protected $clock;
-
-    /**
      * @param Age|null $from
      * @param Age|null $to
      */
@@ -32,7 +25,6 @@ class AgeRange implements \JsonSerializable
         $this->guardValidRange($from, $to);
         $this->from = $from;
         $this->to = $to;
-        $this->clock = new SystemClock(new \DateTimeZone('Europe/Brussels'));
     }
 
     /**
@@ -73,38 +65,18 @@ class AgeRange implements \JsonSerializable
     }
 
     /**
-     * @param Clock $clock
-     */
-    public function overclock(Clock $clock)
-    {
-        $this->clock = $clock;
-    }
-
-    /**
      * @inheritDoc
      */
     public function jsonSerialize()
     {
         $jsonData = [];
 
-        $currentDate = $this->clock->getDateTime();
-
         if ($from = $this->getFrom()) {
-            $years = $from->toNative();
-            $date = $currentDate->sub(new \DateInterval("P" . $years . "Y"));
-            $jsonData['from'] = [
-                "age" => $years,
-                "date" => $date->format('c'),
-            ];
+            $jsonData['from'] = $from->toNative();
         }
 
         if ($to = $this->getTo()) {
-            $years = $to->toNative();
-            $date = $currentDate->sub(new \DateInterval("P" . $years . "Y"));
-            $jsonData['to'] = [
-                "age" => $years,
-                "date" => $date->format('c'),
-            ];
+            $jsonData['to'] = $to->toNative();
         }
 
         return $jsonData;
@@ -116,7 +88,10 @@ class AgeRange implements \JsonSerializable
      */
     public static function fromCultureFeedUitpasAgeRange(\CultureFeed_Uitpas_Passholder_AgeRange $uitpasAgeRange)
     {
+        /* @var Age|null $from */
         $from = $uitpasAgeRange->ageFrom ? Age::fromNative($uitpasAgeRange->ageFrom) : null;
+
+        /* @var Age|null $to */
         $to = $uitpasAgeRange->ageTo ? Age::fromNative($uitpasAgeRange->ageTo) : null;
 
         $ageRange = new static(

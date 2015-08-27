@@ -73,11 +73,6 @@ class PriceTest extends \PHPUnit_Framework_TestCase
     {
         $price = new Money(new Integer(500), Currency::fromNative('EUR'));
         $ageRange = new AgeRange(new Age(5), new Age(10));
-        $ageRange->overclock(
-            new FrozenClock(
-                new \DateTime('2015-7-24', new \DateTimeZone('Europe/Brussels'))
-            )
-        );
 
         $uitpasPrice = new Price($price, true, $ageRange);
 
@@ -98,14 +93,8 @@ class PriceTest extends \PHPUnit_Framework_TestCase
                 "prefix" => "voucher prefix",
             ],
             "ageRange" => [
-                "from" => [
-                    "age" => 5,
-                    "date" => "2010-07-24T00:00:00+02:00",
-                ],
-                "to" => [
-                    "age" => 10,
-                    "date" => "2000-07-24T00:00:00+02:00",
-                ],
+                "from" => 5,
+                "to" => 10,
             ],
         ];
 
