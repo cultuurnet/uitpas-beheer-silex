@@ -3,21 +3,12 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
-use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
-use CultuurNet\UiTPASBeheer\UiTPAS\Properties\AgeRange;
-use CultuurNet\UiTPASBeheer\UiTPAS\Properties\VoucherType;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
-use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;
 use ValueObjects\DateTime\Date;
 use ValueObjects\Identity\UUID;
-use ValueObjects\Money\Currency;
-use ValueObjects\Money\Money;
-use ValueObjects\Number\Integer;
-use ValueObjects\Person\Age;
-use ValueObjects\StringLiteral\StringLiteral;
 
 class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 {

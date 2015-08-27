@@ -4,7 +4,6 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuut;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
-use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;
 use ValueObjects\Identity\UUID;
 
 interface PassHolderServiceInterface
