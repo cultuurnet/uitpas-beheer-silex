@@ -79,6 +79,11 @@ $app->register(
 );
 
 /**
+ * UiTPAS service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\UiTPAS\UiTPASServiceProvider());
+
+/**
  * UiTPAS Counter service.
  */
 $app->register(new \CultuurNet\UiTPASBeheer\Counter\CounterServiceProvider());
