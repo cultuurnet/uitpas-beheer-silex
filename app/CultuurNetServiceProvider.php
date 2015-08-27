@@ -18,6 +18,7 @@ class CultuurNetServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
+        // @todo Rename to uitpas_api to avoid confusion with uitpas_service?
         $app['uitpas'] = $app->share(
             function (Application $app) {
                 /* @var \CultureFeed $culturefeed */
