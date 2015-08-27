@@ -28,8 +28,8 @@ class InquiryTest extends \PHPUnit_Framework_TestCase
         $voucherNumber = new VoucherNumber('2000000113');
 
         $inquiry = (new Inquiry(
-                $uitpasNumber,
-                $reason
+            $uitpasNumber,
+            $reason
         ))->withDateOfBirth(
             $dateOfBirth
         )->withPostalCode(

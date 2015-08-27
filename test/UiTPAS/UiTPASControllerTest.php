@@ -53,7 +53,7 @@ class UiTPASControllerTest extends \PHPUnit_Framework_TestCase
                 'reason' => 'FIRST_CARD',
                 'date_of_birth' => '1991-04-23',
                 'postal_code' => '3000',
-                'voucher_number' => '2000000113'
+                'voucher_number' => '2000000113',
             ]
         );
         $uitpasNumber = '0930000420206';
@@ -124,7 +124,7 @@ class UiTPASControllerTest extends \PHPUnit_Framework_TestCase
             new Request(
                 [
                     'reason' => 'FIRST_CARD',
-                    'foo' => 'bar'
+                    'foo' => 'bar',
                 ]
             ),
             '0930000420206'
