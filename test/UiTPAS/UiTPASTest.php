@@ -93,7 +93,7 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('number', $data, 'The number key is missing.');
         $this->assertArrayHasKey('kansenStatuut', $data, 'The kansenStatuut key is missing.');
         $this->assertArrayHasKey('status', $data, 'The status key is missing.');
-        $this->assertArrayHasKey('type', $data, 'The type` key is missing.');
+        $this->assertArrayHasKey('type', $data, 'The type key is missing.');
         $this->assertArrayNotHasKey('city', $data, 'The city key should not be present.');
     }
 }
