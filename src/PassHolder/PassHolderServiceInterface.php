@@ -26,17 +26,17 @@ interface PassHolderServiceInterface
      * Register a new passholder to an existing UiTPAS-number.
      *
      * @param UiTPASNumber $uitpasNumber
-     * @param Passholder $passholder
+     * @param PassHolder $passHolder
      * @param VoucherNumber $voucherNumber
-     * @param KansenStatuut $kansenstatuut
+     * @param KansenStatuut $kansenStatuut
      *
      * @return UUID
      *  The UUID assigned to the new passholder.
      **/
     public function register(
         UiTPASNumber $uitpasNumber,
-        Passholder $passholder,
+        PassHolder $passHolder,
         VoucherNumber $voucherNumber = null,
-        KansenStatuut $kansenstatuut = null
+        KansenStatuut $kansenStatuut = null
     );
 }

@@ -42,9 +42,8 @@ final class KansenStatuut
 
     public function withRemarks(Remarks $remarks)
     {
-        $kansenstatuut = clone $this;
-        $kansenstatuut->remarks = $remarks;
-
-        return $kansenstatuut;
+        $c = clone $this;
+        $c->remarks = $remarks;
+        return $c;
     }
 }

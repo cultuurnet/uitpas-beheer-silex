@@ -338,7 +338,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $this->uitpas->expects($this->never())
             ->method('createPassholder');
 
-        $this->setExpectedException(MissingPropertyException::class);
+        $this->setExpectedException(\InvalidArgumentException::class);
 
         $this->service->register(
             $uitpasNumber,

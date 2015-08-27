@@ -3,11 +3,9 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
-use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuut;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
-use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;
 use ValueObjects\Identity\UUID;
 
 class PassHolderService extends CounterAwareUitpasService implements PassHolderServiceInterface
@@ -56,17 +54,17 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
      **/
     public function register(
         UiTPASNumber $uitpasNumber,
-        Passholder $passholder,
+        Passholder $passHolder,
         VoucherNumber $voucherNumber = null,
-        KansenStatuut $kansenstatuut = null
+        KansenStatuut $kansenStatuut = null
     ) {
-        $existingPassholder = $this->getByUitpasNumber($uitpasNumber);
+        $existingPassHolder = $this->getByUitpasNumber($uitpasNumber);
 
-        if ($existingPassholder) {
+        if ($existingPassHolder) {
             throw new UiTPASNumberAlreadyUsedException();
         };
 
-        $cfPassHolder = $this->createCultureFeedPassholder($passholder);
+        $cfPassHolder = $this->createCultureFeedPassholder($passHolder);
         $cfPassHolder->uitpasNumber = $uitpasNumber->toNative();
 
         if ($voucherNumber) {
@@ -74,11 +72,13 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         }
 
         if ($uitpasNumber->hasKansenStatuut()) {
-            if (is_null($kansenstatuut)) {
-                throw new MissingPropertyException('kansenstatuut');
+            if (is_null($kansenStatuut)) {
+                throw new \InvalidArgumentException(
+                    'The kansenStatuut argument should not be null for the provided UiTPASNumber.'
+                );
             } else {
                 $cfPassHolder->kansenStatuut = true;
-                $cfPassHolder->kansenStatuutEndDate = $kansenstatuut
+                $cfPassHolder->kansenStatuutEndDate = $kansenStatuut
                     ->getEndDate()
                     ->toNativeDateTime()
                     ->format('c');
@@ -96,99 +96,99 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
     }
 
     /**
-     * @param Passholder $passholder
+     * @param PassHolder $passHolder
      *
      * @return \CultureFeed_Uitpas_Passholder
      */
-    private function createCultureFeedPassholder(Passholder $passholder)
+    private function createCultureFeedPassholder(PassHolder $passHolder)
     {
-        $cfPassholder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
 
-        $cfPassholder->firstName =$passholder->getName()->getFirstName()->toNative();
-        $cfPassholder->name = $passholder->getName()->getLastName()->toNative();
-        if ($passholder->getName()->getMiddleName()) {
-            $cfPassholder->secondName = $passholder
+        $cfPassHolder->firstName = $passHolder->getName()->getFirstName()->toNative();
+        $cfPassHolder->name = $passHolder->getName()->getLastName()->toNative();
+        if ($passHolder->getName()->getMiddleName()) {
+            $cfPassHolder->secondName = $passHolder
                 ->getName()
                 ->getMiddleName()
                 ->toNative();
         }
 
-        if ($passholder->getNationality()) {
-            $cfPassholder->nationality = $passholder
+        if ($passHolder->getNationality()) {
+            $cfPassHolder->nationality = $passHolder
                 ->getNationality()
                 ->toNative();
         }
 
-        $birthInformation = $passholder->getBirthInformation();
+        $birthInformation = $passHolder->getBirthInformation();
 
         if ($birthInformation->getPlace()) {
-            $cfPassholder->placeOfBirth = $birthInformation
+            $cfPassHolder->placeOfBirth = $birthInformation
                 ->getPlace()
                 ->toNative();
         }
 
-        $cfPassholder->dateOfBirth = $birthInformation
+        $cfPassHolder->dateOfBirth = $birthInformation
             ->getDate()
             ->toNativeDateTime()
             ->getTimestamp();
 
-        if ($passholder->getGender()) {
-            $cfPassholder->gender = $this->getCfPassholderGenderForUpdate(
-                $passholder->getGender()
+        if ($passHolder->getGender()) {
+            $cfPassHolder->gender = $this->getCfPassholderGenderForUpdate(
+                $passHolder->getGender()
             );
         }
 
-        $address = $passholder->getAddress();
+        $address = $passHolder->getAddress();
 
         if ($address->getStreet()) {
-            $cfPassholder->street = $address->getStreet()->toNative();
+            $cfPassHolder->street = $address->getStreet()->toNative();
         }
 
-        $cfPassholder->city = $address->getCity()->toNative();
-        $cfPassholder->postalCode = $address->getPostalCode()->toNative();
+        $cfPassHolder->city = $address->getCity()->toNative();
+        $cfPassHolder->postalCode = $address->getPostalCode()->toNative();
 
 
-        $contactInformation = $passholder->getContactInformation();
+        $contactInformation = $passHolder->getContactInformation();
         if ($contactInformation) {
             if ($contactInformation->getMobileNumber()) {
-                $cfPassholder->gsm = $contactInformation
+                $cfPassHolder->gsm = $contactInformation
                     ->getMobileNumber()
                     ->toNative();
             }
 
             if ($contactInformation->getTelephoneNumber()) {
-                $cfPassholder->telephone = $contactInformation
+                $cfPassHolder->telephone = $contactInformation
                     ->getTelephoneNumber()
                     ->toNative();
             }
 
             if ($contactInformation->getEmail()) {
-                $cfPassholder->email = $contactInformation
+                $cfPassHolder->email = $contactInformation
                     ->getEmail()
                     ->toNative();
             }
         }
 
-        $privacyPreferences = $passholder->getPrivacyPreferences();
+        $privacyPreferences = $passHolder->getPrivacyPreferences();
 
         if ($privacyPreferences) {
-            $cfPassholder->emailPreference = $privacyPreferences
+            $cfPassHolder->emailPreference = $privacyPreferences
                 ->getEmailPreference()
                 ->toNative();
-            $cfPassholder->smsPreference = $privacyPreferences
+            $cfPassHolder->smsPreference = $privacyPreferences
                 ->getSMSPreference()
                 ->toNative();
         }
 
-        if ($passholder->getINSZNumber()) {
-            $cfPassholder->inszNumber = $passholder
+        if ($passHolder->getINSZNumber()) {
+            $cfPassHolder->inszNumber = $passHolder
                 ->getINSZNumber()
                 ->toNative();
         }
 
-        $cfPassholder->toPostDataKeepEmptySecondName();
+        $cfPassHolder->toPostDataKeepEmptySecondName();
 
-        return $cfPassholder;
+        return $cfPassHolder;
     }
 
     /**

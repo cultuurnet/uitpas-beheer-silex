@@ -27,8 +27,8 @@ class RegistrationTest extends \PHPUnit_Framework_TestCase
             ->withVoucherNumber(new VoucherNumber('v-to-the-oucher'))
             ->withKansenstatuut(new KansenStatuut(Date::now()));
 
-        $this->assertNotNull($registration->getPassholder());
+        $this->assertNotNull($registration->getPassHolder());
         $this->assertNotNull($registration->getVoucherNumber());
-        $this->assertNotNull($registration->getKansenstatuut());
+        $this->assertNotNull($registration->getKansenStatuut());
     }
 }

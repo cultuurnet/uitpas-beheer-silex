@@ -52,14 +52,14 @@ class PassHolderController
     public function getByUitpasNumber($uitpasNumber)
     {
         $uitpasNumber = new UiTPASNumber($uitpasNumber);
-        $passholder = $this->passHolderService->getByUitpasNumber($uitpasNumber);
+        $passHolder = $this->passHolderService->getByUitpasNumber($uitpasNumber);
 
-        if (is_null($passholder)) {
+        if (is_null($passHolder)) {
             throw new PassHolderNotFoundException();
         }
 
         return JsonResponse::create()
-            ->setData($passholder)
+            ->setData($passHolder)
             ->setPrivate();
     }
 
@@ -109,19 +109,19 @@ class PassHolderController
         try {
             $this->passHolderService->register(
                 $uitpasNumber,
-                $registration->getPassholder(),
+                $registration->getPassHolder(),
                 $registration->getVoucherNumber(),
-                $registration->getKansenstatuut()
+                $registration->getKansenStatuut()
             );
         } catch (\CultureFeed_Exception $exception) {
             throw ReadableCodeResponseException::fromCultureFeedException($exception);
         }
 
         // Return the registered passholder.
-        $passholder = $this->passHolderService->getByUitpasNumber($uitpasNumber);
+        $passHolder = $this->passHolderService->getByUitpasNumber($uitpasNumber);
 
         $response = JsonResponse::create()
-            ->setData($passholder)
+            ->setData($passHolder)
             ->setPrivate();
 
         return $response;

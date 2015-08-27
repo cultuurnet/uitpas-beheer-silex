@@ -59,8 +59,8 @@ class RegistrationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals('i-am-voucher', $registration->getVoucherNumber());
-        $this->assertInstanceOf(PassHolder::class, $registration->getPassholder());
-        $this->assertInstanceOf(KansenStatuut::class, $registration->getKansenstatuut());
+        $this->assertInstanceOf(PassHolder::class, $registration->getPassHolder());
+        $this->assertInstanceOf(KansenStatuut::class, $registration->getKansenStatuut());
     }
 
     /**

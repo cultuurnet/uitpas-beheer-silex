@@ -10,7 +10,7 @@ final class Registration
     /**
      * @var PassHolder
      */
-    protected $passholder;
+    protected $passHolder;
 
     /**
      * @var VoucherNumber
@@ -20,7 +20,7 @@ final class Registration
     /**
      * @var KansenStatuut
      */
-    protected $kansenstatuut;
+    protected $kansenStatuut;
 
     /**
      * @var UiTPASNumber
@@ -29,19 +29,19 @@ final class Registration
 
     /**
      * Registration constructor.
-     * @param PassHolder $passholder
+     * @param PassHolder $passHolder
      */
-    public function __construct(PassHolder $passholder)
+    public function __construct(PassHolder $passHolder)
     {
-        $this->passholder = $passholder;
+        $this->passHolder = $passHolder;
     }
 
     /**
      * @return PassHolder
      */
-    public function getPassholder()
+    public function getPassHolder()
     {
-        return $this->passholder;
+        return $this->passHolder;
     }
 
     /**
@@ -55,9 +55,9 @@ final class Registration
     /**
      * @return KansenStatuut|null
      */
-    public function getKansenstatuut()
+    public function getKansenStatuut()
     {
-        return $this->kansenstatuut;
+        return $this->kansenStatuut;
     }
 
     /**
@@ -70,12 +70,12 @@ final class Registration
     }
 
     /**
-     * @param KansenStatuut $kansenstatuut
+     * @param KansenStatuut $kansenStatuut
      * @return PassHolder
      */
-    public function withKansenstatuut(KansenStatuut $kansenstatuut)
+    public function withKansenstatuut(KansenStatuut $kansenStatuut)
     {
-        return $this->with('kansenstatuut', $kansenstatuut);
+        return $this->with('kansenStatuut', $kansenStatuut);
     }
 
     /**
