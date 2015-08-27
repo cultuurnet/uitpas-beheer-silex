@@ -61,7 +61,7 @@ class UiTPASController
                     break;
 
                 case 'date_of_birth':
-                    $inquiry->withDateOfBirth(
+                    $inquiry = $inquiry->withDateOfBirth(
                         DateTime::fromNativeDateTime(
                             \DateTime::createFromFormat('Y-m-d', $value)
                         )
@@ -69,13 +69,13 @@ class UiTPASController
                     break;
 
                 case 'postal_code':
-                    $inquiry->withPostalCode(
+                    $inquiry = $inquiry->withPostalCode(
                         new StringLiteral($value)
                     );
                     break;
 
                 case 'voucher_number':
-                    $inquiry->withVoucherNumber(
+                    $inquiry = $inquiry->withVoucherNumber(
                         new VoucherNumber($value)
                     );
                     break;
