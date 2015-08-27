@@ -4,7 +4,7 @@ namespace CultuurNet\UiTPASBeheer\UiTPAS\Price;
 
 use CultuurNet\UiTPASBeheer\PassHolder\VoucherNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
-use ValueObjects\DateTime\DateTime;
+use ValueObjects\DateTime\Date;
 use ValueObjects\StringLiteral\StringLiteral;
 
 final class Inquiry
@@ -20,7 +20,7 @@ final class Inquiry
     protected $reason;
 
     /**
-     * @var DateTime|null
+     * @var Date|null
      */
     protected $dateOfBirth;
 
@@ -63,10 +63,10 @@ final class Inquiry
     }
 
     /**
-     * @param DateTime $dateOfBirth
+     * @param Date $dateOfBirth
      * @return Inquiry
      */
-    public function withDateOfBirth(DateTime $dateOfBirth)
+    public function withDateOfBirth(Date $dateOfBirth)
     {
         $c = clone $this;
         $c->dateOfBirth = $dateOfBirth;
@@ -74,7 +74,7 @@ final class Inquiry
     }
 
     /**
-     * @return DateTime|null
+     * @return Date|null
      */
     public function getDateOfBirth()
     {

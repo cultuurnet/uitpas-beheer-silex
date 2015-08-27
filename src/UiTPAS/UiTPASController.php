@@ -10,7 +10,7 @@ use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\PurchaseReason;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use ValueObjects\DateTime\DateTime;
+use ValueObjects\DateTime\Date;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class UiTPASController
@@ -62,7 +62,7 @@ class UiTPASController
 
                 case 'date_of_birth':
                     $inquiry = $inquiry->withDateOfBirth(
-                        DateTime::fromNativeDateTime(
+                        Date::fromNativeDateTime(
                             \DateTime::createFromFormat('Y-m-d', $value)
                         )
                     );
