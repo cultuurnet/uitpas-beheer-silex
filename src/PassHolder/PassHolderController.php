@@ -126,16 +126,4 @@ class PassHolderController
 
         return $response;
     }
-
-    /**
-     * @return JsonResponse
-     */
-    public function getPrices()
-    {
-        $offers = $this->passHolderService->getPrices();
-
-        return JsonResponse::create()
-            ->setData($offers)
-            ->setPrivate();
-    }
 }

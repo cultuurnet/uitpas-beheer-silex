@@ -96,28 +96,6 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
     }
 
     /**
-     * @inheritDoc
-     */
-    public function getPrices()
-    {
-        $uitpas = $this->getUitpasService();
-        $prices = $uitpas->getPrice($this->getCounterConsumerKey())->objects;
-
-        $isEligible = function (\CultureFeed_Uitpas_Passholder_UitpasPrice $price) {
-            return $price->reason === "FIRST_CARD";
-        };
-
-        $eligiblePrices = array_filter($prices, $isEligible);
-
-        $offers = array_map(
-            array(Price::class, 'fromCultureFeedUiTPASPrice'),
-            $eligiblePrices
-        );
-
-        return array_values($offers);
-    }
-
-    /**
      * @param Passholder $passholder
      *
      * @return \CultureFeed_Uitpas_Passholder

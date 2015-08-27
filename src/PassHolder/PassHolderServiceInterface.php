@@ -39,10 +39,4 @@ interface PassHolderServiceInterface
         VoucherNumber $voucherNumber = null,
         KansenStatuut $kansenstatuut = null
     );
-
-    /**
-     * Get a list of all the passholder registration offers.
-     * @return \CultuurNet\UiTPASBeheer\UiTPAS\Price\Price[]
-     */
-    public function getPrices();
 }
