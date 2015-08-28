@@ -82,6 +82,7 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
                     ->getEndDate()
                     ->toNativeDateTime()
                     ->format('c');
+                $cfPassHolder->moreInfo = (string) $kansenStatuut->getRemarks();
             }
         }
 
