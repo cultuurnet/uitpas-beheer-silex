@@ -78,4 +78,9 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\Activity\ActivityControllerProvide
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\Advantage\AdvantageControllerProvider());
 
+/**
+ * API callbacks for Memberships.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\Membership\MembershipControllerProvider());
+
 $app->run();
