@@ -30,5 +30,7 @@ class UnregisteredAssociationFilter implements AssociationFilterInterface
                 $membership->association
             );
         }
+
+        return $associationCollection;
     }
 }
