@@ -20,10 +20,8 @@ class MembershipControllerProvider implements ControllerProviderInterface
             function (Application $app) {
                 return new MembershipController(
                     $app['membership_service'],
-                    $app['legacy_passholder_service'],
                     $app['membership_registration_deserializer'],
-                    $app['uitpas'],
-                    $app['counter_consumer_key']
+                    $app['legacy_passholder_service']
                 );
             }
         );

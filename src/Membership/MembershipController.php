@@ -1,7 +1,4 @@
 <?php
-/**
- * @file
- */
 
 namespace CultuurNet\UiTPASBeheer\Membership;
 
@@ -9,14 +6,12 @@ use CultureFeed_Uitpas;
 use CultureFeed_Uitpas_Association;
 use CultureFeed_Uitpas_Passholder_Membership;
 use CultuurNet\Deserializer\DeserializerInterface;
-use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Legacy\PassHolder\LegacyPassHolderServiceInterface;
 use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
 use CultuurNet\UiTPASBeheer\Membership\Association\UnregisteredAssociationFilter;
 use CultuurNet\UiTPASBeheer\Legacy\PassHolder\Specifications\HasAtLeastOneExpiredKansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\PassHolderNotFoundException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
-use DateTime;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,19 +20,9 @@ use ValueObjects\StringLiteral\StringLiteral;
 class MembershipController
 {
     /**
-     * @var CultureFeed_Uitpas
-     */
-    private $uitpas;
-
-    /**
      * @var MembershipService
      */
     private $membershipService;
-
-    /**
-     * @var CounterConsumerKey
-     */
-    private $counterConsumerKey;
 
     /**
      * @var LegacyPassHolderServiceInterface
@@ -51,23 +36,17 @@ class MembershipController
 
     /**
      * @param MembershipServiceInterface $membershipService
-     * @param LegacyPassHolderServiceInterface $legacyPassHolderService
      * @param DeserializerInterface $registrationJsonDeserializer
-     * @param CultureFeed_Uitpas $uitpas
-     * @param CounterConsumerKey $consumerKey
+     * @param LegacyPassHolderServiceInterface $legacyPassHolderService
      */
     public function __construct(
         MembershipServiceInterface $membershipService,
-        LegacyPassHolderServiceInterface $legacyPassHolderService,
         DeserializerInterface $registrationJsonDeserializer,
-        CultureFeed_Uitpas $uitpas,
-        CounterConsumerKey $consumerKey
+        LegacyPassHolderServiceInterface $legacyPassHolderService
     ) {
         $this->membershipService = $membershipService;
         $this->legacyPassHolderService = $legacyPassHolderService;
         $this->registrationJsonDeserializer = $registrationJsonDeserializer;
-        $this->uitpas = $uitpas;
-        $this->counterConsumerKey = $consumerKey;
     }
 
     /**
