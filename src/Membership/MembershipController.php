@@ -13,6 +13,7 @@ use CultuurNet\UiTPASBeheer\Membership\Specifications\HasAtLeastOneExpiredKansen
 use DateTime;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class MembershipController
 {
@@ -34,6 +35,10 @@ class MembershipController
         $this->counterConsumerKey = $consumerKey;
     }
 
+    /**
+     * @param string $uitpasNumber
+     * @return Response
+     */
     public function listing($uitpasNumber)
     {
         $passHolder = $this->uitpas->getPassholderByUitpasNumber(
@@ -72,6 +77,11 @@ class MembershipController
         )->setPrivate();
     }
 
+    /**
+     * @param Request $request
+     * @param string $uitpasNumber
+     * @return Response
+     */
     public function register(Request $request, $uitpasNumber)
     {
         $data = json_decode($request->getContent());
@@ -100,6 +110,11 @@ class MembershipController
             ->setPrivate();
     }
 
+    /**
+     * @param string $uitpasNumber
+     * @param string $associationId
+     * @return Response
+     */
     public function stop($uitpasNumber, $associationId)
     {
         $passHolder = $this->uitpas->getPassholderByUitpasNumber(
