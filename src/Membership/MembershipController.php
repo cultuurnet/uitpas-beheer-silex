@@ -8,6 +8,7 @@ namespace CultuurNet\UiTPASBeheer\Membership;
 use CultureFeed_Uitpas;
 use CultureFeed_Uitpas_Association;
 use CultureFeed_Uitpas_Passholder_Membership;
+use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Legacy\PassHolder\LegacyPassHolderServiceInterface;
 use CultuurNet\UiTPASBeheer\Membership\Association\UnregisteredAssociationFilter;
@@ -17,6 +18,7 @@ use DateTime;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class MembershipController
 {
@@ -41,19 +43,27 @@ class MembershipController
     private $legacyPassHolderService;
 
     /**
+     * @var DeserializerInterface
+     */
+    private $registrationJsonDeserializer;
+
+    /**
      * @param MembershipServiceInterface $membershipService
      * @param LegacyPassHolderServiceInterface $legacyPassHolderService
+     * @param DeserializerInterface $registrationJsonDeserializer
      * @param CultureFeed_Uitpas $uitpas
      * @param CounterConsumerKey $consumerKey
      */
     public function __construct(
         MembershipServiceInterface $membershipService,
         LegacyPassHolderServiceInterface $legacyPassHolderService,
+        DeserializerInterface $registrationJsonDeserializer,
         CultureFeed_Uitpas $uitpas,
         CounterConsumerKey $consumerKey
     ) {
         $this->membershipService = $membershipService;
         $this->legacyPassHolderService = $legacyPassHolderService;
+        $this->registrationJsonDeserializer = $registrationJsonDeserializer;
         $this->uitpas = $uitpas;
         $this->counterConsumerKey = $consumerKey;
     }
@@ -90,24 +100,17 @@ class MembershipController
     public function register(Request $request, $uitpasNumber)
     {
         $uitpasNumber = new UiTPASNumber($uitpasNumber);
-        $data = json_decode($request->getContent());
+        $registration = $this->registrationJsonDeserializer->deserialize(
+            new StringLiteral($request->getContent())
+        );
 
         $passHolder = $this->legacyPassHolderService->getByUiTPASNumber($uitpasNumber);
+        $uid = new StringLiteral((string) $passHolder->uitIdUser->id);
 
-        $membership = new CultureFeed_Uitpas_Passholder_Membership();
-        $membership->associationId = $data->associationId;
-        $membership->balieConsumerKey = $this->counterConsumerKey->toNative();
-
-        $membership->uid = $passHolder->uitIdUser->id;
-
-        if (isset($data->endDate)) {
-            $membership->endDate = (int) DateTime::createFromFormat(
-                'Y-m-d',
-                $data->endDate
-            )->format('U');
-        }
-
-        $result = $this->uitpas->createMembershipForPassholder($membership);
+        $result = $this->membershipService->register(
+            $uid,
+            $registration
+        );
 
         return JsonResponse::create($result)
             ->setPrivate();

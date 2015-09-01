@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Membership;
 
+use CultuurNet\UiTPASBeheer\Membership\Registration\RegistrationJsonDeserializer;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
@@ -18,6 +19,12 @@ class MembershipServiceProvider implements ServiceProviderInterface
                     $app['uitpas'],
                     $app['counter_consumer_key']
                 );
+            }
+        );
+
+        $app['membership_registration_deserializer'] = $app->share(
+            function (Application $app) {
+                return new RegistrationJsonDeserializer();
             }
         );
     }
