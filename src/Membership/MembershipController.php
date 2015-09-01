@@ -66,8 +66,8 @@ class MembershipController
         }
 
         $atLeastOneKansenstatuutExpired = false;
-        foreach ($passHolder->cardSystemSpecific as $card_system_specific) {
-            if ($card_system_specific->kansenStatuutExpired) {
+        foreach ($passHolder->cardSystemSpecific as $cardSystemSpecific) {
+            if ($cardSystemSpecific->kansenStatuutExpired) {
                 $atLeastOneKansenstatuutExpired = true;
                 break;
             }
@@ -99,7 +99,7 @@ class MembershipController
         $membership->uid = $passHolder->uitIdUser->id;
 
         if (isset($data->endDate)) {
-            $membership->endDate = (int)DateTime::createFromFormat(
+            $membership->endDate = (int) DateTime::createFromFormat(
                 'Y-m-d',
                 $data->endDate
             )->format('U');
