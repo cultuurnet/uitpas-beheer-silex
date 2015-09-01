@@ -80,7 +80,7 @@ class MembershipController
                 'otherAssociations' => array_values($associationsMap),
                 'allAssociations' => $allAssociations,
             ]
-        );
+        )->setPrivate();
     }
 
     public function register(Request $request, $uitpasNumber)
@@ -107,7 +107,8 @@ class MembershipController
 
         $result = $this->uitpas->createMembershipForPassholder($membership);
 
-        return JsonResponse::create($result);
+        return JsonResponse::create($result)
+            ->setPrivate();
     }
 
     public function stop($uitpasNumber, $associationId)
@@ -123,6 +124,7 @@ class MembershipController
             $this->counterConsumerKey->toNative()
         );
 
-        return JsonResponse::create($result);
+        return JsonResponse::create($result)
+            ->setPrivate();
     }
 }
