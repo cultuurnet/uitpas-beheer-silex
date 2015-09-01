@@ -7,6 +7,7 @@ use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Legacy\PassHolder\LegacyPassHolderService;
 use CultuurNet\UiTPASBeheer\Legacy\PassHolder\LegacyPassHolderServiceInterface;
 use CultuurNet\UiTPASBeheer\Membership\Association\AssociationCollection;
+use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
 use CultuurNet\UiTPASBeheer\Membership\Registration\Registration;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\StringLiteral\StringLiteral;
@@ -48,5 +49,20 @@ class MembershipService extends CounterAwareUitpasService implements MembershipS
 
         return $this->getUitpasService()
             ->createMembershipForPassholder($membership);
+    }
+
+    /**
+     * @param StringLiteral $uid
+     * @param AssociationId $associationId
+     *
+     * @return \CultureFeed_Uitpas_Response
+     */
+    public function stop(StringLiteral $uid, AssociationId $associationId)
+    {
+        return $this->getUitpasService()->deleteMembership(
+            $uid->toNative(),
+            $associationId->toNative(),
+            $this->getCounterConsumerKey()
+        );
     }
 }

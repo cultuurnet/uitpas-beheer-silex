@@ -11,6 +11,7 @@ use CultureFeed_Uitpas_Passholder_Membership;
 use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Legacy\PassHolder\LegacyPassHolderServiceInterface;
+use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
 use CultuurNet\UiTPASBeheer\Membership\Association\UnregisteredAssociationFilter;
 use CultuurNet\UiTPASBeheer\Legacy\PassHolder\Specifications\HasAtLeastOneExpiredKansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\PassHolderNotFoundException;
@@ -124,14 +125,13 @@ class MembershipController
      */
     public function stop($uitpasNumber, $associationId)
     {
-        $uitpasNumber = new UiTPASNumber($uitpasNumber);
-        $passHolder = $this->legacyPassHolderService->getByUiTPASNumber($uitpasNumber);
-
-        $result = $this->uitpas->deleteMembership(
-            $passHolder->uitIdUser->id,
-            $associationId,
-            $this->counterConsumerKey->toNative()
+        $uid = $this->getUidForUiTPASNumber(
+            new UiTPASNumber($uitpasNumber)
         );
+
+        $associationId = new AssociationId($associationId);
+
+        $result = $this->membershipService->stop($uid, $associationId);
 
         return JsonResponse::create($result)
             ->setPrivate();
