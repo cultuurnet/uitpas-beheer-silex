@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Membership\Specifications;
+namespace CultuurNet\UiTPASBeheer\Legacy\PassHolder\Specifications;
 
 interface CultureFeedPassHolderSpecificationInterface
 {

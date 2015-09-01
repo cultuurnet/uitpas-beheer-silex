@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Legacy;
 
+use CultuurNet\UiTPASBeheer\Legacy\PassHolder\LegacyPassHolderService;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 

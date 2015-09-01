@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Legacy;
+namespace CultuurNet\UiTPASBeheer\Legacy\PassHolder;
 
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;

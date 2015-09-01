@@ -1,6 +1,8 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Membership\Specifications;
+namespace CultuurNet\UiTPASBeheer\Legacy\PassHolder\Specifications;
+
+use CultuurNet\UiTPASBeheer\Legacy\PassHolder\Specifications\HasAtLeastOneExpiredKansenStatuut;
 
 class HasAtLeastOneExpiredKansenStatuutTest extends \PHPUnit_Framework_TestCase
 {
