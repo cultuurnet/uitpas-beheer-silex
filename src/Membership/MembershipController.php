@@ -13,6 +13,7 @@ use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Legacy\PassHolder\LegacyPassHolderServiceInterface;
 use CultuurNet\UiTPASBeheer\Membership\Association\UnregisteredAssociationFilter;
 use CultuurNet\UiTPASBeheer\Legacy\PassHolder\Specifications\HasAtLeastOneExpiredKansenStatuut;
+use CultuurNet\UiTPASBeheer\PassHolder\PassHolderNotFoundException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use DateTime;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -99,13 +100,13 @@ class MembershipController
      */
     public function register(Request $request, $uitpasNumber)
     {
+        $uid = $this->getUidForUiTPASNumber(
+            new UiTPASNumber($uitpasNumber)
+        );
+
         $registration = $this->registrationJsonDeserializer->deserialize(
             new StringLiteral($request->getContent())
         );
-
-        $uitpasNumber = new UiTPASNumber($uitpasNumber);
-        $passHolder = $this->legacyPassHolderService->getByUiTPASNumber($uitpasNumber);
-        $uid = new StringLiteral((string) $passHolder->uitIdUser->id);
 
         $result = $this->membershipService->register(
             $uid,
@@ -134,5 +135,23 @@ class MembershipController
 
         return JsonResponse::create($result)
             ->setPrivate();
+    }
+
+    /**
+     * @param UiTPASNumber $uitpasNumber
+     * @return StringLiteral
+     *
+     * @throws PassHolderNotFoundException
+     *   When a passholder could not be found for the given uitpas number.
+     */
+    private function getUidForUiTPASNumber(UiTPASNumber $uitpasNumber)
+    {
+        $passHolder = $this->legacyPassHolderService->getByUiTPASNumber($uitpasNumber);
+
+        if (is_null($passHolder)) {
+            throw new PassHolderNotFoundException();
+        }
+
+        return new StringLiteral((string) $passHolder->uitIdUser->id);
     }
 }
