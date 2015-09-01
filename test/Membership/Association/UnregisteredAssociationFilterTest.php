@@ -80,9 +80,7 @@ class UnregisteredAssociationFilterTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_filter_out_any_associations_that_a_culturefeed_passholder_has_a_membership_for()
     {
-        $expected = array(
-            5 => $this->unfilteredAssociations[5]
-        );
+        $expected = array(5 => $this->unfilteredAssociations[5]);
 
         $actual = $this->filter->filter($this->unfilteredAssociationsCollection)
             ->getAssociationMap();

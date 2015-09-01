@@ -90,9 +90,7 @@ class AssociationCollectionTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            array(
-                3 => $this->associations[3]
-            ),
+            array(3 => $this->associations[3]),
             $associationCollection->getAssociationMap()
         );
     }
@@ -103,9 +101,7 @@ class AssociationCollectionTest extends \PHPUnit_Framework_TestCase
     public function it_can_handle_removing_associations_that_are_not_set()
     {
         $associationCollection = new AssociationCollection(
-            array(
-                3 => $this->associations[3]
-            )
+            array(3 => $this->associations[3])
         );
 
         $associationCollection = $associationCollection->withoutAssociation(
@@ -113,9 +109,7 @@ class AssociationCollectionTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            array(
-                3 => $this->associations[3]
-            ),
+            array(3 => $this->associations[3]),
             $associationCollection->getAssociationMap()
         );
     }
