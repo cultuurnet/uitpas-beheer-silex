@@ -56,7 +56,7 @@ class MembershipController
     public function listing($uitpasNumber)
     {
         $uitpasNumber = new UiTPASNumber($uitpasNumber);
-        $passHolder = $this->legacyPassHolderService->getByUiTPASNumber($uitpasNumber);
+        $passHolder = $this->getPassHolderForUiTPASNumber($uitpasNumber);
 
         $all = $this->membershipService->getAssociations();
 
@@ -125,12 +125,24 @@ class MembershipController
      */
     private function getUidForUiTPASNumber(UiTPASNumber $uitpasNumber)
     {
+        $passHolder = $this->getPassHolderForUiTPASNumber($uitpasNumber);
+        return new StringLiteral((string) $passHolder->uitIdUser->id);
+    }
+
+    /**
+     * @param UiTPASNumber $uitpasNumber
+     * @return \CultureFeed_Uitpas_Passholder
+     *
+     * @throws PassHolderNotFoundException
+     */
+    private function getPassHolderForUiTPASNumber(UiTPASNumber $uitpasNumber)
+    {
         $passHolder = $this->legacyPassHolderService->getByUiTPASNumber($uitpasNumber);
 
         if (is_null($passHolder)) {
             throw new PassHolderNotFoundException();
         }
 
-        return new StringLiteral((string) $passHolder->uitIdUser->id);
+        return $passHolder;
     }
 }
