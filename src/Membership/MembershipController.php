@@ -9,7 +9,9 @@ use CultureFeed_Uitpas;
 use CultureFeed_Uitpas_Association;
 use CultureFeed_Uitpas_Passholder_Membership;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
+use CultuurNet\UiTPASBeheer\Legacy\LegacyPassHolderServiceInterface;
 use CultuurNet\UiTPASBeheer\Membership\Specifications\HasAtLeastOneExpiredKansenStatuut;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use DateTime;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,10 +29,22 @@ class MembershipController
      */
     private $counterConsumerKey;
 
+    /**
+     * @var LegacyPassHolderServiceInterface
+     */
+    private $legacyPassHolderService;
+
+    /**
+     * @param LegacyPassHolderServiceInterface $legacyPassHolderService
+     * @param CultureFeed_Uitpas $uitpas
+     * @param CounterConsumerKey $consumerKey
+     */
     public function __construct(
+        LegacyPassHolderServiceInterface $legacyPassHolderService,
         CultureFeed_Uitpas $uitpas,
         CounterConsumerKey $consumerKey
     ) {
+        $this->legacyPassHolderService = $legacyPassHolderService;
         $this->uitpas = $uitpas;
         $this->counterConsumerKey = $consumerKey;
     }
@@ -41,10 +55,8 @@ class MembershipController
      */
     public function listing($uitpasNumber)
     {
-        $passHolder = $this->uitpas->getPassholderByUitpasNumber(
-            $uitpasNumber,
-            $this->counterConsumerKey->toNative()
-        );
+        $uitpasNumber = new UiTPASNumber($uitpasNumber);
+        $passHolder = $this->legacyPassHolderService->getByUiTPASNumber($uitpasNumber);
 
         $associations = $this->uitpas->getAssociations(
             $this->counterConsumerKey->toNative()
@@ -84,12 +96,10 @@ class MembershipController
      */
     public function register(Request $request, $uitpasNumber)
     {
+        $uitpasNumber = new UiTPASNumber($uitpasNumber);
         $data = json_decode($request->getContent());
 
-        $passHolder = $this->uitpas->getPassholderByUitpasNumber(
-            $uitpasNumber,
-            $this->counterConsumerKey->toNative()
-        );
+        $passHolder = $this->legacyPassHolderService->getByUiTPASNumber($uitpasNumber);
 
         $membership = new CultureFeed_Uitpas_Passholder_Membership();
         $membership->associationId = $data->associationId;
@@ -117,10 +127,8 @@ class MembershipController
      */
     public function stop($uitpasNumber, $associationId)
     {
-        $passHolder = $this->uitpas->getPassholderByUitpasNumber(
-            $uitpasNumber,
-            $this->counterConsumerKey->toNative()
-        );
+        $uitpasNumber = new UiTPASNumber($uitpasNumber);
+        $passHolder = $this->legacyPassHolderService->getByUiTPASNumber($uitpasNumber);
 
         $result = $this->uitpas->deleteMembership(
             $passHolder->uitIdUser->id,
