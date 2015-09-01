@@ -99,11 +99,11 @@ class MembershipController
      */
     public function register(Request $request, $uitpasNumber)
     {
-        $uitpasNumber = new UiTPASNumber($uitpasNumber);
         $registration = $this->registrationJsonDeserializer->deserialize(
             new StringLiteral($request->getContent())
         );
 
+        $uitpasNumber = new UiTPASNumber($uitpasNumber);
         $passHolder = $this->legacyPassHolderService->getByUiTPASNumber($uitpasNumber);
         $uid = new StringLiteral((string) $passHolder->uitIdUser->id);
 
