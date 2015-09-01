@@ -41,7 +41,7 @@ class MembershipController
             $this->counterConsumerKey->toNative()
         );
 
-        $associations = $associations = $this->uitpas->getAssociations(
+        $associations = $this->uitpas->getAssociations(
             $this->counterConsumerKey->toNative()
         );
 
