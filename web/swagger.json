@@ -1268,12 +1268,26 @@
             "BLOCKED",
             "DELETED"
           ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "CARD",
+            "KEYCHAIN",
+            "STICKER"
+          ]
+        },
+        "cardSystemId": {
+          "type": "string",
+          "example": "514896"
         }
       },
       "required": [
         "number",
         "kansenStatuut",
-        "status"
+        "status",
+        "type",
+        "cardSystemId"
       ]
     },
     "Gender": {
