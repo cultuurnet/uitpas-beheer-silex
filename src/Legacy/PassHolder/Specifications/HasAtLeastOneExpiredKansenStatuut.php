@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Legacy\PassHolder\Specifications;
 
-class HasAtLeastOneExpiredKansenStatuut implements CultureFeedPassHolderSpecificationInterface
+class HasAtLeastOneExpiredKansenStatuut implements PassHolderSpecificationInterface
 {
     public static function isSatisfiedBy(\CultureFeed_Uitpas_Passholder $cfPassHolder)
     {
