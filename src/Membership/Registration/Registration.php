@@ -3,7 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\Membership\Registration;
 
 use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
-use ValueObjects\DateTime\DateTime;
+use ValueObjects\DateTime\Date;
 
 class Registration
 {
@@ -13,7 +13,7 @@ class Registration
     protected $associationId;
 
     /**
-     * @var DateTime|null
+     * @var Date|null
      */
     protected $endDate;
 
@@ -34,10 +34,10 @@ class Registration
     }
 
     /**
-     * @param DateTime $endDate
+     * @param Date $endDate
      * @return Registration
      */
-    public function withEndDate(DateTime $endDate)
+    public function withEndDate(Date $endDate)
     {
         $c = clone $this;
         $c->endDate = $endDate;
@@ -45,7 +45,7 @@ class Registration
     }
 
     /**
-     * @return DateTime|null
+     * @return Date|null
      */
     public function getEndDate()
     {

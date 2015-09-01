@@ -5,7 +5,7 @@ namespace CultuurNet\UiTPASBeheer\Membership\Registration;
 use CultuurNet\Deserializer\JSONDeserializer;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
-use ValueObjects\DateTime\DateTime;
+use ValueObjects\DateTime\Date;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class RegistrationJsonDeserializer extends JSONDeserializer
@@ -30,7 +30,7 @@ class RegistrationJsonDeserializer extends JSONDeserializer
 
         if (!empty($data->endDate)) {
             $registration = $registration->withEndDate(
-                DateTime::fromNativeDateTime(
+                Date::fromNativeDateTime(
                     // @todo Use RFC3339 format instead of 'Y-m-d'.
                     \DateTime::createFromFormat(
                         'Y-m-d',
