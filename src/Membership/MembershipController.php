@@ -41,10 +41,6 @@ class MembershipController
             $this->counterConsumerKey->toNative()
         );
 
-        // Remove circular references from passholder object. They would make
-        // the JSON encoding fail.
-        unset($passHolder->uitIdUser->user);
-
         $associations = $associations = $this->uitpas->getAssociations(
             $this->counterConsumerKey->toNative()
         );
