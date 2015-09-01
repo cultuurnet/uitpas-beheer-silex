@@ -29,17 +29,17 @@ class MembershipControllerProvider implements ControllerProviderInterface
         $controllers = $app['controllers_factory'];
 
         $controllers->get(
-            '/uitpas/{uitpasNumber}/profile',
+            '/passholders/{uitpasNumber}/profile',
             'membership_controller:listing'
         );
 
         $controllers->post(
-            '/uitpas/{uitpasNumber}/profile/memberships',
+            '/passholders/{uitpasNumber}/profile/memberships',
             'membership_controller:register'
         );
 
         $controllers->delete(
-            '/uitpas/{uitpasNumber}/profile/memberships/{associationId}',
+            '/passholders/{uitpasNumber}/profile/memberships/{associationId}',
             'membership_controller:stop'
         );
 
