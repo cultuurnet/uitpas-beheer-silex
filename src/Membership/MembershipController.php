@@ -9,6 +9,7 @@ use CultureFeed_Uitpas;
 use CultureFeed_Uitpas_Association;
 use CultureFeed_Uitpas_Passholder_Membership;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
+use CultuurNet\UiTPASBeheer\Membership\Specifications\HasAtLeastOneExpiredKansenStatuut;
 use DateTime;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,18 +66,10 @@ class MembershipController
             }
         }
 
-        $atLeastOneKansenstatuutExpired = false;
-        foreach ($passHolder->cardSystemSpecific as $cardSystemSpecific) {
-            if ($cardSystemSpecific->kansenStatuutExpired) {
-                $atLeastOneKansenstatuutExpired = true;
-                break;
-            }
-        }
-
         return JsonResponse::create(
             [
                 'passholder' => $passHolder,
-                'atLeastOneKansenstatuutExpired' => $atLeastOneKansenstatuutExpired,
+                'atLeastOneKansenstatuutExpired' => HasAtLeastOneExpiredKansenStatuut::isSatisfiedBy($passHolder),
                 'otherAssociations' => array_values($associationsMap),
                 'allAssociations' => $allAssociations,
             ]
