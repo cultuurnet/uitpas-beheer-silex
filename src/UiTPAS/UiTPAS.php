@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\UiTPAS;
 
+use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class UiTPAS implements \JsonSerializable
@@ -22,6 +23,11 @@ class UiTPAS implements \JsonSerializable
     protected $type;
 
     /**
+     * @var CardSystemId
+     */
+    protected $cardSystemId;
+
+    /**
      * @var StringLiteral|null
      */
     protected $city;
@@ -30,15 +36,18 @@ class UiTPAS implements \JsonSerializable
      * @param UiTPASNumber $number
      * @param UiTPASStatus $status
      * @param UiTPASType $type
+     * @param CardSystemId $cardSystemId
      */
     public function __construct(
         UiTPASNumber $number,
         UiTPASStatus $status,
-        UiTPASType $type
+        UiTPASType $type,
+        CardSystemId $cardSystemId
     ) {
         $this->number = $number;
         $this->status = $status;
         $this->type = $type;
+        $this->cardSystemId = $cardSystemId;
     }
 
     /**
@@ -62,6 +71,7 @@ class UiTPAS implements \JsonSerializable
             'kansenStatuut' => $this->number->hasKansenStatuut(),
             'status' => $this->status->toNative(),
             'type' => $this->type->toNative(),
+            'cardSystemId' => $this->cardSystemId->toNative(),
         ];
 
         if (!is_null($this->city)) {
@@ -80,11 +90,13 @@ class UiTPAS implements \JsonSerializable
         $number = new UiTPASNumber($cfCard->uitpasNumber);
         $status = UiTPASStatus::get($cfCard->status);
         $type = UiTPASType::get($cfCard->type);
+        $cardSystemId = new CardSystemId((string) $cfCard->cardSystemId);
 
         $card = new static(
             $number,
             $status,
-            $type
+            $type,
+            $cardSystemId
         );
 
         if (!empty($cfCard->city)) {
