@@ -3,6 +3,7 @@
     "number": "1000000035419",
     "kansenStatuut": true,
     "status": "LOCAL_STOCK",
-    "type": "CARD"
+    "type": "CARD",
+    "cardSystemId": "999"
   }
 }

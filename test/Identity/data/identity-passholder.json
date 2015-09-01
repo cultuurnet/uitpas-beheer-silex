@@ -3,7 +3,8 @@
     "number": "1000000035419",
     "kansenStatuut": true,
     "status": "ACTIVE",
-    "type": "CARD"
+    "type": "CARD",
+    "cardSystemId": "999"
   },
   "passHolder": {
     "name": {

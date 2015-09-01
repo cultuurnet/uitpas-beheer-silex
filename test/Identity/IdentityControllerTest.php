@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Identity;
 
+use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
@@ -44,7 +45,8 @@ class IdentityControllerTest extends \PHPUnit_Framework_TestCase
             new UiTPAS(
                 new UiTPASNumber($this->identification),
                 UiTPASStatus::LOCAL_STOCK(),
-                UiTPASType::CARD()
+                UiTPASType::CARD(),
+                new CardSystemId('999')
             )
         );
 
