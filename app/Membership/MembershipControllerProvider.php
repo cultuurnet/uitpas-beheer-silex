@@ -19,6 +19,7 @@ class MembershipControllerProvider implements ControllerProviderInterface
         $app['membership_controller'] = $app->share(
             function (Application $app) {
                 return new MembershipController(
+                    $app['membership_service'],
                     $app['legacy_passholder_service'],
                     $app['uitpas'],
                     $app['counter_consumer_key']

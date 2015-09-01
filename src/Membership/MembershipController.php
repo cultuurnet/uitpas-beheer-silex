@@ -10,6 +10,7 @@ use CultureFeed_Uitpas_Association;
 use CultureFeed_Uitpas_Passholder_Membership;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Legacy\LegacyPassHolderServiceInterface;
+use CultuurNet\UiTPASBeheer\Membership\Association\UnregisteredAssociationFilter;
 use CultuurNet\UiTPASBeheer\Membership\Specifications\HasAtLeastOneExpiredKansenStatuut;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use DateTime;
@@ -25,6 +26,11 @@ class MembershipController
     private $uitpas;
 
     /**
+     * @var MembershipService
+     */
+    private $membershipService;
+
+    /**
      * @var CounterConsumerKey
      */
     private $counterConsumerKey;
@@ -35,15 +41,18 @@ class MembershipController
     private $legacyPassHolderService;
 
     /**
+     * @param MembershipServiceInterface $membershipService
      * @param LegacyPassHolderServiceInterface $legacyPassHolderService
      * @param CultureFeed_Uitpas $uitpas
      * @param CounterConsumerKey $consumerKey
      */
     public function __construct(
+        MembershipServiceInterface $membershipService,
         LegacyPassHolderServiceInterface $legacyPassHolderService,
         CultureFeed_Uitpas $uitpas,
         CounterConsumerKey $consumerKey
     ) {
+        $this->membershipService = $membershipService;
         $this->legacyPassHolderService = $legacyPassHolderService;
         $this->uitpas = $uitpas;
         $this->counterConsumerKey = $consumerKey;
@@ -58,33 +67,17 @@ class MembershipController
         $uitpasNumber = new UiTPASNumber($uitpasNumber);
         $passHolder = $this->legacyPassHolderService->getByUiTPASNumber($uitpasNumber);
 
-        $associations = $this->uitpas->getAssociations(
-            $this->counterConsumerKey->toNative()
-        );
+        $all = $this->membershipService->getAssociations();
 
-        // Put associations in a list, keyed by their ID.
-        $associationsMap = [];
-        /** @var CultureFeed_Uitpas_Association $association */
-        foreach ($associations->objects as $association) {
-            $associationsMap[$association->id] = $association;
-        }
-
-        $allAssociations = $associationsMap;
-
-        // Remove associations that have a corresponding membership for this
-        // passholder, from the keyed list.
-        foreach ($passHolder->memberships as $membership) {
-            if (isset($associationsMap[$membership->association->id])) {
-                unset($associationsMap[$membership->association->id]);
-            }
-        }
+        $unregisteredFilter = new UnregisteredAssociationFilter($passHolder);
+        $unregistered = $unregisteredFilter->filter($all);
 
         return JsonResponse::create(
             [
                 'passholder' => $passHolder,
                 'atLeastOneKansenstatuutExpired' => HasAtLeastOneExpiredKansenStatuut::isSatisfiedBy($passHolder),
-                'otherAssociations' => array_values($associationsMap),
-                'allAssociations' => $allAssociations,
+                'otherAssociations' => array_values($unregistered->jsonSerialize()),
+                'allAssociations' => $all->jsonSerialize(),
             ]
         )->setPrivate();
     }

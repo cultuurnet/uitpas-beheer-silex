@@ -109,6 +109,11 @@ $app->register(new \CultuurNet\UiTPASBeheer\Activity\ActivityServiceProvider());
 $app->register(new \CultuurNet\UiTPASBeheer\Advantage\AdvantageServiceProvider());
 
 /**
+ * UiTPAS Membership service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\Membership\MembershipServiceProvider());
+
+/**
  * UiTPAS Legacy service(s).
  */
 $app->register(new \CultuurNet\UiTPASBeheer\Legacy\LegacyServiceProvider());
