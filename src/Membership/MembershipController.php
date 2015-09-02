@@ -2,9 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\Membership;
 
-use CultureFeed_Uitpas;
-use CultureFeed_Uitpas_Association;
-use CultureFeed_Uitpas_Passholder_Membership;
 use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\UiTPASBeheer\Legacy\PassHolder\LegacyPassHolderServiceInterface;
 use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;

@@ -3,13 +3,9 @@
 namespace CultuurNet\UiTPASBeheer\Membership;
 
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
-use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
-use CultuurNet\UiTPASBeheer\Legacy\PassHolder\LegacyPassHolderService;
-use CultuurNet\UiTPASBeheer\Legacy\PassHolder\LegacyPassHolderServiceInterface;
 use CultuurNet\UiTPASBeheer\Membership\Association\AssociationCollection;
 use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
 use CultuurNet\UiTPASBeheer\Membership\Registration\Registration;
-use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class MembershipService extends CounterAwareUitpasService implements MembershipServiceInterface
