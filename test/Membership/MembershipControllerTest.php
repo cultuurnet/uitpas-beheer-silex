@@ -218,7 +218,7 @@ class MembershipControllerTest extends \PHPUnit_Framework_TestCase
         call_user_func_array(
             array(
                 $this->controller,
-                $method
+                $method,
             ),
             $arguments
         );
@@ -251,7 +251,7 @@ class MembershipControllerTest extends \PHPUnit_Framework_TestCase
                     $uitpasNumber->toNative(),
                     new AssociationId('134568795'),
                 ],
-            ]
+            ],
         ];
     }
 }
