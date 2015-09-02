@@ -2,9 +2,9 @@
 
 namespace CultuurNet\UiTPASBeheer\Membership;
 
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\Registration;
 use CultuurNet\UiTPASBeheer\Membership\Association\AssociationCollection;
 use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
+use CultuurNet\UiTPASBeheer\Membership\Registration\Registration;
 use ValueObjects\StringLiteral\StringLiteral;
 
 interface MembershipServiceInterface
