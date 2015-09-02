@@ -45,14 +45,9 @@ class MembershipServiceTest extends \PHPUnit_Framework_TestCase
             $this->counterConsumerKey
         );
 
-        // Messy, but the constructor is set to private for some reason.
-        $this->cfResponse = \CultureFeed_Response::createFromResponseBody(<<<XML
-<response>
-    <code>SUCCESS</code>
-    <message>Membership registration successful.</message>
-</response>
-XML
-        );
+        $this->cfResponse = new \CultureFeed_Uitpas_Response();
+        $this->cfResponse->code = 'SUCCESS';
+        $this->cfResponse->message = 'All is well. Carry on.';
     }
 
     /**
