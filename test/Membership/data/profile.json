@@ -1,0 +1,140 @@
+{
+  "passholder": {
+    "name": null,
+    "firstName": null,
+    "secondName": null,
+    "email": null,
+    "emailPreference": null,
+    "smsPreference": null,
+    "inszNumber": null,
+    "dateOfBirth": null,
+    "gender": null,
+    "street": null,
+    "number": null,
+    "box": null,
+    "postalCode": null,
+    "city": null,
+    "telephone": null,
+    "gsm": null,
+    "nationality": null,
+    "placeOfBirth": null,
+    "price": null,
+    "kansenStatuut": null,
+    "kansenStatuutEndDate": null,
+    "kansenStatuutExpired": null,
+    "kansenStatuutInGracePeriod": null,
+    "uitIdUser": null,
+    "blocked": null,
+    "verified": null,
+    "memberships": [
+      {
+        "id": 111,
+        "associationId": null,
+        "name": null,
+        "endDate": null,
+        "association": {
+          "id": 5,
+          "name": "Foo",
+          "cardSystems": null,
+          "permissionRead": null,
+          "permissionRegister": null,
+          "enddateCalculation": null,
+          "enddateCalculationValidityTime": null,
+          "enddateCalculationFreeDate": null
+        },
+        "renewable": null,
+        "renewDate": null,
+        "newEndDate": null,
+        "expired": null
+      },
+      {
+        "id": 113,
+        "associationId": null,
+        "name": null,
+        "endDate": null,
+        "association": {
+          "id": 3,
+          "name": "Bar",
+          "cardSystems": null,
+          "permissionRead": null,
+          "permissionRegister": null,
+          "enddateCalculation": null,
+          "enddateCalculationValidityTime": null,
+          "enddateCalculationFreeDate": null
+        },
+        "renewable": null,
+        "renewDate": null,
+        "newEndDate": null,
+        "expired": null
+      }
+    ],
+    "registrationBalieConsumerKey": null,
+    "points": null,
+    "moreInfo": null,
+    "schoolConsumerKey": null,
+    "balieConsumerKey": null,
+    "picture": null,
+    "cardSystemSpecific": [
+      {
+        "currentCard": null,
+        "emailPreference": null,
+        "smsPreference": null,
+        "cardSystem": null,
+        "kansenStatuut": true,
+        "kansenStatuutExpired": true,
+        "kansenStatuutEndDate": 1441097191,
+        "kansenStatuutInGracePeriod": false,
+        "status": null
+      }
+    ],
+    "numberOfCheckins": null,
+    "inszNumberHash": null,
+    "uitpasNumber": null,
+    "voucherNumber": null
+  },
+  "atLeastOneKansenstatuutExpired": true,
+  "otherAssociations": [
+    {
+      "id": 11,
+      "name": "Lorem",
+      "cardSystems": null,
+      "permissionRead": null,
+      "permissionRegister": null,
+      "enddateCalculation": null,
+      "enddateCalculationValidityTime": null,
+      "enddateCalculationFreeDate": null
+    }
+  ],
+  "allAssociations": {
+    "5": {
+      "id": 5,
+      "name": "Foo",
+      "cardSystems": null,
+      "permissionRead": null,
+      "permissionRegister": null,
+      "enddateCalculation": null,
+      "enddateCalculationValidityTime": null,
+      "enddateCalculationFreeDate": null
+    },
+    "3": {
+      "id": 3,
+      "name": "Bar",
+      "cardSystems": null,
+      "permissionRead": null,
+      "permissionRegister": null,
+      "enddateCalculation": null,
+      "enddateCalculationValidityTime": null,
+      "enddateCalculationFreeDate": null
+    },
+    "11": {
+      "id": 11,
+      "name": "Lorem",
+      "cardSystems": null,
+      "permissionRead": null,
+      "permissionRegister": null,
+      "enddateCalculation": null,
+      "enddateCalculationValidityTime": null,
+      "enddateCalculationFreeDate": null
+    }
+  }
+}
