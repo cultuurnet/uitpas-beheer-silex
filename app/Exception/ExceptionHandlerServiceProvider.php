@@ -23,6 +23,13 @@ class ExceptionHandlerServiceProvider implements ServiceProviderInterface
                 return new JsonErrorResponse($exception);
             }
         );
+
+        $app->error(
+            function (\CultureFeed_Exception $cfException) {
+                $responseException = ReadableCodeResponseException::fromCultureFeedException($cfException);
+                return new JsonErrorResponse($responseException);
+            }
+        );
     }
 
     /**
