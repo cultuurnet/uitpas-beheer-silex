@@ -1277,9 +1277,8 @@
             "STICKER"
           ]
         },
-        "cardSystemId": {
-          "type": "string",
-          "example": "514896"
+        "cardSystem": {
+          "$ref": "#/definitions/CardSystem"
         }
       },
       "required": [
@@ -1287,7 +1286,7 @@
         "kansenStatuut",
         "status",
         "type",
-        "cardSystemId"
+        "cardSystem"
       ]
     },
     "Gender": {
@@ -1296,6 +1295,18 @@
         "MALE",
         "FEMALE"
       ]
+    },
+    "CardSystem": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4a567b89"
+        },
+        "name": {
+          "type": "string",
+          "example": "UiTPAS Regio Aalst"
+        }
+      }
     },
     "PassHolder": {
       "properties": {
