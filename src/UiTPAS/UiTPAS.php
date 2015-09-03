@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\UiTPAS;
 
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -23,9 +24,9 @@ class UiTPAS implements \JsonSerializable
     protected $type;
 
     /**
-     * @var CardSystemId
+     * @var CardSystem
      */
-    protected $cardSystemId;
+    protected $cardSystem;
 
     /**
      * @var StringLiteral|null
@@ -36,18 +37,18 @@ class UiTPAS implements \JsonSerializable
      * @param UiTPASNumber $number
      * @param UiTPASStatus $status
      * @param UiTPASType $type
-     * @param CardSystemId $cardSystemId
+     * @param CardSystem $cardSystem
      */
     public function __construct(
         UiTPASNumber $number,
         UiTPASStatus $status,
         UiTPASType $type,
-        CardSystemId $cardSystemId
+        CardSystem $cardSystem
     ) {
         $this->number = $number;
         $this->status = $status;
         $this->type = $type;
-        $this->cardSystemId = $cardSystemId;
+        $this->cardSystem = $cardSystem;
     }
 
     /**
@@ -71,7 +72,7 @@ class UiTPAS implements \JsonSerializable
             'kansenStatuut' => $this->number->hasKansenStatuut(),
             'status' => $this->status->toNative(),
             'type' => $this->type->toNative(),
-            'cardSystemId' => $this->cardSystemId->toNative(),
+            'cardSystem' => $this->cardSystem->jsonSerialize(),
         ];
 
         if (!is_null($this->city)) {
@@ -90,13 +91,13 @@ class UiTPAS implements \JsonSerializable
         $number = new UiTPASNumber($cfCard->uitpasNumber);
         $status = UiTPASStatus::get($cfCard->status);
         $type = UiTPASType::get($cfCard->type);
-        $cardSystemId = new CardSystemId((string) $cfCard->cardSystemId);
+        $cardSystem = CardSystem::fromCultureFeedCardSystem($cfCard->cardSystem);
 
         $card = new static(
             $number,
             $status,
             $type,
-            $cardSystemId
+            $cardSystem
         );
 
         if (!empty($cfCard->city)) {

@@ -3,5 +3,8 @@
   "kansenStatuut": false,
   "status": "ACTIVE",
   "type": "CARD",
-  "cardSystemId": "666"
+  "cardSystem": {
+    "id": "999",
+    "name": "UiTPAS Regio Aalst"
+  }
 }

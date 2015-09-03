@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\UiTPAS;
 
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use ValueObjects\StringLiteral\StringLiteral;
@@ -36,7 +37,10 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
         $this->passholderCardMinimal->status = UiTPASStatus::ACTIVE;
         $this->passholderCardMinimal->type = UiTPASType::CARD();
         $this->passholderCardMinimal->uitpasNumber = $this->number;
-        $this->passholderCardMinimal->cardSystemId = 666;
+
+        $this->passholderCardMinimal->cardSystem = new \CultureFeed_Uitpas_CardSystem();
+        $this->passholderCardMinimal->cardSystem->id = 999;
+        $this->passholderCardMinimal->cardSystem->name = 'UiTPAS Regio Aalst';
 
         $this->passholderCardFull = clone $this->passholderCardMinimal;
         $this->passholderCardFull->city = $this->city;
@@ -51,7 +55,10 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
             new UiTPASNumber($this->number),
             UiTPASStatus::ACTIVE(),
             UiTPASType::CARD(),
-            new CardSystemId('666')
+            new CardSystem(
+                new CardSystemId('999'),
+                new StringLiteral('UiTPAS Regio Aalst')
+            )
         ))->withCity(new StringLiteral($this->city));
 
         $actual = UiTPAS::fromCultureFeedPassHolderCard($this->passholderCardFull);
@@ -68,7 +75,10 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
             new UiTPASNumber($this->number),
             UiTPASStatus::ACTIVE(),
             UiTPASType::CARD(),
-            new CardSystemId('666')
+            new CardSystem(
+                new CardSystemId('999'),
+                new StringLiteral('UiTPAS Regio Aalst')
+            )
         );
 
         $actual = UiTPAS::fromCultureFeedPassHolderCard($this->passholderCardMinimal);

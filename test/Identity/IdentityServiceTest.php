@@ -2,12 +2,14 @@
 
 namespace CultuurNet\UiTPASBeheer\Identity;
 
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class IdentityServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -62,7 +64,9 @@ class IdentityServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassHolderCard->kansenpas = $this->uitpasNumber->hasKansenStatuut();
         $cfPassHolderCard->status = UiTPASStatus::LOCAL_STOCK();
         $cfPassHolderCard->type = UiTPASType::CARD();
-        $cfPassHolderCard->cardSystemId = 999;
+        $cfPassHolderCard->cardSystem = new \CultureFeed_Uitpas_CardSystem();
+        $cfPassHolderCard->cardSystem->id = 999;
+        $cfPassHolderCard->cardSystem->name = 'UiTPAS Regio Aalst';
 
         $cfIdentity = new \CultureFeed_Uitpas_Identity();
         $cfIdentity->card = $cfPassHolderCard;
@@ -79,7 +83,10 @@ class IdentityServiceTest extends \PHPUnit_Framework_TestCase
             $this->uitpasNumber,
             UiTPASStatus::LOCAL_STOCK(),
             UiTPASType::CARD(),
-            new CardSystemId('999')
+            new CardSystem(
+                new CardSystemId('999'),
+                new StringLiteral('UiTPAS Regio Aalst')
+            )
         );
 
         $expected = new Identity($uitpas);

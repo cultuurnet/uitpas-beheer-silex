@@ -2,12 +2,14 @@
 
 namespace CultuurNet\UiTPASBeheer\Identity;
 
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class IdentityControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -46,7 +48,10 @@ class IdentityControllerTest extends \PHPUnit_Framework_TestCase
                 new UiTPASNumber($this->identification),
                 UiTPASStatus::LOCAL_STOCK(),
                 UiTPASType::CARD(),
-                new CardSystemId('999')
+                new CardSystem(
+                    new CardSystemId('999'),
+                    new StringLiteral('UiTPAS Regio Aalst')
+                )
             )
         );
 
