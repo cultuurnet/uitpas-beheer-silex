@@ -28,7 +28,7 @@ class CardSystemTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->id = new CardSystemId('5');
-        $this->name = new StringLiteral('UiTPAS Regio Somalia');
+        $this->name = new StringLiteral('UiTPAS Regio Danny');
 
         $this->cardSystem = new CardSystem(
             $this->id,
@@ -61,7 +61,7 @@ class CardSystemTest extends \PHPUnit_Framework_TestCase
     {
         $cfCardSystem = new \CultureFeed_Uitpas_CardSystem();
         $cfCardSystem->id = 5;
-        $cfCardSystem->name = 'UiTPAS Regio Somalia';
+        $cfCardSystem->name = 'UiTPAS Regio Danny';
 
         $cardSystem = CardSystem::fromCultureFeedCardSystem($cfCardSystem);
 
