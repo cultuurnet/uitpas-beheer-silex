@@ -2,10 +2,15 @@
 
 namespace CultuurNet\UiTPASBeheer\UiTPAS;
 
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
+use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
+use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class UiTPASTest extends \PHPUnit_Framework_TestCase
 {
+    use JsonAssertionTrait;
+
     /**
      * @var string
      */
@@ -17,12 +22,12 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
     protected $city = 'Leuven';
 
     /**
-     * @var \CultureFeed_Uitpas_Passholder
+     * @var \CultureFeed_Uitpas_Passholder_Card
      */
     protected $passholderCardMinimal;
 
     /**
-     * @var \CultureFeed_Uitpas_Passholder
+     * @var \CultureFeed_Uitpas_Passholder_Card
      */
     protected $passholderCardFull;
 
@@ -33,6 +38,10 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
         $this->passholderCardMinimal->type = UiTPASType::CARD();
         $this->passholderCardMinimal->uitpasNumber = $this->number;
 
+        $this->passholderCardMinimal->cardSystem = new \CultureFeed_Uitpas_CardSystem();
+        $this->passholderCardMinimal->cardSystem->id = 999;
+        $this->passholderCardMinimal->cardSystem->name = 'UiTPAS Regio Aalst';
+
         $this->passholderCardFull = clone $this->passholderCardMinimal;
         $this->passholderCardFull->city = $this->city;
     }
@@ -42,13 +51,19 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_extract_properties_from_a_culturefeed_passholder_card()
     {
-        $cfPassHolderCard = $this->passholderCardFull;
+        $expected = (new UiTPAS(
+            new UiTPASNumber($this->number),
+            UiTPASStatus::ACTIVE(),
+            UiTPASType::CARD(),
+            new CardSystem(
+                new CardSystemId('999'),
+                new StringLiteral('UiTPAS Regio Aalst')
+            )
+        ))->withCity(new StringLiteral($this->city));
 
-        $uitpas = UiTPAS::fromCultureFeedPassHolderCard($cfPassHolderCard);
-        $this->assertAttributeEquals(new UiTPASNumber($this->number), 'number', $uitpas);
-        $this->assertAttributeEquals(UiTPASStatus::ACTIVE, 'status', $uitpas);
-        $this->assertAttributeEquals(new StringLiteral($this->city), 'city', $uitpas);
-        $this->assertAttributeEquals(UiTPASType::CARD, 'type', $uitpas);
+        $actual = UiTPAS::fromCultureFeedPassHolderCard($this->passholderCardFull);
+
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -56,13 +71,19 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_manage_missing_properties_while_extracting_properties_from_a_culturefeed_passholder_card()
     {
-        $cfPassHolderCard = $this->passholderCardMinimal;
+        $expected = new UiTPAS(
+            new UiTPASNumber($this->number),
+            UiTPASStatus::ACTIVE(),
+            UiTPASType::CARD(),
+            new CardSystem(
+                new CardSystemId('999'),
+                new StringLiteral('UiTPAS Regio Aalst')
+            )
+        );
 
-        $uitpas = UiTPAS::fromCultureFeedPassHolderCard($cfPassHolderCard);
-        $this->assertAttributeEquals(new UiTPASNumber($this->number), 'number', $uitpas);
-        $this->assertAttributeEquals(UiTPASStatus::ACTIVE, 'status', $uitpas);
-        $this->assertAttributeEquals(UiTPASType::CARD, 'type', $uitpas);
-        $this->assertAttributeEmpty('city', $uitpas);
+        $actual = UiTPAS::fromCultureFeedPassHolderCard($this->passholderCardMinimal);
+
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -70,15 +91,13 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_serialize_to_json()
     {
-        $cfPassHolderCard = $this->passholderCardFull;
-        $uitpas = UiTPAS::fromCultureFeedPassHolderCard($cfPassHolderCard);
+        $uitpas = UiTPAS::fromCultureFeedPassHolderCard(
+            $this->passholderCardFull
+        );
 
-        $data = $uitpas->jsonSerialize();
-        $this->assertArrayHasKey('number', $data, 'The number key is missing.');
-        $this->assertArrayHasKey('kansenStatuut', $data, 'The kansenStatuut key is missing.');
-        $this->assertArrayHasKey('status', $data, 'The status key is missing.');
-        $this->assertArrayHasKey('city', $data, 'The city key is missing.');
-        $this->assertArrayHasKey('type', $data, 'The type key is missing.');
+        $json = json_encode($uitpas);
+
+        $this->assertJsonEquals($json, 'UiTPAS/data/uitpas-complete.json');
     }
 
     /**
@@ -86,14 +105,12 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_manage_missing_properties_while_serializing_to_json()
     {
-        $cfPassHolderCard = $this->passholderCardMinimal;
-        $uitpas = UiTPAS::fromCultureFeedPassHolderCard($cfPassHolderCard);
+        $uitpas = UiTPAS::fromCultureFeedPassHolderCard(
+            $this->passholderCardMinimal
+        );
 
-        $data = $uitpas->jsonSerialize();
-        $this->assertArrayHasKey('number', $data, 'The number key is missing.');
-        $this->assertArrayHasKey('kansenStatuut', $data, 'The kansenStatuut key is missing.');
-        $this->assertArrayHasKey('status', $data, 'The status key is missing.');
-        $this->assertArrayHasKey('type', $data, 'The type key is missing.');
-        $this->assertArrayNotHasKey('city', $data, 'The city key should not be present.');
+        $json = json_encode($uitpas);
+
+        $this->assertJsonEquals($json, 'UiTPAS/data/uitpas-minimal.json');
     }
 }

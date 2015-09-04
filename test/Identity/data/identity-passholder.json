@@ -3,7 +3,11 @@
     "number": "1000000035419",
     "kansenStatuut": true,
     "status": "ACTIVE",
-    "type": "CARD"
+    "type": "CARD",
+    "cardSystem": {
+      "id": "999",
+      "name": "UiTPAS Regio Aalst"
+    }
   },
   "passHolder": {
     "name": {

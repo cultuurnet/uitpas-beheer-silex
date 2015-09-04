@@ -1268,12 +1268,25 @@
             "BLOCKED",
             "DELETED"
           ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "CARD",
+            "KEYCHAIN",
+            "STICKER"
+          ]
+        },
+        "cardSystem": {
+          "$ref": "#/definitions/CardSystem"
         }
       },
       "required": [
         "number",
         "kansenStatuut",
-        "status"
+        "status",
+        "type",
+        "cardSystem"
       ]
     },
     "Gender": {
@@ -1282,6 +1295,18 @@
         "MALE",
         "FEMALE"
       ]
+    },
+    "CardSystem": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "4a567b89"
+        },
+        "name": {
+          "type": "string",
+          "example": "UiTPAS Regio Aalst"
+        }
+      }
     },
     "PassHolder": {
       "properties": {

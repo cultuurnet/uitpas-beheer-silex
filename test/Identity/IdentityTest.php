@@ -2,6 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\Identity;
 
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
+use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\PassHolder\PassHolder;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
@@ -113,7 +115,11 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
         $this->localStockUitpas = new UiTPAS(
             $this->uitpasNumber,
             UiTPASStatus::LOCAL_STOCK(),
-            UiTPASType::CARD()
+            UiTPASType::CARD(),
+            new CardSystem(
+                new CardSystemId('999'),
+                new StringLiteral('UiTPAS Regio Aalst')
+            )
         );
 
         $this->identity = new Identity($this->localStockUitpas);
@@ -121,7 +127,11 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
         $this->activeUitpas = new UiTPAS(
             $this->uitpasNumber,
             UiTPASStatus::ACTIVE(),
-            UiTPASType::CARD()
+            UiTPASType::CARD(),
+            new CardSystem(
+                new CardSystemId('999'),
+                new StringLiteral('UiTPAS Regio Aalst')
+            )
         );
 
         $this->identityWithPassHolder = (new Identity($this->activeUitpas))
@@ -156,6 +166,9 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
         $cfPassHolderCard->type = UiTPASType::CARD();
         $cfPassHolderCard->uitpasNumber = $this->uitpasNumber->toNative();
         $cfPassHolderCard->kansenpas = $this->uitpasNumber->hasKansenStatuut();
+        $cfPassHolderCard->cardSystem = new \CultureFeed_Uitpas_CardSystem();
+        $cfPassHolderCard->cardSystem->id = 999;
+        $cfPassHolderCard->cardSystem->name = 'UiTPAS Regio Aalst';
 
         $cfIdentity = new \CultureFeed_Uitpas_Identity();
         $cfIdentity->card = $cfPassHolderCard;
@@ -176,6 +189,9 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
         $cfPassHolderCard->type = UiTPASType::CARD();
         $cfPassHolderCard->uitpasNumber = $this->uitpasNumber->toNative();
         $cfPassHolderCard->kansenpas = $this->uitpasNumber->hasKansenStatuut();
+        $cfPassHolderCard->cardSystem = new \CultureFeed_Uitpas_CardSystem();
+        $cfPassHolderCard->cardSystem->id = 999;
+        $cfPassHolderCard->cardSystem->name = 'UiTPAS Regio Aalst';
 
         $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
         $cfPassHolder->firstName = $this->firstName->toNative();

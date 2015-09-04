@@ -268,7 +268,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->smsPreference = 'NOTIFICATION_SMS';
         $cfPassholder->emailPreference = 'ALL_MAILS';
         $cfPassholder->kansenStatuut = true;
-        $cfPassholder->kansenStatuutEndDate = '2345-09-13T00:00:00+01:00';
+        $cfPassholder->kansenStatuutEndDate = '11855890800';
         $cfPassholder->voucherNumber = 'i-am-a-voucher';
         $cfPassholder->moreInfo = 'This is a kansenstatuut remark, please don\'t read me';
 
@@ -320,7 +320,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->smsPreference = 'NOTIFICATION_SMS';
         $cfPassholder->emailPreference = 'ALL_MAILS';
         $cfPassholder->kansenStatuut = true;
-        $cfPassholder->kansenStatuutEndDate = '2345-09-13T00:00:00+01:00';
+        $cfPassholder->kansenStatuutEndDate = '11855890800';
 
         $this->uitpas->expects($this->once())
             ->method('getPassholderByUitpasNumber')
