@@ -5,6 +5,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Membership;
 
+use CultuurNet\UiTPASBeheer\Legacy\PassHolder\Specifications\HasAtLeastOneExpiredKansenStatuut;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
@@ -21,7 +22,8 @@ class MembershipControllerProvider implements ControllerProviderInterface
                 return new MembershipController(
                     $app['membership_service'],
                     $app['membership_registration_deserializer'],
-                    $app['legacy_passholder_service']
+                    $app['legacy_passholder_service'],
+                    new HasAtLeastOneExpiredKansenStatuut()
                 );
             }
         );

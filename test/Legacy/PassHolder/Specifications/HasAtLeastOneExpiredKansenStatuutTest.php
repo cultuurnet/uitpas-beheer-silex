@@ -2,8 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\Legacy\PassHolder\Specifications;
 
-use CultuurNet\UiTPASBeheer\Legacy\PassHolder\Specifications\HasAtLeastOneExpiredKansenStatuut;
-
 class HasAtLeastOneExpiredKansenStatuutTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -26,8 +24,15 @@ class HasAtLeastOneExpiredKansenStatuutTest extends \PHPUnit_Framework_TestCase
      */
     protected $nonKansenStatuutCardSystem;
 
+    /**
+     * @var HasAtLeastOneExpiredKansenStatuut
+     */
+    protected $hasAtLeastOneExpiredKansenStatuut;
+
     public function setUp()
     {
+        $this->hasAtLeastOneExpiredKansenStatuut = new HasAtLeastOneExpiredKansenStatuut();
+        
         $this->cfPassHolder = new \CultureFeed_Uitpas_Passholder();
         $this->cfPassHolder->firstName = 'Foo';
         $this->cfPassHolder->name = 'Bar';
@@ -57,7 +62,7 @@ class HasAtLeastOneExpiredKansenStatuutTest extends \PHPUnit_Framework_TestCase
         $this->cfPassHolder->cardSystemSpecific[] = $this->nonKansenStatuutCardSystem;
 
         $this->assertFalse(
-            HasAtLeastOneExpiredKansenStatuut::isSatisfiedBy($this->cfPassHolder)
+            $this->hasAtLeastOneExpiredKansenStatuut->isSatisfiedBy($this->cfPassHolder)
         );
     }
 
@@ -70,7 +75,7 @@ class HasAtLeastOneExpiredKansenStatuutTest extends \PHPUnit_Framework_TestCase
         $this->cfPassHolder->cardSystemSpecific[] = $this->activeKansenStatuutCardSystem;
 
         $this->assertFalse(
-            HasAtLeastOneExpiredKansenStatuut::isSatisfiedBy($this->cfPassHolder)
+            $this->hasAtLeastOneExpiredKansenStatuut->isSatisfiedBy($this->cfPassHolder)
         );
     }
 
@@ -86,7 +91,7 @@ class HasAtLeastOneExpiredKansenStatuutTest extends \PHPUnit_Framework_TestCase
         $this->cfPassHolder->cardSystemSpecific[] = $this->activeKansenStatuutCardSystem;
 
         $this->assertTrue(
-            HasAtLeastOneExpiredKansenStatuut::isSatisfiedBy($this->cfPassHolder)
+            $this->hasAtLeastOneExpiredKansenStatuut->isSatisfiedBy($this->cfPassHolder)
         );
     }
 
@@ -101,7 +106,7 @@ class HasAtLeastOneExpiredKansenStatuutTest extends \PHPUnit_Framework_TestCase
         $this->cfPassHolder->cardSystemSpecific[] = $this->activeKansenStatuutCardSystem;
 
         $this->assertTrue(
-            HasAtLeastOneExpiredKansenStatuut::isSatisfiedBy($this->cfPassHolder)
+            $this->hasAtLeastOneExpiredKansenStatuut->isSatisfiedBy($this->cfPassHolder)
         );
     }
 }

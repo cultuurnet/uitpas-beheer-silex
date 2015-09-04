@@ -4,9 +4,9 @@ namespace CultuurNet\UiTPASBeheer\Membership;
 
 use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\UiTPASBeheer\Legacy\PassHolder\LegacyPassHolderServiceInterface;
+use CultuurNet\UiTPASBeheer\Legacy\PassHolder\Specifications\PassHolderSpecificationInterface;
 use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
 use CultuurNet\UiTPASBeheer\Membership\Association\UnregisteredAssociationFilter;
-use CultuurNet\UiTPASBeheer\Legacy\PassHolder\Specifications\HasAtLeastOneExpiredKansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\PassHolderNotFoundException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -32,18 +32,26 @@ class MembershipController
     private $registrationJsonDeserializer;
 
     /**
+     * @var PassHolderSpecificationInterface
+     */
+    private $hasAtLeastOneExpiredKansenStatuut;
+
+    /**
      * @param MembershipServiceInterface $membershipService
      * @param DeserializerInterface $registrationJsonDeserializer
      * @param LegacyPassHolderServiceInterface $legacyPassHolderService
+     * @param PassHolderSpecificationInterface $hasAtLeastOneExpiredKansenStatuut
      */
     public function __construct(
         MembershipServiceInterface $membershipService,
         DeserializerInterface $registrationJsonDeserializer,
-        LegacyPassHolderServiceInterface $legacyPassHolderService
+        LegacyPassHolderServiceInterface $legacyPassHolderService,
+        PassHolderSpecificationInterface $hasAtLeastOneExpiredKansenStatuut
     ) {
         $this->membershipService = $membershipService;
         $this->legacyPassHolderService = $legacyPassHolderService;
         $this->registrationJsonDeserializer = $registrationJsonDeserializer;
+        $this->hasAtLeastOneExpiredKansenStatuut = $hasAtLeastOneExpiredKansenStatuut;
     }
 
     /**
@@ -63,7 +71,7 @@ class MembershipController
         return JsonResponse::create(
             [
                 'passholder' => $passHolder,
-                'atLeastOneKansenstatuutExpired' => HasAtLeastOneExpiredKansenStatuut::isSatisfiedBy($passHolder),
+                'atLeastOneKansenstatuutExpired' => $this->hasAtLeastOneExpiredKansenStatuut->isSatisfiedBy($passHolder),
                 'otherAssociations' => array_values($unregistered->jsonSerialize()),
                 'allAssociations' => $all->jsonSerialize(),
             ]

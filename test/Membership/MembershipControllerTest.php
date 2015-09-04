@@ -5,6 +5,7 @@ namespace CultuurNet\UiTPASBeheer\Membership;
 use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\Legacy\PassHolder\LegacyPassHolderServiceInterface;
+use CultuurNet\UiTPASBeheer\Legacy\PassHolder\Specifications\HasAtLeastOneExpiredKansenStatuut;
 use CultuurNet\UiTPASBeheer\Membership\Association\AssociationCollection;
 use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
 use CultuurNet\UiTPASBeheer\Membership\Registration\Registration;
@@ -34,6 +35,11 @@ class MembershipControllerTest extends \PHPUnit_Framework_TestCase
     protected $registrationJsonDeserializer;
 
     /**
+     * @var HasAtLeastOneExpiredKansenStatuut
+     */
+    protected $hasAtLeastOneExpiredKansenStatuut;
+
+    /**
      * @var MembershipController
      */
     protected $controller;
@@ -43,11 +49,13 @@ class MembershipControllerTest extends \PHPUnit_Framework_TestCase
         $this->membershipService = $this->getMock(MembershipServiceInterface::class);
         $this->legacyPassHolderService = $this->getMock(LegacyPassHolderServiceInterface::class);
         $this->registrationJsonDeserializer = new RegistrationJsonDeserializer();
+        $this->hasAtLeastOneExpiredKansenStatuut = new HasAtLeastOneExpiredKansenStatuut();
 
         $this->controller = new MembershipController(
             $this->membershipService,
             $this->registrationJsonDeserializer,
-            $this->legacyPassHolderService
+            $this->legacyPassHolderService,
+            $this->hasAtLeastOneExpiredKansenStatuut
         );
     }
 
