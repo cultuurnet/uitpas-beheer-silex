@@ -58,7 +58,7 @@ final class AssociationCollection implements \JsonSerializable
     }
 
     /**
-     * @return \CultureFeed_Uitpas_Association
+     * @return \CultureFeed_Uitpas_Association[]
      */
     public function getAssociationMap()
     {
