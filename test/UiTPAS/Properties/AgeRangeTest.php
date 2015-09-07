@@ -9,11 +9,12 @@ class AgeRangeTest extends \PHPUnit_Framework_TestCase
     /**
      * @tests
      */
-    public function it_requires_at_least_one_limiter_to_create_a_range()
+    public function it_does_not_require_a_limiter_to_create_a_range()
     {
-        $this->setExpectedException(InvalidAgeRangeException::class);
+        $range = new AgeRange(null, null);
 
-        new AgeRange(null, null);
+        $this->assertNull($range->getFrom());
+        $this->assertNull($range->getTo());
     }
 
     /**
