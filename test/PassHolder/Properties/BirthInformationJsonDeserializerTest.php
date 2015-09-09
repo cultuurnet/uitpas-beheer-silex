@@ -51,4 +51,19 @@ class BirthInformationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
 
         $this->deserializer->deserialize(new StringLiteral($json));
     }
+
+    /**
+     * @test
+     */
+    public function it_does_not_accept_time()
+    {
+        $json = '{"date":"1983-10-14T23:00:00.000Z","place":"Casablanca"}';
+
+        $this->setExpectedException(
+            BirthDateInvalidException::class,
+            'Invalid birth date "1983-10-14T23:00:00.000Z"'
+        );
+
+        $this->deserializer->deserialize(new StringLiteral($json));
+    }
 }
