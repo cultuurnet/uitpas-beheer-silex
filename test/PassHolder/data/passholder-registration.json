@@ -29,7 +29,7 @@
   },
   "voucherNumber": "i-am-voucher",
   "kansenStatuut": {
-    "endDate": "2345-09-13T00:00:00+01:00",
+    "endDate": "2345-09-13",
     "remarks": "I am remarkable"
   }
 }
