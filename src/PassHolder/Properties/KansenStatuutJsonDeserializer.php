@@ -6,6 +6,7 @@ use CultuurNet\Deserializer\JSONDeserializer;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use ValueObjects\DateTime\Date;
 use ValueObjects\StringLiteral\StringLiteral;
+use DateTime;
 
 class KansenStatuutJsonDeserializer extends JSONDeserializer
 {
@@ -22,7 +23,11 @@ class KansenStatuutJsonDeserializer extends JSONDeserializer
             throw new MissingPropertyException('endDate');
         }
 
-        $dateTime = new \DateTime($data->endDate);
+        $dateTime = DateTime::createFromFormat('Y-m-d', $data->endDate);
+        if (false === $dateTime) {
+            throw new KansenStatuutEndDateInvalidException($data->endDate);
+        }
+
         $kansenStatuut = new KansenStatuut(
             Date::fromNativeDateTime($dateTime)
         );

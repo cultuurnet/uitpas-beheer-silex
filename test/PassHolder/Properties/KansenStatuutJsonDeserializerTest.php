@@ -36,7 +36,7 @@ class KansenStatuutJsonDeserializerTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_include_optional_remarks()
     {
-        $kansenStatuutData = new StringLiteral('{"endDate": "2345-09-13T00:00:00+01:00", "remarks": "I am remarkable"}');
+        $kansenStatuutData = new StringLiteral('{"endDate": "2345-09-13", "remarks": "I am remarkable"}');
 
         $kansenStatuut = $this->deserializer->deserialize($kansenStatuutData);
 
@@ -50,12 +50,27 @@ class KansenStatuutJsonDeserializerTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_include_empty_but_provided_remarks()
     {
-        $kansenStatuutData = new StringLiteral('{"endDate": "2345-09-13T00:00:00+01:00", "remarks": ""}');
+        $kansenStatuutData = new StringLiteral('{"endDate": "2345-09-13", "remarks": ""}');
 
         $kansenStatuut = $this->deserializer->deserialize($kansenStatuutData);
 
         $expectedRemarks = new Remarks("");
 
         $this->assertEquals($expectedRemarks, $kansenStatuut->getRemarks());
+    }
+
+    /**
+     * @test
+     */
+    public function it_does_not_accept_time()
+    {
+        $kansenStatuutData = new StringLiteral('{"endDate": "2345-09-13T00:00:00+01:00", "remarks": "I am remarkable"}');
+
+        $this->setExpectedException(
+            KansenStatuutEndDateInvalidException::class,
+            'Invalid kansenstatuut end date "2345-09-13T00:00:00+01:00"'
+        );
+
+        $this->deserializer->deserialize($kansenStatuutData);
     }
 }
