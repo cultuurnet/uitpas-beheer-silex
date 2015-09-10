@@ -1125,12 +1125,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/2dotstwice/silex-cors-provider.git",
-                "reference": "fa42fea1dc602959b5a45c704a12616dc6554ee8"
+                "reference": "43cd857ea83da773748c76637364ba95764e6062"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/2dotstwice/silex-cors-provider/zipball/fa42fea1dc602959b5a45c704a12616dc6554ee8",
-                "reference": "fa42fea1dc602959b5a45c704a12616dc6554ee8",
+                "url": "https://api.github.com/repos/2dotstwice/silex-cors-provider/zipball/43cd857ea83da773748c76637364ba95764e6062",
+                "reference": "43cd857ea83da773748c76637364ba95764e6062",
                 "shasum": ""
             },
             "require": {
@@ -1174,7 +1174,7 @@
             "support": {
                 "source": "https://github.com/2dotstwice/silex-cors-provider/tree/ie11-cors-multiple-methods"
             },
-            "time": "2015-09-10 11:26:34"
+            "time": "2015-09-10 12:39:01"
         },
         {
             "name": "justinrainbow/json-schema",
