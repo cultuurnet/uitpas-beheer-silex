@@ -32,4 +32,16 @@ class ContactInformationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
         $actual = $this->deserializer->deserialize(new StringLiteral($json));
         $this->assertTrue($expected->sameValueAs($actual));
     }
+
+    /**
+     * @test
+     */
+    public function it_should_throw_an_error_when_a_invalid_email_address_is_provided()
+    {
+        $json = file_get_contents(__DIR__ . '/../data/properties/contact-information-invalid-email.json');
+
+        $this->setExpectedException(EmailAddressInvalidException::class);
+
+        $this->deserializer->deserialize(new StringLiteral($json));
+    }
 }
