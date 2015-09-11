@@ -113,6 +113,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         // so they should not be set.
         $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
         $cfPassHolder->toPostDataKeepEmptySecondName();
+        $cfPassHolder->toPostDataKeepEmptyEmail();
         $cfPassHolder->uitpasNumber = $uitpasNumberValue;
         $cfPassHolder->name = 'Zyrani';
         $cfPassHolder->firstName = 'Layla';
@@ -150,6 +151,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
         $cfPassholder = new \CultureFeed_Uitpas_Passholder();
         $cfPassholder->toPostDataKeepEmptySecondName();
+        $cfPassholder->toPostDataKeepEmptyEmail();
         $cfPassholder->uitpasNumber = $uitpasNumberValue;
         $cfPassholder->name = 'Zyrani';
         $cfPassholder->firstName = 'Layla';
@@ -200,6 +202,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
         $cfPassholder = new \CultureFeed_Uitpas_Passholder();
         $cfPassholder->toPostDataKeepEmptySecondName();
+        $cfPassholder->toPostDataKeepEmptyEmail();
         $cfPassholder->uitpasNumber = $uitpasNumberValue;
         $cfPassholder->name = 'Zyrani';
         $cfPassholder->firstName = 'Layla';
@@ -250,6 +253,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
         $cfPassholder = new \CultureFeed_Uitpas_Passholder();
         $cfPassholder->toPostDataKeepEmptySecondName();
+        $cfPassholder->toPostDataKeepEmptyEmail();
         $cfPassholder->uitpasNumber = $uitpasNumberValue;
         $cfPassholder->name = 'Zyrani';
         $cfPassholder->firstName = 'Layla';
@@ -302,6 +306,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
         $cfPassholder = new \CultureFeed_Uitpas_Passholder();
         $cfPassholder->toPostDataKeepEmptySecondName();
+        $cfPassholder->toPostDataKeepEmptyEmail();
         $cfPassholder->uitpasNumber = $uitpasNumberValue;
         $cfPassholder->name = 'Zyrani';
         $cfPassholder->firstName = 'Layla';

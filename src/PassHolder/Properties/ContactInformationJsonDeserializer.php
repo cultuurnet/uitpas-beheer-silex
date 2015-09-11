@@ -15,7 +15,7 @@ class ContactInformationJsonDeserializer extends JSONDeserializer
 
         $contactInformation = new ContactInformation();
 
-        if (isset($data->email)) {
+        if (isset($data->email) && !empty($data->email)) {
             try {
                 $contactInformation = $contactInformation->withEmail(
                     new EmailAddress((string) $data->email)
