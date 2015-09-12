@@ -48,7 +48,7 @@ class ContactInformationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_should_allow_to_leave_email_address_property()
+    public function it_should_allow_to_leave_email_address_property_empty()
     {
         $expected = (new ContactInformation())
             ->withTelephoneNumber(new StringLiteral(''))
