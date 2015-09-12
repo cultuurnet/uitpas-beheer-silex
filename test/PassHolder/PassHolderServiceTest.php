@@ -111,9 +111,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
         // Picture and points can not be updated with this call,
         // so they should not be set.
-        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
-        $cfPassHolder->toPostDataKeepEmptySecondName();
-        $cfPassHolder->toPostDataKeepEmptyEmail();
+        $cfPassHolder = $this->createCFPassHolderBaseForModification();
         $cfPassHolder->uitpasNumber = $uitpasNumberValue;
         $cfPassHolder->name = 'Zyrani';
         $cfPassHolder->firstName = 'Layla';
@@ -140,6 +138,18 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @return \CultureFeed_Uitpas_Passholder
+     */
+    public function createCFPassHolderBaseForModification()
+    {
+        $cfPassholder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassholder->toPostDataKeepEmptySecondName();
+        $cfPassholder->toPostDataKeepEmptyEmail();
+
+        return $cfPassholder;
+    }
+
+    /**
      * @test
      */
     public function it_should_register_a_new_passholder_linked_to_a_given_UiTPAS_number_and_return_a_UUID()
@@ -149,9 +159,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
         $passholder = $this->getCompletePassHolder(Gender::FEMALE());
 
-        $cfPassholder = new \CultureFeed_Uitpas_Passholder();
-        $cfPassholder->toPostDataKeepEmptySecondName();
-        $cfPassholder->toPostDataKeepEmptyEmail();
+        $cfPassholder = $this->createCFPassHolderBaseForModification();
         $cfPassholder->uitpasNumber = $uitpasNumberValue;
         $cfPassholder->name = 'Zyrani';
         $cfPassholder->firstName = 'Layla';
@@ -200,9 +208,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
         $passholder = $this->getCompletePassHolder(Gender::FEMALE());
 
-        $cfPassholder = new \CultureFeed_Uitpas_Passholder();
-        $cfPassholder->toPostDataKeepEmptySecondName();
-        $cfPassholder->toPostDataKeepEmptyEmail();
+        $cfPassholder = $this->createCFPassHolderBaseForModification();
         $cfPassholder->uitpasNumber = $uitpasNumberValue;
         $cfPassholder->name = 'Zyrani';
         $cfPassholder->firstName = 'Layla';
@@ -251,9 +257,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
         $passholder = $this->getCompletePassHolder(Gender::FEMALE());
 
-        $cfPassholder = new \CultureFeed_Uitpas_Passholder();
-        $cfPassholder->toPostDataKeepEmptySecondName();
-        $cfPassholder->toPostDataKeepEmptyEmail();
+        $cfPassholder = $this->createCFPassHolderBaseForModification();
         $cfPassholder->uitpasNumber = $uitpasNumberValue;
         $cfPassholder->name = 'Zyrani';
         $cfPassholder->firstName = 'Layla';
@@ -304,9 +308,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
         $passholder = $this->getCompletePassHolder(Gender::FEMALE());
 
-        $cfPassholder = new \CultureFeed_Uitpas_Passholder();
-        $cfPassholder->toPostDataKeepEmptySecondName();
-        $cfPassholder->toPostDataKeepEmptyEmail();
+        $cfPassholder = $this->createCFPassHolderBaseForModification();
         $cfPassholder->uitpasNumber = $uitpasNumberValue;
         $cfPassholder->name = 'Zyrani';
         $cfPassholder->firstName = 'Layla';
