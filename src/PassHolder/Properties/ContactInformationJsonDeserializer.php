@@ -25,13 +25,13 @@ class ContactInformationJsonDeserializer extends JSONDeserializer
             }
         }
 
-        if (isset($data->telephoneNumber)) {
+        if (isset($data->telephoneNumber) && !empty($data->telephoneNumber)) {
             $contactInformation = $contactInformation->withTelephoneNumber(
                 new StringLiteral((string) $data->telephoneNumber)
             );
         }
 
-        if (isset($data->mobileNumber)) {
+        if (isset($data->mobileNumber) && !empty($data->mobileNumber)) {
             $contactInformation = $contactInformation->withMobileNumber(
                 new StringLiteral((string) $data->mobileNumber)
             );

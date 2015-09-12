@@ -50,9 +50,7 @@ class ContactInformationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
      */
     public function it_should_allow_to_leave_email_address_property_empty()
     {
-        $expected = (new ContactInformation())
-            ->withTelephoneNumber(new StringLiteral(''))
-            ->withMobileNumber(new StringLiteral(''));
+        $expected = new ContactInformation();
 
         $json = file_get_contents(__DIR__ . '/../data/properties/contact-information-with-empty-properties.json');
 
