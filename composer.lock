@@ -226,12 +226,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "485ab1010aaa85171f821ac0614c1f5fcb0c90b1"
+                "reference": "2e047597fe8485ba2bf866aa97d77f9a55eea844"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/485ab1010aaa85171f821ac0614c1f5fcb0c90b1",
-                "reference": "485ab1010aaa85171f821ac0614c1f5fcb0c90b1",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/2e047597fe8485ba2bf866aa97d77f9a55eea844",
+                "reference": "2e047597fe8485ba2bf866aa97d77f9a55eea844",
                 "shasum": ""
             },
             "require": {
@@ -285,7 +285,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-09-03 12:13:34"
+            "time": "2015-09-12 07:31:11"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -1129,7 +1129,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/2dotstwice/silex-cors-provider/zipball/43cd857ea83da773748c76637364ba95764e6062",
+                "url": "https://api.github.com/repos/2dotstwice/silex-cors-provider/zipball/837d5345a195b18cc1330104e901b498e0f530b1",
                 "reference": "43cd857ea83da773748c76637364ba95764e6062",
                 "shasum": ""
             },
