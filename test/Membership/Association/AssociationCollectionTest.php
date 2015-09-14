@@ -126,4 +126,17 @@ class AssociationCollectionTest extends \PHPUnit_Framework_TestCase
         $json = json_encode($associationCollection);
         $this->assertJsonEquals($json, 'Membership/Association/data/association-collection.json');
     }
+
+    /**
+     * @test
+     */
+    public function it_can_be_empty()
+    {
+        $associationCollection = new AssociationCollection([]);
+
+        $this->assertSame(
+            [],
+            $associationCollection->getAssociationMap()
+        );
+    }
 }

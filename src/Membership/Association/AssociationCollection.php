@@ -14,6 +14,8 @@ final class AssociationCollection implements \JsonSerializable
      */
     public function __construct(array $cfAssociations = array())
     {
+        $this->associations = [];
+
         foreach ($cfAssociations as $cfAssociation) {
             $this->guardAssociationObjectType($cfAssociation);
             $this->associations[$cfAssociation->id] = $cfAssociation;
