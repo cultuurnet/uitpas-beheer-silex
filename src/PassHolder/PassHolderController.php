@@ -115,12 +115,6 @@ class PassHolderController
             );
         } catch (\CultureFeed_Exception $exception) {
             throw ReadableCodeResponseException::fromCultureFeedException($exception);
-        } catch (UiTPASNumberAlreadyUsedException $exception) {
-            throw new ReadableCodeResponseException(
-                'This UiTPAS number is already in use',
-                'UITPASNUMBER_ALREADY_USED',
-                400
-            );
         }
 
         // Return the registered passholder.
