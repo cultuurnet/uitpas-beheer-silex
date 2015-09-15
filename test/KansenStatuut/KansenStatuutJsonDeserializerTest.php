@@ -2,10 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\KansenStatuut;
 
-use CultuurNet\Deserializer\JSONDeserializer;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
-use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutEndDateInvalidException;
-use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
 use ValueObjects\StringLiteral\StringLiteral;
 

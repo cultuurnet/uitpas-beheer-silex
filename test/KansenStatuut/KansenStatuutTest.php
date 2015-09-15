@@ -2,7 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\KansenStatuut;
 
-use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
 use ValueObjects\DateTime\Date;
 
