@@ -83,4 +83,64 @@ class KansenstatuutTest extends \PHPUnit_Framework_TestCase
         $json = json_encode($this->kansenStatuut);
         $this->assertJsonEquals($json, 'KansenStatuut/data/kansen-statuut-complete.json');
     }
+
+    /**
+     * @test
+     */
+    public function it_can_be_initialized_from_a_culturefeed_card_system_specific_object()
+    {
+        $cardSystemSpecific = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
+        $cardSystemSpecific->kansenStatuut = true;
+        $cardSystemSpecific->kansenStatuutEndDate = 1442331412;
+        $cardSystemSpecific->cardSystem = new \CultureFeed_Uitpas_CardSystem();
+        $cardSystemSpecific->cardSystem->id = 5;
+        $cardSystemSpecific->cardSystem->name = 'Test';
+
+        $cardSystemSpecificExpired = clone $cardSystemSpecific;
+        $cardSystemSpecificExpired->kansenStatuutExpired = true;
+
+        $cardSystemSpecificInGracePeriod = clone $cardSystemSpecific;
+        $cardSystemSpecificInGracePeriod->kansenStatuutInGracePeriod = true;
+
+        $endDate = Date::fromNativeDateTime(
+            \DateTime::createFromFormat('U', 1442331412)
+        );
+
+        $cardSystem = new CardSystem(
+            new CardSystemId('5'),
+            new StringLiteral('Test')
+        );
+
+        $kansenStatuut = (new KansenStatuut($endDate))
+            ->withCardSystem($cardSystem);
+
+        $active = $kansenStatuut->withStatus(KansenStatuutStatus::ACTIVE());
+        $expired = $kansenStatuut->withStatus(KansenStatuutStatus::EXPIRED());
+        $inGracePeriod = $kansenStatuut->withStatus(KansenStatuutStatus::IN_GRACE_PERIOD());
+
+        $this->assertEquals(
+            $active,
+            KansenStatuut::fromCultureFeedCardSystemSpecific($cardSystemSpecific)
+        );
+        $this->assertEquals(
+            $expired,
+            KansenStatuut::fromCultureFeedCardSystemSpecific($cardSystemSpecificExpired)
+        );
+        $this->assertEquals(
+            $inGracePeriod,
+            KansenStatuut::fromCultureFeedCardSystemSpecific($cardSystemSpecificInGracePeriod)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_for_a_card_system_specific_object_without_kansenstatuut()
+    {
+        $cardSystemSpecific = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
+        $cardSystemSpecific->kansenStatuut = false;
+
+        $this->setExpectedException(\InvalidArgumentException::class);
+        KansenStatuut::fromCultureFeedCardSystemSpecific($cardSystemSpecific);
+    }
 }

@@ -124,4 +124,36 @@ final class KansenStatuut implements \JsonSerializable
 
         return $data;
     }
+
+    /**
+     * @param \CultureFeed_Uitpas_Passholder_CardSystemSpecific $cardSystemSpecific
+     * @return KansenStatuut
+     */
+    public static function fromCultureFeedCardSystemSpecific(
+        \CultureFeed_Uitpas_Passholder_CardSystemSpecific $cardSystemSpecific
+    ) {
+        if (!$cardSystemSpecific->kansenStatuut) {
+            throw new \InvalidArgumentException('The provided cardSystemSpecific has kansenStatuut set to false.');
+        }
+
+        $endDate = Date::fromNativeDateTime(
+            new \DateTime('@' . $cardSystemSpecific->kansenStatuutEndDate)
+        );
+
+        if ($cardSystemSpecific->kansenStatuutExpired) {
+            $status = KansenStatuutStatus::EXPIRED();
+        } elseif ($cardSystemSpecific->kansenStatuutInGracePeriod) {
+            $status = KansenStatuutStatus::IN_GRACE_PERIOD();
+        } else {
+            $status = KansenStatuutStatus::ACTIVE();
+        }
+
+        $cardSystem = CardSystem::fromCultureFeedCardSystem($cardSystemSpecific->cardSystem);
+
+        $kansenStatuut = (new KansenStatuut($endDate))
+            ->withStatus($status)
+            ->withCardSystem($cardSystem);
+
+        return $kansenStatuut;
+    }
 }
