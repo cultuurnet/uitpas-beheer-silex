@@ -1439,7 +1439,7 @@
           "format": "date",
           "example": "2015-12-26"
         },
-        "card": {
+        "uitPas": {
           "$ref": "#/definitions/UiTPAS"
         }
       },
