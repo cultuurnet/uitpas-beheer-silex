@@ -98,7 +98,7 @@ final class KansenStatuut implements \JsonSerializable
      * @param CardSystem $cardSystem
      * @return KansenStatuut
      */
-    public function withUiTPAS(CardSystem $cardSystem)
+    public function withCardSystem(CardSystem $cardSystem)
     {
         $c = clone $this;
         $c->cardSystem = $cardSystem;

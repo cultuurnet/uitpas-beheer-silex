@@ -61,7 +61,7 @@ class KansenstatuutTest extends \PHPUnit_Framework_TestCase
         $this->kansenStatuut = (new KansenStatuut($this->endDate))
             ->withRemarks($this->remarks)
             ->withStatus($this->status)
-            ->withUiTPAS($this->cardSystem);
+            ->withCardSystem($this->cardSystem);
     }
 
     /**
