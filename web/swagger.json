@@ -1424,28 +1424,19 @@
         "status": {
           "type": "string",
           "enum": [
-            "active",
-            "inGracePeriod",
-            "expired"
+            "ACTIVE",
+            "IN_GRACE_PERIOD",
+            "EXPIRED"
           ],
-          "example": "active"
-        },
-        "cardSystem": {
-          "$ref": "#/definitions/CardSystem"
-        },
-        "type": {
-          "type": "string",
-          "enum": [
-            "CARD",
-            "KEYCHAIN",
-            "STICKER"
-          ],
-          "example": "CARD"
+          "example": "ACTIVE"
         },
         "endDate": {
           "type": "string",
           "format": "date",
           "example": "2015-12-26"
+        },
+        "card": {
+          "$ref": "#/definitions/UiTPAS"
         }
       }
     },
