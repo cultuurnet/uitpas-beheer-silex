@@ -4,7 +4,6 @@ namespace CultuurNet\UiTPASBeheer\KansenStatuut;
 
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
-use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 use ValueObjects\DateTime\Date;
 
 /**
