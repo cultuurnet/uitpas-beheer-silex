@@ -6,10 +6,6 @@ use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
-use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
-use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
-use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
-use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\Month;
 use ValueObjects\DateTime\MonthDay;
@@ -36,9 +32,9 @@ class KansenstatuutTest extends \PHPUnit_Framework_TestCase
     protected $status;
 
     /**
-     * @var UiTPAS
+     * @var CardSystem
      */
-    protected $uitPas;
+    protected $cardSystem;
 
     /**
      * @var KansenStatuut
@@ -57,20 +53,15 @@ class KansenstatuutTest extends \PHPUnit_Framework_TestCase
 
         $this->status = KansenStatuutStatus::IN_GRACE_PERIOD();
 
-        $this->uitPas = new UiTPAS(
-            new UiTPASNumber('0930000420206'),
-            UiTPASStatus::ACTIVE(),
-            UiTPASType::CARD(),
-            new CardSystem(
-                new CardSystemId('999'),
-                new StringLiteral('UiTPAS Regio Aalst')
-            )
+        $this->cardSystem = new CardSystem(
+            new CardSystemId('999'),
+            new StringLiteral('UiTPAS Regio Aalst')
         );
 
         $this->kansenStatuut = (new KansenStatuut($this->endDate))
             ->withRemarks($this->remarks)
             ->withStatus($this->status)
-            ->withUiTPAS($this->uitPas);
+            ->withUiTPAS($this->cardSystem);
     }
 
     /**
@@ -81,7 +72,7 @@ class KansenstatuutTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->endDate, $this->kansenStatuut->getEndDate());
         $this->assertEquals($this->remarks, $this->kansenStatuut->getRemarks());
         $this->assertEquals($this->status, $this->kansenStatuut->getStatus());
-        $this->assertEquals($this->uitPas, $this->kansenStatuut->getUiTPAS());
+        $this->assertEquals($this->cardSystem, $this->kansenStatuut->getCardSystem());
     }
 
     /**

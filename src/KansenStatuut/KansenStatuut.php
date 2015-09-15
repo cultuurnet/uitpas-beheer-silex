@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\KansenStatuut;
 
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 use ValueObjects\DateTime\Date;
@@ -28,9 +29,9 @@ final class KansenStatuut implements \JsonSerializable
     protected $status;
 
     /**
-     * @var UiTPAS|null
+     * @var CardSystem|null
      */
-    protected $uitPas;
+    protected $cardSystem;
 
     /**
      * @param Date $endDate
@@ -87,21 +88,21 @@ final class KansenStatuut implements \JsonSerializable
     }
 
     /**
-     * @return UiTPAS|null
+     * @return CardSystem|null
      */
-    public function getUiTPAS()
+    public function getCardSystem()
     {
-        return $this->uitPas;
+        return $this->cardSystem;
     }
 
     /**
-     * @param UiTPAS $uitPas
+     * @param CardSystem $cardSystem
      * @return KansenStatuut
      */
-    public function withUiTPAS(UiTPAS $uitPas)
+    public function withUiTPAS(CardSystem $cardSystem)
     {
         $c = clone $this;
-        $c->uitPas = $uitPas;
+        $c->cardSystem = $cardSystem;
         return $c;
     }
 
@@ -118,8 +119,8 @@ final class KansenStatuut implements \JsonSerializable
             $data['status'] = $this->status->toNative();
         }
 
-        if (!is_null($this->uitPas)) {
-            $data['uitPas'] = $this->uitPas->jsonSerialize();
+        if (!is_null($this->cardSystem)) {
+            $data['cardSystem'] = $this->cardSystem->jsonSerialize();
         }
 
         return $data;
