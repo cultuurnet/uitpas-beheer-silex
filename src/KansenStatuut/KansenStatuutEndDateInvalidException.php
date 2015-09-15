@@ -1,9 +1,6 @@
 <?php
-/**
- * @file
- */
 
-namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
+namespace CultuurNet\UiTPASBeheer\KansenStatuut;
 
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
 

@@ -1,7 +1,8 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
+namespace CultuurNet\UiTPASBeheer\KansenStatuut;
 
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
 use ValueObjects\DateTime\Date;
 
 final class KansenStatuut
