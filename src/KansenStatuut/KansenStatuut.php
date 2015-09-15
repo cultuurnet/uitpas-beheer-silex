@@ -10,7 +10,7 @@ use ValueObjects\DateTime\Date;
  * @todo Move remarks property to PassHolder.
  * @see http://jira.uitdatabank.be:8080/browse/UBR-235
  */
-final class KansenStatuut
+final class KansenStatuut implements \JsonSerializable
 {
     /**
      * @var Date
@@ -103,5 +103,25 @@ final class KansenStatuut
         $c = clone $this;
         $c->uitPas = $uitPas;
         return $c;
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        $data = [
+            'endDate' => $this->endDate->toNativeDateTime()->format('Y-m-d'),
+        ];
+
+        if (!is_null($this->status)) {
+            $data['status'] = $this->status->toNative();
+        }
+
+        if (!is_null($this->uitPas)) {
+            $data['uitPas'] = $this->uitPas->jsonSerialize();
+        }
+
+        return $data;
     }
 }
