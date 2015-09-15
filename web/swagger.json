@@ -1344,6 +1344,10 @@
           "type": "integer",
           "example": 40
         },
+        "remarks": {
+          "type": "string",
+          "example": "Dit maakt niet uit."
+        },
         "kansenStatuten": {
           "type": "array",
           "items": {
