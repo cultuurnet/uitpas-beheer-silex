@@ -1390,6 +1390,16 @@
         "points": {
           "type": "integer",
           "example": 40
+        },
+        "remarks": {
+          "type": "string",
+          "example": "Dit maakt niet uit."
+        },
+        "kansenStatuten": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KansenStatuut"
+          }
         }
       },
       "required": [
@@ -1461,6 +1471,30 @@
       "required": [
         "activityId",
         "priceClass"
+      ]
+    },
+    "KansenStatuut": {
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "ACTIVE",
+            "IN_GRACE_PERIOD",
+            "EXPIRED"
+          ],
+          "example": "ACTIVE"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "example": "2015-12-26"
+        },
+        "cardSystem": {
+          "$ref": "#/definitions/CardSystem"
+        }
+      },
+      "required": [
+        "endDate"
       ]
     },
     "PassHolderName": {
@@ -1732,14 +1766,14 @@
           "description": "An optional voucher number to redeem."
         },
         "kansenStatuut": {
-          "$ref": "#/definitions/KansenStatuut"
+          "$ref": "#/definitions/RegistrationKansenStatuut"
         }
       },
       "required": [
         "passHolder"
       ]
     },
-    "KansenStatuut": {
+    "RegistrationKansenStatuut": {
       "properties": {
         "endDate": {
           "type": "string",
