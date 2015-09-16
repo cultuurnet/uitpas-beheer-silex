@@ -808,7 +808,11 @@
     },
     {
       "name": "UiTPAS",
-      "description": "Operations related to an UiTPAS"
+      "description": "Operations related to an UiTPAS."
+    },
+    {
+      "name": "Kansenstatuut",
+      "description": "Operations related to a kansenstatuut."
     }
   ],
   "definitions": {
