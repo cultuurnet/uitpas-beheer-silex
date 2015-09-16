@@ -1439,8 +1439,8 @@
           "format": "date",
           "example": "2015-12-26"
         },
-        "uitPas": {
-          "$ref": "#/definitions/UiTPAS"
+        "cardSystem": {
+          "$ref": "#/definitions/CardSystem"
         }
       },
       "required": [
