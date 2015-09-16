@@ -728,6 +728,53 @@
           "PassHolder"
         ]
       }
+    },
+    "/passholders/{uitpasNumber}/kansenstatuten/{cardSystemId}": {
+      "patch": {
+        "summary": "Change specific information of a kansenstatuut.",
+        "description": "Authentication and an active counter with kansenstatuut authorisation is required",
+        "operationId": "updateKansenstatuut",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cardSystemId",
+            "in": "path",
+            "description": "The card system ID that is linked to the kansenstatuut you want to edit",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the kansenstatuut info that you want to change",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/KansenstatuutUpdateCommand"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The registered has been updated."
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter with kansenstatuut permissions."
+          }
+        },
+        "tags": [
+          "Kansenstatuut",
+          "PassHolder"
+        ]
+      }
     }
   },
   "tags": [
@@ -1880,6 +1927,19 @@
         "id",
         "price",
         "creationDate"
+      ]
+    },
+    "KansenstatuutUpdateCommand": {
+      "type": "object",
+      "properties": {
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "example": "2015-12-26"
+        }
+      },
+      "required": [
+        "endDate"
       ]
     },
     "Price": {
