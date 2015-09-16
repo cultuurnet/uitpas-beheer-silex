@@ -334,7 +334,7 @@
           "PassHolder"
         ]
       },
-      "post": {
+      "patch": {
         "summary": "Update a passholder.",
         "description": "Authentication and active counter is required.",
         "operationId": "updatePassHolder",
