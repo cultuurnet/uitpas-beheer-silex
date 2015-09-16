@@ -29,9 +29,7 @@ class PassHolderControllerProvider implements ControllerProviderInterface
 
         $controllers->get('/passholders/{uitpasNumber}', 'passholder_controller:getByUitpasNumber');
         $controllers->put('/passholders/{uitpasNumber}', 'passholder_controller:register');
-
-        // @todo Use PATCH instead of POST. See UBR-179.
-        $controllers->post('/passholders/{uitpasNumber}', 'passholder_controller:update');
+        $controllers->patch('/passholders/{uitpasNumber}', 'passholder_controller:update');
 
         return $controllers;
     }
