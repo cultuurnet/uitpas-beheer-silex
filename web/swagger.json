@@ -1425,6 +1425,9 @@
         },
         "privacy": {
           "$ref": "#/definitions/PassHolderPrivacyPreferences"
+        },
+        "remarks": {
+          "$ref": "#/definitions/PassholderRemarks"
         }
       },
       "required": [
@@ -1744,8 +1747,7 @@
           "description": "The end date of the kansenstatuut."
         },
         "remarks": {
-          "type": "string",
-          "description": "Additional remarks concerning the kansenstatuut."
+          "$ref": "#/definitions/PassholderRemarks"
         }
       },
       "required": [
@@ -1946,6 +1948,10 @@
       "type": "number",
       "format": "float",
       "example": 1.5
+    },
+    "PassholderRemarks": {
+      "type": "string",
+      "description": "Addition information about the passholder. Kansenstatuut related info should go here."
     }
   }
 }
