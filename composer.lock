@@ -4,8 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d28ea8b8879457f923872bb8f0d41840",
+    "hash": "b60a055938a0e3ece100a3c22c0f1aad",
     "packages": [
+        {
+            "name": "2dotstwice/collection",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/2dotstwice/php-collection.git",
+                "reference": "df2856ea90d36fa262b50b7bb178f92c6644c9a7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/2dotstwice/php-collection/zipball/df2856ea90d36fa262b50b7bb178f92c6644c9a7",
+                "reference": "df2856ea90d36fa262b50b7bb178f92c6644c9a7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "phing/phing": "~2.11",
+                "phpunit/php-token-stream": "1.4.6",
+                "phpunit/phpunit": "~4.8",
+                "satooshi/php-coveralls": "~0.7",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TwoDotsTwice\\Collection\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Bert Ramakers",
+                    "email": "bert@2dotstwice.be",
+                    "homepage": "http://2dotstwice.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": " Library for creating collection classes with strict typing.",
+            "time": "2015-09-16 14:34:58"
+        },
         {
             "name": "cultuurnet/auth",
             "version": "1.2.x-dev",
