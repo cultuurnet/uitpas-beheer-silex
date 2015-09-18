@@ -42,7 +42,6 @@
     "symfony/validator": "~2.3",
     "symfony/monolog-bridge": "~2.3",
     "symfony/twig-bridge": "~2.3",
-    "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
     "swiftmailer/swiftmailer": "5.*",
     "cultuurnet/clock": "~0.1",
     "cultuurnet/hydra": "~0.1"
