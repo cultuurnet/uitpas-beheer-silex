@@ -16,29 +16,14 @@ class KansenStatuutCollectionTest extends \PHPUnit_Framework_TestCase
     use JsonAssertionTrait;
 
     /**
-     * @var Date
+     * @var KansenStatuut
      */
-    protected $endDate;
-
-    /**
-     * @var KansenStatuutStatus
-     */
-    protected $kansenStatuutStatus;
-
-    /**
-     * @var CardSystem
-     */
-    protected $cardSystem;
+    protected $bxl;
 
     /**
      * @var KansenStatuut
      */
-    protected $minimal;
-
-    /**
-     * @var KansenStatuut
-     */
-    protected $complete;
+    protected $aalst;
 
     /**
      * @var KansenStatuutCollection
@@ -50,28 +35,39 @@ class KansenStatuutCollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->endDate = new Date(
-            new Year('2015'),
-            Month::getByName('DECEMBER'),
-            new MonthDay('26')
+        $this->bxl = (new KansenStatuut(
+            new Date(
+                new Year('2015'),
+                Month::getByName('DECEMBER'),
+                new MonthDay('24')
+            )
+        ))->withStatus(
+            KansenStatuutStatus::EXPIRED()
+        )->withCardSystem(
+            new CardSystem(
+                new CardSystemId('666'),
+                new StringLiteral('UiTPAS Regio BxL')
+            )
         );
 
-        $this->kansenStatuutStatus = KansenStatuutStatus::IN_GRACE_PERIOD();
-
-        $this->cardSystem = new CardSystem(
-            new CardSystemId('999'),
-            new StringLiteral('UiTPAS Regio Aalst')
+        $this->aalst = (new KansenStatuut(
+            new Date(
+                new Year('2015'),
+                Month::getByName('DECEMBER'),
+                new MonthDay('26')
+            )
+        ))->withStatus(
+            KansenStatuutStatus::IN_GRACE_PERIOD()
+        )->withCardSystem(
+            new CardSystem(
+                new CardSystemId('999'),
+                new StringLiteral('UiTPAS Regio Aalst')
+            )
         );
-
-        $this->minimal = (new KansenStatuut($this->endDate));
-
-        $this->complete = (new KansenStatuut($this->endDate))
-            ->withStatus($this->kansenStatuutStatus)
-            ->withCardSystem($this->cardSystem);
 
         $this->collection = (new KansenStatuutCollection())
-            ->withKey('minimal', $this->minimal)
-            ->withKey('complete', $this->complete);
+            ->withKey('666', $this->bxl)
+            ->withKey('999', $this->aalst);
     }
 
     /**
@@ -81,5 +77,41 @@ class KansenStatuutCollectionTest extends \PHPUnit_Framework_TestCase
     {
         $json = json_encode($this->collection);
         $this->assertJsonEquals($json, 'KansenStatuut/data/kansen-statuut-collection.json');
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_instantiated_from_an_array_of_culturefeed_card_system_specifics()
+    {
+        $cfCardSystemSpecificArray = [];
+
+        $cfBxl = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
+        $cfBxl->kansenStatuut = true;
+        $cfBxl->kansenStatuutEndDate = $this->bxl->getEndDate()->toNativeDateTime()->getTimestamp();
+        $cfBxl->kansenStatuutExpired = true;
+        $cfBxl->kansenStatuutInGracePeriod = false;
+        $cfBxl->cardSystem = new \CultureFeed_Uitpas_CardSystem(
+            666,
+            'UiTPAS Regio BxL'
+        );
+        $cfCardSystemSpecificArray[666] = $cfBxl;
+
+        $cfAalst = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
+        $cfAalst->kansenStatuut = true;
+        $cfAalst->kansenStatuutEndDate = $this->aalst->getEndDate()->toNativeDateTime()->getTimestamp();
+        $cfAalst->kansenStatuutExpired = false;
+        $cfAalst->kansenStatuutInGracePeriod = true;
+        $cfAalst->cardSystem = new \CultureFeed_Uitpas_CardSystem(
+            999,
+            'UiTPAS Regio Aalst'
+        );
+        $cfCardSystemSpecificArray[999] = $cfAalst;
+
+        $kansenStatuutCollection = KansenStatuutCollection::fromCultureFeedPassholderCardSystemSpecific(
+            $cfCardSystemSpecificArray
+        );
+
+        $this->assertEquals($this->collection, $kansenStatuutCollection);
     }
 }
