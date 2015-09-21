@@ -187,9 +187,9 @@
     },
     "/identities/{identificationNumber}": {
       "get": {
-        "summary": "Find an identity by identification number. An identity is a combination of an UiTPAS with a passholder.",
+        "summary": "Find an identity by identification number. An identity is a combination of an UiTPAS and its owner (an individual or a group).",
         "description": "Authentication and active counter is required.",
-        "operationId": "findPassHolder",
+        "operationId": "identify",
         "produces": [
           "application/json"
         ],
@@ -1291,7 +1291,12 @@
           "$ref": "#/definitions/UiTPAS"
         },
         "passHolder": {
+          "description": "The individual pass holder owning the card. This property is mutually exclusive with 'group'.",
           "$ref": "#/definitions/PassHolder"
+        },
+        "group": {
+          "description": "The group of people owning the card. This property is mutually exclusive with 'passHolder'.",
+          "$ref": "#/definitions/Group"
         }
       },
       "required": [
@@ -1452,6 +1457,22 @@
         "name",
         "address",
         "birth"
+      ]
+    },
+    "Group": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Vereniging"
+        },
+        "availableTickets": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "name",
+        "availableTickets"
       ]
     },
     "PassHolderCheckinCommand": {
