@@ -5,6 +5,7 @@ namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration;
 use CultuurNet\Deserializer\JSONDeserializer;
 use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
+use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class RegistrationJsonDeserializer extends JSONDeserializer
@@ -39,6 +40,12 @@ class RegistrationJsonDeserializer extends JSONDeserializer
         if (isset($data->tariffId)) {
             $registration = $registration->withTariffId(
                 new StringLiteral((string) $data->tariffId)
+            );
+        }
+
+        if (isset($data->amount)) {
+            $registration = $registration->withAmount(
+                new Natural($data->amount)
             );
         }
 
