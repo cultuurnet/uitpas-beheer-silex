@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/2dotstwice/php-collection.git",
-                "reference": "df2856ea90d36fa262b50b7bb178f92c6644c9a7"
+                "reference": "e9c904ec9e1c31d71e9558b6245f66ee4a986873"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/2dotstwice/php-collection/zipball/df2856ea90d36fa262b50b7bb178f92c6644c9a7",
-                "reference": "df2856ea90d36fa262b50b7bb178f92c6644c9a7",
+                "url": "https://api.github.com/repos/2dotstwice/php-collection/zipball/e9c904ec9e1c31d71e9558b6245f66ee4a986873",
+                "reference": "e9c904ec9e1c31d71e9558b6245f66ee4a986873",
                 "shasum": ""
             },
             "require": {
@@ -54,7 +54,7 @@
                 }
             ],
             "description": " Library for creating collection classes with strict typing.",
-            "time": "2015-09-16 14:34:58"
+            "time": "2015-09-18 17:46:29"
         },
         {
             "name": "cultuurnet/auth",
@@ -4332,16 +4332,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.7",
+            "version": "4.8.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa"
+                "reference": "521720279261e5b14799cf1bb895d4b55e516f26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa",
-                "reference": "dab2ada9e9a503d2ec3c32fe0fb59dea9bdd9dfa",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/521720279261e5b14799cf1bb895d4b55e516f26",
+                "reference": "521720279261e5b14799cf1bb895d4b55e516f26",
                 "shasum": ""
             },
             "require": {
@@ -4400,7 +4400,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-09-14 06:57:22"
+            "time": "2015-09-19 05:44:37"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
