@@ -42,6 +42,10 @@ final class Identity implements \JsonSerializable
         return $c;
     }
 
+    /**
+     * @param Group $group
+     * @return Identity
+     */
     public function withGroup(Group $group)
     {
         $c = clone $this;
