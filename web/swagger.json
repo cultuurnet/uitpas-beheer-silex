@@ -1357,7 +1357,11 @@
           "type": "string",
           "example": "UiTPAS Regio Aalst"
         }
-      }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
     },
     "PassHolder": {
       "properties": {
