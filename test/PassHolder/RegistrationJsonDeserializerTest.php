@@ -4,8 +4,8 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuut;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuutJsonDeserializer;
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutJsonDeserializer;
 use ValueObjects\DateTime\Date;
 use ValueObjects\StringLiteral\StringLiteral;
 

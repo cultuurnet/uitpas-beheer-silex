@@ -2,6 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutCollection;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformation;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformation;
@@ -55,6 +57,11 @@ final class PassHolder implements \JsonSerializable
      * @var ContactInformation|null
      */
     protected $contactInformation;
+
+    /**
+     * @var KansenStatuutCollection|null
+     */
+    protected $kansenStatuten;
 
     /**
      * @var PrivacyPreferences
@@ -198,6 +205,23 @@ final class PassHolder implements \JsonSerializable
     }
 
     /**
+     * @param KansenStatuutCollection $kansenStatuutCollection
+     * @return PassHolder
+     */
+    public function withKansenStatuten(KansenStatuutCollection $kansenStatuutCollection)
+    {
+        return $this->with('kansenStatuten', $kansenStatuutCollection);
+    }
+
+    /**
+     * @return KansenStatuutCollection|null
+     */
+    public function getKansenStatuten()
+    {
+        return $this->kansenStatuten;
+    }
+
+    /**
      * @param PrivacyPreferences $preferences
      * @return PassHolder
      */
@@ -271,6 +295,9 @@ final class PassHolder implements \JsonSerializable
             !empty($this->contactInformation->jsonSerialize())) {
             $data['contact'] = $this->contactInformation;
         }
+        if (!is_null($this->kansenStatuten)) {
+            $data['kansenStatuten'] = array_values($this->kansenStatuten->jsonSerialize());
+        }
         if (!is_null($this->privacyPreferences)) {
             $data['privacy'] = $this->privacyPreferences;
         }
@@ -329,6 +356,16 @@ final class PassHolder implements \JsonSerializable
             $passHolder = $passHolder->withContactInformation(
                 ContactInformation::fromCultureFeedPassHolder($cfPassHolder)
             );
+        }
+
+        if (!empty($cfPassHolder->cardSystemSpecific)) {
+            $kansenStatuutCollection = KansenStatuutCollection::fromCultureFeedPassholderCardSystemSpecific(
+                $cfPassHolder->cardSystemSpecific
+            );
+
+            if ($kansenStatuutCollection->length() > 0) {
+                $passHolder = $passHolder->withKansenStatuten($kansenStatuutCollection);
+            }
         }
 
         $passHolder = $passHolder->withPrivacyPreferences(

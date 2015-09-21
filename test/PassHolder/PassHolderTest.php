@@ -2,6 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutCollection;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformation;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformation;
@@ -48,6 +50,33 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $this->cfPassHolderFull->gsm = '0499748596';
         $this->cfPassHolderFull->smsPreference = 'NO_SMS';
         $this->cfPassHolderFull->emailPreference = 'ALL_MAILS';
+
+        $this->cfPassHolderFull->cardSystemSpecific[10] = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
+        $this->cfPassHolderFull->cardSystemSpecific[10]->kansenStatuut = true;
+        $this->cfPassHolderFull->cardSystemSpecific[10]->kansenStatuutEndDate = 1442331412;
+        $this->cfPassHolderFull->cardSystemSpecific[10]->kansenStatuutExpired = false;
+        $this->cfPassHolderFull->cardSystemSpecific[10]->kansenStatuutInGracePeriod = true;
+        $this->cfPassHolderFull->cardSystemSpecific[10]->cardSystem = new \CultureFeed_Uitpas_CardSystem(
+            10,
+            'UiTPAS Regio Aalst'
+        );
+
+        $this->cfPassHolderFull->cardSystemSpecific[20] = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
+        $this->cfPassHolderFull->cardSystemSpecific[20]->kansenStatuut = false;
+        $this->cfPassHolderFull->cardSystemSpecific[20]->cardSystem = new \CultureFeed_Uitpas_CardSystem(
+            20,
+            'UiTPAS Regio Kortrijk'
+        );
+
+        $this->cfPassHolderFull->cardSystemSpecific[30] = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
+        $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuut = true;
+        $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuutEndDate = 1442331412;
+        $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuutExpired = true;
+        $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuutInGracePeriod = false;
+        $this->cfPassHolderFull->cardSystemSpecific[30]->cardSystem = new \CultureFeed_Uitpas_CardSystem(
+            30,
+            'UiTPAS Regio Brussel'
+        );
     }
 
     /**
@@ -70,6 +99,16 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($passHolder->getBirthInformation()->sameValueAs($expectedBirthInformation));
         $this->assertTrue($passHolder->getContactInformation()->sameValueAs($expectedContactInformation));
         $this->assertTrue($passHolder->getPrivacyPreferences()->sameValueAs($expectedPrivacyPreferences));
+
+        $this->assertEquals(2, $passHolder->getKansenStatuten()->length());
+        $this->assertEquals(
+            KansenStatuut::fromCultureFeedCardSystemSpecific($this->cfPassHolderFull->cardSystemSpecific[10]),
+            $passHolder->getKansenStatuten()->getByKey(10)
+        );
+        $this->assertEquals(
+            KansenStatuut::fromCultureFeedCardSystemSpecific($this->cfPassHolderFull->cardSystemSpecific[30]),
+            $passHolder->getKansenStatuten()->getByKey(30)
+        );
 
         $this->assertEquals('93051822361', $passHolder->getINSZNumber()->toNative());
         $this->assertEquals('FEMALE', $passHolder->getGender()->toNative());
@@ -106,6 +145,7 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($passHolder->getNationality());
         $this->assertNull($passHolder->getPicture());
         $this->assertNull($passHolder->getContactInformation());
+        $this->assertNull($passHolder->getKansenStatuten());
     }
 
     /**
