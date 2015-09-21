@@ -296,7 +296,7 @@ final class PassHolder implements \JsonSerializable
             $data['contact'] = $this->contactInformation;
         }
         if (!is_null($this->kansenStatuten)) {
-            $data['kansenStatuten'] = $this->kansenStatuten;
+            $data['kansenStatuten'] = array_values($this->kansenStatuten->jsonSerialize());
         }
         if (!is_null($this->privacyPreferences)) {
             $data['privacy'] = $this->privacyPreferences;

@@ -22,8 +22,8 @@
     "telephoneNumber": "0488694231",
     "mobileNumber": "0499748596"
   },
-  "kansenStatuten": {
-    "10": {
+  "kansenStatuten": [
+    {
       "endDate": "2015-09-15",
       "status": "IN_GRACE_PERIOD",
       "cardSystem": {
@@ -31,7 +31,7 @@
         "name": "UiTPAS Regio Aalst"
       }
     },
-    "30": {
+    {
       "endDate": "2015-09-15",
       "status": "EXPIRED",
       "cardSystem": {
@@ -39,7 +39,7 @@
         "name": "UiTPAS Regio Brussel"
       }
     }
-  },
+  ],
   "privacy": {
     "email": true,
     "sms": false
