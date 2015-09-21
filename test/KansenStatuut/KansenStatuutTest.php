@@ -102,6 +102,13 @@ class KansenstatuutTest extends \PHPUnit_Framework_TestCase
         $cardSystemSpecificInGracePeriod = clone $cardSystemSpecific;
         $cardSystemSpecificInGracePeriod->kansenStatuutInGracePeriod = true;
 
+        // The backend also sets the expired flag while actually the kansenstatuut
+        // is still in its grace period. We need to verify that while defining
+        // the value of our status property the grace period flag gets
+        // precedence on the expired flag.
+        $cardSystemSpecificInGracePeriodWithExpiredFlag = clone $cardSystemSpecificInGracePeriod;
+        $cardSystemSpecificInGracePeriodWithExpiredFlag->kansenStatuutExpired = true;
+
         $endDate = Date::fromNativeDateTime(
             \DateTime::createFromFormat('U', 1442331412)
         );
@@ -129,6 +136,10 @@ class KansenstatuutTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             $inGracePeriod,
             KansenStatuut::fromCultureFeedCardSystemSpecific($cardSystemSpecificInGracePeriod)
+        );
+        $this->assertEquals(
+            $inGracePeriod,
+            KansenStatuut::fromCultureFeedCardSystemSpecific($cardSystemSpecificInGracePeriodWithExpiredFlag)
         );
     }
 

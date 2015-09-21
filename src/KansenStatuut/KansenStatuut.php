@@ -140,10 +140,11 @@ final class KansenStatuut implements \JsonSerializable
             new \DateTime('@' . $cardSystemSpecific->kansenStatuutEndDate)
         );
 
-        if ($cardSystemSpecific->kansenStatuutExpired) {
-            $status = KansenStatuutStatus::EXPIRED();
-        } elseif ($cardSystemSpecific->kansenStatuutInGracePeriod) {
+        if ($cardSystemSpecific->kansenStatuutInGracePeriod) {
             $status = KansenStatuutStatus::IN_GRACE_PERIOD();
+
+        } elseif ($cardSystemSpecific->kansenStatuutExpired) {
+            $status = KansenStatuutStatus::EXPIRED();
         } else {
             $status = KansenStatuutStatus::ACTIVE();
         }
