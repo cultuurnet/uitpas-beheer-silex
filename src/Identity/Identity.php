@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Identity;
 
+use CultuurNet\UiTPASBeheer\Group\Group;
 use CultuurNet\UiTPASBeheer\PassHolder\PassHolder;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 
@@ -16,6 +17,11 @@ final class Identity implements \JsonSerializable
      * @var PassHolder
      */
     protected $passHolder;
+
+    /**
+     * @var Group
+     */
+    protected $group;
 
     /**
      * @param \CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS $uitPas
@@ -36,6 +42,13 @@ final class Identity implements \JsonSerializable
         return $c;
     }
 
+    public function withGroup(Group $group)
+    {
+        $c = clone $this;
+        $c->group = $group;
+        return $c;
+    }
+
     /**
      * @return array
      */
@@ -47,6 +60,10 @@ final class Identity implements \JsonSerializable
 
         if (!is_null($this->passHolder)) {
             $data['passHolder'] = $this->passHolder;
+        }
+
+        if (!is_null($this->group)) {
+            $data['group'] = $this->group;
         }
 
         return $data;
@@ -64,6 +81,11 @@ final class Identity implements \JsonSerializable
         if (!empty($cfIdentity->passHolder)) {
             $passHolder = PassHolder::fromCultureFeedPassHolder($cfIdentity->passHolder);
             $identity = $identity->withPassHolder($passHolder);
+        }
+
+        if (!empty($cfIdentity->groupPass)) {
+            $group = Group::fromCultureFeedGroupPass($cfIdentity->groupPass);
+            $identity = $identity->withGroup($group);
         }
 
         return $identity;
