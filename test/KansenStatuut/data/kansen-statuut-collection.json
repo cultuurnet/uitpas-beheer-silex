@@ -1,0 +1,18 @@
+{
+  "666": {
+    "endDate": "2015-12-24",
+    "status": "EXPIRED",
+    "cardSystem": {
+      "id": "666",
+      "name": "UiTPAS Regio BxL"
+    }
+  },
+  "999": {
+    "endDate": "2015-12-26",
+    "status": "IN_GRACE_PERIOD",
+    "cardSystem": {
+      "id": "999",
+      "name": "UiTPAS Regio Aalst"
+    }
+  }
+}

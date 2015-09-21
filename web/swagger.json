@@ -334,7 +334,7 @@
           "PassHolder"
         ]
       },
-      "post": {
+      "patch": {
         "summary": "Update a passholder.",
         "description": "Authentication and active counter is required.",
         "operationId": "updatePassHolder",
@@ -728,6 +728,53 @@
           "PassHolder"
         ]
       }
+    },
+    "/passholders/{uitpasNumber}/kansenstatuten/{cardSystemId}": {
+      "patch": {
+        "summary": "Change specific information of a kansenstatuut.",
+        "description": "Authentication and an active counter with kansenstatuut authorisation is required",
+        "operationId": "updateKansenstatuut",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cardSystemId",
+            "in": "path",
+            "description": "The card system ID that is linked to the kansenstatuut you want to edit",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the kansenstatuut info that you want to change",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/KansenstatuutUpdateCommand"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The registered has been updated."
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter with kansenstatuut permissions."
+          }
+        },
+        "tags": [
+          "Kansenstatuut",
+          "PassHolder"
+        ]
+      }
     }
   },
   "tags": [
@@ -761,7 +808,11 @@
     },
     {
       "name": "UiTPAS",
-      "description": "Operations related to an UiTPAS"
+      "description": "Operations related to an UiTPAS."
+    },
+    {
+      "name": "Kansenstatuut",
+      "description": "Operations related to a kansenstatuut."
     }
   ],
   "definitions": {
@@ -1306,7 +1357,11 @@
           "type": "string",
           "example": "UiTPAS Regio Aalst"
         }
-      }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
     },
     "PassHolder": {
       "properties": {
@@ -1343,6 +1398,16 @@
         "points": {
           "type": "integer",
           "example": 40
+        },
+        "remarks": {
+          "type": "string",
+          "example": "Dit maakt niet uit."
+        },
+        "kansenStatuten": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KansenStatuut"
+          }
         }
       },
       "required": [
@@ -1378,6 +1443,9 @@
         },
         "privacy": {
           "$ref": "#/definitions/PassHolderPrivacyPreferences"
+        },
+        "remarks": {
+          "$ref": "#/definitions/PassholderRemarks"
         }
       },
       "required": [
@@ -1411,6 +1479,30 @@
       "required": [
         "activityId",
         "priceClass"
+      ]
+    },
+    "KansenStatuut": {
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "ACTIVE",
+            "IN_GRACE_PERIOD",
+            "EXPIRED"
+          ],
+          "example": "ACTIVE"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "example": "2015-12-26"
+        },
+        "cardSystem": {
+          "$ref": "#/definitions/CardSystem"
+        }
+      },
+      "required": [
+        "endDate"
       ]
     },
     "PassHolderName": {
@@ -1682,14 +1774,14 @@
           "description": "An optional voucher number to redeem."
         },
         "kansenStatuut": {
-          "$ref": "#/definitions/KansenStatuut"
+          "$ref": "#/definitions/RegistrationKansenStatuut"
         }
       },
       "required": [
         "passHolder"
       ]
     },
-    "KansenStatuut": {
+    "RegistrationKansenStatuut": {
       "properties": {
         "endDate": {
           "type": "string",
@@ -1697,8 +1789,7 @@
           "description": "The end date of the kansenstatuut."
         },
         "remarks": {
-          "type": "string",
-          "description": "Additional remarks concerning the kansenstatuut."
+          "$ref": "#/definitions/PassholderRemarks"
         }
       },
       "required": [
@@ -1882,10 +1973,27 @@
         "creationDate"
       ]
     },
+    "KansenstatuutUpdateCommand": {
+      "type": "object",
+      "properties": {
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "example": "2015-12-26"
+        }
+      },
+      "required": [
+        "endDate"
+      ]
+    },
     "Price": {
       "type": "number",
       "format": "float",
       "example": 1.5
+    },
+    "PassholderRemarks": {
+      "type": "string",
+      "description": "Addition information about the passholder. Kansenstatuut related info should go here."
     }
   }
 }

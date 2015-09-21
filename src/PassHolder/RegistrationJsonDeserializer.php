@@ -5,8 +5,6 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\Deserializer\JSONDeserializer;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuut;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\KansenStatuutJsonDeserializer;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class RegistrationJsonDeserializer extends JSONDeserializer

@@ -4,8 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d588a05791bd6310561683373aee51aa",
+    "hash": "b60a055938a0e3ece100a3c22c0f1aad",
     "packages": [
+        {
+            "name": "2dotstwice/collection",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/2dotstwice/php-collection.git",
+                "reference": "e9c904ec9e1c31d71e9558b6245f66ee4a986873"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/2dotstwice/php-collection/zipball/e9c904ec9e1c31d71e9558b6245f66ee4a986873",
+                "reference": "e9c904ec9e1c31d71e9558b6245f66ee4a986873",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "phing/phing": "~2.11",
+                "phpunit/php-token-stream": "1.4.6",
+                "phpunit/phpunit": "~4.8",
+                "satooshi/php-coveralls": "~0.7",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "TwoDotsTwice\\Collection\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Bert Ramakers",
+                    "email": "bert@2dotstwice.be",
+                    "homepage": "http://2dotstwice.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": " Library for creating collection classes with strict typing.",
+            "time": "2015-09-18 17:46:29"
+        },
         {
             "name": "cultuurnet/auth",
             "version": "1.2.x-dev",
@@ -1125,12 +1175,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/2dotstwice/silex-cors-provider.git",
-                "reference": "43cd857ea83da773748c76637364ba95764e6062"
+                "reference": "837d5345a195b18cc1330104e901b498e0f530b1"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/2dotstwice/silex-cors-provider/zipball/837d5345a195b18cc1330104e901b498e0f530b1",
-                "reference": "43cd857ea83da773748c76637364ba95764e6062",
+                "reference": "837d5345a195b18cc1330104e901b498e0f530b1",
                 "shasum": ""
             },
             "require": {
@@ -1174,7 +1224,7 @@
             "support": {
                 "source": "https://github.com/2dotstwice/silex-cors-provider/tree/ie11-cors-multiple-methods"
             },
-            "time": "2015-09-10 12:39:01"
+            "time": "2015-09-12 06:42:11"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -1866,16 +1916,16 @@
         },
         {
             "name": "silex/silex",
-            "version": "v1.3.3",
+            "version": "v1.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silexphp/Silex.git",
-                "reference": "13a5c8a595e37e52c9567a51aae157a9f7ac5d26"
+                "reference": "d6de62716fcda76084f3015165125f30b1563517"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silexphp/Silex/zipball/13a5c8a595e37e52c9567a51aae157a9f7ac5d26",
-                "reference": "13a5c8a595e37e52c9567a51aae157a9f7ac5d26",
+                "url": "https://api.github.com/repos/silexphp/Silex/zipball/d6de62716fcda76084f3015165125f30b1563517",
+                "reference": "d6de62716fcda76084f3015165125f30b1563517",
                 "shasum": ""
             },
             "require": {
@@ -1939,7 +1989,7 @@
             "keywords": [
                 "microframework"
             ],
-            "time": "2015-09-08 08:04:26"
+            "time": "2015-09-15 06:53:42"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3489,16 +3539,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.21.2",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "ddce1136beb8db29b9cd7dffa8ab518b978c9db3"
+                "reference": "b7fc2469fa009897871fb95b68237286fc54a5ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/ddce1136beb8db29b9cd7dffa8ab518b978c9db3",
-                "reference": "ddce1136beb8db29b9cd7dffa8ab518b978c9db3",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b7fc2469fa009897871fb95b68237286fc54a5ad",
+                "reference": "b7fc2469fa009897871fb95b68237286fc54a5ad",
                 "shasum": ""
             },
             "require": {
@@ -3511,7 +3561,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.21-dev"
+                    "dev-master": "1.22-dev"
                 }
             },
             "autoload": {
@@ -3546,7 +3596,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-09-09 05:28:51"
+            "time": "2015-09-15 06:50:16"
         },
         {
             "name": "willdurand/geocoder",
@@ -4042,16 +4092,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.2.2",
+            "version": "2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "2d7c03c0e4e080901b8f33b2897b0577be18a13c"
+                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/2d7c03c0e4e080901b8f33b2897b0577be18a13c",
-                "reference": "2d7c03c0e4e080901b8f33b2897b0577be18a13c",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ef1ca6835468857944d5c3b48fa503d5554cff2f",
+                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f",
                 "shasum": ""
             },
             "require": {
@@ -4100,7 +4150,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-08-04 03:42:39"
+            "time": "2015-09-14 06:51:16"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -4233,16 +4283,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.4.6",
+            "version": "1.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b"
+                "reference": "3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
-                "reference": "3ab72c62e550370a6cd5dc873e1a04ab57562f5b",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da",
+                "reference": "3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da",
                 "shasum": ""
             },
             "require": {
@@ -4278,20 +4328,20 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2015-08-16 08:51:00"
+            "time": "2015-09-15 10:49:45"
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.6",
+            "version": "4.8.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2246830f4a1a551c67933e4171bf2126dc29d357"
+                "reference": "521720279261e5b14799cf1bb895d4b55e516f26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2246830f4a1a551c67933e4171bf2126dc29d357",
-                "reference": "2246830f4a1a551c67933e4171bf2126dc29d357",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/521720279261e5b14799cf1bb895d4b55e516f26",
+                "reference": "521720279261e5b14799cf1bb895d4b55e516f26",
                 "shasum": ""
             },
             "require": {
@@ -4350,7 +4400,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-08-24 04:09:38"
+            "time": "2015-09-19 05:44:37"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

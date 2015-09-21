@@ -2,6 +2,11 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
+use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutCollection;
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutStatus;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformation;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformation;
@@ -12,6 +17,9 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
 use ValueObjects\DateTime\Date;
+use ValueObjects\DateTime\Month;
+use ValueObjects\DateTime\MonthDay;
+use ValueObjects\DateTime\Year;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 use ValueObjects\Web\EmailAddress;
@@ -75,6 +83,42 @@ trait PassHolderDataTrait
             $gender = Gender::FEMALE();
         }
 
+        $kansenStatuten = (new KansenStatuutCollection())
+            ->withKey(
+                10,
+                (new KansenStatuut(
+                    new Date(
+                        new Year('2015'),
+                        Month::getByName('SEPTEMBER'),
+                        new MonthDay(15)
+                    )
+                ))->withStatus(
+                    KansenStatuutStatus::IN_GRACE_PERIOD()
+                )->withCardSystem(
+                    new CardSystem(
+                        new CardSystemId('10'),
+                        new StringLiteral('UiTPAS Regio Aalst')
+                    )
+                )
+            )
+            ->withKey(
+                30,
+                (new KansenStatuut(
+                    new Date(
+                        new Year('2015'),
+                        Month::getByName('SEPTEMBER'),
+                        new MonthDay(15)
+                    )
+                ))->withStatus(
+                    KansenStatuutStatus::EXPIRED()
+                )->withCardSystem(
+                    new CardSystem(
+                        new CardSystemId('30'),
+                        new StringLiteral('UiTPAS Regio Brussel')
+                    )
+                )
+            );
+
         return (new PassHolder(
             (new Name(
                 new StringLiteral('Layla'),
@@ -110,6 +154,8 @@ trait PassHolderDataTrait
                 )->withMobileNumber(
                     new StringLiteral('0499748596')
                 )
+        )->withKansenStatuten(
+            $kansenStatuten
         )->withPrivacyPreferences(
             new PrivacyPreferences(
                 PrivacyPreferenceEmail::ALL(),
