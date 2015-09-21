@@ -35,6 +35,8 @@ class KansenStatuutCollectionTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
+        date_default_timezone_set('UTC');
+
         $this->bxl = (new KansenStatuut(
             new Date(
                 new Year('2015'),
