@@ -10,6 +10,7 @@ use CultuurNet\Clock\FrozenClock;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use DateTimeImmutable;
 use DateTime;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class CheckInDeviceServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -83,5 +84,45 @@ class CheckInDeviceServiceTest extends \PHPUnit_Framework_TestCase
     private function emptyResultSet()
     {
         return new \CultureFeed_ResultSet(0, []);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_connect_a_device_to_an_activity()
+    {
+        $deviceId = 'foo';
+        $activityId = 'bar';
+
+        $cfDevice = new \CultureFeed_Uitpas_Counter_Device();
+        $cfDevice->consumerKey = $deviceId;
+        $cfDevice->name = 'some test device';
+        $cfDevice->cdbid = $activityId;
+
+        $expectedDevice = (new CheckInDevice(
+            new StringLiteral($deviceId),
+            new StringLiteral('some test device')
+        ))->withActivity(new StringLiteral($activityId));
+
+        $this->uitpas->expects($this->once())
+            ->method('connectDeviceWithEvent')
+            ->with(
+                $deviceId,
+                $activityId,
+                $this->counterConsumerKey
+            )
+            ->willReturn(
+                $cfDevice
+            );
+
+        $actualDevice = $this->service->connectDeviceToActivity(
+            new StringLiteral($deviceId),
+            new StringLiteral($activityId)
+        );
+
+        $this->assertEquals(
+            $expectedDevice,
+            $actualDevice
+        );
     }
 }
