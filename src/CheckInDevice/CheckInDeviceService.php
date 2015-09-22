@@ -71,7 +71,25 @@ class CheckInDeviceService extends CounterAwareUitpasService implements CheckInD
             $time->format(DateTime::W3C)
         );
 
-        return $time->add(DateInterval::createFromDateString('3 days'));
+        $time = $time->add(DateInterval::createFromDateString('3 days'));
+
+        return $time->setTime(23, 59, 59);
+    }
+
+    /**
+     * @param DateTimeInterface $time
+     * @return DateTimeInterface
+     */
+    private function beginningOfToday(DateTimeInterface $time)
+    {
+        $time = DateTimeImmutable::createFromFormat(
+            DateTime::W3C,
+            $time->format(DateTime::W3C)
+        );
+
+        $time = $time->setTime(0, 0, 0);
+
+        return $time;
     }
 
     /**
@@ -80,13 +98,15 @@ class CheckInDeviceService extends CounterAwareUitpasService implements CheckInD
     public function availableActivities()
     {
         $now = $this->clock->getDateTime();
+        $beginningOfToday = $this->beginningOfToday($now);
         $in3Days = $this->in3Days($now);
 
         $searchOptions = new CultureFeed_Uitpas_Event_Query_SearchEventsOptions();
         $searchOptions->balieConsumerKey = $this->getCounterConsumerKey();
-        $searchOptions->startDate = $now->getTimestamp();
+        $searchOptions->startDate = $beginningOfToday->getTimestamp();
         $searchOptions->endDate = $in3Days->getTimestamp();
         $searchOptions->sort = 'permanent desc,availableto asc';
+        $searchOptions->max = 20;
 
         $result = $this->getUitpasService()->searchEvents($searchOptions);
 
