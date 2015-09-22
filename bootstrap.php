@@ -119,6 +119,11 @@ $app->register(new \CultuurNet\UiTPASBeheer\Membership\MembershipServiceProvider
 $app->register(new \CultuurNet\UiTPASBeheer\Legacy\LegacyServiceProvider());
 
 /**
+ * UiTPAS CheckIn Device service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\CheckInDevice\CheckInDeviceServiceProvider());
+
+/**
  * Clock service.
  */
 $app->register(
