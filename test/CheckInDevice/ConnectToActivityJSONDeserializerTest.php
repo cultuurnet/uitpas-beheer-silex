@@ -5,7 +5,6 @@
 
 namespace CultuurNet\UiTPASBeheer\CheckInDevice;
 
-
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use ValueObjects\StringLiteral\StringLiteral;
 
