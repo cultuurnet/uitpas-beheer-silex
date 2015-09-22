@@ -5,6 +5,7 @@
 
 namespace CultuurNet\UiTPASBeheer\CheckInDevice;
 
+use CultuurNet\UiTPASBeheer\Activity\Activity;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use ValueObjects\StringLiteral\StringLiteral;
@@ -27,6 +28,21 @@ class CheckInDeviceController
     public function all()
     {
         return JsonResponse::create($this->checkInDevices->all());
+    }
+
+    public function availableActivities()
+    {
+        return JsonResponse::create(
+            array_map(
+                function (Activity $activity) {
+                    return [
+                        'id' => $activity->getId()->toNative(),
+                        'title' => $activity->getTitle()->toNative(),
+                    ];
+                },
+                $this->checkInDevices->availableActivities()
+            )
+        );
     }
 
     public function connectDeviceToActivity(Request $request, $checkInDeviceId)

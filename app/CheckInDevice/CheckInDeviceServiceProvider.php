@@ -19,7 +19,8 @@ class CheckInDeviceServiceProvider implements ServiceProviderInterface
             function (Application $app) {
                 return new CheckInDeviceService(
                     $app['uitpas'],
-                    $app['counter_consumer_key']
+                    $app['counter_consumer_key'],
+                    $app['clock']
                 );
             }
         );

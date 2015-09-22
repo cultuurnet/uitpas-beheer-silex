@@ -29,6 +29,11 @@ class CheckInDeviceControllerProvider implements ControllerProviderInterface
 
         $controllers->get('/checkindevices', 'check_in_device_controller:all');
 
+        $controllers->get(
+            '/checkindevices/activities',
+            'check_in_device_controller:availableActivities'
+        );
+
         $controllers->patch(
             '/checkindevices/{checkInDeviceId}',
             'check_in_device_controller:connectDeviceToActivity'

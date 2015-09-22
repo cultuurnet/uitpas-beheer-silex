@@ -5,6 +5,7 @@
 
 namespace CultuurNet\UiTPASBeheer\CheckInDevice;
 
+use CultuurNet\UiTPASBeheer\Activity\Activity;
 use ValueObjects\StringLiteral\StringLiteral;
 
 interface CheckInDeviceServiceInterface
@@ -13,6 +14,11 @@ interface CheckInDeviceServiceInterface
      * @return CheckInDevice[]
      */
     public function all();
+
+    /**
+     * @return Activity[]
+     */
+    public function availableActivities();
 
     /**
      * @param StringLiteral $checkInDeviceId
