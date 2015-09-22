@@ -7,6 +7,7 @@ namespace CultuurNet\UiTPASBeheer\CheckInDevice;
 
 use CultuurNet\Clock\Clock;
 use CultuurNet\Clock\FrozenClock;
+use CultuurNet\UiTPASBeheer\Activity\Activity;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use DateTimeImmutable;
 use DateTime;
@@ -57,6 +58,22 @@ class CheckInDeviceServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function it_retrieves_maximum_20_activities_occurring_today_and_the_following_3_days()
     {
+        $activity1 = new \CultureFeed_Uitpas_Event_CultureEvent();
+        $activity1->cdbid = '123';
+        $activity1->title = 'Activity 123';
+
+        $activity2 = new \CultureFeed_Uitpas_Event_CultureEvent();
+        $activity2->cdbid = '456';
+        $activity2->title = 'Activity 456';
+
+        $resultSet = new \CultureFeed_ResultSet(
+            2,
+            [
+                $activity1,
+                $activity2,
+            ]
+        );
+
         $expectedSearchStartDate = '2015-09-25T00:00:00+02:00';
         $expectedSearchEndDate = '2015-09-28T23:59:59+02:00';
 
@@ -76,14 +93,19 @@ class CheckInDeviceServiceTest extends \PHPUnit_Framework_TestCase
         $this->uitpas->expects($this->once())
             ->method('searchEvents')
             ->with($expectedSearchOptions)
-            ->willReturn($this->emptyResultSet());
+            ->willReturn($resultSet);
 
-        $this->service->availableActivities();
-    }
+        $expectedActivities = [
+            Activity::fromCultureFeedUitpasEvent($activity1),
+            Activity::fromCultureFeedUitpasEvent($activity2),
+        ];
 
-    private function emptyResultSet()
-    {
-        return new \CultureFeed_ResultSet(0, []);
+        $actualActivities = $this->service->availableActivities();
+
+        $this->assertEquals(
+            $expectedActivities,
+            $actualActivities
+        );
     }
 
     /**
