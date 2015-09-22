@@ -71,7 +71,7 @@ class CheckInDeviceService extends CounterAwareUitpasService implements CheckInD
             $time->format(DateTime::W3C)
         );
 
-        return $time->add(DateInterval::createFromDateString('10 days'));
+        return $time->add(DateInterval::createFromDateString('3 days'));
     }
 
     /**
