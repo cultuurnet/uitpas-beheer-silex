@@ -45,7 +45,10 @@ class CheckInDeviceService extends CounterAwareUitpasService implements CheckInD
      */
     public function all()
     {
-        $cfDevices = $this->getUitpasService()->getDevices($this->getCounterConsumerKey());
+        $cfDevices = $this->getUitpasService()->getDevices(
+            $this->getCounterConsumerKey(),
+            true
+        );
 
         $devices = array_map(
             function (\CultureFeed_Uitpas_Counter_Device $cfDevice) {
