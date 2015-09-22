@@ -775,6 +775,73 @@
           "PassHolder"
         ]
       }
+    },
+    "/checkindevices": {
+      "get": {
+        "summary": "List checkin devices.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "getCheckInDevices",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CheckInDevice"
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "CheckIn devices"
+        ]
+      }
+    },
+    "/checkindevices/{checkInDeviceId}": {
+      "patch": {
+        "summary": "Connect the CheckIn Device to an activity.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "connectCheckInDeviceToActivity",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "checkInDeviceId",
+            "in": "path",
+            "description": "The unique ID of the CheckIn Device.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the UUID of the activity to connect the CheckIn Device with.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ConnectActivity"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/CheckInDevice"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "CheckIn devices"
+        ]
+      }
     }
   },
   "tags": [
@@ -813,6 +880,10 @@
     {
       "name": "Kansenstatuut",
       "description": "Operations related to a kansenstatuut."
+    },
+    {
+      "name": "CheckIn Devices",
+      "description": "Operations related to CheckIn Devices."
     }
   ],
   "definitions": {
@@ -2015,6 +2086,39 @@
     "PassholderRemarks": {
       "type": "string",
       "description": "Addition information about the passholder. Kansenstatuut related info should go here."
+    },
+    "CheckInDevice": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique ID of the CheckIn Device.",
+          "example": "516a0d124281f1275e41f7755b82243f"
+        },
+        "name": {
+          "type": "string",
+          "description": "Human readable name of the CheckIn Device.",
+          "example": "CID031-RPI"
+        },
+        "activityId": {
+          "$ref": "#/definitions/ActivityId",
+          "description": "Activity to which the CheckIn Device is currently connected."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "ConnectActivity": {
+      "properties": {
+        "activityId": {
+          "$ref": "#/definitions/ActivityId",
+          "description": "Activity to connect the CheckIn Device to."
+        }
+      },
+      "required": [
+        "activityId"
+      ]
     }
   }
 }
