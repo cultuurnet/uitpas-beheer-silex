@@ -786,6 +786,7 @@
         ],
         "responses": {
           "200": {
+            "description": "Returns a list of available checkin devices.",
             "schema": {
               "type": "array",
               "items": {
@@ -830,6 +831,7 @@
         ],
         "responses": {
           "200": {
+            "description": "The checkin device was connected successfully.",
             "schema": {
               "$ref": "#/definitions/CheckInDevice"
             }
