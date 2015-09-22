@@ -147,4 +147,45 @@ class CheckInDeviceServiceTest extends \PHPUnit_Framework_TestCase
             $actualDevice
         );
     }
+
+    /**
+     * @test
+     */
+    public function it_retrieves_all_check_in_devices()
+    {
+        $device1 = new \CultureFeed_Uitpas_Counter_Device();
+        $device1->consumerKey = 'xyz';
+        $device1->name = 'test device 1';
+
+        $device2 = new \CultureFeed_Uitpas_Counter_Device();
+        $device2->consumerKey = 'abc';
+        $device2->name = 'test device 2';
+
+        $expectedDevices = [
+            CheckInDevice::createFromCultureFeedCounterDevice($device1),
+            CheckInDevice::createFromCultureFeedCounterDevice($device2),
+        ];
+
+        $showEvent = true;
+
+        $this->uitpas->expects($this->once())
+            ->method('getDevices')
+            ->with(
+                $this->counterConsumerKey,
+                $showEvent
+            )
+            ->willReturn(
+                [
+                    $device1,
+                    $device2,
+                ]
+            );
+
+        $actualDevices = $this->service->all();
+
+        $this->assertEquals(
+            $expectedDevices,
+            $actualDevices
+        );
+    }
 }
