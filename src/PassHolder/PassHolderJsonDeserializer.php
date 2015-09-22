@@ -7,6 +7,7 @@ use CultuurNet\Deserializer\JSONDeserializer;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\INSZNumber;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class PassHolderJsonDeserializer extends JSONDeserializer
@@ -103,6 +104,12 @@ class PassHolderJsonDeserializer extends JSONDeserializer
         if (isset($data->inszNumber)) {
             $passHolder = $passHolder->withINSZNumber(
                 new INSZNumber((string) $data->inszNumber)
+            );
+        }
+
+        if (isset($data->remarks)) {
+            $passHolder = $passHolder->withRemarks(
+                new Remarks((string) $data->remarks)
             );
         }
 
