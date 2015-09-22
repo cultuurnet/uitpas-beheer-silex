@@ -688,9 +688,9 @@
     },
     "/passholders/{uitpasNumber}/activities/ticket-sales": {
       "post": {
-        "summary": "Sell a ticket to a passholder.",
+        "summary": "Sell a ticket to a passholder or group.",
         "description": "Authentication and an active counter are required.",
-        "operationId": "sellTicketToPassholder",
+        "operationId": "sellTicket",
         "produces": [
           "application/json"
         ],
@@ -698,7 +698,7 @@
           {
             "name": "uitpasNumber",
             "in": "path",
-            "description": "The uitpas number of the passholder.",
+            "description": "The uitpas number of the passholder or group.",
             "required": true,
             "type": "string"
           },
@@ -786,6 +786,7 @@
         ],
         "responses": {
           "200": {
+            "description": "Returns a list of available checkin devices.",
             "schema": {
               "type": "array",
               "items": {
@@ -830,8 +831,36 @@
         ],
         "responses": {
           "200": {
+            "description": "The checkin device was connected successfully.",
             "schema": {
               "$ref": "#/definitions/CheckInDevice"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "CheckIn devices"
+        ]
+      }
+    },
+    "/checkindevices/activities": {
+      "get": {
+        "summary": "List activities available to connect devices to.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "getActivitiesAvailableForCheckInDevices",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of available activities.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BasicActivity"
+              }
             }
           },
           "403": {
@@ -882,7 +911,7 @@
       "description": "Operations related to a kansenstatuut."
     },
     {
-      "name": "CheckIn Devices",
+      "name": "CheckIn devices",
       "description": "Operations related to CheckIn Devices."
     }
   ],
@@ -1566,6 +1595,12 @@
         },
         "tariffId": {
           "$ref": "#/definitions/TariffId"
+        },
+        "amount": {
+          "description": "Number of tickets to be sold.",
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
         }
       },
       "required": [
@@ -1787,7 +1822,7 @@
       "type": "string",
       "example": "34475f7a-d1d5-481d-b205-9537ae0f9e73"
     },
-    "Activity": {
+    "BasicActivity": {
       "properties": {
         "id": {
           "$ref": "#/definitions/ActivityId"
@@ -1795,30 +1830,43 @@
         "title": {
           "type": "string",
           "example": "Fun family time"
-        },
-        "description": {
-          "type": "string",
-          "example": "Dit is een testevent dat tijdens de periode 1 september tot en met 31 oktober 2015 zal plaatsvinden. Dit event gaat betalend zijn"
-        },
-        "when": {
-          "type": "string",
-          "example": "vanaf 1/9"
-        },
-        "checkinConstraint": {
-          "$ref": "#/definitions/CheckinConstraint"
-        },
-        "free": {
-          "type": "boolean",
-          "description": "Indicates whether or not tickets for the activity are free."
-        },
-        "sales": {
-          "$ref": "#/definitions/SalesInformation"
-        },
-        "points": {
-          "type": "integer",
-          "description": "The number of points that can be earned when checking in this activity."
         }
       },
+      "required": [
+        "id",
+        "title"
+      ]
+    },
+    "Activity": {
+      "allOf": [
+        {"$ref": "#/definitions/BasicActivity"},
+        {
+          "properties": {
+            "description": {
+              "type": "string",
+              "example": "Dit is een testevent dat tijdens de periode 1 september tot en met 31 oktober 2015 zal plaatsvinden. Dit event gaat betalend zijn"
+            },
+            "when": {
+              "type": "string",
+              "example": "vanaf 1/9"
+            },
+            "checkinConstraint": {
+              "$ref": "#/definitions/CheckinConstraint"
+            },
+            "free": {
+              "type": "boolean",
+              "description": "Indicates whether or not tickets for the activity are free."
+            },
+            "sales": {
+              "$ref": "#/definitions/SalesInformation"
+            },
+            "points": {
+              "type": "integer",
+              "description": "The number of points that can be earned when checking in this activity."
+            }
+          }
+        }
+      ],
       "required": [
         "id",
         "title"
@@ -2088,6 +2136,7 @@
       "description": "Addition information about the passholder. Kansenstatuut related info should go here."
     },
     "CheckInDevice": {
+      "type": "object",
       "properties": {
         "id": {
           "type": "string",
@@ -2110,6 +2159,7 @@
       ]
     },
     "ConnectActivity": {
+      "type": "object",
       "properties": {
         "activityId": {
           "$ref": "#/definitions/ActivityId",
