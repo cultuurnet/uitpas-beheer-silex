@@ -21,7 +21,7 @@
     "cultuurnet/culturefeed-http-guzzle": "~0.1",
     "deralex/yaml-config-service-provider": "~1.0",
     "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
-    "jdesrosiers/silex-cors-provider": "dev-ie11-cors-multiple-methods as 0.1",
+    "jdesrosiers/silex-cors-provider": "~0.1.5",
     "nicolopignatelli/valueobjects": "~3.0",
     "plasmaconduit/luhn":  "~0.1",
     "silex/silex": "~1.1",

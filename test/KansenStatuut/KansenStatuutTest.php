@@ -22,11 +22,6 @@ class KansenstatuutTest extends \PHPUnit_Framework_TestCase
     protected $endDate;
 
     /**
-     * @var Remarks
-     */
-    protected $remarks;
-
-    /**
      * @var KansenStatuutStatus
      */
     protected $status;
