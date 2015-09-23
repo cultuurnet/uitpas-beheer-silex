@@ -1971,7 +1971,8 @@
       ]
     },
     "TariffId": {
-      "type": "string",
+      "type": "integer",
+      "format": "int32",
       "description": "Id of the tariff.",
       "example": "10"
     },
