@@ -4,6 +4,7 @@ namespace CultuurNet\UiTPASBeheer\Identity;
 
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
+use CultuurNet\UiTPASBeheer\Group\Group;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\PassHolder\PassHolder;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
@@ -14,6 +15,7 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
 use ValueObjects\DateTime\Date;
+use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class IdentityTest extends \PHPUnit_Framework_TestCase
@@ -31,9 +33,19 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
     protected $identityWithPassHolder;
 
     /**
+     * @var Identity
+     */
+    protected $identityWithGroup;
+
+    /**
      * @var PassHolder
      */
     protected $passHolder;
+
+    /**
+     * @var Group
+     */
+    protected $group;
 
     /**
      * @var Name
@@ -110,6 +122,11 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
             $this->birthInformation
         );
 
+        $this->group = new Group(
+            new StringLiteral('vereniging'),
+            new Natural(10)
+        );
+
         $this->uitpasNumber = new UiTPASNumber('1000000035419');
 
         $this->localStockUitpas = new UiTPAS(
@@ -136,6 +153,9 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
 
         $this->identityWithPassHolder = (new Identity($this->activeUitpas))
             ->withPassHolder($this->passHolder);
+
+        $this->identityWithGroup = (new Identity($this->activeUitpas))
+            ->withGroup($this->group);
     }
 
     /**
@@ -145,6 +165,9 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
     {
         $json = json_encode($this->identityWithPassHolder);
         $this->assertJsonEquals($json, 'Identity/data/identity-passholder.json');
+
+        $json = json_encode($this->identityWithGroup);
+        $this->assertJsonEquals($json, 'Identity/data/identity-group.json');
     }
 
     /**
@@ -210,5 +233,33 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
 
         $json = json_encode($identity);
         $this->assertJsonEquals($json, 'Identity/data/identity-passholder.json');
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_extract_properties_from_a_cf_identity_with_a_groupPass()
+    {
+        $cfPassHolderCard = new \CultureFeed_Uitpas_Passholder_Card();
+        $cfPassHolderCard->status = UiTPASStatus::ACTIVE();
+        $cfPassHolderCard->type = UiTPASType::CARD();
+        $cfPassHolderCard->uitpasNumber = $this->uitpasNumber->toNative();
+        $cfPassHolderCard->kansenpas = $this->uitpasNumber->hasKansenStatuut();
+        $cfPassHolderCard->cardSystem = new \CultureFeed_Uitpas_CardSystem();
+        $cfPassHolderCard->cardSystem->id = 999;
+        $cfPassHolderCard->cardSystem->name = 'UiTPAS Regio Aalst';
+
+        $cfGroupPass = new \CultureFeed_Uitpas_GroupPass();
+        $cfGroupPass->name = 'vereniging';
+        $cfGroupPass->availableTickets = 10;
+
+        $cfIdentity = new \CultureFeed_Uitpas_Identity();
+        $cfIdentity->card = $cfPassHolderCard;
+        $cfIdentity->groupPass = $cfGroupPass;
+
+        $identity = Identity::fromCultureFeedIdentity($cfIdentity);
+
+        $json = json_encode($identity);
+        $this->assertJsonEquals($json, 'Identity/data/identity-group.json');
     }
 }
