@@ -3,7 +3,6 @@
 namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration;
 
 use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
-use JsonSchema\Tests\Constraints\NumberAndIntegerTypesTest;
 use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
 
