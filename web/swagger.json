@@ -334,7 +334,7 @@
           "PassHolder"
         ]
       },
-      "patch": {
+      "post": {
         "summary": "Update a passholder.",
         "description": "Authentication and active counter is required.",
         "operationId": "updatePassHolder",
@@ -730,7 +730,7 @@
       }
     },
     "/passholders/{uitpasNumber}/kansenstatuten/{cardSystemId}": {
-      "patch": {
+      "post": {
         "summary": "Change specific information of a kansenstatuut.",
         "description": "Authentication and an active counter with kansenstatuut authorisation is required",
         "operationId": "updateKansenstatuut",
