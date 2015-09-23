@@ -5,10 +5,9 @@
 
 namespace CultuurNet\UiTPASBeheer\CheckInDevice;
 
-
 use CultuurNet\UiTPASBeheer\Activity\Activity;
 use CultuurNet\UiTPASBeheer\Activity\CheckinConstraint;
-use ValueObjects\DateTime\Date;
+use Symfony\Component\HttpFoundation\Request;
 use ValueObjects\DateTime\DateTime;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
@@ -106,6 +105,41 @@ class CheckInDeviceControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertJsonStringEqualsJsonFile(
             __DIR__ . '/data/devices.json',
+            $json
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_connect_a_device_to_an_activity()
+    {
+        $deviceId = new StringLiteral('foo');
+        $activityId = new StringLiteral('123-456-789');
+
+        $activity = (new CheckInDevice(
+            $deviceId,
+            new StringLiteral('test device')
+        ))->withActivity($activityId);
+
+        $this->checkInDevices->expects($this->once())
+            ->method('connectDeviceToActivity')
+            ->with(
+                $deviceId,
+                $activityId
+            )
+            ->willReturn(
+                $activity
+            );
+
+        $requestBody = '{"activityId": "123-456-789"}';
+        $request = new Request([], [], [], [], [], [], $requestBody);
+
+        $response = $this->controller->connectDeviceToActivity($request, 'foo');
+        $json = $response->getContent();
+
+        $this->assertJsonStringEqualsJsonFile(
+            __DIR__ . '/data/device.json',
             $json
         );
     }
