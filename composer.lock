@@ -1,10 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3702ab4c8158474e476168bf55c0b7af",
+    "hash": "b963558868327ab9934c82d98319fb51",
+    "content-hash": "638c8d51dde96e266a4943bf0ade6547",
     "packages": [
         {
             "name": "2dotstwice/collection",
@@ -272,16 +273,16 @@
         },
         {
             "name": "cultuurnet/culturefeed-php",
-            "version": "dev-feature/UBR-235",
+            "version": "dev-feature/UBR",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "917a23ecfc150e846033bc7e03afe73ee5277608"
+                "reference": "ea5b290717c20eb1a1696d643c13c9581b633311"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/917a23ecfc150e846033bc7e03afe73ee5277608",
-                "reference": "917a23ecfc150e846033bc7e03afe73ee5277608",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/ea5b290717c20eb1a1696d643c13c9581b633311",
+                "reference": "ea5b290717c20eb1a1696d643c13c9581b633311",
                 "shasum": ""
             },
             "require": {
@@ -335,7 +336,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-09-23 07:31:01"
+            "time": "2015-09-23 07:52:10"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -5083,7 +5084,7 @@
         {
             "alias": "1.5.2",
             "alias_normalized": "1.5.2.0",
-            "version": "dev-feature/UBR-235",
+            "version": "dev-feature/UBR",
             "package": "cultuurnet/culturefeed-php"
         },
         {
