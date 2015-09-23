@@ -16,6 +16,7 @@ use ValueObjects\DateTime\MonthDay;
 use ValueObjects\DateTime\Second;
 use ValueObjects\DateTime\Time;
 use ValueObjects\DateTime\Year;
+use ValueObjects\Number\Natural;
 use ValueObjects\Number\Real;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -142,6 +143,32 @@ class TicketSaleServiceTest extends \PHPUnit_Framework_TestCase
                 $this->registration->getPriceClass()->toNative(),
                 $this->tariffId->toNative(),
                 null
+            )
+            ->willReturn($this->cfTicketSale);
+
+        $this->service->register(
+            $this->uitpasNumber,
+            $this->registration
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_uses_the_amount_if_provided_when_registering_a_ticket_sale()
+    {
+        $this->registration = $this->registration
+            ->withAmount(new Natural(3));
+
+        $this->uitpas->expects($this->once())
+            ->method('registerTicketSale')
+            ->with(
+                $this->uitpasNumber->toNative(),
+                $this->registration->getActivityId()->toNative(),
+                $this->counterConsumerKey->toNative(),
+                $this->registration->getPriceClass()->toNative(),
+                null,
+                3
             )
             ->willReturn($this->cfTicketSale);
 

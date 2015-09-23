@@ -3,6 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration;
 
 use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
+use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
 
 final class Registration
@@ -21,6 +22,11 @@ final class Registration
      * @var StringLiteral|null
      */
     protected $tariffId;
+
+    /**
+     * @var Natural|null
+     */
+    protected $amount;
 
     /**
      * @param StringLiteral $activityId
@@ -70,5 +76,24 @@ final class Registration
     public function getTariffId()
     {
         return $this->tariffId;
+    }
+
+    /**
+     * @param Natural $amount
+     * @return Registration
+     */
+    public function withAmount(Natural $amount)
+    {
+        $c = clone $this;
+        $c->amount = $amount;
+        return $c;
+    }
+
+    /**
+     * @return Natural|null
+     */
+    public function getAmount()
+    {
+        return $this->amount;
     }
 }
