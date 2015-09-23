@@ -28,7 +28,7 @@ class KansenStatuutControllerProvider implements ControllerProviderInterface
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
-        $controllers->patch(
+        $controllers->post(
             '/passholders/{uitpasNumber}/kansenstatuten/{cardSystemId}',
             'kansenstatuut_controller:renew'
         );
