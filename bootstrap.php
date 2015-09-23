@@ -119,6 +119,11 @@ $app->register(new \CultuurNet\UiTPASBeheer\Membership\MembershipServiceProvider
 $app->register(new \CultuurNet\UiTPASBeheer\Legacy\LegacyServiceProvider());
 
 /**
+ * UiTPAS KansenStatuut service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutServiceProvider());
+
+/**
  * Clock service.
  */
 $app->register(
