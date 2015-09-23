@@ -30,6 +30,9 @@ class CheckInDeviceController
         return JsonResponse::create($this->checkInDevices->all());
     }
 
+    /**
+     * @return JsonResponse
+     */
     public function availableActivities()
     {
         return JsonResponse::create(
