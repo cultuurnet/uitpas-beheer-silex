@@ -80,4 +80,33 @@ class CheckInDeviceControllerTest extends \PHPUnit_Framework_TestCase
             $json
         );
     }
+
+    /**
+     * @test
+     */
+    public function it_lists_all_check_in_devices()
+    {
+        $allDevices = [
+            new CheckInDevice(
+                new StringLiteral('xyz'),
+                new StringLiteral('cid test 1')
+            ),
+            (new CheckInDevice(
+                new StringLiteral('abc'),
+                new StringLiteral('cid test 2')
+            ))->withActivity(new StringLiteral('123-abc')),
+        ];
+
+        $this->checkInDevices->expects($this->once())
+            ->method('all')
+            ->wilLReturn($allDevices);
+
+        $response = $this->controller->all();
+        $json = $response->getContent();
+
+        $this->assertJsonStringEqualsJsonFile(
+            __DIR__ . '/data/devices.json',
+            $json
+        );
+    }
 }
