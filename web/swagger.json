@@ -804,7 +804,7 @@
       }
     },
     "/checkindevices/{checkInDeviceId}": {
-      "patch": {
+      "post": {
         "summary": "Connect the CheckIn Device to an activity.",
         "description": "Authentication and an active counter are required.",
         "operationId": "connectCheckInDeviceToActivity",

@@ -34,7 +34,7 @@ class CheckInDeviceControllerProvider implements ControllerProviderInterface
             'check_in_device_controller:availableActivities'
         );
 
-        $controllers->patch(
+        $controllers->post(
             '/checkindevices/{checkInDeviceId}',
             'check_in_device_controller:connectDeviceToActivity'
         );
