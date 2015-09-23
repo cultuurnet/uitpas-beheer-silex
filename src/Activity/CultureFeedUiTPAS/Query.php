@@ -42,7 +42,7 @@ class Query extends SimpleQuery implements SearchOptionsBuilderInterface
         }
 
         if ($this->sort) {
-            $options->sort = 'permanent desc,availableto asc';
+            $options->sort = $this->sort;
         }
 
         if ($this->limit && $this->page) {

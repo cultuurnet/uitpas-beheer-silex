@@ -688,9 +688,9 @@
     },
     "/passholders/{uitpasNumber}/activities/ticket-sales": {
       "post": {
-        "summary": "Sell a ticket to a passholder.",
+        "summary": "Sell a ticket to a passholder or group.",
         "description": "Authentication and an active counter are required.",
-        "operationId": "sellTicketToPassholder",
+        "operationId": "sellTicket",
         "produces": [
           "application/json"
         ],
@@ -698,7 +698,7 @@
           {
             "name": "uitpasNumber",
             "in": "path",
-            "description": "The uitpas number of the passholder.",
+            "description": "The uitpas number of the passholder or group.",
             "required": true,
             "type": "string"
           },
@@ -1495,6 +1495,12 @@
         },
         "tariffId": {
           "$ref": "#/definitions/TariffId"
+        },
+        "amount": {
+          "description": "Number of tickets to be sold.",
+          "type": "integer",
+          "minimum": 1,
+          "example": 1
         }
       },
       "required": [

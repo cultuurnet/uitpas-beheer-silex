@@ -37,15 +37,13 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->query = (new Query($this->clock))
             ->withPagination(new Integer(2), new Integer(10))
             ->withUiTPASNumber(new UiTPASNumber('0930000208908'))
-            ->withQuery(new StringLiteral('foo'))
-            ->withSort('permanent desc,availableto asc');
+            ->withQuery(new StringLiteral('foo'));
 
         $this->searchEventsOptions = new \CultureFeed_Uitpas_Event_Query_SearchEventsOptions(
         );
         $this->searchEventsOptions->max = 10;
         $this->searchEventsOptions->start = 10;
         $this->searchEventsOptions->uitpasNumber = '0930000208908';
-        $this->searchEventsOptions->sort = 'permanent desc,availableto asc';
         $this->searchEventsOptions->q = 'foo';
     }
 
@@ -85,6 +83,32 @@ class QueryTest extends \PHPUnit_Framework_TestCase
                 '1999-12-31T23:59:59+01:00'
             )
                 ->getTimestamp();
+
+        $this->assertEquals(
+            $expectedSearchEventsOptions,
+            $query->build()
+        );
+    }
+
+    public function sortDataProvider()
+    {
+        return [
+            ['permanent desc,availableto asc'],
+            ['permanent desc'],
+        ];
+    }
+
+    /**
+     * @test
+     * @dataProvider sortDataProvider
+     * @param string $sort
+     */
+    public function it_allows_to_specify_a_solr_sort($sort)
+    {
+        $query = $this->query->withSort($sort);
+
+        $expectedSearchEventsOptions = clone $this->searchEventsOptions;
+        $expectedSearchEventsOptions->sort = $sort;
 
         $this->assertEquals(
             $expectedSearchEventsOptions,
