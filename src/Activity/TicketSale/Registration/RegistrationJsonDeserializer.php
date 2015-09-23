@@ -39,7 +39,7 @@ class RegistrationJsonDeserializer extends JSONDeserializer
 
         if (isset($data->tariffId)) {
             $registration = $registration->withTariffId(
-                new StringLiteral((string) $data->tariffId)
+                new TariffId((int) $data->tariffId)
             );
         }
 

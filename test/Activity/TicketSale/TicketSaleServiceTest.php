@@ -4,6 +4,7 @@ namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
 
 use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\Registration;
+use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\TariffId;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
@@ -76,7 +77,7 @@ class TicketSaleServiceTest extends \PHPUnit_Framework_TestCase
             new PriceClass('Basisprijs')
         );
 
-        $this->tariffId = new StringLiteral('coupon-id-1');
+        $this->tariffId = new TariffId(141327894321897);
 
         $this->cfTicketSale = new \CultureFeed_Uitpas_Event_TicketSale();
         $this->cfTicketSale->id = 30818;
