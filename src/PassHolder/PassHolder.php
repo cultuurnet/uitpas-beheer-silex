@@ -2,7 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
-use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutCollection;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformation;
@@ -13,6 +12,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -22,6 +22,11 @@ final class PassHolder implements \JsonSerializable
      * @var Name
      */
     protected $name;
+
+    /**
+     * @var Remarks|null
+     */
+    protected $remarks;
 
     /**
      * @var Address
@@ -256,6 +261,23 @@ final class PassHolder implements \JsonSerializable
     }
 
     /**
+     * @return Remarks|null
+     */
+    public function getRemarks()
+    {
+        return $this->remarks;
+    }
+
+    /**
+     * @param Remarks $remarks
+     * @return Passholder
+     */
+    public function withRemarks(Remarks $remarks)
+    {
+        return $this->with('remarks', $remarks);
+    }
+
+    /**
      * @param string $property
      * @param mixed $value
      * @return PassHolder
@@ -303,6 +325,9 @@ final class PassHolder implements \JsonSerializable
         }
         if (!is_null($this->points)) {
             $data['points'] = $this->points->toNative();
+        }
+        if (!is_null($this->remarks)) {
+            $data['remarks'] = $this->remarks->toNative();
         }
 
         return $data;
@@ -366,6 +391,10 @@ final class PassHolder implements \JsonSerializable
             if ($kansenStatuutCollection->length() > 0) {
                 $passHolder = $passHolder->withKansenStatuten($kansenStatuutCollection);
             }
+        }
+
+        if (!empty($cfPassHolder->moreInfo)) {
+            $passHolder = $passHolder->withRemarks(new Remarks($cfPassHolder->moreInfo));
         }
 
         $passHolder = $passHolder->withPrivacyPreferences(

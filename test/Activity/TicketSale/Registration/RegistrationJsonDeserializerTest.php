@@ -4,6 +4,7 @@ namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration;
 
 use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
+use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class RegistrationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
@@ -32,6 +33,8 @@ class RegistrationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
             new PriceClass('Basisprijs'),
             new StringLiteral('coupon-id-1')
         );
+
+        $expected = $expected->withAmount(new Natural(3));
 
         $this->assertEquals($expected, $actual);
     }

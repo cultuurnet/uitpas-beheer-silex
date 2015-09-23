@@ -145,6 +145,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder = new \CultureFeed_Uitpas_Passholder();
         $cfPassholder->toPostDataKeepEmptySecondName();
         $cfPassholder->toPostDataKeepEmptyEmail();
+        $cfPassholder->toPostDataKeepEmptyMoreInfo();
 
         return $cfPassholder;
     }
