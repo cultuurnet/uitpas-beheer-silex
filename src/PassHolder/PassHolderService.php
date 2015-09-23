@@ -195,6 +195,7 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
 
         $cfPassHolder->toPostDataKeepEmptySecondName();
         $cfPassHolder->toPostDataKeepEmptyEmail();
+        $cfPassHolder->toPostDataKeepEmptyMoreInfo();
 
         return $cfPassHolder;
     }

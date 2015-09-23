@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b60a055938a0e3ece100a3c22c0f1aad",
+    "hash": "3702ab4c8158474e476168bf55c0b7af",
     "packages": [
         {
             "name": "2dotstwice/collection",
@@ -272,16 +272,16 @@
         },
         {
             "name": "cultuurnet/culturefeed-php",
-            "version": "dev-feature/UBR",
+            "version": "dev-feature/UBR-235",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "2e047597fe8485ba2bf866aa97d77f9a55eea844"
+                "reference": "917a23ecfc150e846033bc7e03afe73ee5277608"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/2e047597fe8485ba2bf866aa97d77f9a55eea844",
-                "reference": "2e047597fe8485ba2bf866aa97d77f9a55eea844",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/917a23ecfc150e846033bc7e03afe73ee5277608",
+                "reference": "917a23ecfc150e846033bc7e03afe73ee5277608",
                 "shasum": ""
             },
             "require": {
@@ -335,7 +335,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-09-12 07:31:11"
+            "time": "2015-09-23 07:31:01"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -1171,16 +1171,16 @@
         },
         {
             "name": "jdesrosiers/silex-cors-provider",
-            "version": "dev-ie11-cors-multiple-methods",
+            "version": "v0.1.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/2dotstwice/silex-cors-provider.git",
-                "reference": "837d5345a195b18cc1330104e901b498e0f530b1"
+                "url": "https://github.com/jdesrosiers/silex-cors-provider.git",
+                "reference": "06954050d4a031884c4a68a8c3efb7ec7910ebde"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/2dotstwice/silex-cors-provider/zipball/837d5345a195b18cc1330104e901b498e0f530b1",
-                "reference": "837d5345a195b18cc1330104e901b498e0f530b1",
+                "url": "https://api.github.com/repos/jdesrosiers/silex-cors-provider/zipball/06954050d4a031884c4a68a8c3efb7ec7910ebde",
+                "reference": "06954050d4a031884c4a68a8c3efb7ec7910ebde",
                 "shasum": ""
             },
             "require": {
@@ -1196,11 +1196,7 @@
                     "JDesrosiers\\Silex\\Provider\\": "src/"
                 }
             },
-            "scripts": {
-                "test": [
-                    "vendor/bin/phpunit --colors"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1221,10 +1217,7 @@
                 "sharing",
                 "silex"
             ],
-            "support": {
-                "source": "https://github.com/2dotstwice/silex-cors-provider/tree/ie11-cors-multiple-methods"
-            },
-            "time": "2015-09-12 06:42:11"
+            "time": "2015-09-12 22:16:14"
         },
         {
             "name": "justinrainbow/json-schema",
@@ -3539,16 +3532,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.22.1",
+            "version": "v1.22.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "b7fc2469fa009897871fb95b68237286fc54a5ad"
+                "reference": "79249fc8c9ff62e41e217e0c630e2e00bcadda6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b7fc2469fa009897871fb95b68237286fc54a5ad",
-                "reference": "b7fc2469fa009897871fb95b68237286fc54a5ad",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/79249fc8c9ff62e41e217e0c630e2e00bcadda6a",
+                "reference": "79249fc8c9ff62e41e217e0c630e2e00bcadda6a",
                 "shasum": ""
             },
             "require": {
@@ -3596,7 +3589,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2015-09-15 06:50:16"
+            "time": "2015-09-22 13:59:32"
         },
         {
             "name": "willdurand/geocoder",
@@ -3663,23 +3656,81 @@
             "time": "2015-01-07 13:23:35"
         },
         {
-            "name": "zendframework/zend-stdlib",
-            "version": "2.6.0",
+            "name": "zendframework/zend-hydrator",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/zendframework/zend-stdlib.git",
-                "reference": "a35758803fc9051ec1aff43989e679b6b451b1b4"
+                "url": "https://github.com/zendframework/zend-hydrator.git",
+                "reference": "f3ed8b833355140350bbed98d8a7b8b66875903f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/a35758803fc9051ec1aff43989e679b6b451b1b4",
-                "reference": "a35758803fc9051ec1aff43989e679b6b451b1b4",
+                "url": "https://api.github.com/repos/zendframework/zend-hydrator/zipball/f3ed8b833355140350bbed98d8a7b8b66875903f",
+                "reference": "f3ed8b833355140350bbed98d8a7b8b66875903f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5"
+                "php": ">=5.5",
+                "zendframework/zend-stdlib": "^2.5.1"
             },
             "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "^2.0@dev",
+                "zendframework/zend-eventmanager": "^2.5.1",
+                "zendframework/zend-filter": "^2.5.1",
+                "zendframework/zend-inputfilter": "^2.5.1",
+                "zendframework/zend-serializer": "^2.5.1",
+                "zendframework/zend-servicemanager": "^2.5.1"
+            },
+            "suggest": {
+                "zendframework/zend-eventmanager": "^2.5.1, to support aggregate hydrator usage",
+                "zendframework/zend-filter": "^2.5.1, to support naming strategy hydrator usage",
+                "zendframework/zend-serializer": "^2.5.1, to use the SerializableStrategy",
+                "zendframework/zend-servicemanager": "^2.5.1, to support hydrator plugin manager usage"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev",
+                    "dev-develop": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Zend\\Hydrator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "homepage": "https://github.com/zendframework/zend-hydrator",
+            "keywords": [
+                "hydrator",
+                "zf2"
+            ],
+            "time": "2015-09-17 14:06:43"
+        },
+        {
+            "name": "zendframework/zend-stdlib",
+            "version": "2.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/zend-stdlib.git",
+                "reference": "e310dc83e756fdf0f61281540c4bee29f9e72e36"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/e310dc83e756fdf0f61281540c4bee29f9e72e36",
+                "reference": "e310dc83e756fdf0f61281540c4bee29f9e72e36",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5",
+                "zendframework/zend-hydrator": "~1.0"
+            },
+            "require-dev": {
+                "athletic/athletic": "~0.1",
                 "fabpot/php-cs-fixer": "1.7.*",
                 "phpunit/phpunit": "~4.0",
                 "zendframework/zend-config": "~2.5",
@@ -3698,8 +3749,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.6-dev",
-                    "dev-develop": "2.7-dev"
+                    "dev-master": "2.7-dev",
+                    "dev-develop": "2.8-dev"
                 }
             },
             "autoload": {
@@ -3716,7 +3767,7 @@
                 "stdlib",
                 "zf2"
             ],
-            "time": "2015-07-21 17:08:05"
+            "time": "2015-09-22 16:25:52"
         },
         {
             "name": "zendframework/zend-validator",
@@ -4332,16 +4383,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.8",
+            "version": "4.8.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "521720279261e5b14799cf1bb895d4b55e516f26"
+                "reference": "73fad41adb5b7bc3a494bb930d90648df1d5e74b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/521720279261e5b14799cf1bb895d4b55e516f26",
-                "reference": "521720279261e5b14799cf1bb895d4b55e516f26",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/73fad41adb5b7bc3a494bb930d90648df1d5e74b",
+                "reference": "73fad41adb5b7bc3a494bb930d90648df1d5e74b",
                 "shasum": ""
             },
             "require": {
@@ -4400,7 +4451,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-09-19 05:44:37"
+            "time": "2015-09-20 12:56:44"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -5032,14 +5083,8 @@
         {
             "alias": "1.5.2",
             "alias_normalized": "1.5.2.0",
-            "version": "dev-feature/UBR",
+            "version": "dev-feature/UBR-235",
             "package": "cultuurnet/culturefeed-php"
-        },
-        {
-            "alias": "0.1",
-            "alias_normalized": "0.1.0.0",
-            "version": "dev-ie11-cors-multiple-methods",
-            "package": "jdesrosiers/silex-cors-provider"
         },
         {
             "alias": "2.0",
@@ -5053,7 +5098,6 @@
         "cultuurnet/silex-uitid-provider": 20,
         "cultuurnet/culturefeed-php": 20,
         "cultuurnet/deserializer": 20,
-        "jdesrosiers/silex-cors-provider": 20,
         "escapestudios/symfony2-coding-standard": 20
     },
     "prefer-stable": true,
