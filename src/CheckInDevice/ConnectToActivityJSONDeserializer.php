@@ -15,8 +15,12 @@ class ConnectToActivityJSONDeserializer extends JSONDeserializer
     {
         $data = parent::deserialize($data);
 
-        if (empty($data->activityId)) {
+        if (!property_exists($data, 'activityId')) {
             throw new MissingPropertyException('activityId');
+        }
+
+        if (null === $data->activityId) {
+            return null;
         }
 
         return new StringLiteral($data->activityId);

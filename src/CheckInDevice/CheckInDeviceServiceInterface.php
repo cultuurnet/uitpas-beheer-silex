@@ -29,4 +29,12 @@ interface CheckInDeviceServiceInterface
         StringLiteral $checkInDeviceId,
         StringLiteral $activityId
     );
+
+    /**
+     * @param StringLiteral $checkInDeviceId
+     * @return CheckInDevice
+     */
+    public function letDeviceChooseActivityAutomatically(
+        StringLiteral $checkInDeviceId
+    );
 }

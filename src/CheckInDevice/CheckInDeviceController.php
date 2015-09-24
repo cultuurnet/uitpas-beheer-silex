@@ -55,11 +55,18 @@ class CheckInDeviceController
         );
         $checkInDeviceId = new StringLiteral($checkInDeviceId);
 
-        return JsonResponse::create(
-            $this->checkInDevices->connectDeviceToActivity(
+        if (null === $activityId) {
+            $checkInDevice = $this->checkInDevices->letDeviceChooseActivityAutomatically(
+                $checkInDeviceId
+            );
+        }
+        else {
+            $checkInDevice = $this->checkInDevices->connectDeviceToActivity(
                 $checkInDeviceId,
                 $activityId
-            )
-        );
+            );
+        }
+
+        return JsonResponse::create($checkInDevice);
     }
 }

@@ -121,9 +121,7 @@ class CheckInDeviceService extends CounterAwareUitpasService implements CheckInD
     }
 
     /**
-     * @param StringLiteral $checkInDeviceId
-     * @param StringLiteral $activityId
-     * @return CheckInDevice
+     * @inheritdoc
      */
     public function connectDeviceToActivity(
         StringLiteral $checkInDeviceId,
@@ -132,6 +130,21 @@ class CheckInDeviceService extends CounterAwareUitpasService implements CheckInD
         $cfDevice = $this->getUitpasService()->connectDeviceWithEvent(
             $checkInDeviceId->toNative(),
             $activityId->toNative(),
+            $this->getCounterConsumerKey()
+        );
+
+        return CheckInDevice::createFromCultureFeedCounterDevice($cfDevice);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function letDeviceChooseActivityAutomatically(
+        StringLiteral $checkInDeviceId
+    ) {
+        $cfDevice = $this->getUitpasService()->connectDeviceWithEvent(
+            $checkInDeviceId->toNative(),
+            '',
             $this->getCounterConsumerKey()
         );
 
