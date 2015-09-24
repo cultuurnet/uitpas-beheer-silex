@@ -59,8 +59,7 @@ class CheckInDeviceController
             $checkInDevice = $this->checkInDevices->letDeviceChooseActivityAutomatically(
                 $checkInDeviceId
             );
-        }
-        else {
+        } else {
             $checkInDevice = $this->checkInDevices->connectDeviceToActivity(
                 $checkInDeviceId,
                 $activityId
