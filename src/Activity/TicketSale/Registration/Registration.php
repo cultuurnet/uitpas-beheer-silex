@@ -19,7 +19,7 @@ final class Registration
     protected $priceClass;
 
     /**
-     * @var StringLiteral|null
+     * @var TariffId|null
      */
     protected $tariffId;
 
@@ -31,12 +31,12 @@ final class Registration
     /**
      * @param StringLiteral $activityId
      * @param PriceClass $priceClass
-     * @param StringLiteral $tariffId
+     * @param TariffId $tariffId
      */
     public function __construct(
         StringLiteral $activityId,
         PriceClass $priceClass,
-        StringLiteral $tariffId = null
+        TariffId $tariffId = null
     ) {
         $this->activityId = $activityId;
         $this->priceClass = $priceClass;
@@ -60,10 +60,10 @@ final class Registration
     }
 
     /**
-     * @param StringLiteral $tariffId
+     * @param TariffId $tariffId
      * @return Registration
      */
-    public function withTariffId(StringLiteral $tariffId)
+    public function withTariffId(TariffId $tariffId)
     {
         $c = clone $this;
         $c->tariffId = $tariffId;
@@ -71,7 +71,7 @@ final class Registration
     }
 
     /**
-     * @return StringLiteral|null
+     * @return TariffId|null
      */
     public function getTariffId()
     {

@@ -15,7 +15,7 @@ class RegistrationTest extends \PHPUnit_Framework_TestCase
     {
         $id = new StringLiteral('d3a36630-6e1a-4bb6-8f53-18bec43a70b4');
         $priceClass = new PriceClass('Basisprijs');
-        $tariffId = new StringLiteral('coupon-id-1');
+        $tariffId = new TariffId(2341213412341234);
         $amount = new Natural(3);
 
         $registration = new Registration(

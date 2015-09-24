@@ -31,7 +31,7 @@ class RegistrationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
         $expected = new Registration(
             new StringLiteral('100'),
             new PriceClass('Basisprijs'),
-            new StringLiteral('coupon-id-1')
+            new TariffId('141327894321897')
         );
 
         $expected = $expected->withAmount(new Natural(3));
