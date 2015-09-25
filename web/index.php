@@ -88,4 +88,9 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\Membership\MembershipControllerPro
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutControllerProvider());
 
+/**
+ * API callbacks for CheckIn Devices.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\CheckInDevice\CheckInDeviceControllerProvider());
+
 $app->run();

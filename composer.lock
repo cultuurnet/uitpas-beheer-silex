@@ -1,10 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "hash": "b963558868327ab9934c82d98319fb51",
+    "content-hash": "638c8d51dde96e266a4943bf0ade6547",
     "packages": [
         {
             "name": "2dotstwice/collection",
@@ -276,12 +277,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "7e157641d0435bdc77c361c0d126647f327a3e84"
+                "reference": "ab4694da9a4894163faf5a35599d3dd4b1642215"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/7e157641d0435bdc77c361c0d126647f327a3e84",
-                "reference": "7e157641d0435bdc77c361c0d126647f327a3e84",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/ab4694da9a4894163faf5a35599d3dd4b1642215",
+                "reference": "ab4694da9a4894163faf5a35599d3dd4b1642215",
                 "shasum": ""
             },
             "require": {
@@ -335,7 +336,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-09-23 08:17:08"
+            "time": "2015-09-25 09:11:07"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -2849,12 +2850,12 @@
             "version": "v2.7.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/MonologBridge.git",
+                "url": "https://github.com/symfony/monolog-bridge.git",
                 "reference": "acdfdfe6bb523352ea46a4fcdc1fb04de316c5f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/MonologBridge/zipball/acdfdfe6bb523352ea46a4fcdc1fb04de316c5f4",
+                "url": "https://api.github.com/repos/symfony/monolog-bridge/zipball/acdfdfe6bb523352ea46a4fcdc1fb04de316c5f4",
                 "reference": "acdfdfe6bb523352ea46a4fcdc1fb04de316c5f4",
                 "shasum": ""
             },
@@ -3713,16 +3714,16 @@
         },
         {
             "name": "zendframework/zend-stdlib",
-            "version": "2.7.1",
+            "version": "2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-stdlib.git",
-                "reference": "e310dc83e756fdf0f61281540c4bee29f9e72e36"
+                "reference": "8ac0c77ff567fcf49b58689ee3bfa7595be102bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/e310dc83e756fdf0f61281540c4bee29f9e72e36",
-                "reference": "e310dc83e756fdf0f61281540c4bee29f9e72e36",
+                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/8ac0c77ff567fcf49b58689ee3bfa7595be102bc",
+                "reference": "8ac0c77ff567fcf49b58689ee3bfa7595be102bc",
                 "shasum": ""
             },
             "require": {
@@ -3767,7 +3768,7 @@
                 "stdlib",
                 "zf2"
             ],
-            "time": "2015-09-22 16:25:52"
+            "time": "2015-09-25 04:06:33"
         },
         {
             "name": "zendframework/zend-validator",
