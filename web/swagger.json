@@ -775,6 +775,102 @@
           "PassHolder"
         ]
       }
+    },
+    "/checkindevices": {
+      "get": {
+        "summary": "List checkin devices.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "getCheckInDevices",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of available checkin devices.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CheckInDevice"
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "CheckIn devices"
+        ]
+      }
+    },
+    "/checkindevices/{checkInDeviceId}": {
+      "patch": {
+        "summary": "Connect the CheckIn Device to an activity.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "connectCheckInDeviceToActivity",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "checkInDeviceId",
+            "in": "path",
+            "description": "The unique ID of the CheckIn Device.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the UUID of the activity to connect the CheckIn Device with.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ConnectActivity"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The checkin device was connected successfully.",
+            "schema": {
+              "$ref": "#/definitions/CheckInDevice"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "CheckIn devices"
+        ]
+      }
+    },
+    "/checkindevices/activities": {
+      "get": {
+        "summary": "List activities available to connect devices to.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "getActivitiesAvailableForCheckInDevices",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of available activities.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/BasicActivity"
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "CheckIn devices"
+        ]
+      }
     }
   },
   "tags": [
@@ -813,6 +909,10 @@
     {
       "name": "Kansenstatuut",
       "description": "Operations related to a kansenstatuut."
+    },
+    {
+      "name": "CheckIn devices",
+      "description": "Operations related to CheckIn Devices."
     }
   ],
   "definitions": {
@@ -1722,7 +1822,7 @@
       "type": "string",
       "example": "34475f7a-d1d5-481d-b205-9537ae0f9e73"
     },
-    "Activity": {
+    "BasicActivity": {
       "properties": {
         "id": {
           "$ref": "#/definitions/ActivityId"
@@ -1730,30 +1830,43 @@
         "title": {
           "type": "string",
           "example": "Fun family time"
-        },
-        "description": {
-          "type": "string",
-          "example": "Dit is een testevent dat tijdens de periode 1 september tot en met 31 oktober 2015 zal plaatsvinden. Dit event gaat betalend zijn"
-        },
-        "when": {
-          "type": "string",
-          "example": "vanaf 1/9"
-        },
-        "checkinConstraint": {
-          "$ref": "#/definitions/CheckinConstraint"
-        },
-        "free": {
-          "type": "boolean",
-          "description": "Indicates whether or not tickets for the activity are free."
-        },
-        "sales": {
-          "$ref": "#/definitions/SalesInformation"
-        },
-        "points": {
-          "type": "integer",
-          "description": "The number of points that can be earned when checking in this activity."
         }
       },
+      "required": [
+        "id",
+        "title"
+      ]
+    },
+    "Activity": {
+      "allOf": [
+        {"$ref": "#/definitions/BasicActivity"},
+        {
+          "properties": {
+            "description": {
+              "type": "string",
+              "example": "Dit is een testevent dat tijdens de periode 1 september tot en met 31 oktober 2015 zal plaatsvinden. Dit event gaat betalend zijn"
+            },
+            "when": {
+              "type": "string",
+              "example": "vanaf 1/9"
+            },
+            "checkinConstraint": {
+              "$ref": "#/definitions/CheckinConstraint"
+            },
+            "free": {
+              "type": "boolean",
+              "description": "Indicates whether or not tickets for the activity are free."
+            },
+            "sales": {
+              "$ref": "#/definitions/SalesInformation"
+            },
+            "points": {
+              "type": "integer",
+              "description": "The number of points that can be earned when checking in this activity."
+            }
+          }
+        }
+      ],
       "required": [
         "id",
         "title"
@@ -2022,6 +2135,41 @@
     "PassholderRemarks": {
       "type": "string",
       "description": "Addition information about the passholder. Kansenstatuut related info should go here."
+    },
+    "CheckInDevice": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique ID of the CheckIn Device.",
+          "example": "516a0d124281f1275e41f7755b82243f"
+        },
+        "name": {
+          "type": "string",
+          "description": "Human readable name of the CheckIn Device.",
+          "example": "CID031-RPI"
+        },
+        "activityId": {
+          "$ref": "#/definitions/ActivityId",
+          "description": "Activity to which the CheckIn Device is currently connected."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "ConnectActivity": {
+      "type": "object",
+      "properties": {
+        "activityId": {
+          "$ref": "#/definitions/ActivityId",
+          "description": "Activity to connect the CheckIn Device to."
+        }
+      },
+      "required": [
+        "activityId"
+      ]
     }
   }
 }
