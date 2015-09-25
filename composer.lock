@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6688accf67197e6cf71773df4bf80032",
-    "content-hash": "96c16fce33f73362639423c45c0af010",
+    "hash": "b963558868327ab9934c82d98319fb51",
+    "content-hash": "638c8d51dde96e266a4943bf0ade6547",
     "packages": [
         {
             "name": "2dotstwice/collection",
@@ -273,16 +273,16 @@
         },
         {
             "name": "cultuurnet/culturefeed-php",
-            "version": "dev-feature/UBR-250",
+            "version": "dev-feature/UBR",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "9427b58dbbd8086819162e5019a19abbb50253f5"
+                "reference": "ab4694da9a4894163faf5a35599d3dd4b1642215"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/9427b58dbbd8086819162e5019a19abbb50253f5",
-                "reference": "9427b58dbbd8086819162e5019a19abbb50253f5",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/ab4694da9a4894163faf5a35599d3dd4b1642215",
+                "reference": "ab4694da9a4894163faf5a35599d3dd4b1642215",
                 "shasum": ""
             },
             "require": {
@@ -336,7 +336,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-09-23 14:21:52"
+            "time": "2015-09-25 09:11:07"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -3714,16 +3714,16 @@
         },
         {
             "name": "zendframework/zend-stdlib",
-            "version": "2.7.2",
+            "version": "2.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-stdlib.git",
-                "reference": "130eaa89e24acbc6386af9061aabc78e1948b1f9"
+                "reference": "8ac0c77ff567fcf49b58689ee3bfa7595be102bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/130eaa89e24acbc6386af9061aabc78e1948b1f9",
-                "reference": "130eaa89e24acbc6386af9061aabc78e1948b1f9",
+                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/8ac0c77ff567fcf49b58689ee3bfa7595be102bc",
+                "reference": "8ac0c77ff567fcf49b58689ee3bfa7595be102bc",
                 "shasum": ""
             },
             "require": {
@@ -3768,7 +3768,7 @@
                 "stdlib",
                 "zf2"
             ],
-            "time": "2015-09-23 13:11:47"
+            "time": "2015-09-25 04:06:33"
         },
         {
             "name": "zendframework/zend-validator",
@@ -5084,7 +5084,7 @@
         {
             "alias": "1.5.2",
             "alias_normalized": "1.5.2.0",
-            "version": "dev-feature/UBR-250",
+            "version": "dev-feature/UBR",
             "package": "cultuurnet/culturefeed-php"
         },
         {
