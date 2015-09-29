@@ -31,19 +31,34 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
      */
     protected $passholderCardFull;
 
+    /**
+     * @var \CultureFeed_Uitpas_CardInfo
+     */
+    protected $cardInfo;
+
     public function setUp()
     {
-        $this->passholderCardMinimal = new \CultureFeed_Uitpas_Passholder_Card();
-        $this->passholderCardMinimal->status = UiTPASStatus::ACTIVE;
-        $this->passholderCardMinimal->type = UiTPASType::CARD();
-        $this->passholderCardMinimal->uitpasNumber = $this->number;
+        $status = UiTPASStatus::ACTIVE;
+        $type = UiTPASType::CARD;
 
-        $this->passholderCardMinimal->cardSystem = new \CultureFeed_Uitpas_CardSystem();
-        $this->passholderCardMinimal->cardSystem->id = 999;
-        $this->passholderCardMinimal->cardSystem->name = 'UiTPAS Regio Aalst';
+        $cardSystem = new \CultureFeed_Uitpas_CardSystem();
+        $cardSystem->id = 999;
+        $cardSystem->name = 'UiTPAS Regio Aalst';
+
+        $this->passholderCardMinimal = new \CultureFeed_Uitpas_Passholder_Card();
+        $this->passholderCardMinimal->status = $status;
+        $this->passholderCardMinimal->type = $type;
+        $this->passholderCardMinimal->uitpasNumber = $this->number;
+        $this->passholderCardMinimal->cardSystem = $cardSystem;
 
         $this->passholderCardFull = clone $this->passholderCardMinimal;
         $this->passholderCardFull->city = $this->city;
+
+        $this->cardInfo = new \CultureFeed_Uitpas_CardInfo();
+        $this->cardInfo->status = $status;
+        $this->cardInfo->type = $type;
+        $this->cardInfo->uitpasNumber = $this->number;
+        $this->cardInfo->cardSystem = $cardSystem;
     }
 
     /**
@@ -82,6 +97,23 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
         );
 
         $actual = UiTPAS::fromCultureFeedPassHolderCard($this->passholderCardMinimal);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function it_can_extract_properties_from_a_culturefeed_card_info_object()
+    {
+        $expected = new UiTPAS(
+            new UiTPASNumber($this->number),
+            UiTPASStatus::ACTIVE(),
+            UiTPASType::CARD(),
+            new CardSystem(
+                new CardSystemId('999'),
+                new StringLiteral('UiTPAS Regio Aalst')
+            )
+        );
+
+        $actual = UiTPAS::fromCultureFeedCardInfo($this->cardInfo);
 
         $this->assertEquals($expected, $actual);
     }
