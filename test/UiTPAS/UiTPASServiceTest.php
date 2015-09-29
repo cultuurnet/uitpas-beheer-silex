@@ -47,7 +47,21 @@ class UiTPASServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_blocks_and_returns_the_blocked_uitpas()
+    public function it_blocks_a_given_uitpas_by_uitpas_number()
+    {
+        $uitpasNumber = new UiTPASNumber('0930000420206');
+
+        $this->api->expects($this->once())
+            ->method('blockUitpas')
+            ->with($uitpasNumber->toNative());
+
+        $this->service->block($uitpasNumber);
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_the_uitpas_for_a_given_uitpas_number()
     {
         $uitpasNumber = new UiTPASNumber('0930000420206');
 
@@ -71,15 +85,11 @@ class UiTPASServiceTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->api->expects($this->once())
-            ->method('blockUitpas')
-            ->with($uitpasNumber->toNative());
-
-        $this->api->expects($this->once())
             ->method('getCard')
             ->with($cfCardQuery)
             ->willReturn($cfUpdatedCard);
 
-        $actualUitpas = $this->service->block($uitpasNumber);
+        $actualUitpas = $this->service->get($uitpasNumber);
 
         $this->assertEquals($expectedUitpas, $actualUitpas);
     }

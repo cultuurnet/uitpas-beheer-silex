@@ -11,7 +11,6 @@ class UiTPASService extends CounterAwareUitpasService implements UiTPASServiceIn
 {
     /**
      * @param UiTPASNumber $uitpasNumber
-     * @return UiTPAS
      */
     public function block(UiTPASNumber $uitpasNumber)
     {
@@ -19,7 +18,14 @@ class UiTPASService extends CounterAwareUitpasService implements UiTPASServiceIn
             $uitpasNumber->toNative(),
             $this->getCounterConsumerKey()
         );
+    }
 
+    /**
+     * @param UiTPASNumber $uitpasNumber
+     * @return UiTPAS
+     */
+    public function get(UiTPASNumber $uitpasNumber)
+    {
         $uitpasQuery = new \CultureFeed_Uitpas_CardInfoQuery();
         $uitpasQuery->uitpasNumber = $uitpasNumber->toNative();
 

@@ -10,9 +10,14 @@ interface UiTPASServiceInterface
 {
     /**
      * @param UiTPASNumber $uitpasNumber
-     * @return UiTPAS
      */
     public function block(UiTPASNumber $uitpasNumber);
+
+    /**
+     * @param UiTPASNumber $uitpasNumber
+     * @return UiTPAS
+     */
+    public function get(UiTPASNumber $uitpasNumber);
 
     /**
      * @param Inquiry $inquiry
