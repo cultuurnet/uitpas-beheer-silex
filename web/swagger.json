@@ -226,6 +226,44 @@
         ]
       }
     },
+    "/uitpas/{uitpasNumber}": {
+      "delete": {
+        "summary": "Blocks the specified uitpas.",
+        "operationId": "blockUitpas",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The information about the uitpas.",
+            "schema": {
+              "$ref": "#/definitions/UiTPAS"
+            }
+          },
+          "400": {
+            "description": "Uitpas API error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or has no active counter."
+          }
+        },
+        "tags": [
+          "UiTPAS"
+        ]
+      }
+    },
     "/uitpas/{uitpasNumber}/price": {
       "get": {
         "summary": "Retrieve the price to register the specified uitpas.",
