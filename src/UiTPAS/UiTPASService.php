@@ -28,6 +28,7 @@ class UiTPASService extends CounterAwareUitpasService implements UiTPASServiceIn
     {
         $uitpasQuery = new \CultureFeed_Uitpas_CardInfoQuery();
         $uitpasQuery->uitpasNumber = $uitpasNumber->toNative();
+        $uitpasQuery->balieConsumerKey = $this->getCounterConsumerKey();
 
         return UiTPAS::fromCultureFeedCardInfo(
             $this->getUitpasService()->getCard($uitpasQuery)

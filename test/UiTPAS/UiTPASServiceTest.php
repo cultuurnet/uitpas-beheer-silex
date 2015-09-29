@@ -73,6 +73,7 @@ class UiTPASServiceTest extends \PHPUnit_Framework_TestCase
 
         $cfCardQuery = new \CultureFeed_Uitpas_CardInfoQuery();
         $cfCardQuery->uitpasNumber = $uitpasNumber->toNative();
+        $cfCardQuery->balieConsumerKey = $this->counterConsumerKey->toNative();
 
         $expectedUitpas = new UiTPAS(
             $uitpasNumber,
