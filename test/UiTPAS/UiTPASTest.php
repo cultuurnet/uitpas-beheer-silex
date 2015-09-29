@@ -101,6 +101,9 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * @test
+     */
     public function it_can_extract_properties_from_a_culturefeed_card_info_object()
     {
         $expected = new UiTPAS(
