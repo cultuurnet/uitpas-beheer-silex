@@ -2,6 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\UiTPAS;
 
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
+use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\Exception\MissingParameterException;
 use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
@@ -41,6 +43,38 @@ class UiTPASControllerTest extends \PHPUnit_Framework_TestCase
     {
         $this->service = $this->getMock(UiTPASServiceInterface::class);
         $this->controller = new UiTPASController($this->service);
+    }
+
+    /**
+     * @test
+     */
+    public function it_responds_an_uitpas_after_blocking_it()
+    {
+        $uitpasNumber = new UiTPASNumber('0930000420206');
+
+        $uitpas = new UiTPAS(
+            $uitpasNumber,
+            UiTPASStatus::BLOCKED(),
+            UiTPASType::STICKER(),
+            new CardSystem(
+                new CardSystemId('15'),
+                new StringLiteral('UiTPAS Regio Aalst')
+            )
+        );
+
+        $this->service->expects($this->once())
+            ->method('block')
+            ->with($uitpasNumber);
+
+        $this->service->expects($this->once())
+            ->method('get')
+            ->with($uitpasNumber)
+            ->willReturn($uitpas);
+
+        $response = $this->controller->block($uitpasNumber->toNative());
+        $json = $response->getContent();
+
+        $this->assertJsonEquals($json, 'UiTPAS/data/uitpas-blocked.json');
     }
 
     /**

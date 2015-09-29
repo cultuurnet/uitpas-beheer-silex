@@ -2,6 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\UiTPAS;
 
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
+use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
 use CultuurNet\UiTPASBeheer\PassHolder\VoucherNumber;
@@ -40,6 +42,57 @@ class UiTPASServiceTest extends \PHPUnit_Framework_TestCase
             $this->api,
             $this->counterConsumerKey
         );
+    }
+
+    /**
+     * @test
+     */
+    public function it_blocks_a_given_uitpas_by_uitpas_number()
+    {
+        $uitpasNumber = new UiTPASNumber('0930000420206');
+
+        $this->api->expects($this->once())
+            ->method('blockUitpas')
+            ->with($uitpasNumber->toNative());
+
+        $this->service->block($uitpasNumber);
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_the_uitpas_for_a_given_uitpas_number()
+    {
+        $uitpasNumber = new UiTPASNumber('0930000420206');
+
+        $cfUpdatedCard = new \CultureFeed_Uitpas_CardInfo();
+        $cfUpdatedCard->status = 'BLOCKED';
+        $cfUpdatedCard->type = 'KEY';
+        $cfUpdatedCard->uitpasNumber = $uitpasNumber->toNative();
+        $cfUpdatedCard->cardSystem = new \CultureFeed_Uitpas_CardSystem(7, 'UiTPAS Regio Brabant');
+
+        $cfCardQuery = new \CultureFeed_Uitpas_CardInfoQuery();
+        $cfCardQuery->uitpasNumber = $uitpasNumber->toNative();
+        $cfCardQuery->balieConsumerKey = $this->counterConsumerKey->toNative();
+
+        $expectedUitpas = new UiTPAS(
+            $uitpasNumber,
+            UiTPASStatus::BLOCKED(),
+            UiTPASType::KEY(),
+            new CardSystem(
+                new CardSystemId('7'),
+                new StringLiteral('UiTPAS Regio Brabant')
+            )
+        );
+
+        $this->api->expects($this->once())
+            ->method('getCard')
+            ->with($cfCardQuery)
+            ->willReturn($cfUpdatedCard);
+
+        $actualUitpas = $this->service->get($uitpasNumber);
+
+        $this->assertEquals($expectedUitpas, $actualUitpas);
     }
 
     /**
@@ -91,24 +144,5 @@ class UiTPASServiceTest extends \PHPUnit_Framework_TestCase
         $actualPrice = $this->service->getPrice($inquiry);
 
         $this->assertEquals($expectedPrice, $actualPrice);
-    }
-
-    /**
-     * @test
-     */
-    public function it_throws_an_exception_when_an_error_occurred()
-    {
-        $uitpasNumber = new UiTPASNumber('0930000420206');
-        $reason = PurchaseReason::FIRST_CARD();
-        $inquiry = new Inquiry($uitpasNumber, $reason);
-
-        $exception = new \CultureFeed_Exception('Invalid reason.', 'PARSE_INVALID_UITPAS_STATUS_CHANGE_REASON');
-
-        $this->api->expects($this->once())
-            ->method('getPriceByUitpas')
-            ->willThrowException($exception);
-
-        $this->setExpectedException(ReadableCodeResponseException::class);
-        $this->service->getPrice($inquiry);
     }
 }

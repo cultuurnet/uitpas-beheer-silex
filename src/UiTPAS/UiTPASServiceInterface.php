@@ -9,12 +9,19 @@ use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;
 interface UiTPASServiceInterface
 {
     /**
+     * @param UiTPASNumber $uitpasNumber
+     */
+    public function block(UiTPASNumber $uitpasNumber);
+
+    /**
+     * @param UiTPASNumber $uitpasNumber
+     * @return UiTPAS
+     */
+    public function get(UiTPASNumber $uitpasNumber);
+
+    /**
      * @param Inquiry $inquiry
-     *
      * @return Price
-     *
-     * @throws ReadableCodeResponseException
-     *   When an UiTPAS API error occurred.
      */
     public function getPrice(Inquiry $inquiry);
 }
