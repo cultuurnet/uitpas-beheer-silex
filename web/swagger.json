@@ -262,6 +262,51 @@
         "tags": [
           "UiTPAS"
         ]
+      },
+      "put": {
+        "summary": "Registers the specified uitpas to an existing passholder.",
+        "operationId": "registerUitpas",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the uitpas registration info.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UiTPASRegistrationCommand"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The information about the uitpas.",
+            "schema": {
+              "$ref": "#/definitions/UiTPAS"
+            }
+          },
+          "400": {
+            "description": "Uitpas API error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or has no active counter."
+          }
+        },
+        "tags": [
+          "UiTPAS"
+        ]
       }
     },
     "/uitpas/{uitpasNumber}/price": {
@@ -1483,6 +1528,30 @@
         "cardSystem"
       ]
     },
+    "UiTPASRegistrationCommand": {
+      "properties": {
+        "passholderUid": {
+          "$ref": "#/definitions/PassHolderUid"
+        },
+        "reason": {
+          "description": "Reason for the UiTPAS registration to an existing passholder.",
+          "required": true,
+          "type": "string",
+          "enum": [
+            "LOSS_THEFT",
+            "REMOVAL",
+            "LOSS_KANSENSTATUUT",
+            "OBTAIN_KANSENSTATUUT"
+          ]
+        },
+        "kansenStatuut": {
+          "$ref": "#/definitions/KansenStatuut"
+        },
+        "voucherNumber": {
+          "$ref": "#/definitions/VoucherNumber"
+        }
+      }
+    },
     "Gender": {
       "type": "string",
       "enum": [
@@ -1508,6 +1577,9 @@
     },
     "PassHolder": {
       "properties": {
+        "uid": {
+          "$ref": "#/definitions/PassHolderUid"
+        },
         "name": {
           "$ref": "#/definitions/PassHolderName"
         },
@@ -1669,6 +1741,10 @@
       "required": [
         "endDate"
       ]
+    },
+    "PassHolderUid": {
+      "type": "string",
+      "example": "123456"
     },
     "PassHolderName": {
       "properties": {
@@ -1948,8 +2024,7 @@
           "$ref": "#/definitions/PassHolder"
         },
         "voucherNumber": {
-          "type": "string",
-          "description": "An optional voucher number to redeem."
+          "$ref": "#/definitions/VoucherNumber"
         },
         "kansenStatuut": {
           "$ref": "#/definitions/RegistrationKansenStatuut"
@@ -2007,6 +2082,10 @@
           "type": "integer"
         }
       }
+    },
+    "VoucherNumber": {
+      "type": "string",
+      "description": "An optional voucher number to redeem."
     },
     "VoucherType": {
       "properties": {
