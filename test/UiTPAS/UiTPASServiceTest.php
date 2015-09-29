@@ -92,23 +92,4 @@ class UiTPASServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectedPrice, $actualPrice);
     }
-
-    /**
-     * @test
-     */
-    public function it_throws_an_exception_when_an_error_occurred()
-    {
-        $uitpasNumber = new UiTPASNumber('0930000420206');
-        $reason = PurchaseReason::FIRST_CARD();
-        $inquiry = new Inquiry($uitpasNumber, $reason);
-
-        $exception = new \CultureFeed_Exception('Invalid reason.', 'PARSE_INVALID_UITPAS_STATUS_CHANGE_REASON');
-
-        $this->api->expects($this->once())
-            ->method('getPriceByUitpas')
-            ->willThrowException($exception);
-
-        $this->setExpectedException(ReadableCodeResponseException::class);
-        $this->service->getPrice($inquiry);
-    }
 }

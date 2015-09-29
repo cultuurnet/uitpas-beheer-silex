@@ -37,18 +37,14 @@ class UiTPASService extends CounterAwareUitpasService implements UiTPASServiceIn
                 ->toNative();
         }
 
-        try {
-            $cfPrice = $this->getUitpasService()->getPriceByUitpas(
-                $inquiry->getUiTPASNumber()->toNative(),
-                $inquiry->getReason()->toNative(),
-                $dateOfBirth,
-                $postalCode,
-                $voucherNumber,
-                $this->getCounterConsumerKey()
-            );
-        } catch (\CultureFeed_Exception $e) {
-            throw ReadableCodeResponseException::fromCultureFeedException($e);
-        }
+        $cfPrice = $this->getUitpasService()->getPriceByUitpas(
+            $inquiry->getUiTPASNumber()->toNative(),
+            $inquiry->getReason()->toNative(),
+            $dateOfBirth,
+            $postalCode,
+            $voucherNumber,
+            $this->getCounterConsumerKey()
+        );
 
         return Price::fromCultureFeedUiTPASPrice($cfPrice);
     }
