@@ -2,6 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\UiTPAS;
 
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
+use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
 use CultuurNet\UiTPASBeheer\PassHolder\VoucherNumber;
@@ -40,6 +42,46 @@ class UiTPASServiceTest extends \PHPUnit_Framework_TestCase
             $this->api,
             $this->counterConsumerKey
         );
+    }
+
+    /**
+     * @test
+     */
+    public function it_blocks_and_returns_the_blocked_uitpas()
+    {
+        $uitpasNumber = new UiTPASNumber('0930000420206');
+
+        $cfUpdatedCard = new \CultureFeed_Uitpas_CardInfo();
+        $cfUpdatedCard->status = 'BLOCKED';
+        $cfUpdatedCard->type = 'KEY';
+        $cfUpdatedCard->uitpasNumber = $uitpasNumber->toNative();
+        $cfUpdatedCard->cardSystem = new \CultureFeed_Uitpas_CardSystem(7, 'UiTPAS Regio Brabant');
+
+        $cfCardQuery = new \CultureFeed_Uitpas_CardInfoQuery();
+        $cfCardQuery->uitpasNumber = $uitpasNumber->toNative();
+
+        $expectedUitpas = new UiTPAS(
+            $uitpasNumber,
+            UiTPASStatus::BLOCKED(),
+            UiTPASType::KEY(),
+            new CardSystem(
+                new CardSystemId('7'),
+                new StringLiteral('UiTPAS Regio Brabant')
+            )
+        );
+
+        $this->api->expects($this->once())
+            ->method('blockUitpas')
+            ->with($uitpasNumber->toNative());
+
+        $this->api->expects($this->once())
+            ->method('getCard')
+            ->with($cfCardQuery)
+            ->willReturn($cfUpdatedCard);
+
+        $actualUitpas = $this->service->block($uitpasNumber);
+
+        $this->assertEquals($expectedUitpas, $actualUitpas);
     }
 
     /**

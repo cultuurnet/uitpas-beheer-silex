@@ -10,6 +10,25 @@ use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;
 class UiTPASService extends CounterAwareUitpasService implements UiTPASServiceInterface
 {
     /**
+     * @param UiTPASNumber $uitpasNumber
+     * @return UiTPAS
+     */
+    public function block(UiTPASNumber $uitpasNumber)
+    {
+        $this->getUitpasService()->blockUitpas(
+            $uitpasNumber->toNative(),
+            $this->getCounterConsumerKey()
+        );
+
+        $uitpasQuery = new \CultureFeed_Uitpas_CardInfoQuery();
+        $uitpasQuery->uitpasNumber = $uitpasNumber->toNative();
+
+        return UiTPAS::fromCultureFeedCardInfo(
+            $this->getUitpasService()->getCard($uitpasQuery)
+        );
+    }
+
+    /**
      * @param Inquiry $inquiry
      *
      * @return Price
