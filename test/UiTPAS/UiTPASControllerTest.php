@@ -7,12 +7,15 @@ use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\Exception\MissingParameterException;
 use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\VoucherNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\Inquiry;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\PurchaseReason;
 use CultuurNet\UiTPASBeheer\UiTPAS\Properties\AgeRange;
 use CultuurNet\UiTPASBeheer\UiTPAS\Properties\VoucherType;
+use CultuurNet\UiTPASBeheer\UiTPAS\Registration\RegistrationJsonDeserializer;
+use CultuurNet\UiTPASBeheer\UiTPAS\Registration\RegistrationTestDataTrait;
 use Symfony\Component\HttpFoundation\Request;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\Month;
@@ -28,11 +31,17 @@ use ValueObjects\StringLiteral\StringLiteral;
 class UiTPASControllerTest extends \PHPUnit_Framework_TestCase
 {
     use JsonAssertionTrait;
+    use RegistrationTestDataTrait;
 
     /**
      * @var UiTPASServiceInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $service;
+
+    /**
+     * @var RegistrationJsonDeserializer
+     */
+    protected $registrationJsonDeserializer;
 
     /**
      * @var UiTPASController
@@ -42,7 +51,15 @@ class UiTPASControllerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->service = $this->getMock(UiTPASServiceInterface::class);
-        $this->controller = new UiTPASController($this->service);
+
+        $this->registrationJsonDeserializer = new RegistrationJsonDeserializer(
+            new KansenStatuutJsonDeserializer()
+        );
+
+        $this->controller = new UiTPASController(
+            $this->service,
+            $this->registrationJsonDeserializer
+        );
     }
 
     /**
@@ -75,6 +92,48 @@ class UiTPASControllerTest extends \PHPUnit_Framework_TestCase
         $json = $response->getContent();
 
         $this->assertJsonEquals($json, 'UiTPAS/data/uitpas-blocked.json');
+    }
+
+    /**
+     * @test
+     */
+    public function it_responds_an_uitpas_after_registering_it_to_a_passholder()
+    {
+        $uitpasNumber = new UiTPASNumber('0930000420206');
+        $json = file_get_contents(__DIR__ . '/data/registration-complete.json');
+        $request = new Request([], [], [], [], [], [], $json);
+
+        $uitpas = new UiTPAS(
+            $uitpasNumber,
+            UiTPASStatus::ACTIVE(),
+            UiTPASType::CARD(),
+            new CardSystem(
+                new CardSystemId('999'),
+                new StringLiteral('UiTPAS Regio Aalst')
+            )
+        );
+
+        $this->service->expects($this->once())
+            ->method('register')
+            ->with(
+                $uitpasNumber,
+                $this->getCompleteRegistration()
+            );
+
+        $this->service->expects($this->once())
+            ->method('get')
+            ->with($uitpasNumber)
+            ->willReturn($uitpas);
+
+        $response = $this->controller->register(
+            $request,
+            $uitpasNumber->toNative()
+        );
+
+        $this->assertJsonEquals(
+            $response->getContent(),
+            'UiTPAS/data/uitpas-minimal.json'
+        );
     }
 
     /**

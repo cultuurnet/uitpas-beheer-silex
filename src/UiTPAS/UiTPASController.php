@@ -7,6 +7,7 @@ use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
 use CultuurNet\UiTPASBeheer\PassHolder\VoucherNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\Inquiry;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\PurchaseReason;
+use CultuurNet\UiTPASBeheer\UiTPAS\Registration\RegistrationJsonDeserializer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,11 +22,20 @@ class UiTPASController
     protected $uitpasService;
 
     /**
-     * @param UiTPASServiceInterface $uitpasService
+     * @var RegistrationJsonDeserializer
      */
-    public function __construct(UiTPASServiceInterface $uitpasService)
-    {
+    protected $registrationJsonDeserializer;
+
+    /**
+     * @param UiTPASServiceInterface $uitpasService
+     * @param RegistrationJsonDeserializer $registrationJsonDeserializer
+     */
+    public function __construct(
+        UiTPASServiceInterface $uitpasService,
+        RegistrationJsonDeserializer $registrationJsonDeserializer
+    ) {
         $this->uitpasService = $uitpasService;
+        $this->registrationJsonDeserializer = $registrationJsonDeserializer;
     }
 
     /**
@@ -37,6 +47,27 @@ class UiTPASController
         $uitpasNumber = new UiTPASNumber($uitpasNumber);
 
         $this->uitpasService->block($uitpasNumber);
+        $uitpas = $this->uitpasService->get($uitpasNumber);
+
+        return JsonResponse::create($uitpas)
+            ->setPrivate(true);
+    }
+
+    /**
+     * @param Request $request
+     * @param string $uitpasNumber
+     *
+     * @return Response
+     */
+    public function register(Request $request, $uitpasNumber)
+    {
+        $uitpasNumber = new UiTPASNumber($uitpasNumber);
+
+        $registration = $this->registrationJsonDeserializer->deserialize(
+            new StringLiteral($request->getContent())
+        );
+
+        $this->uitpasService->register($uitpasNumber, $registration);
         $uitpas = $this->uitpasService->get($uitpasNumber);
 
         return JsonResponse::create($uitpas)
