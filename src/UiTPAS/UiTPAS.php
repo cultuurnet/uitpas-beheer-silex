@@ -6,7 +6,7 @@ use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class UiTPAS implements \JsonSerializable
+final class UiTPAS implements \JsonSerializable
 {
     /**
      * @var UiTPASNumber
@@ -84,7 +84,7 @@ class UiTPAS implements \JsonSerializable
 
     /**
      * @param \CultureFeed_Uitpas_Passholder_Card $cfCard
-     * @return static
+     * @return UiTPAS
      */
     public static function fromCultureFeedPassHolderCard(\CultureFeed_Uitpas_Passholder_Card $cfCard)
     {
@@ -93,7 +93,7 @@ class UiTPAS implements \JsonSerializable
         $type = UiTPASType::get($cfCard->type);
         $cardSystem = CardSystem::fromCultureFeedCardSystem($cfCard->cardSystem);
 
-        $card = new static(
+        $card = new UiTPAS(
             $number,
             $status,
             $type,
@@ -105,5 +105,24 @@ class UiTPAS implements \JsonSerializable
         }
 
         return $card;
+    }
+
+    /**
+     * @param \CultureFeed_Uitpas_CardInfo $cfCardInfo
+     * @return UiTPAS
+     */
+    public static function fromCultureFeedCardInfo(\CultureFeed_Uitpas_CardInfo $cfCardInfo)
+    {
+        $number = new UiTPASNumber($cfCardInfo->uitpasNumber);
+        $status = UiTPASStatus::get($cfCardInfo->status);
+        $type = UiTPASType::get($cfCardInfo->type);
+        $cardSystem = CardSystem::fromCultureFeedCardSystem($cfCardInfo->cardSystem);
+
+        return new UiTPAS(
+            $number,
+            $status,
+            $type,
+            $cardSystem
+        );
     }
 }

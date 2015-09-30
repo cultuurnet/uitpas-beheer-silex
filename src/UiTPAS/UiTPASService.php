@@ -10,6 +10,32 @@ use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;
 class UiTPASService extends CounterAwareUitpasService implements UiTPASServiceInterface
 {
     /**
+     * @param UiTPASNumber $uitpasNumber
+     */
+    public function block(UiTPASNumber $uitpasNumber)
+    {
+        $this->getUitpasService()->blockUitpas(
+            $uitpasNumber->toNative(),
+            $this->getCounterConsumerKey()
+        );
+    }
+
+    /**
+     * @param UiTPASNumber $uitpasNumber
+     * @return UiTPAS
+     */
+    public function get(UiTPASNumber $uitpasNumber)
+    {
+        $uitpasQuery = new \CultureFeed_Uitpas_CardInfoQuery();
+        $uitpasQuery->uitpasNumber = $uitpasNumber->toNative();
+        $uitpasQuery->balieConsumerKey = $this->getCounterConsumerKey();
+
+        return UiTPAS::fromCultureFeedCardInfo(
+            $this->getUitpasService()->getCard($uitpasQuery)
+        );
+    }
+
+    /**
      * @param Inquiry $inquiry
      *
      * @return Price
@@ -37,18 +63,14 @@ class UiTPASService extends CounterAwareUitpasService implements UiTPASServiceIn
                 ->toNative();
         }
 
-        try {
-            $cfPrice = $this->getUitpasService()->getPriceByUitpas(
-                $inquiry->getUiTPASNumber()->toNative(),
-                $inquiry->getReason()->toNative(),
-                $dateOfBirth,
-                $postalCode,
-                $voucherNumber,
-                $this->getCounterConsumerKey()
-            );
-        } catch (\CultureFeed_Exception $e) {
-            throw ReadableCodeResponseException::fromCultureFeedException($e);
-        }
+        $cfPrice = $this->getUitpasService()->getPriceByUitpas(
+            $inquiry->getUiTPASNumber()->toNative(),
+            $inquiry->getReason()->toNative(),
+            $dateOfBirth,
+            $postalCode,
+            $voucherNumber,
+            $this->getCounterConsumerKey()
+        );
 
         return Price::fromCultureFeedUiTPASPrice($cfPrice);
     }

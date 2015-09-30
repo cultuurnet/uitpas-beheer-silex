@@ -29,6 +29,21 @@ class UiTPASController
     }
 
     /**
+     * @param string $uitpasNumber
+     * @return Response
+     */
+    public function block($uitpasNumber)
+    {
+        $uitpasNumber = new UiTPASNumber($uitpasNumber);
+
+        $this->uitpasService->block($uitpasNumber);
+        $uitpas = $this->uitpasService->get($uitpasNumber);
+
+        return JsonResponse::create($uitpas)
+            ->setPrivate(true);
+    }
+
+    /**
      * @param Request $request
      * @param string $uitpasNumber
      *

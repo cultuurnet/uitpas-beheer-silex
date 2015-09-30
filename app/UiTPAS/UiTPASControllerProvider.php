@@ -25,6 +25,8 @@ class UiTPASControllerProvider implements ControllerProviderInterface
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
+        $controllers->delete('/uitpas/{uitpasNumber}', 'uitpas_controller:block');
+
         $controllers->get('/uitpas/{uitpasNumber}/price', 'uitpas_controller:getPrice');
 
         return $controllers;
