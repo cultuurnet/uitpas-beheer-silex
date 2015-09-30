@@ -6,6 +6,7 @@ use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\Inquiry;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;
+use CultuurNet\UiTPASBeheer\UiTPAS\Registration\Registration;
 
 class UiTPASService extends CounterAwareUitpasService implements UiTPASServiceInterface
 {
@@ -33,6 +34,33 @@ class UiTPASService extends CounterAwareUitpasService implements UiTPASServiceIn
         return UiTPAS::fromCultureFeedCardInfo(
             $this->getUitpasService()->getCard($uitpasQuery)
         );
+    }
+
+    /**
+     * @param UiTPASNumber $uitpasNumber
+     * @param Registration $registration
+     */
+    public function register(UiTPASNumber $uitpasNumber, Registration $registration)
+    {
+        $options = new \CultureFeed_Uitpas_Passholder_Query_RegisterUitpasOptions();
+        $options->balieConsumerKey = $this->getCounterConsumerKey();
+        $options->uitpasNumber = $uitpasNumber->toNative();
+        $options->uid = $registration->getPassHolderUid()->toNative();
+        $options->reason = $registration->getReason()->toNative();
+
+        if (!is_null($registration->getKansenStatuut())) {
+            $options->kansenStatuutEndDate = $registration
+                ->getKansenStatuut()
+                ->getEndDate()
+                ->toNativeDateTime()
+                ->getTimestamp();
+        }
+
+        if (!is_null($registration->getVoucherNumber())) {
+            $options->voucherNumber = $registration->getVoucherNumber()->toNative();
+        }
+
+        $this->getUitpasService()->registerUitpas($options);
     }
 
     /**
