@@ -82,12 +82,12 @@ class RegistrationJsonDeserializerTest extends \PHPUnit_Framework_TestCase
         return [
             [
                 __DIR__ . '/../data/registration-minimal.json',
-                $this->getMinimalRegistration()
+                $this->getMinimalRegistration(),
             ],
             [
                 __DIR__ . '/../data/registration-complete.json',
-                $this->getCompleteRegistration()
-            ]
+                $this->getCompleteRegistration(),
+            ],
         ];
     }
 }
