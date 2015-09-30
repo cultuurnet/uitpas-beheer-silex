@@ -2,6 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\UiTPAS;
 
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutJsonDeserializer;
+use CultuurNet\UiTPASBeheer\UiTPAS\Registration\RegistrationJsonDeserializer;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
@@ -17,7 +19,10 @@ class UiTPASControllerProvider implements ControllerProviderInterface
         $app['uitpas_controller'] = $app->share(
             function (Application $app) {
                 return new UiTPASController(
-                    $app['uitpas_service']
+                    $app['uitpas_service'],
+                    new RegistrationJsonDeserializer(
+                        new KansenStatuutJsonDeserializer()
+                    )
                 );
             }
         );
@@ -26,6 +31,7 @@ class UiTPASControllerProvider implements ControllerProviderInterface
         $controllers = $app['controllers_factory'];
 
         $controllers->delete('/uitpas/{uitpasNumber}', 'uitpas_controller:block');
+        $controllers->put('/uitpas/{uitpasNumber}', 'uitpas_controller:register');
 
         $controllers->get('/uitpas/{uitpasNumber}/price', 'uitpas_controller:getPrice');
 
