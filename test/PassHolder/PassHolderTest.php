@@ -37,6 +37,8 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $this->cfPassHolderMinimal->dateOfBirth = 211420800;
 
         $this->cfPassHolderFull = clone $this->cfPassHolderMinimal;
+        $this->cfPassHolderFull->uitIdUser = new \CultureFeed_Uitpas_Passholder_UitIdUser();
+        $this->cfPassHolderFull->uitIdUser->id = 5;
         $this->cfPassHolderFull->street = 'Rue Perdue 101 /0003';
         $this->cfPassHolderFull->placeOfBirth = 'Casablanca';
         $this->cfPassHolderFull->secondName = 'Zoni';
@@ -85,6 +87,8 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
     public function it_can_extract_properties_from_a_culturefeed_passholder()
     {
         $passHolder = PassHolder::fromCultureFeedPassHolder($this->cfPassHolderFull);
+
+        $this->assertEquals('5', $passHolder->getUid()->toNative());
 
         // The following fromCultureFeedPassHolder() methods are tested in the
         // classes' respective tests.

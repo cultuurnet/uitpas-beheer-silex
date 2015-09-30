@@ -16,6 +16,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Uid;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\Month;
 use ValueObjects\DateTime\MonthDay;
@@ -137,7 +138,9 @@ trait PassHolderDataTrait
             ))->withPlace(
                 new StringLiteral('Casablanca')
             )
-        ))->withINSZNumber(
+        ))->withUid(
+            new Uid('5')
+        )->withINSZNumber(
             new INSZNumber('93051822361')
         )->withGender(
             $gender
