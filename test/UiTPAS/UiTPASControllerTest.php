@@ -235,7 +235,7 @@ class UiTPASControllerTest extends \PHPUnit_Framework_TestCase
             new Request(
                 [
                     'reason' => 'FIRST_CARD',
-                    'date_of_birth' => 'x'
+                    'date_of_birth' => 'x',
                 ]
             ),
             '0930000420206'
