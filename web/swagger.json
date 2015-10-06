@@ -1746,7 +1746,8 @@
     },
     "PassHolderUid": {
       "type": "string",
-      "example": "123456"
+      "example": "e1e2b335-e756-4e72-bb0f-3d163a583b35",
+      "format": "uuid"
     },
     "PassHolderName": {
       "properties": {
