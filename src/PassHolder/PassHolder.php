@@ -13,11 +13,17 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Uid;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
 final class PassHolder implements \JsonSerializable
 {
+    /**
+     * @var Uid
+     */
+    protected $uid;
+
     /**
      * @var Name
      */
@@ -122,6 +128,23 @@ final class PassHolder implements \JsonSerializable
     public function getBirthInformation()
     {
         return $this->birthInformation;
+    }
+
+    /**
+     * @param Uid $uid
+     * @return PassHolder
+     */
+    public function withUid(Uid $uid)
+    {
+        return $this->with('uid', $uid);
+    }
+
+    /**
+     * @return Uid
+     */
+    public function getUid()
+    {
+        return $this->uid;
     }
 
     /**
@@ -300,6 +323,10 @@ final class PassHolder implements \JsonSerializable
             'birth' => $this->birthInformation,
         ];
 
+        if (!is_null($this->uid)) {
+            $data['uid'] = $this->uid->toNative();
+        }
+
         if (!is_null($this->inszNumber)) {
             $data['inszNumber'] = $this->inszNumber->toNative();
         }
@@ -307,25 +334,32 @@ final class PassHolder implements \JsonSerializable
         if (!is_null($this->gender)) {
             $data['gender'] = $this->gender->toNative();
         }
+
         if (!is_null($this->nationality)) {
             $data['nationality'] = $this->nationality->toNative();
         }
+
         if (!is_null($this->picture)) {
             $data['picture'] = $this->picture->toNative();
         }
+
         if (!is_null($this->contactInformation) &&
             !empty($this->contactInformation->jsonSerialize())) {
             $data['contact'] = $this->contactInformation;
         }
+
         if (!is_null($this->kansenStatuten)) {
             $data['kansenStatuten'] = array_values($this->kansenStatuten->jsonSerialize());
         }
+
         if (!is_null($this->privacyPreferences)) {
             $data['privacy'] = $this->privacyPreferences;
         }
+
         if (!is_null($this->points)) {
             $data['points'] = $this->points->toNative();
         }
+
         if (!is_null($this->remarks)) {
             $data['remarks'] = $this->remarks->toNative();
         }
@@ -343,7 +377,17 @@ final class PassHolder implements \JsonSerializable
         $address = Address::fromCultureFeedPassHolder($cfPassHolder);
         $birthInformation = BirthInformation::fromCultureFeedPassHolder($cfPassHolder);
 
-        $passHolder = new PassHolder($name, $address, $birthInformation);
+        $passHolder = new PassHolder(
+            $name,
+            $address,
+            $birthInformation
+        );
+
+        if (!empty($cfPassHolder->uitIdUser->id)) {
+            $passHolder = $passHolder->withUid(
+                new Uid((string) $cfPassHolder->uitIdUser->id)
+            );
+        }
 
         if (!empty($cfPassHolder->inszNumber)) {
             $passHolder = $passHolder->withINSZNumber(

@@ -6,10 +6,13 @@ use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Uid;
 use CultuurNet\UiTPASBeheer\PassHolder\VoucherNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\Inquiry;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\PurchaseReason;
+use CultuurNet\UiTPASBeheer\UiTPAS\Registration\Registration;
+use CultuurNet\UiTPASBeheer\UiTPAS\Registration\RegistrationTestDataTrait;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\Month;
 use ValueObjects\DateTime\MonthDay;
@@ -18,6 +21,8 @@ use ValueObjects\StringLiteral\StringLiteral;
 
 class UiTPASServiceTest extends \PHPUnit_Framework_TestCase
 {
+    use RegistrationTestDataTrait;
+
     /**
      * @var \CultureFeed_Uitpas|\PHPUnit_Framework_MockObject_MockObject
      */
@@ -93,6 +98,29 @@ class UiTPASServiceTest extends \PHPUnit_Framework_TestCase
         $actualUitpas = $this->service->get($uitpasNumber);
 
         $this->assertEquals($expectedUitpas, $actualUitpas);
+    }
+
+    /**
+     * @test
+     */
+    public function it_registers_an_uitpas_to_an_existing_passholder()
+    {
+        $uitpasNumber = new UiTPASNumber('0930000237915');
+        $registration = $this->getCompleteRegistration();
+
+        $expectedOptions = new \CultureFeed_Uitpas_Passholder_Query_RegisterUitpasOptions();
+        $expectedOptions->balieConsumerKey = $this->counterConsumerKey->toNative();
+        $expectedOptions->reason = PurchaseReason::LOSS_THEFT;
+        $expectedOptions->uid = '5';
+        $expectedOptions->voucherNumber = 'abc-123';
+        $expectedOptions->kansenStatuutEndDate = 1451516400;
+        $expectedOptions->uitpasNumber = '0930000237915';
+
+        $this->api->expects($this->once())
+            ->method('registerUitpas')
+            ->with($expectedOptions);
+
+        $this->service->register($uitpasNumber, $registration);
     }
 
     /**

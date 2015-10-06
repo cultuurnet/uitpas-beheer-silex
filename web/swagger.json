@@ -1535,7 +1535,6 @@
         },
         "reason": {
           "description": "Reason for the UiTPAS registration to an existing passholder.",
-          "required": true,
           "type": "string",
           "enum": [
             "LOSS_THEFT",
@@ -1545,12 +1544,15 @@
           ]
         },
         "kansenStatuut": {
-          "$ref": "#/definitions/KansenStatuut"
+          "$ref": "#/definitions/RegistrationKansenStatuut"
         },
         "voucherNumber": {
           "$ref": "#/definitions/VoucherNumber"
         }
-      }
+      },
+      "required": [
+        "reason"
+      ]
     },
     "Gender": {
       "type": "string",
@@ -1744,7 +1746,8 @@
     },
     "PassHolderUid": {
       "type": "string",
-      "example": "123456"
+      "example": "e1e2b335-e756-4e72-bb0f-3d163a583b35",
+      "format": "uuid"
     },
     "PassHolderName": {
       "properties": {
