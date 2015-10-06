@@ -1535,7 +1535,6 @@
         },
         "reason": {
           "description": "Reason for the UiTPAS registration to an existing passholder.",
-          "required": true,
           "type": "string",
           "enum": [
             "LOSS_THEFT",
@@ -1550,7 +1549,10 @@
         "voucherNumber": {
           "$ref": "#/definitions/VoucherNumber"
         }
-      }
+      },
+      "required": [
+        "reason"
+      ]
     },
     "Gender": {
       "type": "string",
