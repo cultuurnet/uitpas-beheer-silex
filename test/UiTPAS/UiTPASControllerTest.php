@@ -5,6 +5,8 @@ namespace CultuurNet\UiTPASBeheer\UiTPAS;
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\Exception\MissingParameterException;
+use CultuurNet\UiTPASBeheer\Exception\IncorrectParameterValueException;
+use CultuurNet\UiTPASBeheer\Exception\UnknownEnumParameterValueException;
 use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutJsonDeserializer;
@@ -218,6 +220,39 @@ class UiTPASControllerTest extends \PHPUnit_Framework_TestCase
                 [
                     'reason' => 'FIRST_CARD',
                     'foo' => 'bar',
+                ]
+            ),
+            '0930000420206'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_date_of_birth_parameter_is_invalid()
+    {
+        $this->setExpectedException(IncorrectParameterValueException::class);
+        $this->controller->getPrice(
+            new Request(
+                [
+                    'reason' => 'FIRST_CARD',
+                    'date_of_birth' => 'x',
+                ]
+            ),
+            '0930000420206'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_an_unknown_reason_parameter_value_is_used()
+    {
+        $this->setExpectedException(UnknownEnumParameterValueException::class);
+        $this->controller->getPrice(
+            new Request(
+                [
+                    'reason' => 'WOT_M8',
                 ]
             ),
             '0930000420206'

@@ -3,6 +3,8 @@
 namespace CultuurNet\UiTPASBeheer\UiTPAS;
 
 use CultuurNet\UiTPASBeheer\Exception\MissingParameterException;
+use CultuurNet\UiTPASBeheer\Exception\IncorrectParameterValueException;
+use CultuurNet\UiTPASBeheer\Exception\UnknownEnumParameterValueException;
 use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
 use CultuurNet\UiTPASBeheer\PassHolder\VoucherNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\Inquiry;
@@ -85,6 +87,12 @@ class UiTPASController
      *
      * @throws UnknownParameterException
      *   When an unknown query parameter was provided.
+     *
+     * @throws IncorrectParameterValueException
+     *   When an incorrect parameter value was used.
+     *
+     * @throws UnknownEnumParameterValueException
+     *   When the value for an enum parameter is unknown.
      */
     public function getPrice(Request $request, $uitpasNumber)
     {
@@ -93,7 +101,11 @@ class UiTPASController
         }
 
         $uitpasNumber = new UiTPASNumber($uitpasNumber);
-        $reason = PurchaseReason::fromNative($request->query->get('reason'));
+        try {
+            $reason = PurchaseReason::fromNative($request->query->get('reason'));
+        } catch (\InvalidArgumentException $e) {
+            throw new UnknownEnumParameterValueException('reason', PurchaseReason::class);
+        }
 
         $inquiry = new Inquiry(
             $uitpasNumber,
@@ -107,10 +119,13 @@ class UiTPASController
                     break;
 
                 case 'date_of_birth':
+                    $datetime = \DateTime::createFromFormat('Y-m-d', $value);
+                    if (!$datetime) {
+                        throw new IncorrectParameterValueException('date_of_birth');
+                    }
+
                     $inquiry = $inquiry->withDateOfBirth(
-                        Date::fromNativeDateTime(
-                            \DateTime::createFromFormat('Y-m-d', $value)
-                        )
+                        Date::fromNativeDateTime($datetime)
                     );
                     break;
 
