@@ -955,7 +955,7 @@
         ]
       }
     },
-    "/expense-reports": {
+    "/counters/active/expense-reports": {
       "post": {
         "summary": "Create a new expense report for the given date range and the active counter.",
         "description": "Authentication and an active counter are required.",
@@ -995,7 +995,7 @@
         ]
       }
     },
-    "/expense-reports/{expenseReportId}": {
+    "/counters/active/expense-reports/{expenseReportId}": {
       "get": {
         "summary": "Returns the status, and optionally the download uri, of the expense report.",
         "description": "Authentication and an active counter are required.",
@@ -2418,7 +2418,7 @@
         "download": {
           "type": "string",
           "format": "uri",
-          "example": "http://foo.bar/expense-reports/342/financialOverview_342_2015-12-01_2015-12-31.zip"
+          "example": "http://foo.bar/counters/active/expense-reports/342/financialOverview_342_2015-12-01_2015-12-31.zip"
         }
       },
       "required": [
