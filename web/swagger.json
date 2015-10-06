@@ -1544,7 +1544,7 @@
           ]
         },
         "kansenStatuut": {
-          "$ref": "#/definitions/KansenStatuut"
+          "$ref": "#/definitions/RegistrationKansenStatuut"
         },
         "voucherNumber": {
           "$ref": "#/definitions/VoucherNumber"
