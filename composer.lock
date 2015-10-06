@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e81ee4c26d56163c91187e3011825707",
+    "hash": "b963558868327ab9934c82d98319fb51",
     "packages": [
         {
             "name": "2dotstwice/collection",
@@ -272,16 +272,16 @@
         },
         {
             "name": "cultuurnet/culturefeed-php",
-            "version": "dev-feature/UBR-144",
+            "version": "dev-feature/UBR",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "2a44493c3e78aa1d4e6f09780b7b669cae542d6b"
+                "reference": "64c98ccdbe85d88f8d16300b56ac27980da1005e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/2a44493c3e78aa1d4e6f09780b7b669cae542d6b",
-                "reference": "2a44493c3e78aa1d4e6f09780b7b669cae542d6b",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/64c98ccdbe85d88f8d16300b56ac27980da1005e",
+                "reference": "64c98ccdbe85d88f8d16300b56ac27980da1005e",
                 "shasum": ""
             },
             "require": {
@@ -335,7 +335,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-09-30 14:15:47"
+            "time": "2015-10-06 08:09:45"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -1359,16 +1359,16 @@
         },
         {
             "name": "marc-mabe/php-enum",
-            "version": "v1.2.0",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/marc-mabe/php-enum.git",
-                "reference": "071b26a2fd0f8fc57ab89fa7d399792a73e37f6d"
+                "reference": "fdbd9eafc8772dacc37236c5f0118edad455f00e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/marc-mabe/php-enum/zipball/071b26a2fd0f8fc57ab89fa7d399792a73e37f6d",
-                "reference": "071b26a2fd0f8fc57ab89fa7d399792a73e37f6d",
+                "url": "https://api.github.com/repos/marc-mabe/php-enum/zipball/fdbd9eafc8772dacc37236c5f0118edad455f00e",
+                "reference": "fdbd9eafc8772dacc37236c5f0118edad455f00e",
                 "shasum": ""
             },
             "require": {
@@ -1381,12 +1381,13 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2-dev"
+                    "dev-master": "2.2-dev",
+                    "dev-1.x": "1.3-dev"
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "MabeEnum\\": "src/"
+                "psr-4": {
+                    "MabeEnum\\": "src/MabeEnum/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1413,7 +1414,7 @@
                 "type-hint",
                 "typehint"
             ],
-            "time": "2014-05-22 16:22:21"
+            "time": "2015-10-04 17:35:32"
         },
         {
             "name": "mathiasverraes/money",
@@ -4383,16 +4384,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.9",
+            "version": "4.8.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "73fad41adb5b7bc3a494bb930d90648df1d5e74b"
+                "reference": "463163747474815c5ccd4ae12b5b355ec12158e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/73fad41adb5b7bc3a494bb930d90648df1d5e74b",
-                "reference": "73fad41adb5b7bc3a494bb930d90648df1d5e74b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/463163747474815c5ccd4ae12b5b355ec12158e8",
+                "reference": "463163747474815c5ccd4ae12b5b355ec12158e8",
                 "shasum": ""
             },
             "require": {
@@ -4451,20 +4452,20 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-09-20 12:56:44"
+            "time": "2015-10-01 09:14:30"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "2.3.7",
+            "version": "2.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "5e2645ad49d196e020b85598d7c97e482725786a"
+                "reference": "ac8e7a3db35738d56ee9a76e78a4e03d97628983"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/5e2645ad49d196e020b85598d7c97e482725786a",
-                "reference": "5e2645ad49d196e020b85598d7c97e482725786a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/ac8e7a3db35738d56ee9a76e78a4e03d97628983",
+                "reference": "ac8e7a3db35738d56ee9a76e78a4e03d97628983",
                 "shasum": ""
             },
             "require": {
@@ -4507,7 +4508,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2015-08-19 09:14:08"
+            "time": "2015-10-02 06:51:40"
         },
         {
             "name": "satooshi/php-coveralls",
@@ -5083,7 +5084,7 @@
         {
             "alias": "1.5.2",
             "alias_normalized": "1.5.2.0",
-            "version": "dev-feature/UBR-144",
+            "version": "dev-feature/UBR",
             "package": "cultuurnet/culturefeed-php"
         },
         {
