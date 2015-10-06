@@ -954,6 +954,85 @@
           "CheckIn devices"
         ]
       }
+    },
+    "/expense-reports": {
+      "post": {
+        "summary": "Create a new expense report for the given date range and the active counter.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "generateExpenseReport",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the start and end date of the expense report.",
+            "schema": {
+              "$ref": "#/definitions/DateRange"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Info about the expense report.",
+            "schema": {
+              "$ref": "#/definitions/ExpenseReportInfo"
+            }
+          },
+          "400": {
+            "description": "The provided parameters are incorrect, or an API error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "Expense reports"
+        ]
+      }
+    },
+    "/expense-reports/{expenseReportId}": {
+      "get": {
+        "summary": "Returns the status, and optionally the download uri, of the expense report.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "getExpenseReportStatus",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "expenseReportId",
+            "in": "path",
+            "description": "The ID of the report that has been, or is being, generated.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The status, and optionally the download uri, of the expense report.",
+            "schema": {
+              "$ref": "#/definitions/ExpenseReportStatus"
+            }
+          },
+          "400": {
+            "description": "The provided parameters are incorrect, or an API error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "Expense reports"
+        ]
+      }
     }
   },
   "tags": [
@@ -996,6 +1075,10 @@
     {
       "name": "CheckIn devices",
       "description": "Operations related to CheckIn Devices."
+    },
+    {
+      "name": "Expense reports",
+      "description": "Operations related to Expense Reports."
     }
   ],
   "definitions": {
@@ -2289,6 +2372,57 @@
       },
       "required": [
         "activityId"
+      ]
+    },
+    "DateRange": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string",
+          "format": "date",
+          "example": "2015-12-26"
+        },
+        "to": {
+          "type": "string",
+          "format": "date",
+          "example": "2015-12-26"
+        }
+      },
+      "required": [
+        "from",
+        "to"
+      ]
+    },
+    "ExpenseReportInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "12345"
+        },
+        "range": {
+          "$ref": "#/definitions/DateRange"
+        }
+      },
+      "required": [
+        "id",
+        "range"
+      ]
+    },
+    "ExpenseReportStatus": {
+      "type": "object",
+      "properties": {
+        "completed": {
+          "type": "boolean"
+        },
+        "download": {
+          "type": "string",
+          "format": "uri",
+          "example": "http://foo.bar/expense-reports/342/financialOverview_342_2015-12-01_2015-12-31.zip"
+        }
+      },
+      "required": [
+        "completed"
       ]
     }
   }
