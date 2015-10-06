@@ -991,7 +991,8 @@
           }
         },
         "tags": [
-          "Expense reports"
+          "Expense report",
+          "Counter"
         ]
       }
     },
@@ -1030,7 +1031,8 @@
           }
         },
         "tags": [
-          "Expense reports"
+          "Expense report",
+          "Counter"
         ]
       }
     }
@@ -1077,7 +1079,7 @@
       "description": "Operations related to CheckIn Devices."
     },
     {
-      "name": "Expense reports",
+      "name": "Expense report",
       "description": "Operations related to Expense Reports."
     }
   ],
