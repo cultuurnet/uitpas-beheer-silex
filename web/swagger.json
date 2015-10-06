@@ -1035,6 +1035,74 @@
           "Counter"
         ]
       }
+    },
+    "counters/active/members": {
+      "get": {
+        "summary": "List members of the active counter.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "getMembers",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of members of the counter.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Member"
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "Member",
+          "Counter"
+        ]
+      },
+      "post": {
+        "summary": "Add a new member to the active counter.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "addMember",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the email address of the user to add as a member to the counter.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddMemberToCounter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the new member.",
+            "schema": {
+              "$ref": "#/definitions/Member"
+            }
+          },
+          "400": {
+            "description": "UiTPAS API error.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "Member",
+          "Counter"
+        ]
+      }
     }
   },
   "tags": [
@@ -1081,6 +1149,10 @@
     {
       "name": "Expense report",
       "description": "Operations related to Expense Reports."
+    },
+    {
+      "name": "Member",
+      "description": "Operations related to (Counter) Members."
     }
   ],
   "definitions": {
@@ -1616,7 +1688,7 @@
     "UiTPASRegistrationCommand": {
       "properties": {
         "passholderUid": {
-          "$ref": "#/definitions/PassHolderUid"
+          "$ref": "#/definitions/Uid"
         },
         "reason": {
           "description": "Reason for the UiTPAS registration to an existing passholder.",
@@ -1665,7 +1737,7 @@
     "PassHolder": {
       "properties": {
         "uid": {
-          "$ref": "#/definitions/PassHolderUid"
+          "$ref": "#/definitions/Uid"
         },
         "name": {
           "$ref": "#/definitions/PassHolderName"
@@ -1829,7 +1901,7 @@
         "endDate"
       ]
     },
-    "PassHolderUid": {
+    "Uid": {
       "type": "string",
       "example": "e1e2b335-e756-4e72-bb0f-3d163a583b35",
       "format": "uuid"
@@ -2425,6 +2497,38 @@
       },
       "required": [
         "completed"
+      ]
+    },
+    "Member": {
+      "type": "object",
+      "properties": {
+        "uid": {
+          "$ref": "#/definitions/Uid"
+        },
+        "nick": {
+          "type": "string",
+          "example": "john.doe"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "ADMIN",
+            "MEMBER"
+          ]
+        }
+      }
+    },
+    "AddMemberToCounter": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "example": "foo@bar.com"
+        }
+      },
+      "required": [
+        "email"
       ]
     }
   }
