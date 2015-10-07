@@ -77,7 +77,7 @@ class ExpenseReportService extends CounterAwareUitpasService
             $url = $this->urlGenerator->generate(
                 self::DOWNLOAD_ROUTE_NAME,
                 ['expenseReportId' => $id->toNative()],
-                UrlGeneratorInterface::ABSOLUTE_PATH
+                UrlGeneratorInterface::ABSOLUTE_URL
             );
             $url = Url::fromNative($url);
         }

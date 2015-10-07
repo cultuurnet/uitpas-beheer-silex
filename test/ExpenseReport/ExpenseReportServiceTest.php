@@ -131,7 +131,7 @@ class ExpenseReportServiceTest extends \PHPUnit_Framework_TestCase
             ->with(
                 ExpenseReportService::DOWNLOAD_ROUTE_NAME,
                 ['expenseReportId' => $id->toNative()],
-                UrlGeneratorInterface::ABSOLUTE_PATH
+                UrlGeneratorInterface::ABSOLUTE_URL
             )
             ->willReturn((string) $downloadUrl);
 
