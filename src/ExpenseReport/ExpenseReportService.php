@@ -9,7 +9,7 @@ use CultuurNet\UiTPASBeheer\Properties\DateRange;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ValueObjects\Web\Url;
 
-class ExpenseReportService extends CounterAwareUitpasService
+class ExpenseReportService extends CounterAwareUitpasService implements ExpenseReportServiceInterface
 {
     /**
      * Route name for downloading an expense report.

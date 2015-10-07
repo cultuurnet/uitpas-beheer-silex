@@ -10,7 +10,7 @@ use CultuurNet\UiTPASBeheer\ExpenseReport\Properties\ExpenseReportId;
 use Guzzle\Stream\PhpStreamRequestFactory;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class ExpenseReportApiService extends OAuthProtectedService
+class ExpenseReportApiService extends OAuthProtectedService implements ExpenseReportApiServiceInterface
 {
     /**
      * @param CounterConsumerKey $counterConsumerKey
