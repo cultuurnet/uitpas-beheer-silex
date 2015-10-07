@@ -26,11 +26,11 @@ class ExpenseReportStatusTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->incompleteStatus = ExpenseReportStatus::inProgress();
+        $this->incompleteStatus = ExpenseReportStatus::incomplete();
 
         $this->downloadUrl = Url::fromNative('http://foo.bar/download.zip');
 
-        $this->completeStatus = ExpenseReportStatus::completed($this->downloadUrl);
+        $this->completeStatus = ExpenseReportStatus::complete($this->downloadUrl);
     }
 
     /**
@@ -38,10 +38,10 @@ class ExpenseReportStatusTest extends \PHPUnit_Framework_TestCase
      */
     public function it_returns_all_info()
     {
-        $this->assertFalse($this->incompleteStatus->isCompleted());
+        $this->assertFalse($this->incompleteStatus->isComplete());
         $this->assertNull($this->incompleteStatus->getDownloadUrl());
 
-        $this->assertTrue($this->completeStatus->isCompleted());
+        $this->assertTrue($this->completeStatus->isComplete());
         $this->assertEquals(
             $this->downloadUrl,
             $this->completeStatus->getDownloadUrl()

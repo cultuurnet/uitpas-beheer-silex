@@ -9,7 +9,7 @@ final class ExpenseReportStatus implements \JsonSerializable
     /**
      * @var bool
      */
-    private $completed;
+    private $complete;
 
     /**
      * @var Url|null
@@ -25,10 +25,10 @@ final class ExpenseReportStatus implements \JsonSerializable
     /**
      * @return ExpenseReportStatus
      */
-    public static function inProgress()
+    public static function incomplete()
     {
         $status = new self();
-        $status->completed = false;
+        $status->complete = false;
         return $status;
     }
 
@@ -36,10 +36,10 @@ final class ExpenseReportStatus implements \JsonSerializable
      * @param Url $downloadUrl
      * @return ExpenseReportStatus
      */
-    public static function completed(Url $downloadUrl)
+    public static function complete(Url $downloadUrl)
     {
         $status = new self();
-        $status->completed = true;
+        $status->complete = true;
         $status->downloadUrl = $downloadUrl;
         return $status;
     }
@@ -47,9 +47,9 @@ final class ExpenseReportStatus implements \JsonSerializable
     /**
      * @return bool
      */
-    public function isCompleted()
+    public function isComplete()
     {
-        return $this->completed;
+        return $this->complete;
     }
 
     /**
@@ -65,7 +65,7 @@ final class ExpenseReportStatus implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $data['completed'] = $this->completed;
+        $data['completed'] = $this->complete;
 
         if (!is_null($this->downloadUrl)) {
             $data['download'] = (string) $this->downloadUrl;

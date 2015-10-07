@@ -78,9 +78,9 @@ class ExpenseReportService extends CounterAwareUitpasService implements ExpenseR
             );
             $url = Url::fromNative($url);
 
-            return ExpenseReportStatus::completed($url);
+            return ExpenseReportStatus::complete($url);
         }
 
-        return ExpenseReportStatus::inProgress();
+        return ExpenseReportStatus::incomplete();
     }
 }

@@ -93,7 +93,7 @@ class ExpenseReportControllerTest extends \PHPUnit_Framework_TestCase
     {
         $id = new ExpenseReportId('1052');
 
-        $status = ExpenseReportStatus::completed(
+        $status = ExpenseReportStatus::complete(
             Url::fromNative('http://foo.bar/download.zip')
         );
 

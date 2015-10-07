@@ -101,7 +101,7 @@ class ExpenseReportServiceTest extends \PHPUnit_Framework_TestCase
             )
             ->willReturn($cfStatus);
 
-        $expected = ExpenseReportStatus::inProgress();
+        $expected = ExpenseReportStatus::incomplete();
 
         $actual = $this->service->getStatus($id);
 
@@ -136,7 +136,7 @@ class ExpenseReportServiceTest extends \PHPUnit_Framework_TestCase
             )
             ->willReturn((string) $downloadUrl);
 
-        $expected = ExpenseReportStatus::completed($downloadUrl);
+        $expected = ExpenseReportStatus::complete($downloadUrl);
 
         $actual = $this->service->getStatus($id);
 
