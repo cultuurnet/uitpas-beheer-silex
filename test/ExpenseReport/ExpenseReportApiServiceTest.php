@@ -7,6 +7,8 @@ use CultuurNet\Auth\Guzzle\DefaultHttpClientFactory;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\ExpenseReport\Properties\ExpenseReportId;
 use Guzzle\Http\EntityBody;
+use Guzzle\Http\Message\MessageInterface;
+use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Http\Message\Response;
 use Guzzle\Plugin\Mock\MockPlugin;
 use ValueObjects\StringLiteral\StringLiteral;
@@ -34,7 +36,7 @@ class ExpenseReportApiServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->apiService = new ExpenseReportApiService(
             $this->counterConsumerKey,
-            'http://foo.bar/',
+            'http://foo.bar/test/',
             new ConsumerCredentials(
                 'key',
                 'secret'
@@ -78,10 +80,27 @@ class ExpenseReportApiServiceTest extends \PHPUnit_Framework_TestCase
             new StringLiteral('application/x-zip-compressed'),
             new StringLiteral((string) $expectedContentDispositionHeader)
         );
-
         $actual = $this->apiService->download($id);
-
         $this->assertEquals($expected, $actual);
+
+        $requests = $this->mockPlugin->getReceivedRequests();
+        $this->assertCount(1, $requests);
+
+        /** @var RequestInterface|MessageInterface $request */
+        $request = reset($requests);
+
+        $this->assertEquals(
+            'GET',
+            $request->getMethod()
+        );
+
+        $expectedUrl = 'http://foo.bar/test/uitpas/report/financialoverview/organiser/' . $id . '/download' .
+            '?balieConsumerKey=' . $this->counterConsumerKey;
+
+        $this->assertEquals(
+            $expectedUrl,
+            $request->getUrl()
+        );
     }
 
     public function contentDispositionHeaderDataProvider()
