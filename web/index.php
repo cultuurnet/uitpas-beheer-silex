@@ -93,4 +93,9 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutControl
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\CheckInDevice\CheckInDeviceControllerProvider());
 
+/**
+ * API callbacks for ExpenseReports.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\ExpenseReport\ExpenseReportControllerProvider());
+
 $app->run();

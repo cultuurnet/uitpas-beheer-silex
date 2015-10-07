@@ -129,6 +129,11 @@ $app->register(new \CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutServicePr
 $app->register(new \CultuurNet\UiTPASBeheer\CheckInDevice\CheckInDeviceServiceProvider());
 
 /**
+ * UiTPAS ExpenseReport services.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\ExpenseReport\ExpenseReportServiceProvider());
+
+/**
  * Clock service.
  */
 $app->register(
