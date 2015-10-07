@@ -33,6 +33,7 @@ class ExpenseReportServiceTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        date_default_timezone_set('UTC');
         $this->uitpasService = $this->getMock(\CultureFeed_Uitpas::class);
         $this->counterConsumerKey = new CounterConsumerKey('abc123');
         $this->urlGenerator = $this->getMock(UrlGeneratorInterface::class);
@@ -100,7 +101,7 @@ class ExpenseReportServiceTest extends \PHPUnit_Framework_TestCase
             )
             ->willReturn($cfStatus);
 
-        $expected = new ExpenseReportStatus(false);
+        $expected = ExpenseReportStatus::inProgress();
 
         $actual = $this->service->getStatus($id);
 
@@ -135,7 +136,7 @@ class ExpenseReportServiceTest extends \PHPUnit_Framework_TestCase
             )
             ->willReturn((string) $downloadUrl);
 
-        $expected = new ExpenseReportStatus(true, $downloadUrl);
+        $expected = ExpenseReportStatus::completed($downloadUrl);
 
         $actual = $this->service->getStatus($id);
 

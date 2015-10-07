@@ -70,20 +70,17 @@ class ExpenseReportService extends CounterAwareUitpasService implements ExpenseR
             $this->getCounterConsumerKey()
         );
 
-        $completed = $cfStatus->completed();
-        $url = null;
-
-        if ($completed) {
+        if ($cfStatus->completed()) {
             $url = $this->urlGenerator->generate(
                 self::DOWNLOAD_ROUTE_NAME,
                 ['expenseReportId' => $id->toNative()],
                 UrlGeneratorInterface::ABSOLUTE_URL
             );
             $url = Url::fromNative($url);
+
+            return ExpenseReportStatus::completed($url);
         }
 
-        $status = new ExpenseReportStatus($completed, $url);
-
-        return $status;
+        return ExpenseReportStatus::inProgress();
     }
 }

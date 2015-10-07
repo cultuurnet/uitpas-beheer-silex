@@ -16,26 +16,32 @@ final class ExpenseReportStatus implements \JsonSerializable
      */
     private $downloadUrl;
 
-    /**
-     * @param bool $completed
-     * @param Url|null $downloadUrl
-     */
-    public function __construct($completed, Url $downloadUrl = null)
+
+    private function __construct()
     {
-        if ($completed && is_null($downloadUrl)) {
-            throw new \InvalidArgumentException(
-                'downloadUrl should not be null if expense report generation is completed.'
-            );
-        }
 
-        if (!$completed && !is_null($downloadUrl)) {
-            throw new \InvalidArgumentException(
-                'downloadUrl should be null if expense report generation is not completed.'
-            );
-        }
+    }
 
-        $this->completed = (bool) $completed;
-        $this->downloadUrl = $downloadUrl;
+    /**
+     * @return ExpenseReportStatus
+     */
+    public static function inProgress()
+    {
+        $status = new self();
+        $status->completed = false;
+        return $status;
+    }
+
+    /**
+     * @param Url $downloadUrl
+     * @return ExpenseReportStatus
+     */
+    public static function completed(Url $downloadUrl)
+    {
+        $status = new self();
+        $status->completed = true;
+        $status->downloadUrl = $downloadUrl;
+        return $status;
     }
 
     /**
