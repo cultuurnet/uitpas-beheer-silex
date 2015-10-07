@@ -98,7 +98,7 @@ class ExpenseReportApiServiceTest extends \PHPUnit_Framework_TestCase
             [
                 'render;',
                 'render;',
-            ]
+            ],
         ];
     }
 }
