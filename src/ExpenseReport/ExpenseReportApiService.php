@@ -7,7 +7,6 @@ use CultuurNet\Auth\Guzzle\OAuthProtectedService;
 use CultuurNet\Auth\TokenCredentials;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\ExpenseReport\Properties\ExpenseReportId;
-use Guzzle\Stream\PhpStreamRequestFactory;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class ExpenseReportApiService extends OAuthProtectedService implements ExpenseReportApiServiceInterface
