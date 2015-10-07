@@ -80,7 +80,9 @@ class ExpenseReportApiServiceTest extends \PHPUnit_Framework_TestCase
             new StringLiteral('application/x-zip-compressed'),
             new StringLiteral((string) $expectedContentDispositionHeader)
         );
+
         $actual = $this->apiService->download($id);
+
         $this->assertEquals($expected, $actual);
 
         $requests = $this->mockPlugin->getReceivedRequests();
@@ -103,6 +105,9 @@ class ExpenseReportApiServiceTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @return array
+     */
     public function contentDispositionHeaderDataProvider()
     {
         return [
