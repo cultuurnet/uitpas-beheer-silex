@@ -46,7 +46,7 @@ class ExpenseReportInfo implements \JsonSerializable
     /**
      * @return array
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return [
             'id' => $this->id->toNative(),
