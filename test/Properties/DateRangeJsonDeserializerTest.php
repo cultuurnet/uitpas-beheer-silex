@@ -120,10 +120,6 @@ class DateRangeJsonDeserializerTest extends \PHPUnit_Framework_TestCase
                 '{"from": "2014-08-06", "to": "02/29/2015"}',
                 'to',
             ],
-            [
-                '{"from": "2015-01-02", "to": "2014-02-03"}',
-                'to',
-            ],
         ];
     }
 }

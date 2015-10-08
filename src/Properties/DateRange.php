@@ -37,10 +37,10 @@ class DateRange implements \JsonSerializable
      */
     private function guardValidRange(Date $from, Date $to)
     {
-        $from = $from->toNativeDateTime()->getTimestamp();
-        $to = $to->toNativeDateTime()->getTimestamp();
-        if ($from > $to) {
-            throw new \InvalidArgumentException('Start date should be before or equal to end date.');
+        $fromTimestamp = $from->toNativeDateTime()->getTimestamp();
+        $toTimestamp = $to->toNativeDateTime()->getTimestamp();
+        if ($fromTimestamp > $toTimestamp) {
+            throw new InvalidDateRangeException($from, $to);
         }
     }
 

@@ -45,10 +45,6 @@ class DateRangeJsonDeserializer extends JSONDeserializer
         $from = Date::fromNativeDateTime($from);
         $to = Date::fromNativeDateTime($to);
 
-        try {
-            return new DateRange($from, $to);
-        } catch (\InvalidArgumentException $e) {
-            throw new IncorrectParameterValueException('to');
-        }
+        return new DateRange($from, $to);
     }
 }

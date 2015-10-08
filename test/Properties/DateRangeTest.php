@@ -65,7 +65,10 @@ class DateRangeTest extends \PHPUnit_Framework_TestCase
      */
     public function it_throws_an_exception_when_the_start_date_is_after_the_end_date()
     {
-        $this->setExpectedException(\InvalidArgumentException::class);
+        $this->setExpectedException(
+            InvalidDateRangeException::class,
+            'Invalid date range 2016-11-30 - 2015-10-01. Start date should not be later than end date.'
+        );
         new DateRange($this->to, $this->from);
     }
 
