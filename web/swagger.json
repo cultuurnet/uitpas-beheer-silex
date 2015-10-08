@@ -1109,6 +1109,40 @@
           "Counter"
         ]
       }
+    },
+    "/counters/active/members/{uid}": {
+      "delete": {
+        "summary": "Delete a member from the active counter.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "deleteMember",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uid",
+            "in": "path",
+            "description": "The uid of the member that should be deleted.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted the member from the counter."
+          },
+          "400": {
+            "description": "UiTPAS API error."
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "Member",
+          "Counter"
+        ]
+      }
     }
   },
   "tags": [
