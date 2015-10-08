@@ -91,3 +91,22 @@ $app['culturefeed_oauth_client'] = $app->share(
         }
     )
 );
+
+$app['expense_report_api'] = $app->share(
+    $app->extend(
+        'expense_report_api',
+        function (\CultuurNet\UiTPASBeheer\ExpenseReport\ExpenseReportApiService $service, \Silex\Application $app) {
+            /** @var \Psr\Log\LoggerInterface $logger */
+            $logger = $app['third_party_api_logger_factory']('expense_report_api');
+
+            $logPlugin = new \Guzzle\Plugin\Log\LogPlugin(
+                new \Guzzle\Log\PsrLogAdapter($logger),
+                \Guzzle\Log\MessageFormatter::DEBUG_FORMAT
+            );
+
+            $service->addSubscriber($logPlugin);
+
+            return $service;
+        }
+    )
+);
