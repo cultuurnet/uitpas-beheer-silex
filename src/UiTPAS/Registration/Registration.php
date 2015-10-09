@@ -3,7 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\UiTPAS\Registration;
 
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Uid;
+use CultuurNet\UiTPASBeheer\Properties\Uid;
 use CultuurNet\UiTPASBeheer\PassHolder\VoucherNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\PurchaseReason;
 
