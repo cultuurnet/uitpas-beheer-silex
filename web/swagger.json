@@ -394,7 +394,7 @@
             "description": "UiTPAS-number to include in the list of passholders. Add multiple uitpasNumber parameters to include multiple numbers",
             "required": false,
             "type": "string",
-            "collectionFormat": "multiple"
+            "collectionFormat": "multi"
           },
           {
             "name": "page",
