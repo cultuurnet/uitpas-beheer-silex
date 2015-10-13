@@ -379,6 +379,46 @@
         ]
       }
     },
+    "/passholders": {
+      "get": {
+        "summary": "Get a list of passholders.",
+        "description": "Authentication required.",
+        "operationId": "getPassholders",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "query",
+            "description": "UiTPAS-number to include in the list of passholders. Add multiple uitpasNumber parameters to include multiple numbers",
+            "required": false,
+            "type": "string",
+            "collectionFormat": "multiple"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A collection of passholders.",
+            "schema": {
+              "$ref": "#/definitions/PassholderCollection"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or has no active counter."
+          },
+          "400": {
+            "description": "The provided parameters are incorrect, or an API error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "tags": [
+          "PassHolder"
+        ]
+      }
+    },
     "/passholders/{uitpasNumber}": {
       "get": {
         "summary": "Find a passholder by uitpas number.",
@@ -1828,6 +1868,62 @@
         "name",
         "address",
         "birth"
+      ]
+    },
+    "PassholderCollection": {
+      "properties": {
+        "itemsPerPage": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10
+        },
+        "totalItems": {
+          "type": "integer",
+          "format": "int32",
+          "example": 256
+        },
+        "member": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PassHolder"
+          }
+        },
+        "invalidUitpasNumbers": {
+          "type": "array",
+          "description": "A list unknown UiTPAS-numbers that were explicitly searched for.",
+          "items": {
+            "type": "string",
+            "example": "0056987468126"
+          }
+        },
+        "firstPage": {
+          "type": "string",
+          "format": "url",
+          "example": "http://culpas-silex.dev/passholders?page=1"
+        },
+        "lastPage": {
+          "type": "string",
+          "format": "url",
+          "example": "http://culpas-silex.dev/passholders?page=118"
+        },
+        "previousPage": {
+          "type": "string",
+          "format": "url",
+          "example": "http://culpas-silex.dev/passholders?page=1"
+        },
+        "nextPage": {
+          "type": "string",
+          "format": "url",
+          "example": "http://culpas-silex.dev/passholders?page=3"
+        }
+      },
+      "required": [
+        "itemsPerPage",
+        "totalItems",
+        "member",
+        "invalidUitpasNumbers",
+        "firstPage",
+        "lastPage"
       ]
     },
     "PassHolderUpdateCommand": {
