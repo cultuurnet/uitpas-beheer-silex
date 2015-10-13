@@ -395,6 +395,22 @@
             "required": false,
             "type": "string",
             "collectionFormat": "multiple"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Which page of the result set to show. When omitted this defaults to 1 (the first page).",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "How many passholders should be listed per page. When omitted this defaults to 10.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "responses": {
