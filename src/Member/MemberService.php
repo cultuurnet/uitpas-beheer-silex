@@ -5,7 +5,6 @@ namespace CultuurNet\UiTPASBeheer\Member;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use CultuurNet\UiTPASBeheer\User\UserNotFoundException;
-use ValueObjects\StringLiteral\StringLiteral;
 
 class MemberService extends CounterAwareUitpasService
 {
@@ -38,24 +37,16 @@ class MemberService extends CounterAwareUitpasService
     }
 
     /**
-     * @param \CultureFeed_User $cfUser
-     *
-     * @return Member
+     * @param Uid $uid
      *
      * @throws UserNotFoundException
      *   When no user was found for the given email address.
      */
-    public function add(\CultureFeed_User $cfUser)
+    public function add(Uid $uid)
     {
         $this->getUitpasService()->addMemberToCounter(
-            $cfUser->id,
+            $uid->toNative(),
             $this->getCounterConsumerKey()
-        );
-
-        return new Member(
-            new Uid($cfUser->id),
-            new StringLiteral($cfUser->nick),
-            MemberRole::MEMBER()
         );
     }
 
@@ -65,7 +56,8 @@ class MemberService extends CounterAwareUitpasService
     public function remove(Uid $uid)
     {
         $this->getUitpasService()->removeMemberFromCounter(
-            $uid->toNative()
+            $uid->toNative(),
+            $this->getCounterConsumerKey()
         );
     }
 }

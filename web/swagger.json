@@ -1083,9 +1083,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns the new member.",
+            "description": "Returns the uid of the new member.",
             "schema": {
-              "$ref": "#/definitions/Member"
+              "$ref": "#/definitions/Uid"
             }
           },
           "400": {
