@@ -72,4 +72,45 @@ class MemberServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * @test
+     */
+    public function it_can_add_a_new_member_to_the_active_counter()
+    {
+        $cfUser = new \CultureFeed_User();
+        $cfUser->id = 'd6ec5bbf-ff7c-4ae9-a7c1-f62df05c12fb';
+        $cfUser->nick = 'foo.bar';
+
+        $this->uitpas->expects($this->once())
+            ->method('addMemberToCounter')
+            ->with(
+                $cfUser->id,
+                $this->counterConsumerKey->toNative()
+            );
+
+        $actual = $this->service->add($cfUser);
+
+        $expected = new Member(
+            new Uid('d6ec5bbf-ff7c-4ae9-a7c1-f62df05c12fb'),
+            new StringLiteral('foo.bar'),
+            MemberRole::MEMBER()
+        );
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_remove_a_member_from_the_active_counter()
+    {
+        $uid = new Uid('d6ec5bbf-ff7c-4ae9-a7c1-f62df05c12fb');
+
+        $this->uitpas->expects($this->once())
+            ->method('removeMemberFromCounter')
+            ->with($uid);
+
+        $this->service->remove($uid);
+    }
 }
