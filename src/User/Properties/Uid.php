@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Properties;
+namespace CultuurNet\UiTPASBeheer\User\Properties;
 
 use ValueObjects\StringLiteral\StringLiteral;
 

@@ -5,7 +5,7 @@ namespace CultuurNet\UiTPASBeheer\UiTPAS\Registration;
 use CultuurNet\Deserializer\JSONDeserializer;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutJsonDeserializer;
-use CultuurNet\UiTPASBeheer\Properties\Uid;
+use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use CultuurNet\UiTPASBeheer\PassHolder\VoucherNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\PurchaseReason;
 use ValueObjects\StringLiteral\StringLiteral;

@@ -3,7 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\UiTPAS\Registration;
 
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
-use CultuurNet\UiTPASBeheer\Properties\Uid;
+use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use CultuurNet\UiTPASBeheer\PassHolder\VoucherNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\PurchaseReason;
 use ValueObjects\DateTime\Date;

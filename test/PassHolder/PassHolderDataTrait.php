@@ -16,7 +16,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
-use CultuurNet\UiTPASBeheer\Properties\Uid;
+use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\Month;
 use ValueObjects\DateTime\MonthDay;

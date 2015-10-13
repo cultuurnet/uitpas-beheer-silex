@@ -3,7 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\Member;
 
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
-use CultuurNet\UiTPASBeheer\Properties\Uid;
+use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class MemberTest extends \PHPUnit_Framework_TestCase

@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Member;
 
-use CultuurNet\UiTPASBeheer\Properties\Uid;
+use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use ValueObjects\StringLiteral\StringLiteral;
 
 final class Member implements \JsonSerializable
