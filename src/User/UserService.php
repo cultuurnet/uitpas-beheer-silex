@@ -6,7 +6,7 @@ use CultuurNet\UiTIDProvider\User\User;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use ValueObjects\Web\EmailAddress;
 
-class UserService
+class UserService implements UserServiceInterface
 {
     /**
      * @var \ICultureFeed
@@ -33,7 +33,7 @@ class UserService
     /**
      * @param EmailAddress $email
      *
-     * @return \CultureFeed_SearchUser
+     * @return User
      *
      * @throws UserNotFoundException
      *   When no user was found for the given email address.

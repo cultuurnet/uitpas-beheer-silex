@@ -6,7 +6,7 @@ use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use CultuurNet\UiTPASBeheer\User\UserNotFoundException;
 
-class MemberService extends CounterAwareUitpasService
+class MemberService extends CounterAwareUitpasService implements MemberServiceInterface
 {
     /**
      * @return Member[]
