@@ -75,7 +75,7 @@ class MemberControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->members = [
             $this->admin,
-            $this->member
+            $this->member,
         ];
     }
 
