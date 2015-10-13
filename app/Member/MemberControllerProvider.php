@@ -27,10 +27,10 @@ class MemberControllerProvider implements ControllerProviderInterface
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
-        $controllers->get('/counter/active/members', 'member_controller:all');
-        $controllers->post('/counter/active/members', 'member_controller:add');
+        $controllers->get('/counters/active/members', 'member_controller:all');
+        $controllers->post('/counters/active/members', 'member_controller:add');
 
-        $controllers->delete('/counter/active/members/{uid}', 'member_controller:remove');
+        $controllers->delete('/counters/active/members/{uid}', 'member_controller:remove');
 
         return $controllers;
     }
