@@ -47,8 +47,8 @@ class MemberServiceTest extends \PHPUnit_Framework_TestCase
         $cfMember->id = 'd6ec5bbf-ff7c-4ae9-a7c1-f62df05c12fb';
         $cfMember->nick = 'foo.bar';
 
-        $cfMembers['admin'][] = $cfMemberAdmin;
-        $cfMembers['member'][] = $cfMember;
+        $cfMembers['admins'][] = $cfMemberAdmin;
+        $cfMembers['members'][] = $cfMember;
 
         $this->uitpas->expects($this->once())
             ->method('getMembersForCounter')

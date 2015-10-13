@@ -19,18 +19,22 @@ class MemberService extends CounterAwareUitpasService implements MemberServiceIn
             $this->getCounterConsumerKey()
         );
 
-        foreach ($cfMembers['admin'] as $cfMember) {
-            $members[] = Member::fromCultureFeedCounterMember(
-                $cfMember,
-                MemberRole::ADMIN()
-            );
+        if (isset($cfMembers['admins'])) {
+            foreach ($cfMembers['admins'] as $cfMember) {
+                $members[] = Member::fromCultureFeedCounterMember(
+                    $cfMember,
+                    MemberRole::ADMIN()
+                );
+            }
         }
 
-        foreach ($cfMembers['member'] as $cfMember) {
-            $members[] = Member::fromCultureFeedCounterMember(
-                $cfMember,
-                MemberRole::MEMBER()
-            );
+        if (isset($cfMembers['members'])) {
+            foreach ($cfMembers['members'] as $cfMember) {
+                $members[] = Member::fromCultureFeedCounterMember(
+                    $cfMember,
+                    MemberRole::MEMBER()
+                );
+            }
         }
 
         return $members;
