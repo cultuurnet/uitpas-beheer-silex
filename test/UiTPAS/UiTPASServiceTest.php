@@ -6,7 +6,7 @@ use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Uid;
+use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use CultuurNet\UiTPASBeheer\PassHolder\VoucherNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\Inquiry;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;

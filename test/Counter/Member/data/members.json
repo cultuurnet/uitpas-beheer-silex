@@ -1,0 +1,12 @@
+[
+  {
+    "uid": "1af67b95-6f68-4a82-96af-7539681c28ca",
+    "nick": "john.doe",
+    "role": "ADMIN"
+  },
+  {
+    "uid": "d6ec5bbf-ff7c-4ae9-a7c1-f62df05c12fb",
+    "nick": "foo.bar",
+    "role": "MEMBER"
+  }
+]
