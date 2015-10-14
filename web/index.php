@@ -101,6 +101,6 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\ExpenseReport\ExpenseReportControl
 /**
  * API callbacks for Members.
  */
-$app->mount('/', new \CultuurNet\UiTPASBeheer\Member\MemberControllerProvider());
+$app->mount('/', new \CultuurNet\UiTPASBeheer\Counter\Member\MemberControllerProvider());
 
 $app->run();

@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Member;
+namespace CultuurNet\UiTPASBeheer\Counter\Member;
 
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\User\Properties\Uid;
@@ -70,7 +70,7 @@ class MemberTest extends \PHPUnit_Framework_TestCase
     public function it_encodes_to_json()
     {
         $json = json_encode($this->member);
-        $this->assertJsonEquals($json, 'Member/data/member.json');
+        $this->assertJsonEquals($json, 'Counter/Member/data/member.json');
     }
 
     /**

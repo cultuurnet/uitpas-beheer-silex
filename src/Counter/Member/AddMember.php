@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Member;
+namespace CultuurNet\UiTPASBeheer\Counter\Member;
 
 use ValueObjects\Web\EmailAddress;
 
