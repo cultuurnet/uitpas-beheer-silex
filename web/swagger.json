@@ -1940,6 +1940,12 @@
           "items": {
             "$ref": "#/definitions/KansenStatuut"
           }
+        },
+        "uitPassen": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UiTPAS"
+          }
         }
       },
       "required": [
@@ -1963,7 +1969,7 @@
         "member": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/PassHolder"
+            "$ref": "#/definitions/Identity"
           }
         },
         "invalidUitpasNumbers": {
