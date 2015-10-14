@@ -98,4 +98,9 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\CheckInDevice\CheckInDeviceControl
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\ExpenseReport\ExpenseReportControllerProvider());
 
+/**
+ * API callbacks for Members.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\Counter\Member\MemberControllerProvider());
+
 $app->run();

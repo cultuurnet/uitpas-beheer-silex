@@ -13,7 +13,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Uid;
+use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 

@@ -134,6 +134,16 @@ $app->register(new \CultuurNet\UiTPASBeheer\CheckInDevice\CheckInDeviceServicePr
 $app->register(new \CultuurNet\UiTPASBeheer\ExpenseReport\ExpenseReportServiceProvider());
 
 /**
+ * UiTPAS User service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\User\UserServiceProvider());
+
+/**
+ * UiTPAS Member service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\Counter\Member\MemberServiceProvider());
+
+/**
  * Clock service.
  */
 $app->register(
