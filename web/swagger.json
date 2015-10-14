@@ -411,6 +411,68 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "dateOfBirth",
+            "in": "query",
+            "description": "A date if birth.",
+            "required": false,
+            "type": "string",
+            "format": "date",
+          },
+          {
+            "name": "firstName",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "A first name. Wildcard * allowed.",
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "A last name. Wildcard * allowed.",
+          },
+          {
+            "name": "street",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "A street name and number. Wildcard * allowed.",
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "A city name. Wildcard * allowed.",
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "An email address. No wildcards allowed",
+            "format": "email"
+          },
+          {
+            "name": "membershipAssociationId",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "A group association ID."
+          },
+          {
+            "name": "membershipStatus",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The group membership status.",
+            "enum": [
+              "ACTIVE",
+              "EXPIRED"
+            ]
           }
         ],
         "responses": {
