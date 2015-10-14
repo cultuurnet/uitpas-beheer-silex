@@ -5,11 +5,53 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
+use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedResultSet;
+use CultuurNet\UiTPASBeheer\PassHolder\Search\SearchOptionsBuilderInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberCollection;
 use ValueObjects\Identity\UUID;
+use ValueObjects\Number\Integer;
 
 class PassHolderService extends CounterAwareUitpasService implements PassHolderServiceInterface
 {
+    /**
+     * @param SearchOptionsBuilderInterface $query
+     * @return PagedResultSet
+     */
+    public function search(SearchOptionsBuilderInterface $query)
+    {
+        $options = $query->build();
+        $options->balieConsumerKey = $this->getCounterConsumerKey();
+
+        $result = $this->getUitpasService()->searchPassholders($options);
+
+        $passHolders = array_map(
+            function (\CultureFeed_Uitpas_Passholder $passHolder) {
+                return PassHolder::fromCultureFeedPassHolder($passHolder);
+            },
+            $result->objects
+        );
+
+        $pagedResultSet = new PagedResultSet(
+            new Integer((int) $result->total),
+            $passHolders
+        );
+
+        $invalidUitpasNumbers = array_map(
+            function ($uitpasNumber) {
+                return UiTPASNumber::fromNative($uitpasNumber);
+            },
+            $result->invalidUitpasNumbers
+        );
+
+        if (!empty($unknownUitpasNumbers)) {
+            $invalidUitpasNumbers = UiTPASNumberCollection::fromArray($invalidUitpasNumbers);
+            $pagedResultSet = $pagedResultSet->withInvalidUiTPASNumbers($invalidUitpasNumbers);
+        }
+
+        return $pagedResultSet;
+    }
+
     /**
      * @param UiTPASNumber $uitpasNumber
      *
