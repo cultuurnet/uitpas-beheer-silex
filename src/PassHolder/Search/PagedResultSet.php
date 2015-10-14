@@ -12,6 +12,11 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberCollection;
 class PagedResultSet extends AbstractPagedResultSet
 {
     /**
+     * @var string
+     */
+    protected $resultClass = PassHolder::class;
+
+    /**
      * @var UiTPASNumberCollection|null
      */
     protected $invalidUitpasNumbers;
@@ -34,9 +39,4 @@ class PagedResultSet extends AbstractPagedResultSet
     {
         return $this->invalidUitpasNumbers;
     }
-
-    /**
-     * @var string
-     */
-    protected $resultClass = PassHolder::class;
 }
