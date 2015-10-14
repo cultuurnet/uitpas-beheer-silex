@@ -37,14 +37,15 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
             $passHolders
         );
 
+        $invalidUitpasNumbers = $result->invalidUitpasNumbers ? $result->invalidUitpasNumbers : array();
         $invalidUitpasNumbers = array_map(
             function ($uitpasNumber) {
                 return UiTPASNumber::fromNative($uitpasNumber);
             },
-            $result->invalidUitpasNumbers
+            $invalidUitpasNumbers
         );
 
-        if (!empty($unknownUitpasNumbers)) {
+        if (!empty($invalidUitpasNumbers)) {
             $invalidUitpasNumbers = UiTPASNumberCollection::fromArray($invalidUitpasNumbers);
             $pagedResultSet = $pagedResultSet->withInvalidUiTPASNumbers($invalidUitpasNumbers);
         }
