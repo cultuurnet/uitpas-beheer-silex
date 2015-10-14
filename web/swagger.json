@@ -391,7 +391,7 @@
           {
             "name": "uitpasNumber",
             "in": "query",
-            "description": "UiTPAS-number to include in the list of passholders. Add multiple uitpasNumber parameters to include multiple numbers. (uitpasNumber=123456&uitpasNumber=123457&uitpasNumber=123458)",
+            "description": "UiTPAS-number to include in the list of passholders. Add multiple uitpasNumber parameters to include multiple numbers. (uitpasNumber[]=123456&uitpasNumber[]=123457&uitpasNumber[]=123458)",
             "required": false,
             "type": "string",
             "collectionFormat": "multi"
