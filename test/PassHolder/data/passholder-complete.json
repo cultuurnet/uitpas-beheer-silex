@@ -45,5 +45,37 @@
     "email": true,
     "sms": false
   },
-  "points": 20
+  "points": 20,
+  "uitpassen": [
+    {
+      "number": "4567345678910",
+      "kansenStatuut": true,
+      "status": "ACTIVE",
+      "type": "CARD",
+      "cardSystem": {
+        "id": "10",
+        "name": "UiTPAS Regio Aalst"
+      }
+    },
+    {
+      "number": "4567345678902",
+      "kansenStatuut": false,
+      "status": "ACTIVE",
+      "type": "KEY",
+      "cardSystem": {
+        "id": "20",
+        "name": "UiTPAS Regio Kortrijk"
+      }
+    },
+    {
+      "number": "1256789944516",
+      "kansenStatuut": true,
+      "status": "BLOCKED",
+      "type": "STICKER",
+      "cardSystem": {
+        "id": "30",
+        "name": "UiTPAS Regio Brussel"
+      }
+    }
+  ]
 }
