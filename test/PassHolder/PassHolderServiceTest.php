@@ -25,6 +25,11 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
     protected $uitpas;
 
     /**
+     * @var \CultureFeed_Uitpas_Counter_Employee
+     */
+    protected $counter;
+
+    /**
      * @var PassHolderService
      */
     protected $service;
@@ -36,7 +41,14 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $this->uitpas = $this->getMock(\CultureFeed_Uitpas::class);
         $this->counterConsumerKey = new CounterConsumerKey('key');
 
-        $this->service = new PassHolderService($this->uitpas, $this->counterConsumerKey);
+        $this->counter = new \CultureFeed_Uitpas_Counter_Employee();
+        $this->counter->consumerKey = $this->counterConsumerKey->toNative();
+
+        $this->service = new PassHolderService(
+            $this->uitpas,
+            $this->counterConsumerKey,
+            $this->counter
+        );
     }
 
     /**
