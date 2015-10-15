@@ -53,32 +53,53 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $this->cfPassHolderFull->smsPreference = 'NO_SMS';
         $this->cfPassHolderFull->emailPreference = 'ALL_MAILS';
 
+        $cardSystem10 = new \CultureFeed_Uitpas_CardSystem(
+            10,
+            'UiTPAS Regio Aalst'
+        );
         $this->cfPassHolderFull->cardSystemSpecific[10] = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
         $this->cfPassHolderFull->cardSystemSpecific[10]->kansenStatuut = true;
         $this->cfPassHolderFull->cardSystemSpecific[10]->kansenStatuutEndDate = 1442331412;
         $this->cfPassHolderFull->cardSystemSpecific[10]->kansenStatuutExpired = false;
         $this->cfPassHolderFull->cardSystemSpecific[10]->kansenStatuutInGracePeriod = true;
-        $this->cfPassHolderFull->cardSystemSpecific[10]->cardSystem = new \CultureFeed_Uitpas_CardSystem(
-            10,
-            'UiTPAS Regio Aalst'
-        );
+        $this->cfPassHolderFull->cardSystemSpecific[10]->currentCard = new \CultureFeed_Uitpas_Passholder_Card();
+        $this->cfPassHolderFull->cardSystemSpecific[10]->currentCard->uitpasNumber = '4567345678910';
+        $this->cfPassHolderFull->cardSystemSpecific[10]->currentCard->status = 'ACTIVE';
+        $this->cfPassHolderFull->cardSystemSpecific[10]->currentCard->type = 'CARD';
+        $this->cfPassHolderFull->cardSystemSpecific[10]->currentCard->kansenpas = true;
+        $this->cfPassHolderFull->cardSystemSpecific[10]->currentCard->cardSystem = $cardSystem10;
+        $this->cfPassHolderFull->cardSystemSpecific[10]->cardSystem = $cardSystem10;
 
-        $this->cfPassHolderFull->cardSystemSpecific[20] = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
-        $this->cfPassHolderFull->cardSystemSpecific[20]->kansenStatuut = false;
-        $this->cfPassHolderFull->cardSystemSpecific[20]->cardSystem = new \CultureFeed_Uitpas_CardSystem(
+        $cardSystem20 = new \CultureFeed_Uitpas_CardSystem(
             20,
             'UiTPAS Regio Kortrijk'
         );
+        $this->cfPassHolderFull->cardSystemSpecific[20] = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
+        $this->cfPassHolderFull->cardSystemSpecific[20]->kansenStatuut = false;
+        $this->cfPassHolderFull->cardSystemSpecific[20]->currentCard = new \CultureFeed_Uitpas_Passholder_Card();
+        $this->cfPassHolderFull->cardSystemSpecific[20]->currentCard->uitpasNumber = '4567345678902';
+        $this->cfPassHolderFull->cardSystemSpecific[20]->currentCard->status = 'ACTIVE';
+        $this->cfPassHolderFull->cardSystemSpecific[20]->currentCard->type = 'KEY';
+        $this->cfPassHolderFull->cardSystemSpecific[20]->currentCard->kansenpas = false;
+        $this->cfPassHolderFull->cardSystemSpecific[20]->currentCard->cardSystem = $cardSystem20;
+        $this->cfPassHolderFull->cardSystemSpecific[20]->cardSystem = $cardSystem20;
 
+        $cardSystem30 = new \CultureFeed_Uitpas_CardSystem(
+            30,
+            'UiTPAS Regio Brussel'
+        );
         $this->cfPassHolderFull->cardSystemSpecific[30] = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
         $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuut = true;
         $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuutEndDate = 1442331412;
         $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuutExpired = true;
         $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuutInGracePeriod = false;
-        $this->cfPassHolderFull->cardSystemSpecific[30]->cardSystem = new \CultureFeed_Uitpas_CardSystem(
-            30,
-            'UiTPAS Regio Brussel'
-        );
+        $this->cfPassHolderFull->cardSystemSpecific[30]->currentCard = new \CultureFeed_Uitpas_Passholder_Card();
+        $this->cfPassHolderFull->cardSystemSpecific[30]->currentCard->uitpasNumber = '1256789944516';
+        $this->cfPassHolderFull->cardSystemSpecific[30]->currentCard->status = 'BLOCKED';
+        $this->cfPassHolderFull->cardSystemSpecific[30]->currentCard->type = 'STICKER';
+        $this->cfPassHolderFull->cardSystemSpecific[30]->currentCard->kansenpas = true;
+        $this->cfPassHolderFull->cardSystemSpecific[30]->currentCard->cardSystem = $cardSystem30;
+        $this->cfPassHolderFull->cardSystemSpecific[30]->cardSystem = $cardSystem30;
     }
 
     /**
