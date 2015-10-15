@@ -10,7 +10,7 @@ use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedResultSet;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\QueryBuilderInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\Filter\UiTPASSpecificationFilter;
-use CultuurNet\UiTPASBeheer\UiTPAS\Specifications\NumberIsAnyOf;
+use CultuurNet\UiTPASBeheer\UiTPAS\Specifications\HasAnyOfNumbers;
 use CultuurNet\UiTPASBeheer\UiTPAS\Specifications\UsableByCounter;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberCollection;
@@ -57,7 +57,7 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         // uitpas in the identity.
         $searchedNumbers = $query->getUiTPASNumbers();
         if (!is_null($searchedNumbers) && $searchedNumbers->length() > 0) {
-            $specification = new NumberIsAnyOf($searchedNumbers);
+            $specification = new HasAnyOfNumbers($searchedNumbers);
         } else {
             $specification = new UsableByCounter($this->counter);
         }

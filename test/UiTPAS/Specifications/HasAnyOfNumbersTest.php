@@ -11,7 +11,7 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class NumberIsAnyOfTest extends \PHPUnit_Framework_TestCase
+class HasAnyOfNumbersTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var UiTPASNumberCollection
@@ -19,7 +19,7 @@ class NumberIsAnyOfTest extends \PHPUnit_Framework_TestCase
     protected $uitpasNumbers;
 
     /**
-     * @var NumberIsAnyOf
+     * @var HasAnyOfNumbers
      */
     protected $specification;
 
@@ -29,7 +29,7 @@ class NumberIsAnyOfTest extends \PHPUnit_Framework_TestCase
             ->with(new UiTPASNumber('4567345678910'))
             ->with(new UiTPASNumber('4567345678902'));
 
-        $this->specification = new NumberIsAnyOf($this->uitpasNumbers);
+        $this->specification = new HasAnyOfNumbers($this->uitpasNumbers);
     }
 
     /**

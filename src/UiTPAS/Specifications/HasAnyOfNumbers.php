@@ -6,7 +6,7 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberCollection;
 
-class NumberIsAnyOf implements UiTPASSpecificationInterface
+class HasAnyOfNumbers implements UiTPASSpecificationInterface
 {
     /**
      * @var UiTPASNumberCollection
