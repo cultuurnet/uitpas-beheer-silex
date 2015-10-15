@@ -77,9 +77,11 @@ class UiTPASSpecificationFilterTest extends \PHPUnit_Framework_TestCase
         // The mock specification should only be satisfied by an active uitpas.
         $this->specification->expects($this->any())
             ->method('isSatisfiedBy')
-            ->willReturnCallback(function (UiTPAS $uitpas) {
-                return $uitpas->getStatus()->sameValueAs(UiTPASStatus::ACTIVE());
-            });
+            ->willReturnCallback(
+                function (UiTPAS $uitpas) {
+                    return $uitpas->getStatus()->sameValueAs(UiTPASStatus::ACTIVE());
+                }
+            );
 
         $expected = (new UiTPASCollection())
             ->with($this->activeUitpas);
