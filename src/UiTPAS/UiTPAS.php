@@ -95,6 +95,14 @@ final class UiTPAS implements \JsonSerializable
     }
 
     /**
+     * @return StringLiteral|null
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
      * @return array
      */
     public function jsonSerialize()
