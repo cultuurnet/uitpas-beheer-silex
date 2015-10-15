@@ -11,6 +11,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedCollection;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\QueryBuilderInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberCollection;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberInvalidException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -89,12 +90,21 @@ class PassHolderController
                     }
 
                     $uitpasNumbers = [];
+                    $invalid = [];
                     foreach ($value as $uitpasNumber) {
                         try {
                             $uitpasNumbers[] = new UiTPASNumber($uitpasNumber);
-                        } catch (\InvalidArgumentException $e) {
-                            throw new IncorrectParameterValueException('uitpasNumber');
+                        } catch (UiTPASNumberInvalidException $e) {
+                            $invalid[] = $uitpasNumber;
                         }
+                    }
+
+                    if (!empty($invalid)) {
+                        throw new IncorrectParameterValueException(
+                            'uitpasNumber',
+                            'INVALID_UITPAS_NUMBER',
+                            $invalid
+                        );
                     }
 
                     $uitpasNumbers = UiTPASNumberCollection::fromArray($uitpasNumbers);
