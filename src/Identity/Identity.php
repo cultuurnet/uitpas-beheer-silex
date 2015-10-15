@@ -4,6 +4,7 @@ namespace CultuurNet\UiTPASBeheer\Identity;
 
 use CultuurNet\UiTPASBeheer\Group\Group;
 use CultuurNet\UiTPASBeheer\PassHolder\PassHolder;
+use CultuurNet\UiTPASBeheer\UiTPAS\Filter\UiTPASFilterInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 
 final class Identity implements \JsonSerializable
@@ -93,5 +94,45 @@ final class Identity implements \JsonSerializable
         }
 
         return $identity;
+    }
+
+    /**
+     * @param PassHolder $passHolder
+     *
+     * @param UiTPASFilterInterface|null $uitpasFilter
+     *   The first UiTPAS in the collection after filtering will be used as
+     *   the identity's UiTPAS. If no filter is provided, or the collection is
+     *   empty after filtering, the first UiTPAS from the passholder will be
+     *   used.
+     *
+     * @return Identity
+     */
+    public static function fromPassHolderWithUitpasCollection(
+        PassHolder $passHolder,
+        UiTPASFilterInterface $uitpasFilter = null
+    ) {
+        $uitpasCollection = $passHolder->getUiTPASCollection();
+
+        if (is_null($uitpasCollection) || $uitpasCollection->length() === 0) {
+            throw new \InvalidArgumentException(
+                'PassHolder should have a UiTPASCollection with at least one UiTPAS.'
+            );
+        }
+
+        if (!is_null($uitpasFilter)) {
+            $filteredCollection = $uitpasFilter->filter(
+                $passHolder->getUiTPASCollection()
+            );
+
+            if ($filteredCollection->length() > 0) {
+                $uitpasCollection = $filteredCollection;
+            }
+        }
+
+        $uitpasArray = $uitpasCollection->toArray();
+        $uitpas = $uitpasArray[0];
+
+        return (new Identity($uitpas))
+            ->withPassHolder($passHolder);
     }
 }
