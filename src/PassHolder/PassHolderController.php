@@ -88,16 +88,14 @@ class PassHolderController
                         $value = array($value);
                     }
 
-                    $uitpasNumbers = array_map(
-                        function ($uitpasNumber) {
-                            try {
-                                return new UiTPASNumber($uitpasNumber);
-                            } catch (\InvalidArgumentException $e) {
-                                throw new IncorrectParameterValueException('uitpasNumber');
-                            }
-                        },
-                        $value
-                    );
+                    $uitpasNumbers = [];
+                    foreach ($value as $uitpasNumber) {
+                        try {
+                            $uitpasNumbers[] = new UiTPASNumber($uitpasNumber);
+                        } catch (\InvalidArgumentException $e) {
+                            throw new IncorrectParameterValueException('uitpasNumber');
+                        }
+                    }
 
                     $uitpasNumbers = UiTPASNumberCollection::fromArray($uitpasNumbers);
 
