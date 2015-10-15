@@ -2,9 +2,9 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity;
 
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 
-class DateTypeInvalidException extends ReadableCodeResponseException
+class DateTypeInvalidException extends CompleteResponseException
 {
     /**
      * @param string $value

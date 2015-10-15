@@ -3,12 +3,12 @@
 namespace CultuurNet\UiTPASBeheer\Activity;
 
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\Exception\ResponseException;
 use Symfony\Component\HttpFoundation\Response;
 use CultuurNet\UiTPASBeheer\Activity\Cdbid;
 
-class ActivityNotFoundException extends ReadableCodeResponseException
+class ActivityNotFoundException extends CompleteResponseException
 {
     /**
      * @param Cdbid $eventCdbid

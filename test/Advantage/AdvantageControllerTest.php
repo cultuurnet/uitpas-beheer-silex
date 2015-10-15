@@ -4,7 +4,7 @@ namespace CultuurNet\UiTPASBeheer\Advantage;
 
 use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\UiTPASBeheer\Exception\InternalErrorException;
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\Request;
@@ -196,8 +196,8 @@ class AdvantageControllerTest extends \PHPUnit_Framework_TestCase
 
         try {
             $this->controller->getExchangeable($uitpasNumber->toNative());
-            $this->fail('AdvantageController::getExchangeable should throw a ReadableCodeResponseException.');
-        } catch (ReadableCodeResponseException $exception) {
+            $this->fail('AdvantageController::getExchangeable should throw a CompleteResponseException.');
+        } catch (CompleteResponseException $exception) {
             $this->assertEquals($exceptionCode, $exception->getReadableCode());
             $this->assertEquals($exceptionMessage, $exception->getMessage());
         } catch (\Exception $exception) {
@@ -297,8 +297,8 @@ class AdvantageControllerTest extends \PHPUnit_Framework_TestCase
                 $request,
                 $uitpasNumber->toNative()
             );
-            $this->fail('AdvantageController::exchange should throw a ReadableCodeResponseException.');
-        } catch (ReadableCodeResponseException $exception) {
+            $this->fail('AdvantageController::exchange should throw a CompleteResponseException.');
+        } catch (CompleteResponseException $exception) {
             $this->assertEquals($exceptionCode, $exception->getReadableCode());
             $this->assertEquals($exceptionMessage, $exception->getMessage());
         } catch (\Exception $exception) {

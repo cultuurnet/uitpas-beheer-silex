@@ -3,7 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\UiTPAS;
 
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\Inquiry;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;
 use CultuurNet\UiTPASBeheer\UiTPAS\Registration\Registration;
@@ -68,7 +68,7 @@ class UiTPASService extends CounterAwareUitpasService implements UiTPASServiceIn
      *
      * @return Price
      *
-     * @throws ReadableCodeResponseException
+     * @throws CompleteResponseException
      *   When an UiTPAS API error occurred.
      */
     public function getPrice(Inquiry $inquiry)

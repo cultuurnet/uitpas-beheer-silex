@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Exception;
 
-class ReadableCodeResponseException extends ResponseException implements ReadableCodeExceptionInterface
+class CompleteResponseException extends ResponseException implements ReadableCodeExceptionInterface
 {
     /**
      * @var string

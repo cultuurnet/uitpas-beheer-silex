@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Exception;
 
-class IncorrectParameterValueException extends ReadableCodeResponseException
+class IncorrectParameterValueException extends CompleteResponseException
 {
     public function __construct($parameter, $code = 'INCORRECT_PARAMETER_VALUE')
     {

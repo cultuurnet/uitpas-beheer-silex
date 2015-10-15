@@ -5,10 +5,10 @@
 
 namespace CultuurNet\UiTPASBeheer\Properties;
 
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use ValueObjects\DateTime\Date;
 
-class InvalidDateRangeException extends ReadableCodeResponseException
+class InvalidDateRangeException extends CompleteResponseException
 {
     public function __construct(Date $from, Date $to)
     {

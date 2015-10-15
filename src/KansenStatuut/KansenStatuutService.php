@@ -8,7 +8,7 @@ namespace CultuurNet\UiTPASBeheer\KansenStatuut;
 use CultureFeed_Uitpas_Passholder_CardSystemPreferences;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\DateTime\Date;
 
@@ -45,7 +45,7 @@ class KansenStatuutService extends CounterAwareUitpasService implements KansenSt
                 $cardSystemPreferences
             );
         } catch (\CultureFeed_Exception $e) {
-            throw ReadableCodeResponseException::fromCultureFeedException($e);
+            throw CompleteResponseException::fromCultureFeedException($e);
         }
     }
 }

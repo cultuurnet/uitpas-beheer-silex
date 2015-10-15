@@ -4,7 +4,7 @@ namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
 
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\Registration;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 
 class TicketSaleService extends CounterAwareUitpasService implements TicketSaleServiceInterface
@@ -15,7 +15,7 @@ class TicketSaleService extends CounterAwareUitpasService implements TicketSaleS
      *
      * @return TicketSale
      *
-     * @throws ReadableCodeResponseException
+     * @throws CompleteResponseException
      *   When a CultureFeed_Exception was caught.
      */
     public function register(UiTPASNumber $uitpasNumber, Registration $registration)
@@ -41,7 +41,7 @@ class TicketSaleService extends CounterAwareUitpasService implements TicketSaleS
                 $amount
             );
         } catch (\CultureFeed_Exception $e) {
-            throw ReadableCodeResponseException::fromCultureFeedException($e);
+            throw CompleteResponseException::fromCultureFeedException($e);
         }
 
         return TicketSale::fromCultureFeedTicketSale($cfTicketSale);

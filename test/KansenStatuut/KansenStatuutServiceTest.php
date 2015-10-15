@@ -10,7 +10,7 @@ use CultureFeed_Uitpas_Passholder;
 use CultureFeed_Uitpas_Passholder_UitIdUser;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit_Framework_TestCase;
@@ -101,7 +101,7 @@ class KansenStatuutServiceTest extends PHPUnit_Framework_TestCase
      */
     public function it_transforms_culturefeed_exceptions_to_readable_code_exceptions()
     {
-        $this->setExpectedException(ReadableCodeResponseException::class);
+        $this->setExpectedException(CompleteResponseException::class);
 
         $exception = new \CultureFeed_Exception(
             'Passholder not registered in the given card system',
@@ -122,7 +122,7 @@ class KansenStatuutServiceTest extends PHPUnit_Framework_TestCase
                     new MonthDay(15)
                 )
             );
-        } catch (ReadableCodeResponseException $e) {
+        } catch (CompleteResponseException $e) {
             $this->assertEquals(
                 'ACTION_NOT_ALLOWED',
                 $e->getReadableCode()

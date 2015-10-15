@@ -5,9 +5,9 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
 
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 
-class EmailAddressInvalidException extends ReadableCodeResponseException
+class EmailAddressInvalidException extends CompleteResponseException
 {
     /**
      * @param string $value

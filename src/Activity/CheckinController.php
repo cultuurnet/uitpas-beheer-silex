@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity;
 
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,7 +67,7 @@ class CheckinController
      *
      * @return JsonResponse
      *
-     * @throws ReadableCodeResponseException
+     * @throws CompleteResponseException
      */
     public function checkin(Request $request, $uitpasNumber)
     {
@@ -85,7 +85,7 @@ class CheckinController
         try {
             $this->checkinService->checkin($uitpasNumber, $eventCdbid);
         } catch (\CultureFeed_Exception $exception) {
-            throw ReadableCodeResponseException::fromCultureFeedException($exception);
+            throw CompleteResponseException::fromCultureFeedException($exception);
         }
 
         return $this->getActivityJsonResponse($uitpasNumber, $eventCdbid);

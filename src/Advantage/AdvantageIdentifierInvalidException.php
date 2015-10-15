@@ -2,9 +2,9 @@
 
 namespace CultuurNet\UiTPASBeheer\Advantage;
 
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 
-class AdvantageIdentifierInvalidException extends ReadableCodeResponseException
+class AdvantageIdentifierInvalidException extends CompleteResponseException
 {
     /**
      * @param string $message

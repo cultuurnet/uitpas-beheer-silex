@@ -3,7 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\AddressJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformationJsonDeserializer;
@@ -165,7 +165,7 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             ->method('update')
             ->willThrowException(new \CultureFeed_Exception($message, $code));
 
-        $this->setExpectedException(ReadableCodeResponseException::class);
+        $this->setExpectedException(CompleteResponseException::class);
         $this->controller->update($request, $uitpasNumberValue);
     }
 
@@ -211,7 +211,7 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             ->method('register')
             ->willThrowException(new \CultureFeed_Exception($message, $code));
 
-        $this->setExpectedException(ReadableCodeResponseException::class);
+        $this->setExpectedException(CompleteResponseException::class);
         $this->controller->register($request, $uitpasNumberValue);
     }
 }

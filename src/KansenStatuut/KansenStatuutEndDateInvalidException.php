@@ -2,9 +2,9 @@
 
 namespace CultuurNet\UiTPASBeheer\KansenStatuut;
 
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 
-class KansenStatuutEndDateInvalidException extends ReadableCodeResponseException
+class KansenStatuutEndDateInvalidException extends CompleteResponseException
 {
     /**
      * @param string $value

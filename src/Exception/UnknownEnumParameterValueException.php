@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Exception;
 
-class UnknownEnumParameterValueException extends ReadableCodeResponseException
+class UnknownEnumParameterValueException extends CompleteResponseException
 {
     private static function allowedValuesReducer($valueA, $valueB)
     {

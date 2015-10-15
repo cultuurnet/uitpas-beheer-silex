@@ -5,7 +5,7 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\Hydra\Symfony\PageUrlGenerator;
 use CultuurNet\UiTPASBeheer\Exception\IncorrectParameterValueException;
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedCollection;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\QueryBuilderInterface;
@@ -176,7 +176,7 @@ class PassHolderController
      *
      * @return JsonResponse
      *
-     * @throws ReadableCodeResponseException
+     * @throws CompleteResponseException
      *   When a CultureFeed_Exception is encountered.
      */
     public function update(Request $request, $uitpasNumber)
@@ -190,7 +190,7 @@ class PassHolderController
         try {
             $this->passHolderService->update($uitpasNumber, $passHolder);
         } catch (\CultureFeed_Exception $exception) {
-            throw ReadableCodeResponseException::fromCultureFeedException($exception);
+            throw CompleteResponseException::fromCultureFeedException($exception);
         }
 
         return $this->getByUitpasNumber($uitpasNumber->toNative());
@@ -202,7 +202,7 @@ class PassHolderController
      *
      * @return JsonResponse
      *
-     * @throws ReadableCodeResponseException
+     * @throws CompleteResponseException
      *   When a CultureFeed_Exception is encountered.
      */
     public function register(Request $request, $uitpasNumber)
@@ -221,7 +221,7 @@ class PassHolderController
                 $registration->getKansenStatuut()
             );
         } catch (\CultureFeed_Exception $exception) {
-            throw ReadableCodeResponseException::fromCultureFeedException($exception);
+            throw CompleteResponseException::fromCultureFeedException($exception);
         }
 
         // Return the registered passholder.

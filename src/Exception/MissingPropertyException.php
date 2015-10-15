@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Exception;
 
-class MissingPropertyException extends ReadableCodeResponseException
+class MissingPropertyException extends CompleteResponseException
 {
     /**
      * @var string

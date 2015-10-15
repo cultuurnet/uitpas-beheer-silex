@@ -5,7 +5,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Exception;
 
-class UnknownParameterException extends ReadableCodeResponseException
+class UnknownParameterException extends CompleteResponseException
 {
     public function __construct($parameter, $code = 'UNKNOWN_PARAMETER')
     {

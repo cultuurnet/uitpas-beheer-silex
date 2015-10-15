@@ -3,10 +3,10 @@
 namespace CultuurNet\UiTPASBeheer\Identity;
 
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\Exception\ResponseException;
 
-class IdentityNotFoundException extends ReadableCodeResponseException
+class IdentityNotFoundException extends CompleteResponseException
 {
     /**
      * @param int $code
