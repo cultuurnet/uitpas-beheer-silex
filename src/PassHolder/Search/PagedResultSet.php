@@ -2,19 +2,19 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder\Search;
 
-use CultuurNet\UiTPASBeheer\PassHolder\PassHolder;
+use CultuurNet\UiTPASBeheer\Identity\Identity;
 use CultuurNet\UiTPASBeheer\ResultSet\AbstractPagedResultSet;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberCollection;
 
 /**
- * @method PassHolder[] getResults()
+ * @method Identity[] getResults()
  */
 class PagedResultSet extends AbstractPagedResultSet
 {
     /**
      * @var string
      */
-    protected $resultClass = PassHolder::class;
+    protected $resultClass = Identity::class;
 
     /**
      * @var UiTPASNumberCollection|null

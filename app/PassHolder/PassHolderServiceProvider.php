@@ -27,7 +27,8 @@ class PassHolderServiceProvider implements ServiceProviderInterface
             function (Application $app) {
                 return new PassHolderService(
                     $app['uitpas'],
-                    $app['counter_consumer_key']
+                    $app['counter_consumer_key'],
+                    $app['counter']
                 );
             }
         );

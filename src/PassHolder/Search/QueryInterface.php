@@ -15,6 +15,11 @@ interface QueryInterface
     public function withUiTPASNumbers(UiTPASNumberCollection $uitpasNumbers);
 
     /**
+     * @return UiTPASNumberCollection|null
+     */
+    public function getUiTPASNumbers();
+
+    /**
      * @param \ValueObjects\Number\Integer $page
      * @param \ValueObjects\Number\Integer $limit
      *

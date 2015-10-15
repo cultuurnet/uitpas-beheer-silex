@@ -4,17 +4,17 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedResultSet;
-use CultuurNet\UiTPASBeheer\PassHolder\Search\SearchOptionsBuilderInterface;
+use CultuurNet\UiTPASBeheer\PassHolder\Search\QueryBuilderInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\Identity\UUID;
 
 interface PassHolderServiceInterface
 {
     /**
-     * @param SearchOptionsBuilderInterface $query
+     * @param QueryBuilderInterface $query
      * @return PagedResultSet
      */
-    public function search(SearchOptionsBuilderInterface $query);
+    public function search(QueryBuilderInterface $query);
 
     /**
      * @param UiTPASNumber $uitpasNumber

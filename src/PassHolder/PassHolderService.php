@@ -3,10 +3,15 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
+use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
+use CultuurNet\UiTPASBeheer\Identity\Identity;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedResultSet;
-use CultuurNet\UiTPASBeheer\PassHolder\Search\SearchOptionsBuilderInterface;
+use CultuurNet\UiTPASBeheer\PassHolder\Search\QueryBuilderInterface;
+use CultuurNet\UiTPASBeheer\UiTPAS\Filter\UiTPASSpecificationFilter;
+use CultuurNet\UiTPASBeheer\UiTPAS\Specifications\NumberIsAnyOf;
+use CultuurNet\UiTPASBeheer\UiTPAS\Specifications\UsableByCounter;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberCollection;
 use ValueObjects\Identity\UUID;
@@ -15,26 +20,69 @@ use ValueObjects\Number\Integer;
 class PassHolderService extends CounterAwareUitpasService implements PassHolderServiceInterface
 {
     /**
-     * @param SearchOptionsBuilderInterface $query
+     * @var \CultureFeed_Uitpas_Counter_Employee
+     */
+    private $counter;
+
+    /**
+     * @param \CultureFeed_Uitpas $uitpasService
+     * @param CounterConsumerKey $counterConsumerKey
+     * @param \CultureFeed_Uitpas_Counter_Employee $counter
+     */
+    public function __construct(
+        \CultureFeed_Uitpas $uitpasService,
+        CounterConsumerKey $counterConsumerKey,
+        \CultureFeed_Uitpas_Counter_Employee $counter
+    ) {
+        parent::__construct($uitpasService, $counterConsumerKey);
+        $this->counter = $counter;
+    }
+
+    /**
+     * Returns a PagedResultSet with Identities instead of PassHolders, but
+     * it's not in the Identity namespace because we're only searching for
+     * passholder identities (and not group passes for example).
+     *
+     * @param QueryBuilderInterface $query
      * @return PagedResultSet
      */
-    public function search(SearchOptionsBuilderInterface $query)
+    public function search(QueryBuilderInterface $query)
     {
         $options = $query->build();
         $options->balieConsumerKey = $this->getCounterConsumerKey();
 
         $result = $this->getUitpasService()->searchPassholders($options);
 
-        $passHolders = array_map(
-            function (\CultureFeed_Uitpas_Passholder $passHolder) {
-                return PassHolder::fromCultureFeedPassHolder($passHolder);
+        // Create a filter that helps determine what uitpas to use as primary
+        // uitpas in the identity.
+        $searchedNumbers = $query->getUiTPASNumbers();
+        if (!is_null($searchedNumbers) && $searchedNumbers->length() > 0) {
+            $specification = new NumberIsAnyOf($searchedNumbers);
+        } else {
+            $specification = new UsableByCounter($this->counter);
+        }
+        $uitpasCollectionFilter = new UiTPASSpecificationFilter($specification);
+
+        $identities = array_map(
+            function (\CultureFeed_Uitpas_Passholder $passHolder) use ($uitpasCollectionFilter) {
+                $passHolder = PassHolder::fromCultureFeedPassHolder($passHolder);
+
+                $uitpasCollection = $passHolder->getUiTPASCollection();
+                if (is_null($uitpasCollection) || $uitpasCollection->length() === 0) {
+                    throw new \LogicException('PassHolder returned by search has not a single uitpas.');
+                }
+
+                return Identity::fromPassHolderWithUitpasCollection(
+                    $passHolder,
+                    $uitpasCollectionFilter
+                );
             },
             $result->objects
         );
 
         $pagedResultSet = new PagedResultSet(
             new Integer((int) $result->total),
-            $passHolders
+            $identities
         );
 
         $invalidUitpasNumbers = $result->invalidUitpasNumbers ? $result->invalidUitpasNumbers : array();

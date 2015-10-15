@@ -9,7 +9,7 @@ use ValueObjects\Number\Integer;
 class Query implements QueryBuilderInterface
 {
     /**
-     * @var UiTPASNumberCollection
+     * @var UiTPASNumberCollection|null
      */
     protected $uitpasNumbers;
 
@@ -38,6 +38,14 @@ class Query implements QueryBuilderInterface
         $c = clone $this;
         $c->uitpasNumbers = $uitpasNumbers;
         return $c;
+    }
+
+    /**
+     * @return UiTPASNumberCollection|null
+     */
+    public function getUiTPASNumbers()
+    {
+        return $this->uitpasNumbers;
     }
 
     /**
