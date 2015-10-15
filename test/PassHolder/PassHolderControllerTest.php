@@ -11,8 +11,10 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserial
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\NameJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferencesJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Search\Query;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,6 +35,16 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
      * @var RegistrationJsonDeserializer|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $registrationDeserializer;
+
+    /**
+     * @var Query
+     */
+    protected $searchQuery;
+
+    /**
+     * @var UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $urlGenerator;
 
     /**
      * @var PassHolderController
@@ -56,10 +68,16 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             new KansenStatuutJsonDeserializer()
         );
 
+        $this->searchQuery = new Query();
+
+        $this->urlGenerator = $this->getMock(UrlGeneratorInterface::class);
+
         $this->controller = new PassHolderController(
             $this->service,
             $this->passholderDeserializer,
-            $this->registrationDeserializer
+            $this->registrationDeserializer,
+            $this->searchQuery,
+            $this->urlGenerator
         );
     }
 
