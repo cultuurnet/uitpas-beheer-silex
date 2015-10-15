@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Response;
 
+use CultuurNet\UiTPASBeheer\Exception\ContextualExceptionInterface;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
 use CultuurNet\UiTPASBeheer\Exception\ResponseException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -22,6 +23,10 @@ class JsonErrorResponse extends JsonResponse
 
         if ($exception instanceof ReadableCodeExceptionInterface) {
             $data['code'] = $exception->getReadableCode();
+        }
+
+        if ($exception instanceof ContextualExceptionInterface && !is_null($exception->getContext())) {
+            $data['context'] = $exception->getContext();
         }
 
         parent::__construct($data, $exception->getStatusCode(), $exception->getHeaders());

@@ -56,6 +56,23 @@ class CompleteResponseExceptionTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_has_a_configurable_context()
+    {
+        $exception = new CompleteResponseException(
+            $this->message,
+            $this->readableCode
+        );
+
+        $this->assertNull($exception->getContext());
+
+        $context = 'This can be anything you want.';
+        $exception->setContext($context);
+        $this->assertEquals($context, $exception->getContext());
+    }
+
+    /**
+     * @test
+     */
     public function it_can_be_instantiated_from_a_culturefeed_exception()
     {
         $exception = CompleteResponseException::fromCultureFeedException(
