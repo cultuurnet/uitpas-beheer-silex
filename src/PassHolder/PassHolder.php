@@ -13,6 +13,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASCollection;
 use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
@@ -83,6 +84,11 @@ final class PassHolder implements \JsonSerializable
      * @var \ValueObjects\Number\Integer
      */
     protected $points;
+
+    /**
+     * @var UiTPASCollection|null
+     */
+    protected $uitpasCollection;
 
     /**
      * @param Name $name
@@ -284,6 +290,25 @@ final class PassHolder implements \JsonSerializable
     }
 
     /**
+     * @param UiTPASCollection $uitpasCollection
+     * @return PassHolder
+     */
+    public function withUiTPASCollection(UiTPASCollection $uitpasCollection)
+    {
+        $c = clone $this;
+        $c->uitpasCollection = $uitpasCollection;
+        return $c;
+    }
+
+    /**
+     * @return UiTPASCollection|null
+     */
+    public function getUiTPASCollection()
+    {
+        return $this->uitpasCollection;
+    }
+
+    /**
      * @return Remarks|null
      */
     public function getRemarks()
@@ -360,6 +385,10 @@ final class PassHolder implements \JsonSerializable
             $data['points'] = $this->points->toNative();
         }
 
+        if (!is_null($this->uitpasCollection)) {
+            $data['uitpassen'] = array_values($this->uitpasCollection->jsonSerialize());
+        }
+
         if (!is_null($this->remarks)) {
             $data['remarks'] = $this->remarks->toNative();
         }
@@ -431,9 +460,15 @@ final class PassHolder implements \JsonSerializable
             $kansenStatuutCollection = KansenStatuutCollection::fromCultureFeedPassholderCardSystemSpecific(
                 $cfPassHolder->cardSystemSpecific
             );
-
             if ($kansenStatuutCollection->length() > 0) {
                 $passHolder = $passHolder->withKansenStatuten($kansenStatuutCollection);
+            }
+
+            $uitpasCollection = UiTPASCollection::fromCultureFeedPassholderCardSystemSpecific(
+                $cfPassHolder->cardSystemSpecific
+            );
+            if ($uitpasCollection->length() > 0) {
+                $passHolder = $passHolder->withUiTPASCollection($uitpasCollection);
             }
         }
 
