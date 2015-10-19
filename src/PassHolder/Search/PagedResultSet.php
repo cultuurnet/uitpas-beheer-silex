@@ -28,7 +28,7 @@ class PagedResultSet extends AbstractPagedResultSet
     public function withInvalidUiTPASNumbers(UiTPASNumberCollection $invalidUitpasNumbers)
     {
         $c = clone $this;
-        $c->$invalidUitpasNumbers = $invalidUitpasNumbers;
+        $c->invalidUitpasNumbers = $invalidUitpasNumbers;
         return $c;
     }
 
