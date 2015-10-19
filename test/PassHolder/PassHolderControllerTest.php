@@ -5,16 +5,22 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
 use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\AddressJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\NameJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferencesJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\Query;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use ValueObjects\DateTime\Date;
+use ValueObjects\DateTime\Month;
+use ValueObjects\DateTime\MonthDay;
+use ValueObjects\DateTime\Year;
 
 class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -182,7 +188,22 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->service->expects($this->once())
             ->method('register')
-            ->with($uitpasNumber, $this->getCompletePassHolderUpdate());
+            ->with(
+                $uitpasNumber,
+                $this->getCompletePassHolderUpdate(),
+                new VoucherNumber('i-am-voucher'),
+                (new KansenStatuut(
+                    new Date(
+                        new Year('2345'),
+                        Month::SEPTEMBER(),
+                        new MonthDay(13)
+                    )
+                ))->withRemarks(
+                    new Remarks(
+                        'I am remarkable'
+                    )
+                )
+            );
 
         $this->service->expects($this->once())
             ->method('getByUitpasNumber')

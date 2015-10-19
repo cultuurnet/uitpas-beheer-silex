@@ -141,6 +141,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassHolder->gsm = '0499748596';
         $cfPassHolder->smsPreference = 'NOTIFICATION_SMS';
         $cfPassHolder->emailPreference = 'ALL_MAILS';
+        $cfPassHolder->moreInfo = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.';
 
         $this->uitpas->expects($this->once())
             ->method('updatePassholder')
@@ -190,6 +191,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->gsm = '0499748596';
         $cfPassholder->smsPreference = 'NOTIFICATION_SMS';
         $cfPassholder->emailPreference = 'ALL_MAILS';
+        $cfPassholder->moreInfo = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.';
 
         $this->uitpas->expects($this->once())
             ->method('getPassholderByUitpasNumber')
