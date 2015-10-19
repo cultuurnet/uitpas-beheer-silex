@@ -443,8 +443,8 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
         $expectedCFUitpasSearchOptions = new CultureFeed_Uitpas_Passholder_Query_SearchPassholdersOptions();
         $expectedCFUitpasSearchOptions->balieConsumerKey = 'key';
-        $expectedCFUitpasSearchOptions->max = 10;
-        $expectedCFUitpasSearchOptions->start = 0;
+        $expectedCFUitpasSearchOptions->max = 20;
+        $expectedCFUitpasSearchOptions->start = 40;
         $expectedCFUitpasSearchOptions->uitpasNumber = array(
             '0930000801207',
             '3330047460116',
@@ -539,7 +539,12 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
             ->willReturn($cfResults);
 
         $results = $this->service->search(
-            (new Query())->withUiTPASNumbers($numbers)
+            (new Query())
+                ->withUiTPASNumbers($numbers)
+                ->withPagination(
+                    new Integer(3),
+                    new Integer(20)
+                )
         );
 
         $identityA = new Identity(
