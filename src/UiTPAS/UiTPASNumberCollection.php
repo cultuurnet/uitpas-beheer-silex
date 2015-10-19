@@ -4,6 +4,9 @@ namespace CultuurNet\UiTPASBeheer\UiTPAS;
 
 use TwoDotsTwice\Collection\AbstractCollection;
 
+/**
+ * @method UiTPASNumberCollection with($item)
+ */
 class UiTPASNumberCollection extends AbstractCollection
 {
     /**
