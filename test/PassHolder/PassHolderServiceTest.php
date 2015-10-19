@@ -2,13 +2,25 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
+use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
+use CultuurNet\UiTPASBeheer\Identity\Identity;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
+use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedResultSet;
+use CultuurNet\UiTPASBeheer\PassHolder\Search\Query;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberCollection;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
 use ValueObjects\DateTime\Date;
 use ValueObjects\Identity\UUID;
+use CultureFeed_Uitpas_Passholder_Query_SearchPassholdersOptions;
+use ValueObjects\Number\Integer;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -357,6 +369,226 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $this->service->register(
             $uitpasNumber,
             $passholder
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_fails_on_passholders_without_uitpasses_when_searching()
+    {
+        $numbers = (new UiTPASNumberCollection())
+            ->with(new UiTPASNumber('0930000801207'))
+            ->with(new UiTPASNumber('3330047460116'))
+            ->with(new UiTPASNumber('0930000802619'));
+
+        $expectedCFUitpasSearchOptions = new CultureFeed_Uitpas_Passholder_Query_SearchPassholdersOptions();
+        $expectedCFUitpasSearchOptions->balieConsumerKey = 'key';
+        $expectedCFUitpasSearchOptions->max = 10;
+        $expectedCFUitpasSearchOptions->start = 0;
+        $expectedCFUitpasSearchOptions->uitpasNumber = array(
+            '0930000801207',
+            '3330047460116',
+            '0930000802619',
+        );
+
+        $passHolderA = new \CultureFeed_Uitpas_Passholder();
+        $passHolderA->firstName = 'John';
+        $passHolderA->name = 'Doe';
+        $passHolderA->gender = 'MALE';
+        $passHolderA->street = 'Foo 11';
+        $passHolderA->city = 'Leuven';
+        $passHolderA->postalCode = '3000';
+
+        $passHolderB = new \CultureFeed_Uitpas_Passholder();
+        $passHolderB->firstName = 'Jane';
+        $passHolderB->name = 'Doe';
+        $passHolderB->gender = 'FEMALE';
+        $passHolderA->street = 'Foo 12';
+        $passHolderA->city = 'Leuven';
+        $passHolderA->postalCode = '3000';
+
+        $cfResults = new \CultureFeed_Uitpas_Passholder_ResultSet(
+            2,
+            array(
+                $passHolderA,
+                $passHolderB,
+            )
+        );
+
+        $this->uitpas->expects($this->once())
+            ->method('searchPassholders')
+            ->with($expectedCFUitpasSearchOptions)
+            ->willReturn($cfResults);
+
+        $this->setExpectedException(
+            \LogicException::class,
+            'PassHolder returned by search has not a single uitpas'
+        );
+
+        $this->service->search(
+            (new Query())->withUiTPASNumbers($numbers)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_constructs_identities_based_on_the_uitpas_numbers_searched_for()
+    {
+        $numbers = (new UiTPASNumberCollection())
+            ->with(new UiTPASNumber('0930000801207'))
+            ->with(new UiTPASNumber('3330047460116'))
+            ->with(new UiTPASNumber('0930000802619'));
+
+        $expectedCFUitpasSearchOptions = new CultureFeed_Uitpas_Passholder_Query_SearchPassholdersOptions();
+        $expectedCFUitpasSearchOptions->balieConsumerKey = 'key';
+        $expectedCFUitpasSearchOptions->max = 10;
+        $expectedCFUitpasSearchOptions->start = 0;
+        $expectedCFUitpasSearchOptions->uitpasNumber = array(
+            '0930000801207',
+            '3330047460116',
+            '0930000802619',
+        );
+
+        $invalidNumbers = array('0930000801207');
+
+        $passHolderACardSystemB = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
+        $passHolderACardSystemB->cardSystem = new \CultureFeed_Uitpas_CardSystem(
+            2,
+            'Card system B'
+        );
+        $passHolderACardSystemB->currentCard = new \CultureFeed_Uitpas_Passholder_Card();
+        $passHolderACardSystemB->currentCard->kansenpas = false;
+        $passHolderACardSystemB->currentCard->status = 'ACTIVE';
+        $passHolderACardSystemB->currentCard->uitpasNumber = '0930000803104';
+        $passHolderACardSystemB->currentCard->type = 'CARD';
+
+        $passHolderACardSystemA = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
+        $passHolderACardSystemA->cardSystem = new \CultureFeed_Uitpas_CardSystem(
+            1,
+            'Card system A'
+        );
+        $passHolderACardSystemA->currentCard = new \CultureFeed_Uitpas_Passholder_Card();
+        $passHolderACardSystemA->currentCard->kansenpas = false;
+        $passHolderACardSystemA->currentCard->status = 'ACTIVE';
+        $passHolderACardSystemA->currentCard->uitpasNumber = '0930000802619';
+        $passHolderACardSystemA->currentCard->type = 'CARD';
+
+        $cfPassHolderA = new \CultureFeed_Uitpas_Passholder();
+        $cfPassHolderA->firstName = 'John';
+        $cfPassHolderA->name = 'Doe';
+        $cfPassHolderA->gender = 'MALE';
+        $cfPassHolderA->street = 'Foo 11';
+        $cfPassHolderA->city = 'Leuven';
+        $cfPassHolderA->postalCode = '3000';
+        $cfPassHolderA->cardSystemSpecific = array(
+            $passHolderACardSystemA,
+            $passHolderACardSystemB,
+        );
+
+        // Passholder B does not have any uitpasses that match the passes we searched
+        // for. We expect the first uitpas to which the counter has access to be used
+        // as the preferred card in the identity.
+        $passHolderBCardSystemB = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
+        $passHolderBCardSystemB->cardSystem = new \CultureFeed_Uitpas_CardSystem(
+            2,
+            'Card system B'
+        );
+        $passHolderBCardSystemB->currentCard = new \CultureFeed_Uitpas_Passholder_Card();
+        $passHolderBCardSystemB->currentCard->kansenpas = false;
+        $passHolderBCardSystemB->currentCard->status = 'ACTIVE';
+        $passHolderBCardSystemB->currentCard->uitpasNumber = '1000000035419';
+        $passHolderBCardSystemB->currentCard->type = 'CARD';
+
+        $passHolderBCardSystemA = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
+        $passHolderBCardSystemA->cardSystem = new \CultureFeed_Uitpas_CardSystem(
+            1,
+            'Card system A'
+        );
+        $passHolderBCardSystemA->currentCard = new \CultureFeed_Uitpas_Passholder_Card();
+        $passHolderBCardSystemA->currentCard->kansenpas = false;
+        $passHolderBCardSystemA->currentCard->status = 'ACTIVE';
+        $passHolderBCardSystemA->currentCard->uitpasNumber = '3330047460116';
+        $passHolderBCardSystemA->currentCard->type = 'CARD';
+
+        $cfPassHolderB = new \CultureFeed_Uitpas_Passholder();
+        $cfPassHolderB->firstName = 'Jane';
+        $cfPassHolderB->name = 'Doe';
+        $cfPassHolderB->gender = 'FEMALE';
+        $cfPassHolderB->street = 'Foo 12';
+        $cfPassHolderB->city = 'Leuven';
+        $cfPassHolderB->postalCode = '3000';
+        $cfPassHolderB->cardSystemSpecific = array(
+            $passHolderBCardSystemB,
+            $passHolderBCardSystemA,
+        );
+
+        $cfResults = new \CultureFeed_Uitpas_Passholder_ResultSet(
+            2,
+            array(
+                $cfPassHolderA,
+                $cfPassHolderB,
+            ),
+            $invalidNumbers
+        );
+
+        $this->uitpas->expects($this->once())
+            ->method('searchPassholders')
+            ->with($expectedCFUitpasSearchOptions)
+            ->willReturn($cfResults);
+
+        $results = $this->service->search(
+            (new Query())->withUiTPASNumbers($numbers)
+        );
+
+        $identityA = new Identity(
+            new UiTPAS(
+                new UiTPASNumber('0930000802619'),
+                UiTPASStatus::ACTIVE(),
+                UiTPASType::CARD(),
+                new CardSystem(
+                    new CardSystemId('1'),
+                    new StringLiteral('Card system A')
+                )
+            )
+        );
+
+        $identityA = $identityA->withPassHolder(
+            PassHolder::fromCultureFeedPassHolder($cfPassHolderA)
+        );
+
+        $identityB = new Identity(
+            new UiTPAS(
+                new UiTPASNumber('3330047460116'),
+                UiTPASStatus::ACTIVE(),
+                UiTPASType::CARD(),
+                new CardSystem(
+                    new CardSystemId('1'),
+                    new StringLiteral('Card system A')
+                )
+            )
+        );
+        $identityB = $identityB->withPassHolder(
+            PassHolder::fromCultureFeedPassHolder($cfPassHolderB)
+        );
+
+        $expectedResults = new PagedResultSet(
+            new Integer(2),
+            [
+                $identityA,
+                $identityB,
+            ]
+        );
+
+        $expectedResults = $expectedResults->withInvalidUiTPASNumbers(
+            (new UiTPASNumberCollection())
+                ->with(new UiTPASNumber('0930000801207'))
+        );
+
+        $this->assertEquals(
+            $expectedResults,
+            $results
         );
     }
 }
