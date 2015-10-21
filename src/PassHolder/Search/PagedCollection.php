@@ -3,6 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder\Search;
 
 use CultuurNet\Hydra\PagedCollection as HydraPagedCollection;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberCollection;
 
 class PagedCollection extends HydraPagedCollection
@@ -32,7 +33,10 @@ class PagedCollection extends HydraPagedCollection
 
         if (!is_null($this->invalidUitpasNumbers) &&
             $this->invalidUitpasNumbers->length() > 0) {
-            $data['invalidUitpasNumbers'] = array_values(
+            $data['invalidUitpasNumbers'] = array_map(
+                function (UiTPASNumber $uitpasNumber) {
+                    return $uitpasNumber->toNative();
+                },
                 $this->invalidUitpasNumbers->toArray()
             );
         }
