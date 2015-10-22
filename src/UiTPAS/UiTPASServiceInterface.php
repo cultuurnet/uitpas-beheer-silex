@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\UiTPAS;
 
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\Inquiry;
 use CultuurNet\UiTPASBeheer\UiTPAS\Price\Price;
 use CultuurNet\UiTPASBeheer\UiTPAS\Registration\Registration;

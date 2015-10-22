@@ -5,7 +5,7 @@ namespace CultuurNet\UiTPASBeheer\Advantage;
 use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\UiTPASBeheer\Exception\InternalErrorException;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberInvalidException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -121,7 +121,7 @@ class AdvantageController
      * @throws UiTPASNumberInvalidException
      *   When no valid UiTPASNumber object can be constructed from the
      *   provided value.
-     * @throws ReadableCodeResponseException
+     * @throws CompleteResponseException
      *   When a CultureFeed error occurred.
      *
      * @return JsonResponse
@@ -139,7 +139,7 @@ class AdvantageController
                 );
             }
         } catch (\CultureFeed_Exception $exception) {
-            throw ReadableCodeResponseException::fromCultureFeedException($exception);
+            throw CompleteResponseException::fromCultureFeedException($exception);
         }
 
         return JsonResponse::create()
@@ -165,7 +165,7 @@ class AdvantageController
      *   When no advantage service was found for the advantage identifier's type.
      * @throws AdvantageNotFoundException
      *   When no advantage was found for the specified advantage identifier.
-     * @throws ReadableCodeResponseException
+     * @throws CompleteResponseException
      *   When a CultureFeed error occurred.
      */
     public function exchange(Request $request, $uitpasNumber)
@@ -184,7 +184,7 @@ class AdvantageController
                 $advantageIdentifier->getId()
             );
         } catch (\CultureFeed_Exception $exception) {
-            throw ReadableCodeResponseException::fromCultureFeedException($exception);
+            throw CompleteResponseException::fromCultureFeedException($exception);
         }
 
         return $this->getAdvantageJsonResponse($uitpasNumber, $advantageIdentifier);

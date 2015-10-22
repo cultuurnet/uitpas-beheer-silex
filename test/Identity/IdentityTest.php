@@ -10,11 +10,16 @@ use CultuurNet\UiTPASBeheer\PassHolder\PassHolder;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformation;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
+use CultuurNet\UiTPASBeheer\UiTPAS\Filter\UiTPASFilterInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASCollection;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
 use ValueObjects\DateTime\Date;
+use ValueObjects\DateTime\Month;
+use ValueObjects\DateTime\MonthDay;
+use ValueObjects\DateTime\Year;
 use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -102,6 +107,21 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
      */
     protected $uitpasNumber;
 
+    /**
+     * @var UiTPAS
+     */
+    protected $uitpasA;
+
+    /**
+     * @var UiTPAS
+     */
+    protected $uitpasB;
+
+    /**
+     * @var UiTPAS
+     */
+    protected $uitpasC;
+
     public function setUp()
     {
         $this->firstName = new StringLiteral('Layla');
@@ -148,6 +168,36 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
             new CardSystem(
                 new CardSystemId('999'),
                 new StringLiteral('UiTPAS Regio Aalst')
+            )
+        );
+
+        $this->uitpasA = new UiTPAS(
+            new UiTPASNumber('0930000802619'),
+            UiTPASStatus::ACTIVE(),
+            UiTPASType::CARD(),
+            new CardSystem(
+                new CardSystemId('1'),
+                new StringLiteral('system A')
+            )
+        );
+
+        $this->uitpasB = new UiTPAS(
+            new UiTPASNumber('3330047460116'),
+            UiTPASStatus::ACTIVE(),
+            UiTPASType::CARD(),
+            new CardSystem(
+                new CardSystemId('2'),
+                new StringLiteral('system B')
+            )
+        );
+
+        $this->uitpasC = new UiTPAS(
+            new UiTPASNumber('0930000801207'),
+            UiTPASStatus::ACTIVE(),
+            UiTPASType::CARD(),
+            new CardSystem(
+                new CardSystemId('3'),
+                new StringLiteral('system C')
             )
         );
 
@@ -261,5 +311,109 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
 
         $json = json_encode($identity);
         $this->assertJsonEquals($json, 'Identity/data/identity-group.json');
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_be_factored_from_a_passholder_and_its_uitpasses()
+    {
+        $johnDoe = $this->johnDoe()
+            ->withUiTPASCollection($this->uitpasCollection());
+
+        $identity = Identity::fromPassHolderWithUitpasCollection($johnDoe);
+
+        $expectedIdentity = new Identity($this->uitpasA);
+        $expectedIdentity = $expectedIdentity->withPassHolder($johnDoe);
+
+        $this->assertEquals(
+            $expectedIdentity,
+            $identity
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_fails_when_attempting_to_factor_from_a_passholder_without_uitpasses()
+    {
+        $johnDoe = $this->johnDoe();
+
+        $this->setExpectedException(\InvalidArgumentException::class);
+
+        Identity::fromPassHolderWithUitpasCollection($johnDoe);
+    }
+
+    /**
+     * @return PassHolder
+     */
+    private function johnDoe()
+    {
+        $johnDoe = new PassHolder(
+            new Name(
+                new StringLiteral('John'),
+                new StringLiteral('Doe')
+            ),
+            new Address(
+                new StringLiteral('3000'),
+                new StringLiteral('Leuven')
+            ),
+            new BirthInformation(
+                new Date(
+                    new Year(1979),
+                    Month::APRIL(),
+                    new MonthDay(1)
+                )
+            )
+        );
+
+        return $johnDoe;
+    }
+
+
+    /**
+     * @return UiTPASCollection
+     */
+    private function uitpasCollection()
+    {
+        $uitpasCollection = (new UiTPASCollection())
+            ->with($this->uitpasA)
+            ->with($this->uitpasB)
+            ->with($this->uitpasC);
+
+        return $uitpasCollection;
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_be_factored_from_a_passholder_and_its_filtered_uitpasses()
+    {
+        $uitpasFilter = $this->getMock(UiTPASFilterInterface::class);
+        $uitpasFilter->expects($this->once())
+            ->method('filter')
+            ->with()
+            ->willReturn(
+                (new UiTPASCollection())
+                    ->with($this->uitpasB)
+                    ->with($this->uitpasC)
+            );
+
+        $johnDoe = $this->johnDoe()->withUiTPASCollection(
+            $this->uitpasCollection()
+        );
+
+        $expectedIdentity = new Identity($this->uitpasB);
+        $expectedIdentity = $expectedIdentity->withPassHolder($johnDoe);
+
+        $identity = Identity::fromPassHolderWithUitpasCollection(
+            $johnDoe,
+            $uitpasFilter
+        );
+
+        $this->assertEquals(
+            $expectedIdentity,
+            $identity
+        );
     }
 }

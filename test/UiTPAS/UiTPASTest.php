@@ -64,6 +64,53 @@ class UiTPASTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_returns_all_properties()
+    {
+        $number = new UiTPASNumber($this->number);
+        $status = UiTPASStatus::ACTIVE();
+        $type = UiTPASType::CARD();
+        $cardSystem = new CardSystem(
+            new CardSystemId('999'),
+            new StringLiteral('UiTPAS Regio Aalst')
+        );
+        $city = new StringLiteral($this->city);
+
+        $uitpas = (new UiTPAS(
+            $number,
+            $status,
+            $type,
+            $cardSystem
+        ))->withCity($city);
+
+        $this->assertEquals(
+            $number,
+            $uitpas->getNumber()
+        );
+
+        $this->assertEquals(
+            $status,
+            $uitpas->getStatus()
+        );
+
+        $this->assertEquals(
+            $type,
+            $uitpas->getType()
+        );
+
+        $this->assertEquals(
+            $cardSystem,
+            $uitpas->getCardSystem()
+        );
+
+        $this->assertEquals(
+            $city,
+            $uitpas->getCity()
+        );
+    }
+
+    /**
+     * @test
+     */
     public function it_can_extract_properties_from_a_culturefeed_passholder_card()
     {
         $expected = (new UiTPAS(

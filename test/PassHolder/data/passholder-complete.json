@@ -23,6 +23,7 @@
     "telephoneNumber": "0488694231",
     "mobileNumber": "0499748596"
   },
+  "remarks": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.",
   "kansenStatuten": [
     {
       "endDate": "2015-09-15",
@@ -45,5 +46,37 @@
     "email": true,
     "sms": false
   },
-  "points": 20
+  "points": 20,
+  "uitpassen": [
+    {
+      "number": "4567345678910",
+      "kansenStatuut": true,
+      "status": "ACTIVE",
+      "type": "CARD",
+      "cardSystem": {
+        "id": "10",
+        "name": "UiTPAS Regio Aalst"
+      }
+    },
+    {
+      "number": "4567345678902",
+      "kansenStatuut": false,
+      "status": "ACTIVE",
+      "type": "KEY",
+      "cardSystem": {
+        "id": "20",
+        "name": "UiTPAS Regio Kortrijk"
+      }
+    },
+    {
+      "number": "1256789944516",
+      "kansenStatuut": true,
+      "status": "BLOCKED",
+      "type": "STICKER",
+      "cardSystem": {
+        "id": "30",
+        "name": "UiTPAS Regio Brussel"
+      }
+    }
+  ]
 }

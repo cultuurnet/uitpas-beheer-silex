@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Exception;
 
-class InternalErrorException extends ReadableCodeResponseException
+class InternalErrorException extends CompleteResponseException
 {
     public function __construct()
     {

@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Exception;
 
-class MissingParameterException extends ReadableCodeResponseException
+class MissingParameterException extends CompleteResponseException
 {
     public function __construct($parameter, $code = 'MISSING_PARAMETER')
     {

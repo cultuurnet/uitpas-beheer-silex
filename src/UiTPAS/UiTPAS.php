@@ -52,6 +52,38 @@ final class UiTPAS implements \JsonSerializable
     }
 
     /**
+     * @return UiTPASNumber
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
+
+    /**
+     * @return UiTPASStatus
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @return UiTPASType
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @return CardSystem
+     */
+    public function getCardSystem()
+    {
+        return $this->cardSystem;
+    }
+
+    /**
      * @param StringLiteral $city
      * @return UiTPAS
      */
@@ -60,6 +92,14 @@ final class UiTPAS implements \JsonSerializable
         $c = clone $this;
         $c->city = $city;
         return $c;
+    }
+
+    /**
+     * @return StringLiteral|null
+     */
+    public function getCity()
+    {
+        return $this->city;
     }
 
     /**

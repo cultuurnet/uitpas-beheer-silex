@@ -6,7 +6,7 @@ use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\Registration;
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\TariffId;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
@@ -203,14 +203,14 @@ class TicketSaleServiceTest extends \PHPUnit_Framework_TestCase
                 $this->uitpasNumber,
                 $this->registration
             );
-            $this->fail('A ReadableCodeResponseException should have been thrown.');
-        } catch (ReadableCodeResponseException $e) {
+            $this->fail('A CompleteResponseException should have been thrown.');
+        } catch (CompleteResponseException $e) {
             $this->assertEquals($expectedMessage, $e->getMessage());
             $this->assertEquals($expectedCode, $e->getReadableCode());
             $this->assertEquals(400, $e->getCode());
         } catch (\Exception $e) {
             $this->fail(
-                'A ReadableCodeResponseException should have been thrown. Caught ' . get_class($e) . ' instead.'
+                'A CompleteResponseException should have been thrown. Caught ' . get_class($e) . ' instead.'
             );
         }
     }

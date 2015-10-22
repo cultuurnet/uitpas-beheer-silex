@@ -16,6 +16,12 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASCollection;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
 use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\Month;
@@ -70,6 +76,11 @@ trait PassHolderDataTrait
                 PrivacyPreferenceEmail::ALL(),
                 PrivacyPreferenceSMS::NOTIFICATION()
             )
+        )
+        ->withRemarks(
+            new Remarks(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.'
+            )
         );
     }
 
@@ -84,6 +95,21 @@ trait PassHolderDataTrait
             $gender = Gender::FEMALE();
         }
 
+        $cardSystem10 = new CardSystem(
+            new CardSystemId('10'),
+            new StringLiteral('UiTPAS Regio Aalst')
+        );
+
+        $cardSystem20 = new CardSystem(
+            new CardSystemId('20'),
+            new StringLiteral('UiTPAS Regio Kortrijk')
+        );
+
+        $cardSystem30 = new CardSystem(
+            new CardSystemId('30'),
+            new StringLiteral('UiTPAS Regio Brussel')
+        );
+
         $kansenStatuten = (new KansenStatuutCollection())
             ->withKey(
                 10,
@@ -96,10 +122,7 @@ trait PassHolderDataTrait
                 ))->withStatus(
                     KansenStatuutStatus::IN_GRACE_PERIOD()
                 )->withCardSystem(
-                    new CardSystem(
-                        new CardSystemId('10'),
-                        new StringLiteral('UiTPAS Regio Aalst')
-                    )
+                    $cardSystem10
                 )
             )
             ->withKey(
@@ -113,10 +136,33 @@ trait PassHolderDataTrait
                 ))->withStatus(
                     KansenStatuutStatus::EXPIRED()
                 )->withCardSystem(
-                    new CardSystem(
-                        new CardSystemId('30'),
-                        new StringLiteral('UiTPAS Regio Brussel')
-                    )
+                    $cardSystem30
+                )
+            );
+
+        $uitpasCollection = (new UiTPASCollection())
+            ->with(
+                new UiTPAS(
+                    new UiTPASNumber('4567345678910'),
+                    UiTPASStatus::ACTIVE(),
+                    UiTPASType::CARD(),
+                    $cardSystem10
+                )
+            )
+            ->with(
+                new UiTPAS(
+                    new UiTPASNumber('4567345678902'),
+                    UiTPASStatus::ACTIVE(),
+                    UiTPASType::KEY(),
+                    $cardSystem20
+                )
+            )
+            ->with(
+                new UiTPAS(
+                    new UiTPASNumber('1256789944516'),
+                    UiTPASStatus::BLOCKED(),
+                    UiTPASType::STICKER(),
+                    $cardSystem30
                 )
             );
 
@@ -166,6 +212,12 @@ trait PassHolderDataTrait
             )
         )->withPoints(
             new Integer(20)
+        )->withUiTPASCollection(
+            $uitpasCollection
+        )->withRemarks(
+            new Remarks(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.'
+            )
         );
     }
 }

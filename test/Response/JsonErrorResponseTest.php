@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Response;
 
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\Exception\MockReadableCodeException;
 use CultuurNet\UiTPASBeheer\Exception\MockResponseException;
 use CultuurNet\UiTPASBeheer\Exception\ResponseException;
@@ -73,6 +74,32 @@ class JsonErrorResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $data);
     }
 
+    /**
+     * @test
+     */
+    public function it_adds_context_information_if_provided()
+    {
+        $context = 'This can be anything you want.';
+
+        $exception = new CompleteResponseException($this->message, $this->code);
+        $exception->setContext($context);
+
+        $data = $this->getResponseDataForException($exception);
+
+        $expected = new \stdClass();
+        $expected->type = "error";
+        $expected->exception = CompleteResponseException::class;
+        $expected->message = $this->message;
+        $expected->code = $this->code;
+        $expected->context = $context;
+
+        $this->assertEquals($expected, $data);
+    }
+
+    /**
+     * @param ResponseException $exception
+     * @return array
+     */
     private function getResponseDataForException(ResponseException $exception)
     {
         $response = new JsonErrorResponse($exception);

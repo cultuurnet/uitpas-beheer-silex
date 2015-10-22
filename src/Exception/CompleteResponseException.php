@@ -2,12 +2,19 @@
 
 namespace CultuurNet\UiTPASBeheer\Exception;
 
-class ReadableCodeResponseException extends ResponseException implements ReadableCodeExceptionInterface
+class CompleteResponseException extends ResponseException implements
+    ReadableCodeExceptionInterface,
+    ContextualExceptionInterface
 {
     /**
      * @var string
      */
     protected $readableCode;
+
+    /**
+     * @var mixed
+     */
+    protected $context;
 
     /**
      * @param string $message
@@ -35,6 +42,22 @@ class ReadableCodeResponseException extends ResponseException implements Readabl
     public function getReadableCode()
     {
         return $this->readableCode;
+    }
+
+    /**
+     * @param mixed $context
+     */
+    public function setContext($context)
+    {
+        $this->context = $context;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContext()
+    {
+        return $this->context;
     }
 
     /**

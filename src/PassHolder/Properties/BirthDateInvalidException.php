@@ -5,9 +5,9 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
 
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 
-class BirthDateInvalidException extends ReadableCodeResponseException
+class BirthDateInvalidException extends CompleteResponseException
 {
     /**
      * @param string $value

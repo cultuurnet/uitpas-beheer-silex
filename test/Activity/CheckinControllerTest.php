@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity;
 
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -115,7 +115,7 @@ class CheckinControllerTest extends \PHPUnit_Framework_TestCase
             ->with(new UiTPASNumber($uitpasNumber), new Cdbid('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'))
             ->willThrowException($exception);
 
-        $this->setExpectedException(ReadableCodeResponseException::class);
+        $this->setExpectedException(CompleteResponseException::class);
 
         $this->controller->checkin($request, $uitpasNumber);
     }

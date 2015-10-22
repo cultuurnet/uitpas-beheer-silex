@@ -2,17 +2,39 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
+use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
+use CultuurNet\UiTPASBeheer\Exception\IncorrectParameterValueException;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
+use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
+use CultuurNet\UiTPASBeheer\Identity\Identity;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\AddressJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\NameJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferencesJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
+use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedResultSet;
+use CultuurNet\UiTPASBeheer\PassHolder\Search\Query;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASCollection;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberCollection;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use ValueObjects\DateTime\Date;
+use ValueObjects\DateTime\Month;
+use ValueObjects\DateTime\MonthDay;
+use ValueObjects\DateTime\Year;
+use ValueObjects\Number\Integer;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -33,6 +55,16 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
      * @var RegistrationJsonDeserializer|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $registrationDeserializer;
+
+    /**
+     * @var Query
+     */
+    protected $searchQuery;
+
+    /**
+     * @var UrlGeneratorInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $urlGenerator;
 
     /**
      * @var PassHolderController
@@ -56,11 +88,180 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             new KansenStatuutJsonDeserializer()
         );
 
+        $this->searchQuery = new Query();
+
+        $this->urlGenerator = $this->getMock(UrlGeneratorInterface::class);
+
         $this->controller = new PassHolderController(
             $this->service,
             $this->passholderDeserializer,
-            $this->registrationDeserializer
+            $this->registrationDeserializer,
+            $this->searchQuery,
+            $this->urlGenerator
         );
+    }
+
+    /**
+     * @test
+     */
+    public function it_responds_search_results_for_a_set_of_uitpas_numbers()
+    {
+        $request = new Request(
+            [
+                'uitpasNumber' => [
+                    '0930000420206',
+                    '0930000237915',
+                ],
+            ]
+        );
+
+        $expectedQuery = (new Query())
+            ->withUiTPASNumbers(
+                (new UiTPASNumberCollection())
+                    ->with(new UiTPASNumber('0930000420206'))
+                    ->with(new UiTPASNumber('0930000237915'))
+            )
+            ->withPagination(
+                new Integer(1),
+                new Integer(10)
+            );
+
+        $uitpas = new UiTPAS(
+            new UiTPASNumber('0930000420206'),
+            UiTPASStatus::ACTIVE(),
+            UiTPASType::CARD(),
+            new CardSystem(
+                new CardSystemId('2'),
+                new StringLiteral('Uitpas regio Landen')
+            )
+        );
+
+        $passHolder = $this->getCompletePassHolder()
+            ->withUiTPASCollection(
+                (new UiTPASCollection())
+                    ->with($uitpas)
+            );
+
+        $identity = (new Identity($uitpas))
+            ->withPassHolder($passHolder);
+
+        $pagedResultSet = (new PagedResultSet(
+            new Integer(30),
+            [$identity]
+        ))->withInvalidUiTPASNumbers(
+            (new UiTPASNumberCollection())
+                ->with(new UiTPASNumber('0930000237915'))
+        );
+
+        $this->service->expects($this->once())
+            ->method('search')
+            ->with($expectedQuery)
+            ->willReturn($pagedResultSet);
+
+        $this->urlGenerator->expects($this->any())
+            ->method('generate')
+            ->willReturnCallback(
+                function ($routeName, $query) {
+                    return 'http://foo.bar/search?' . http_build_query($query);
+                }
+            );
+
+        $response = $this->controller->search($request);
+        $json = $response->getContent();
+
+        $this->assertJsonEquals($json, 'PassHolder/data/search/paged-collection.json');
+    }
+
+    /**
+     * @test
+     */
+    public function it_responds_search_results_for_a_single_uitpas_number()
+    {
+        $request = new Request(['uitpasNumber' => '0930000420206']);
+
+        $expectedQuery = (new Query())
+            ->withUiTPASNumbers(
+                (new UiTPASNumberCollection())
+                    ->with(new UiTPASNumber('0930000420206'))
+            )
+            ->withPagination(
+                new Integer(1),
+                new Integer(10)
+            );
+
+        $this->service->expects($this->once())
+            ->method('search')
+            ->with($expectedQuery)
+            ->willReturn(new PagedResultSet(new Integer(0), []));
+
+        $this->controller->search($request);
+    }
+
+    /**
+     * @test
+     */
+    public function it_responds_a_specific_page_of_search_results()
+    {
+        $request = new Request(
+            [
+                'page' => '2',
+                'limit' => '100',
+            ]
+        );
+
+        $expectedQuery = (new Query())
+            ->withPagination(
+                new Integer(2),
+                new Integer(100)
+            );
+
+        $this->service->expects($this->once())
+            ->method('search')
+            ->with($expectedQuery)
+            ->willReturn(new PagedResultSet(new Integer(0), []));
+
+        $this->controller->search($request);
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_searching_for_an_unknown_parameter()
+    {
+        $request = new Request(['unknown' => 'foo']);
+        $this->setExpectedException(UnknownParameterException::class);
+        $this->controller->search($request);
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_searching_by_invalid_formatted_uitpasnumbers()
+    {
+        // First uitpas number is valid, the others are invalid.
+        $uitpasNumbers = [
+            '0930000420206',
+            '093000042020',
+            '09A3B004202066',
+            '0930000237912',
+        ];
+
+        $invalidUitpasNumbers = $uitpasNumbers;
+        array_shift($invalidUitpasNumbers);
+
+        $request = new Request(
+            [
+                'uitpasNumber' => $uitpasNumbers,
+            ]
+        );
+
+        try {
+            $this->controller->search($request);
+            $this->fail('search was expected to throw UiTPASNumberInvalidException');
+        } catch (IncorrectParameterValueException $e) {
+            $this->assertEquals($invalidUitpasNumbers, $e->getContext());
+            $this->assertEquals('INVALID_UITPAS_NUMBER', $e->getReadableCode());
+        }
     }
 
     /**
@@ -147,7 +348,7 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             ->method('update')
             ->willThrowException(new \CultureFeed_Exception($message, $code));
 
-        $this->setExpectedException(ReadableCodeResponseException::class);
+        $this->setExpectedException(CompleteResponseException::class);
         $this->controller->update($request, $uitpasNumberValue);
     }
 
@@ -164,7 +365,22 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->service->expects($this->once())
             ->method('register')
-            ->with($uitpasNumber, $this->getCompletePassHolderUpdate());
+            ->with(
+                $uitpasNumber,
+                $this->getCompletePassHolderUpdate(),
+                new VoucherNumber('i-am-voucher'),
+                (new KansenStatuut(
+                    new Date(
+                        new Year('2345'),
+                        Month::SEPTEMBER(),
+                        new MonthDay(13)
+                    )
+                ))->withRemarks(
+                    new Remarks(
+                        'I am remarkable'
+                    )
+                )
+            );
 
         $this->service->expects($this->once())
             ->method('getByUitpasNumber')
@@ -193,7 +409,7 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             ->method('register')
             ->willThrowException(new \CultureFeed_Exception($message, $code));
 
-        $this->setExpectedException(ReadableCodeResponseException::class);
+        $this->setExpectedException(CompleteResponseException::class);
         $this->controller->register($request, $uitpasNumberValue);
     }
 }

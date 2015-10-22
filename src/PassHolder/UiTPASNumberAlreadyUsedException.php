@@ -2,9 +2,9 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 
-class UiTPASNumberAlreadyUsedException extends ReadableCodeResponseException
+class UiTPASNumberAlreadyUsedException extends CompleteResponseException
 {
     public function __construct()
     {

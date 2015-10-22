@@ -2,9 +2,9 @@
 
 namespace CultuurNet\UiTPASBeheer\User;
 
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 
-class UserNotFoundException extends ReadableCodeResponseException
+class UserNotFoundException extends CompleteResponseException
 {
     public function __construct($searchProperty, $value)
     {

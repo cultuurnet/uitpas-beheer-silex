@@ -3,11 +3,11 @@
 namespace CultuurNet\UiTPASBeheer\Advantage;
 
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
-use CultuurNet\UiTPASBeheer\Exception\ReadableCodeResponseException;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\Exception\ResponseException;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdvantageNotFoundException extends ReadableCodeResponseException
+class AdvantageNotFoundException extends CompleteResponseException
 {
     /**
      * @param AdvantageIdentifier $advantageIdentifier
