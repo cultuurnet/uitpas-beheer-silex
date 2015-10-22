@@ -33,6 +33,14 @@ final class Identity implements \JsonSerializable
     }
 
     /**
+     * @return UiTPAS
+     */
+    public function getUiTPAS()
+    {
+        return $this->uitPas;
+    }
+
+    /**
      * @param PassHolder $passHolder
      * @return Identity
      */

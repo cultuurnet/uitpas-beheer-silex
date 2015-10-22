@@ -150,6 +150,8 @@ class PassHolderController
             $pageUrlGenerator
         );
 
+        // These are technically not invalid formatted, but the search just
+        // didn't return any results for them.
         $invalidUitpasNumbers = $resultSet->getInvalidUitpasNumbers();
         if (!is_null($invalidUitpasNumbers)) {
             $pagedCollection = $pagedCollection->withInvalidUitpasNumbers($invalidUitpasNumbers);

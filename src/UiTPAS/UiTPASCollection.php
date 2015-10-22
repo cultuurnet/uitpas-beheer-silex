@@ -5,6 +5,9 @@ namespace CultuurNet\UiTPASBeheer\UiTPAS;
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use TwoDotsTwice\Collection\AbstractCollection;
 
+/**
+ * @method UiTPASCollection with($uitpas)
+ */
 class UiTPASCollection extends AbstractCollection implements \JsonSerializable
 {
     /**

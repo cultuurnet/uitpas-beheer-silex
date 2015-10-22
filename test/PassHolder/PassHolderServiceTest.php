@@ -42,6 +42,11 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
     protected $counter;
 
     /**
+     * @var \CultureFeed_Uitpas_Counter_EmployeeCardSystem
+     */
+    protected $counterCardSystem;
+
+    /**
      * @var PassHolderService
      */
     protected $service;
@@ -53,8 +58,13 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $this->uitpas = $this->getMock(\CultureFeed_Uitpas::class);
         $this->counterConsumerKey = new CounterConsumerKey('key');
 
+        $this->counterCardSystem = new \CultureFeed_Uitpas_Counter_EmployeeCardSystem();
+        $this->counterCardSystem->id = 20;
+        $this->counterCardSystem->name = 'UiTPAS Regio Kortrijk';
+
         $this->counter = new \CultureFeed_Uitpas_Counter_Employee();
         $this->counter->consumerKey = $this->counterConsumerKey->toNative();
+        $this->counter->cardSystems = array($this->counterCardSystem);
 
         $this->service = new PassHolderService(
             $this->uitpas,
@@ -594,6 +604,73 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             $expectedResults,
             $results
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_identifies_by_the_first_uitpas_usable_by_the_active_counter_when_not_searching_by_uitpas()
+    {
+        $query = (new Query())
+            ->withPagination(
+                new Integer(1),
+                new Integer(10)
+            );
+
+        // Card system not tied to the active counter.
+        $cfCardSystemSpecific = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
+        $cfCardSystemSpecific->cardSystem = new \CultureFeed_Uitpas_CardSystem();
+        $cfCardSystemSpecific->cardSystem->id = 10;
+        $cfCardSystemSpecific->cardSystem->name = 'UiTPAS Regio Aarschot';
+        $cfCardSystemSpecific->currentCard = new \CultureFeed_Uitpas_Passholder_Card();
+        $cfCardSystemSpecific->currentCard->type = 'CARD';
+        $cfCardSystemSpecific->currentCard->status = 'ACTIVE';
+        $cfCardSystemSpecific->currentCard->uitpasNumber = '4567345678910';
+        $cfCardSystemSpecific->currentCard->cardSystem = $cfCardSystemSpecific->cardSystem;
+
+        // Card system tied to the active counter.
+        $cfCounterCardSystemSpecific = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
+        $cfCounterCardSystemSpecific->cardSystem = $this->counterCardSystem;
+        $cfCounterCardSystemSpecific->currentCard = new \CultureFeed_Uitpas_Passholder_Card();
+        $cfCounterCardSystemSpecific->currentCard->type = 'CARD';
+        $cfCounterCardSystemSpecific->currentCard->status = 'ACTIVE';
+        $cfCounterCardSystemSpecific->currentCard->uitpasNumber = '4567345678902';
+        $cfCounterCardSystemSpecific->currentCard->cardSystem = $this->counterCardSystem;
+
+        // Passholder with uitpasses in 2 card systems.
+        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassHolder->firstName = 'John';
+        $cfPassHolder->name = 'Doe';
+        $cfPassHolder->gender = 'MALE';
+        $cfPassHolder->street = 'Foo 11';
+        $cfPassHolder->city = 'Leuven';
+        $cfPassHolder->postalCode = '3000';
+        $cfPassHolder->cardSystemSpecific[] = $cfCardSystemSpecific;
+        $cfPassHolder->cardSystemSpecific[] = $cfCounterCardSystemSpecific;
+
+        $cfResultSet = new \CultureFeed_Uitpas_Passholder_ResultSet();
+        $cfResultSet->total = 1;
+        $cfResultSet->objects = array($cfPassHolder);
+
+        $this->uitpas->expects($this->once())
+            ->method('searchPassholders')
+            ->willReturn($cfResultSet);
+
+        $resultSet = $this->service->search($query);
+        $results = $resultSet->getResults();
+
+        /* @var Identity $identity */
+        $identity = reset($results);
+
+        // The identity's uitpas should be the one tied to the active counter's card system.
+        $this->assertEquals(
+            '4567345678902',
+            $identity->getUiTPAS()->getNumber()->toNative()
+        );
+        $this->assertEquals(
+            CardSystem::fromCultureFeedCardSystem($this->counterCardSystem),
+            $identity->getUiTPAS()->getCardSystem()
         );
     }
 }
