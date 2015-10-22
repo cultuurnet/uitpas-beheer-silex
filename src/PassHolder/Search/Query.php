@@ -212,6 +212,33 @@ class Query implements QueryBuilderInterface
             );
         }
 
+        if (!is_null($this->dateOfBirth)) {
+            $searchOptions->dob = $this->dateOfBirth->toNativeDateTime()->getTimestamp();
+        }
+        if (!is_null($this->firstName)) {
+            $searchOptions->firstName = $this->firstName->toNative();
+        }
+        if (!is_null($this->name)) {
+            $searchOptions->name = $this->name->toNative();
+        }
+        if (!is_null($this->street)) {
+            $searchOptions->street = $this->street->toNative();
+        }
+        if (!is_null($this->city)) {
+            $searchOptions->city = $this->city->toNative();
+        }
+        if (!is_null($this->email)) {
+            $searchOptions->email = $this->email->toNative();
+        }
+        if (!is_null($this->associationId)) {
+            $searchOptions->associationId = $this->associationId->toNative();
+        }
+
+        $searchOptions->expiredMemberships = 'BOTH';
+        if (!is_null($this->membershipStatus)) {
+            $searchOptions->expiredMemberships = $this->membershipStatus->toNative();
+        }
+
         return $searchOptions;
     }
 }
