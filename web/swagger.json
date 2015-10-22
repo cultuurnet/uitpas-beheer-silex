@@ -1261,6 +1261,31 @@
           "Counter"
         ]
       }
+    },
+    "/counters/active/associations": {
+      "get": {
+        "summary": "Returns all associations that the counter can read and register.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "getCounterAssociations",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of associations that the counter can read and register to.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Association"
+              }
+            }
+          }
+        },
+        "tags": [
+          "Association",
+          "Counter"
+        ]
+      }
     }
   },
   "tags": [
@@ -1311,6 +1336,10 @@
     {
       "name": "Member",
       "description": "Operations related to (Counter) Members."
+    },
+    {
+      "name": "Association",
+      "description": "Operations related to Associations."
     }
   ],
   "definitions": {
@@ -2750,6 +2779,47 @@
       "required": [
         "email"
       ]
+    },
+    "Association": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "1"
+        },
+        "name": {
+          "type": "string",
+          "example": "Chiro Jongens"
+        },
+        "enddateCalculation": {
+          "type": "string",
+          "enum": [
+            "FREE",
+            "BASED_ON_DATE_OF_BIRTH",
+            "BASED_ON_REGISTRATION_DATE"
+          ]
+        },
+        "enddateCalculationFreeDate": {
+          "type": "integer",
+          "example": 1451602799
+        },
+        "enddateCalculationValidityTime": {
+          "type": "integer",
+          "example": 30
+        },
+        "permissionRead": {
+          "type": "boolean"
+        },
+        "permissionRegister": {
+          "type": "boolean"
+        },
+        "cardSystems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CardSystem"
+          }
+        }
+      }
     }
   }
 }
