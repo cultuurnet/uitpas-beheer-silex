@@ -129,8 +129,7 @@ final class Identity implements \JsonSerializable
             }
         }
 
-        $uitpasArray = $uitpasCollection->toArray();
-        $uitpas = reset($uitpasArray);
+        $uitpas = reset($uitpasCollection->toArray());
 
         return (new Identity($uitpas))
             ->withPassHolder($passHolder);
