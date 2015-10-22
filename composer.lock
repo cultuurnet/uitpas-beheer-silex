@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bc670d016665a956b3aec813606c3c17",
-    "content-hash": "ac72adf05c021c6cc8f940872bf9ce4e",
+    "hash": "17a698685f318b892890b519b0c000a4",
+    "content-hash": "7436ea2036891629e6a67e397215cd83",
     "packages": [
         {
             "name": "2dotstwice/collection",
@@ -273,16 +273,16 @@
         },
         {
             "name": "cultuurnet/culturefeed-php",
-            "version": "dev-feature/UBR-308",
+            "version": "dev-feature/UBR",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "6eba29eeaa58b0b3cfcd8f77adb2c6efe475503e"
+                "reference": "d4d66282b230a821b249d6a7c46a6e943ecc5fa8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/6eba29eeaa58b0b3cfcd8f77adb2c6efe475503e",
-                "reference": "6eba29eeaa58b0b3cfcd8f77adb2c6efe475503e",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/d4d66282b230a821b249d6a7c46a6e943ecc5fa8",
+                "reference": "d4d66282b230a821b249d6a7c46a6e943ecc5fa8",
                 "shasum": ""
             },
             "require": {
@@ -336,7 +336,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-10-14 13:55:46"
+            "time": "2015-10-22 18:37:30"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -3716,16 +3716,16 @@
         },
         {
             "name": "zendframework/zend-stdlib",
-            "version": "2.7.3",
+            "version": "2.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-stdlib.git",
-                "reference": "8ac0c77ff567fcf49b58689ee3bfa7595be102bc"
+                "reference": "cae029346a33663b998507f94962eb27de060683"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/8ac0c77ff567fcf49b58689ee3bfa7595be102bc",
-                "reference": "8ac0c77ff567fcf49b58689ee3bfa7595be102bc",
+                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/cae029346a33663b998507f94962eb27de060683",
+                "reference": "cae029346a33663b998507f94962eb27de060683",
                 "shasum": ""
             },
             "require": {
@@ -3770,7 +3770,7 @@
                 "stdlib",
                 "zf2"
             ],
-            "time": "2015-09-25 04:06:33"
+            "time": "2015-10-15 15:57:32"
         },
         {
             "name": "zendframework/zend-validator",
@@ -4386,16 +4386,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.13",
+            "version": "4.8.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "be067d6105286b74272facefc2697038f8807b77"
+                "reference": "be8f7b9eacf8243940f8412f8b4a9a434c73dd7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/be067d6105286b74272facefc2697038f8807b77",
-                "reference": "be067d6105286b74272facefc2697038f8807b77",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/be8f7b9eacf8243940f8412f8b4a9a434c73dd7b",
+                "reference": "be8f7b9eacf8243940f8412f8b4a9a434c73dd7b",
                 "shasum": ""
             },
             "require": {
@@ -4454,7 +4454,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-10-14 13:49:40"
+            "time": "2015-10-22 09:05:37"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -5086,7 +5086,7 @@
         {
             "alias": "1.5.2",
             "alias_normalized": "1.5.2.0",
-            "version": "dev-feature/UBR-308",
+            "version": "dev-feature/UBR",
             "package": "cultuurnet/culturefeed-php"
         },
         {
