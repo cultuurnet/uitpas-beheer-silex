@@ -1,0 +1,88 @@
+{
+  "@context": "http://www.w3.org/ns/hydra/context.jsonld",
+  "@type": "PagedCollection",
+  "itemsPerPage": 10,
+  "totalItems": 30,
+  "member": [
+    {
+      "uitPas": {
+        "number": "0930000420206",
+        "kansenStatuut": false,
+        "status": "ACTIVE",
+        "type": "CARD",
+        "cardSystem": {
+          "id": "2",
+          "name": "Uitpas regio Landen"
+        }
+      },
+      "passHolder": {
+        "name": {
+          "first": "Layla",
+          "middle": "Zoni",
+          "last": "Zyrani"
+        },
+        "address": {
+          "street": "Rue Perdue 101 \/0003",
+          "postalCode": "1090",
+          "city": "Jette (Brussel)"
+        },
+        "birth": {
+          "date": "1976-09-13",
+          "place": "Casablanca"
+        },
+        "uid": "5",
+        "inszNumber": "93051822361",
+        "gender": "FEMALE",
+        "nationality": "Maroc",
+        "picture": "R0lGODlhAQABAIAAAP\/\/\/wAAACwAAAAAAQABAAACAkQBADs=",
+        "contact": {
+          "email": "zyrani_.hotmail.com@mailinator.com",
+          "telephoneNumber": "0488694231",
+          "mobileNumber": "0499748596"
+        },
+        "kansenStatuten": [
+          {
+            "endDate": "2015-09-15",
+            "status": "IN_GRACE_PERIOD",
+            "cardSystem": {
+              "id": "10",
+              "name": "UiTPAS Regio Aalst"
+            }
+          },
+          {
+            "endDate": "2015-09-15",
+            "status": "EXPIRED",
+            "cardSystem": {
+              "id": "30",
+              "name": "UiTPAS Regio Brussel"
+            }
+          }
+        ],
+        "privacy": {
+          "email": true,
+          "sms": false
+        },
+        "points": 20,
+        "uitpassen": [
+          {
+            "number": "0930000420206",
+            "kansenStatuut": false,
+            "status": "ACTIVE",
+            "type": "CARD",
+            "cardSystem": {
+              "id": "2",
+              "name": "Uitpas regio Landen"
+            }
+          }
+        ],
+        "remarks": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus."
+      }
+    }
+  ],
+  "firstPage": "http://foo.bar/search?uitpasNumber%5B0%5D=0930000420206&uitpasNumber%5B1%5D=0930000237915&page=1",
+  "lastPage": "http://foo.bar/search?uitpasNumber%5B0%5D=0930000420206&uitpasNumber%5B1%5D=0930000237915&page=3",
+  "nextPage": "http://foo.bar/search?uitpasNumber%5B0%5D=0930000420206&uitpasNumber%5B1%5D=0930000237915&page=2",
+  "invalidUitpasNumbers": [
+    "0930000237915"
+  ]
+}
