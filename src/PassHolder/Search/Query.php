@@ -230,11 +230,12 @@ class Query implements QueryBuilderInterface
         if (!is_null($this->email)) {
             $searchOptions->email = $this->email->toNative();
         }
+
         if (!is_null($this->associationId)) {
             $searchOptions->associationId = $this->associationId->toNative();
+            $searchOptions->expiredMemberships = 'BOTH';
         }
 
-        $searchOptions->expiredMemberships = 'BOTH';
         if (!is_null($this->membershipStatus)) {
             $searchOptions->expiredMemberships = $this->membershipStatus->toNative();
         }
