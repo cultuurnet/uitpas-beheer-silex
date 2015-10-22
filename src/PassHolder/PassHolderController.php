@@ -7,6 +7,8 @@ use CultuurNet\Hydra\Symfony\PageUrlGenerator;
 use CultuurNet\UiTPASBeheer\Exception\IncorrectParameterValueException;
 use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
+use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
+use CultuurNet\UiTPASBeheer\Membership\MembershipStatus;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedCollection;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\QueryBuilderInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
@@ -16,8 +18,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use ValueObjects\DateTime\Date;
+use ValueObjects\Exception\InvalidNativeArgumentException;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
+use ValueObjects\Web\EmailAddress;
 
 class PassHolderController
 {
@@ -112,6 +117,67 @@ class PassHolderController
                     $searchQuery = $searchQuery->withUiTPASNumbers(
                         $uitpasNumbers
                     );
+                    break;
+
+                case 'dateOfBirth':
+                    $date = \DateTime::createFromFormat('Y-m-d', $value);
+                    if (!$date) {
+                        throw new IncorrectParameterValueException('dateOfBirth');
+                    }
+
+                    $searchQuery = $searchQuery->withDateOfBirth(
+                        Date::fromNativeDateTime($date)
+                    );
+                    break;
+
+                case 'firstName':
+                    $searchQuery = $searchQuery->withFirstName(
+                        new StringLiteral((string) $value)
+                    );
+                    break;
+
+                case 'name':
+                    $searchQuery = $searchQuery->withName(
+                        new StringLiteral((string) $value)
+                    );
+                    break;
+
+                case 'street':
+                    $searchQuery = $searchQuery->withStreet(
+                        new StringLiteral((string) $value)
+                    );
+                    break;
+
+                case 'city':
+                    $searchQuery = $searchQuery->withCity(
+                        new StringLiteral((string) $value)
+                    );
+                    break;
+
+                case 'email':
+                    try {
+                        $searchQuery = $searchQuery->withEmail(
+                            new EmailAddress((string) $value)
+                        );
+                    } catch (InvalidNativeArgumentException $e) {
+                        throw new IncorrectParameterValueException('email');
+                    }
+                    break;
+
+                case 'membershipAssociationId':
+                    $searchQuery = $searchQuery->withAssociationId(
+                        new AssociationId((string) $value)
+                    );
+                    break;
+
+                case 'membershipStatus':
+                    try {
+                        $searchQuery = $searchQuery->withMembershipStatus(
+                            MembershipStatus::get($value)
+                        );
+                    } catch (\InvalidArgumentException $e) {
+                        throw new IncorrectParameterValueException('membershipStatus');
+                    }
                     break;
 
                 case 'page':
