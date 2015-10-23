@@ -32,16 +32,23 @@ class UiTPASCollection extends AbstractCollection implements \JsonSerializable
      */
     public static function fromCultureFeedPassholderCardSystemSpecific(array $cfCardSystemSpecificArray)
     {
-        $uitpasArray = array_map(
-            function (\CultureFeed_Uitpas_Passholder_CardSystemSpecific $cfCardSystemSpecific) {
-                $number = new UiTPASNumber($cfCardSystemSpecific->currentCard->uitpasNumber);
-                $status = UiTPASStatus::fromNative($cfCardSystemSpecific->currentCard->status);
-                $type = UiTPASType::fromNative($cfCardSystemSpecific->currentCard->type);
-                $cardSystem = CardSystem::fromCultureFeedCardSystem($cfCardSystemSpecific->cardSystem);
+        $uitpasArray = array_filter(
+            array_map(
+                function (\CultureFeed_Uitpas_Passholder_CardSystemSpecific $cfCardSystemSpecific) {
+                    // inconsistent data coming from API, current card is not always set!
+                    if (!is_null($cfCardSystemSpecific->currentCard)) {
+                        $number = new UiTPASNumber($cfCardSystemSpecific->currentCard->uitpasNumber);
+                        $status = UiTPASStatus::fromNative($cfCardSystemSpecific->currentCard->status);
+                        $type = UiTPASType::fromNative($cfCardSystemSpecific->currentCard->type);
+                        $cardSystem = CardSystem::fromCultureFeedCardSystem($cfCardSystemSpecific->cardSystem);
 
-                return new UiTPAS($number, $status, $type, $cardSystem);
-            },
-            $cfCardSystemSpecificArray
+                        return new UiTPAS($number, $status, $type, $cardSystem);
+                    } else {
+                        return null;
+                    }
+                },
+                $cfCardSystemSpecificArray
+            )
         );
 
         return UiTPASCollection::fromArray($uitpasArray);
