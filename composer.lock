@@ -485,12 +485,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/silex-uitid-provider.git",
-                "reference": "0ed46162d600528e73e2b9565bab4ee62d6788d4"
+                "reference": "86dd9a35d60a42c57a16b39121ce5d3d66e5af4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/0ed46162d600528e73e2b9565bab4ee62d6788d4",
-                "reference": "0ed46162d600528e73e2b9565bab4ee62d6788d4",
+                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/86dd9a35d60a42c57a16b39121ce5d3d66e5af4f",
+                "reference": "86dd9a35d60a42c57a16b39121ce5d3d66e5af4f",
                 "shasum": ""
             },
             "require": {
@@ -521,7 +521,7 @@
                 "GPL-3.0"
             ],
             "description": "Silex UiTID authentication provider.",
-            "time": "2015-08-22 07:22:14"
+            "time": "2015-10-26 15:03:01"
         },
         {
             "name": "cultuurnet/udb3-symfony",
@@ -4386,16 +4386,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.15",
+            "version": "4.8.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "be8f7b9eacf8243940f8412f8b4a9a434c73dd7b"
+                "reference": "625f8c345606ed0f3a141dfb88f4116f0e22978e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/be8f7b9eacf8243940f8412f8b4a9a434c73dd7b",
-                "reference": "be8f7b9eacf8243940f8412f8b4a9a434c73dd7b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/625f8c345606ed0f3a141dfb88f4116f0e22978e",
+                "reference": "625f8c345606ed0f3a141dfb88f4116f0e22978e",
                 "shasum": ""
             },
             "require": {
@@ -4454,7 +4454,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-10-22 09:05:37"
+            "time": "2015-10-23 06:48:33"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
