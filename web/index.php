@@ -103,4 +103,9 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\ExpenseReport\ExpenseReportControl
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\Counter\Member\MemberControllerProvider());
 
+/**
+ * API callbacks for Associations.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\Counter\Association\AssociationControllerProvider());
+
 $app->run();
