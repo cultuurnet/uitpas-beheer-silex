@@ -259,8 +259,8 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             $this->controller->search($request);
             $this->fail('search was expected to throw UiTPASNumberInvalidException');
         } catch (IncorrectParameterValueException $e) {
-            $this->assertEquals($e->getContext(), $invalidUitpasNumbers);
-            $this->assertEquals($e->getReadableCode(), 'INVALID_UITPAS_NUMBER');
+            $this->assertEquals($invalidUitpasNumbers, $e->getContext());
+            $this->assertEquals('INVALID_UITPAS_NUMBER', $e->getReadableCode());
         }
     }
 
