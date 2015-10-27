@@ -181,6 +181,8 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->toPostDataKeepEmptySecondName();
         $cfPassholder->toPostDataKeepEmptyEmail();
         $cfPassholder->toPostDataKeepEmptyMoreInfo();
+        $cfPassholder->toPostDataKeepEmptyTelephone();
+        $cfPassholder->toPostDataKeepEmptyGSM();
 
         return $cfPassholder;
     }
