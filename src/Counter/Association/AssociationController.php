@@ -24,6 +24,6 @@ class AssociationController
      */
     public function getAssociations()
     {
-        return new JsonResponse($this->service->getAssociationsByPermission(Permission::ANY()));
+        return new JsonResponse($this->service->getAssociationsByPermission(Permission::REGISTER()));
     }
 }
