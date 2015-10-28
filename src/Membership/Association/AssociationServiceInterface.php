@@ -11,7 +11,8 @@ interface AssociationServiceInterface
 
     /**
      * @param Permission $permission
+     * @param bool $permissionValue
      * @return AssociationCollection $associationCollection
      */
-    public function getAssociationsByPermission(Permission $permission);
+    public function getAssociationsByPermission(Permission $permission, $permissionValue = true);
 }

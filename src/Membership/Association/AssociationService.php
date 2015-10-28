@@ -23,13 +23,13 @@ class AssociationService extends CounterAwareUitpasService implements Associatio
     /**
      * @inheritDoc
      */
-    public function getAssociationsByPermission(Permission $permission)
+    public function getAssociationsByPermission(Permission $permission, $permissionValue = true)
     {
         $associations = $this->getUitpasService()
             ->getAssociations(
                 $this->getCounterConsumerKey(),
-                $permission === Permission::READ() ? true : false,
-                $permission === Permission::REGISTER() ? true : false
+                $permission === Permission::READ() ? $permissionValue : null,
+                $permission === Permission::REGISTER() ? $permissionValue : null
             )
             ->objects;
 
