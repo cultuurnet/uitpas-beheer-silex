@@ -106,6 +106,6 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\Counter\Member\MemberControllerPro
 /**
  * API callbacks for Associations.
  */
-$app->mount('/', new \CultuurNet\UiTPASBeheer\Counter\Association\AssociationControllerProvider());
+$app->mount('/', new \CultuurNet\UiTPASBeheer\Membership\Association\AssociationControllerProvider());
 
 $app->run();

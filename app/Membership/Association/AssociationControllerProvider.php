@@ -1,7 +1,8 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Counter\Association;
+namespace CultuurNet\UiTPASBeheer\Membership\Association;
 
+use CultuurNet\UiTPASBeheer\Membership\Association\AssociationController;
 use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;

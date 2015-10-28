@@ -146,7 +146,7 @@ $app->register(new \CultuurNet\UiTPASBeheer\Counter\Member\MemberServiceProvider
 /**
  * UiTPAS Association service.
  */
-$app->register(new \CultuurNet\UiTPASBeheer\Counter\Association\AssociationServiceProvider());
+$app->register(new \CultuurNet\UiTPASBeheer\Membership\Association\AssociationServiceProvider());
 
 /**
  * Clock service.

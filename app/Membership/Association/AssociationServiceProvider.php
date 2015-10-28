@@ -1,7 +1,8 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Counter\Association;
+namespace CultuurNet\UiTPASBeheer\Membership\Association;
 
+use CultuurNet\UiTPASBeheer\Membership\Association\AssociationService;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 

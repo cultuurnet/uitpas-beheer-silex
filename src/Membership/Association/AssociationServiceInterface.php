@@ -1,8 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Counter\Association;
-
-use CultuurNet\UiTPASBeheer\Membership\Association\AssociationCollection;
+namespace CultuurNet\UiTPASBeheer\Membership\Association;
 
 interface AssociationServiceInterface
 {

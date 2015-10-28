@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Counter\Association;
+namespace CultuurNet\UiTPASBeheer\Membership\Association;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 

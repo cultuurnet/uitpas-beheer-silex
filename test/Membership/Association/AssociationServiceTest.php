@@ -1,9 +1,8 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Counter\Association;
+namespace CultuurNet\UiTPASBeheer\Membership\Association;
 
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
-use CultuurNet\UiTPASBeheer\Membership\Association\AssociationCollection;
 
 class AssociationServiceTest extends \PHPUnit_Framework_TestCase
 {
