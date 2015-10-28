@@ -202,6 +202,7 @@ class Query implements QueryBuilderInterface
         $searchOptions = new \CultureFeed_Uitpas_Passholder_Query_SearchPassholdersOptions();
         $searchOptions->max = $this->limit->toNative();
         $searchOptions->start = ($this->page->toNative() - 1) * $this->limit->toNative();
+        $searchOptions->includeBlocked = true;
 
         if (!is_null($this->uitpasNumbers)) {
             $searchOptions->uitpasNumber = array_map(
