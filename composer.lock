@@ -1,11 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a7d9536d5fdaad7026ebe72d86fc1afa",
-    "content-hash": "676a352f768f96950ba620d613086a54",
+    "hash": "17a698685f318b892890b519b0c000a4",
     "packages": [
         {
             "name": "2dotstwice/collection",
@@ -273,16 +272,16 @@
         },
         {
             "name": "cultuurnet/culturefeed-php",
-            "version": "dev-feature/UBR-304",
+            "version": "dev-feature/UBR",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "40eec784aecbba452f65ceb0ffef4df40cf520b1"
+                "reference": "43970d698a0b5dfcc899b199ffde732e748d6fd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/40eec784aecbba452f65ceb0ffef4df40cf520b1",
-                "reference": "40eec784aecbba452f65ceb0ffef4df40cf520b1",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/43970d698a0b5dfcc899b199ffde732e748d6fd3",
+                "reference": "43970d698a0b5dfcc899b199ffde732e748d6fd3",
                 "shasum": ""
             },
             "require": {
@@ -336,7 +335,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-10-28 16:28:27"
+            "time": "2015-10-29 15:37:51"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -1291,12 +1290,12 @@
             "version": "0.3.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/thephpleague/geotools.git",
+                "url": "https://github.com/thephpleague/Geotools.git",
                 "reference": "cd3cb252000d50a3db819218de1dbb96e6316449"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/geotools/zipball/cd3cb252000d50a3db819218de1dbb96e6316449",
+                "url": "https://api.github.com/repos/thephpleague/Geotools/zipball/cd3cb252000d50a3db819218de1dbb96e6316449",
                 "reference": "cd3cb252000d50a3db819218de1dbb96e6316449",
                 "shasum": ""
             },
@@ -5045,7 +5044,7 @@
         {
             "alias": "1.5.2",
             "alias_normalized": "1.5.2.0",
-            "version": "dev-feature/UBR-304",
+            "version": "dev-feature/UBR",
             "package": "cultuurnet/culturefeed-php"
         },
         {
