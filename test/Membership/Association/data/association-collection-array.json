@@ -1,0 +1,22 @@
+[
+  {
+    "id": 5,
+    "name": "Foo",
+    "cardSystems": null,
+    "permissionRead": null,
+    "permissionRegister": null,
+    "enddateCalculation": null,
+    "enddateCalculationValidityTime": null,
+    "enddateCalculationFreeDate": null
+  },
+  {
+    "id": 3,
+    "name": "Bar",
+    "cardSystems": null,
+    "permissionRead": null,
+    "permissionRegister": null,
+    "enddateCalculation": null,
+    "enddateCalculationValidityTime": null,
+    "enddateCalculationFreeDate": null
+  }
+]
