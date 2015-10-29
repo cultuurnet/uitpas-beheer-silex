@@ -11,6 +11,8 @@ use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
 use CultuurNet\UiTPASBeheer\Identity\Identity;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
+use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
+use CultuurNet\UiTPASBeheer\Membership\MembershipStatus;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\AddressJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserializer;
@@ -35,6 +37,7 @@ use ValueObjects\DateTime\MonthDay;
 use ValueObjects\DateTime\Year;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
+use ValueObjects\Web\EmailAddress;
 
 class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -197,6 +200,63 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
         $this->controller->search($request);
     }
 
+
+    /**
+     * @test
+     */
+    public function it_responds_search_results_for_passholder_info_parameters()
+    {
+        $request = new Request(
+            [
+                'dateOfBirth' => '1991-04-23',
+                'firstName' => 'John',
+                'name' => 'Do*',
+                'street' => 'Vaartkom',
+                'city' => 'Leuven',
+                'email' => 'john@doe.com',
+                'membershipAssociationId' => '5',
+                'membershipStatus' => 'ACTIVE',
+            ]
+        );
+
+        $expectedQuery = (new Query())
+            ->withDateOfBirth(
+                Date::fromNativeDateTime(
+                    \DateTime::createFromFormat('Y-m-d', '1991-04-23')
+                )
+            )
+            ->withFirstName(
+                new StringLiteral('John')
+            )
+            ->withName(
+                new StringLiteral('Do*')
+            )
+            ->withStreet(
+                new StringLiteral('Vaartkom')
+            )
+            ->withCity(
+                new StringLiteral('Leuven')
+            )
+            ->withEmail(
+                new EmailAddress('john@doe.com')
+            )
+            ->withAssociationId(
+                new AssociationId('5')
+            )
+            ->withMembershipStatus(
+                MembershipStatus::ACTIVE()
+            );
+
+        $this->service->expects($this->once())
+            ->method('search')
+            ->with($expectedQuery)
+            ->willReturn(
+                new PagedResultSet(new Integer(0), [])
+            );
+
+        $this->controller->search($request);
+    }
+
     /**
      * @test
      */
@@ -262,6 +322,37 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($invalidUitpasNumbers, $e->getContext());
             $this->assertEquals('INVALID_UITPAS_NUMBER', $e->getReadableCode());
         }
+    }
+
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_searching_by_invalid_date_of_birth()
+    {
+        $request = new Request(['dateOfBirth' => '01/01/1970']);
+        $this->setExpectedException(IncorrectParameterValueException::class);
+        $this->controller->search($request);
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_searching_by_invalid_email()
+    {
+        $request = new Request(['email' => 'john.doe']);
+        $this->setExpectedException(IncorrectParameterValueException::class);
+        $this->controller->search($request);
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_searching_by_invalid_membership_status()
+    {
+        $request = new Request(['membershipStatus' => 'I_AM_REGISTERED']);
+        $this->setExpectedException(IncorrectParameterValueException::class);
+        $this->controller->search($request);
     }
 
     /**
