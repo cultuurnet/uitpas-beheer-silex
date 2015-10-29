@@ -68,15 +68,8 @@ class AssociationServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->uitpas->expects($this->once())
             ->method('getAssociations')
-            ->willReturnCallback(
-                function ($counterConsumerKey, $readPermission, $registerPermission) {
-                    // We're not using with() because it has a false positive when null is expected and false is found.
-                    $this->assertEquals($this->counterConsumerKey, $counterConsumerKey);
-                    $this->assertNull($readPermission);
-                    $this->assertNull($registerPermission);
-                    return new \CultureFeed_ResultSet();
-                }
-            );
+            ->with($this->counterConsumerKey, $this->identicalTo(null), $this->identicalTo(null))
+            ->willReturn(new \CultureFeed_ResultSet());
 
         $this->associationService->getAssociationsByPermission(Permission::ANY());
     }
@@ -88,15 +81,9 @@ class AssociationServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->uitpas->expects($this->once())
             ->method('getAssociations')
-            ->willReturnCallback(
-                function ($counterConsumerKey, $readPermission, $registerPermission) {
-                    // We're not using with() because it has a false positive when null is expected and false is found.
-                    $this->assertEquals($this->counterConsumerKey, $counterConsumerKey);
-                    $this->assertTrue($readPermission);
-                    $this->assertNull($registerPermission);
-                    return new \CultureFeed_ResultSet();
-                }
-            );
+            ->with($this->counterConsumerKey, true, $this->identicalTo(null))
+            ->willReturn(new \CultureFeed_ResultSet());
+
 
         $this->associationService->getAssociationsByPermission(Permission::READ());
     }
@@ -108,16 +95,8 @@ class AssociationServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->uitpas->expects($this->once())
             ->method('getAssociations')
-            ->with($this->counterConsumerKey, false, true)
-            ->willReturnCallback(
-                function ($counterConsumerKey, $readPermission, $registerPermission) {
-                    // We're not using with() because it has a false positive when null is expected and false is found.
-                    $this->assertEquals($this->counterConsumerKey, $counterConsumerKey);
-                    $this->assertNull($readPermission);
-                    $this->assertTrue($registerPermission);
-                    return new \CultureFeed_ResultSet();
-                }
-            );
+            ->with($this->counterConsumerKey, $this->identicalTo(null), true)
+            ->willReturn(new \CultureFeed_ResultSet());
 
         $this->associationService->getAssociationsByPermission(Permission::REGISTER());
     }
