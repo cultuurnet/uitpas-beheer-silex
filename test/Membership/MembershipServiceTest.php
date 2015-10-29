@@ -53,37 +53,6 @@ class MembershipServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_can_retrieve_a_collection_of_all_associations_of_the_active_counter()
-    {
-        $associationA = new \CultureFeed_Uitpas_Association();
-        $associationA->id = 5;
-        $associationA->name = 'Foo';
-
-        $associationB = new \CultureFeed_Uitpas_Association();
-        $associationB->id = 3;
-        $associationB->name = 'Bar';
-
-        $associations = array(
-            $associationA,
-            $associationB,
-        );
-
-        $resultSet = new \CultureFeed_ResultSet(2, $associations);
-
-        $this->uitpas->expects($this->once())
-            ->method('getAssociations')
-            ->with($this->counterConsumerKey->toNative())
-            ->willReturn($resultSet);
-
-        $this->assertEquals(
-            new AssociationCollection($associations),
-            $this->service->getAssociations()
-        );
-    }
-
-    /**
-     * @test
-     */
     public function it_can_register_a_new_membership()
     {
         $uid = new StringLiteral('5');

@@ -7,6 +7,7 @@ use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\Legacy\PassHolder\LegacyPassHolderServiceInterface;
 use CultuurNet\UiTPASBeheer\Legacy\PassHolder\Specifications\HasAtLeastOneExpiredKansenStatuut;
 use CultuurNet\UiTPASBeheer\Membership\Association\AssociationCollection;
+use CultuurNet\UiTPASBeheer\Membership\Association\AssociationServiceInterface;
 use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
 use CultuurNet\UiTPASBeheer\Membership\Registration\Registration;
 use CultuurNet\UiTPASBeheer\Membership\Registration\RegistrationJsonDeserializer;
@@ -40,6 +41,11 @@ class MembershipControllerTest extends \PHPUnit_Framework_TestCase
     protected $hasAtLeastOneExpiredKansenStatuut;
 
     /**
+     * @var AssociationServiceInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $associationService;
+
+    /**
      * @var MembershipController
      */
     protected $controller;
@@ -50,12 +56,14 @@ class MembershipControllerTest extends \PHPUnit_Framework_TestCase
         $this->legacyPassHolderService = $this->getMock(LegacyPassHolderServiceInterface::class);
         $this->registrationJsonDeserializer = new RegistrationJsonDeserializer();
         $this->hasAtLeastOneExpiredKansenStatuut = new HasAtLeastOneExpiredKansenStatuut();
+        $this->associationService = $this->getMock(AssociationServiceInterface::class);
 
         $this->controller = new MembershipController(
             $this->membershipService,
             $this->registrationJsonDeserializer,
             $this->legacyPassHolderService,
-            $this->hasAtLeastOneExpiredKansenStatuut
+            $this->hasAtLeastOneExpiredKansenStatuut,
+            $this->associationService
         );
     }
 
@@ -86,7 +94,7 @@ class MembershipControllerTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $this->membershipService->expects($this->once())
+        $this->associationService->expects($this->once())
             ->method('getAssociations')
             ->willReturn($all);
 

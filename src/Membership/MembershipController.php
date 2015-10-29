@@ -5,6 +5,7 @@ namespace CultuurNet\UiTPASBeheer\Membership;
 use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\UiTPASBeheer\Legacy\PassHolder\LegacyPassHolderServiceInterface;
 use CultuurNet\UiTPASBeheer\Legacy\PassHolder\Specifications\PassHolderSpecificationInterface;
+use CultuurNet\UiTPASBeheer\Membership\Association\AssociationServiceInterface;
 use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
 use CultuurNet\UiTPASBeheer\Membership\Association\UnregisteredAssociationFilter;
 use CultuurNet\UiTPASBeheer\PassHolder\PassHolderNotFoundException;
@@ -37,21 +38,29 @@ class MembershipController
     private $hasAtLeastOneExpiredKansenStatuut;
 
     /**
+     * @var AssociationServiceInterface
+     */
+    private $associationService;
+
+    /**
      * @param MembershipServiceInterface $membershipService
      * @param DeserializerInterface $registrationJsonDeserializer
      * @param LegacyPassHolderServiceInterface $legacyPassHolderService
      * @param PassHolderSpecificationInterface $hasAtLeastOneExpiredKansenStatuut
+     * @param AssociationServiceInterface $associationService
      */
     public function __construct(
         MembershipServiceInterface $membershipService,
         DeserializerInterface $registrationJsonDeserializer,
         LegacyPassHolderServiceInterface $legacyPassHolderService,
-        PassHolderSpecificationInterface $hasAtLeastOneExpiredKansenStatuut
+        PassHolderSpecificationInterface $hasAtLeastOneExpiredKansenStatuut,
+        AssociationServiceInterface $associationService
     ) {
         $this->membershipService = $membershipService;
         $this->legacyPassHolderService = $legacyPassHolderService;
         $this->registrationJsonDeserializer = $registrationJsonDeserializer;
         $this->hasAtLeastOneExpiredKansenStatuut = $hasAtLeastOneExpiredKansenStatuut;
+        $this->associationService = $associationService;
     }
 
     /**
@@ -63,7 +72,7 @@ class MembershipController
         $uitpasNumber = new UiTPASNumber($uitpasNumber);
         $passHolder = $this->getPassHolderForUiTPASNumber($uitpasNumber);
 
-        $all = $this->membershipService->getAssociations();
+        $all = $this->associationService->getAssociations();
 
         $unregisteredFilter = new UnregisteredAssociationFilter($passHolder);
         $unregistered = $unregisteredFilter->filter($all);

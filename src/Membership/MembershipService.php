@@ -11,20 +11,6 @@ use ValueObjects\StringLiteral\StringLiteral;
 class MembershipService extends CounterAwareUitpasService implements MembershipServiceInterface
 {
     /**
-     * @return AssociationCollection $associationCollection
-     */
-    public function getAssociations()
-    {
-        $associations = $this->getUitpasService()
-            ->getAssociations(
-                $this->getCounterConsumerKey()
-            )
-            ->objects;
-
-        return new AssociationCollection($associations);
-    }
-
-    /**
      * @param StringLiteral $uid
      * @param Registration $registration
      *

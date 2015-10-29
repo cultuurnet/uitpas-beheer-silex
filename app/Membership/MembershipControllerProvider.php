@@ -23,7 +23,8 @@ class MembershipControllerProvider implements ControllerProviderInterface
                     $app['membership_service'],
                     $app['membership_registration_deserializer'],
                     $app['legacy_passholder_service'],
-                    new HasAtLeastOneExpiredKansenStatuut()
+                    new HasAtLeastOneExpiredKansenStatuut(),
+                    $app['association_service']
                 );
             }
         );

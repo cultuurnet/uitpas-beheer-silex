@@ -10,11 +10,6 @@ use ValueObjects\StringLiteral\StringLiteral;
 interface MembershipServiceInterface
 {
     /**
-     * @return AssociationCollection $associationCollection
-     */
-    public function getAssociations();
-
-    /**
      * @param StringLiteral $uid
      * @param Registration $registration
      *
