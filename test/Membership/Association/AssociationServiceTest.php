@@ -69,7 +69,7 @@ class AssociationServiceTest extends \PHPUnit_Framework_TestCase
         $this->uitpas->expects($this->once())
             ->method('getAssociations')
             ->willReturnCallback(
-                function($counterConsumerKey, $readPermission, $registerPermission) {
+                function ($counterConsumerKey, $readPermission, $registerPermission) {
                     // We're not using with() because it has a false positive when null is expected and false is found.
                     $this->assertEquals($this->counterConsumerKey, $counterConsumerKey);
                     $this->assertNull($readPermission);
@@ -89,7 +89,7 @@ class AssociationServiceTest extends \PHPUnit_Framework_TestCase
         $this->uitpas->expects($this->once())
             ->method('getAssociations')
             ->willReturnCallback(
-                function($counterConsumerKey, $readPermission, $registerPermission) {
+                function ($counterConsumerKey, $readPermission, $registerPermission) {
                     // We're not using with() because it has a false positive when null is expected and false is found.
                     $this->assertEquals($this->counterConsumerKey, $counterConsumerKey);
                     $this->assertTrue($readPermission);
@@ -110,7 +110,7 @@ class AssociationServiceTest extends \PHPUnit_Framework_TestCase
             ->method('getAssociations')
             ->with($this->counterConsumerKey, false, true)
             ->willReturnCallback(
-                function($counterConsumerKey, $readPermission, $registerPermission) {
+                function ($counterConsumerKey, $readPermission, $registerPermission) {
                     // We're not using with() because it has a false positive when null is expected and false is found.
                     $this->assertEquals($this->counterConsumerKey, $counterConsumerKey);
                     $this->assertNull($readPermission);
