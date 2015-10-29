@@ -35,7 +35,7 @@ class UiTPASCollection extends AbstractCollection implements \JsonSerializable
         $uitpasArray = array_filter(
             array_map(
                 function (\CultureFeed_Uitpas_Passholder_CardSystemSpecific $cfCardSystemSpecific) {
-                    // inconsistent data coming from API, current card is not always set!
+                    // Inconsistent data coming from API, current card is not always set!
                     if (!is_null($cfCardSystemSpecific->currentCard)) {
                         $number = new UiTPASNumber($cfCardSystemSpecific->currentCard->uitpasNumber);
                         $status = UiTPASStatus::fromNative($cfCardSystemSpecific->currentCard->status);
