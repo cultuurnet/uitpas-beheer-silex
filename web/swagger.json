@@ -1286,6 +1286,64 @@
           "Counter"
         ]
       }
+    },
+    "/help": {
+      "get": {
+        "summary": "Get the help text and permissions.",
+        "description": "Authentication is required.",
+        "operationId": "getHelp",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns an object with the help text markdown and a list of UiTids for the users who can edit the markdown text.",
+            "schema": {
+              "$ref": "#/definitions/HelpObject"
+            }
+          },
+          "404": {
+            "description": "The markdown text is not available."
+          }
+        },
+        "tags": [
+          "Help"
+        ]
+      },
+      "post": {
+        "summary": "Change the markdown help text.",
+        "description": "Authentication is required.",
+        "operationId": "changeHelp",
+        "produces": "application/json",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the new help text markdown.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HelpTextUpdateCommand"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The help text is successfully changed."
+          },
+          "400": {
+            "description": "The help text could not be changed."
+          },
+          "403": {
+            "description": "The user is not authorised to change the help text."
+          },
+          "404": {
+            "description": "The provided new help text is invalid or missing."
+          }
+        },
+        "tags": [
+          "Help"
+        ]
+      }
     }
   },
   "tags": [
@@ -1340,6 +1398,10 @@
     {
       "name": "Association",
       "description": "Operations related to Associations."
+    },
+    {
+      "name": "Help",
+      "description": "Operations related to the help text."
     }
   ],
   "definitions": {
@@ -2820,6 +2882,37 @@
           }
         }
       }
+    },
+    "HelpObject": {
+      "type": "object",
+      "properties": {
+        "helpText": {
+          "type": "string",
+          "example": "This is some fake *Markdown* text"
+        },
+        "editors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Uid"
+          }
+        }
+      },
+      "required": [
+        "helpText",
+        "editors"
+      ]
+    },
+    "HelpTextUpdateCommand": {
+      "type": "object",
+      "properties": {
+        "helpText": {
+          "type": "string",
+          "example": "This is some new fake *Markdown* text"
+        }
+      },
+      "required": [
+        "helpText"
+      ]
     }
   }
 }
