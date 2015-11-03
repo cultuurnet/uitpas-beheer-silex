@@ -418,35 +418,35 @@
             "description": "A date if birth.",
             "required": false,
             "type": "string",
-            "format": "date",
+            "format": "date"
           },
           {
             "name": "firstName",
             "in": "query",
             "type": "string",
             "required": false,
-            "description": "A first name. Wildcard * allowed.",
+            "description": "A first name. Wildcard * allowed."
           },
           {
             "name": "name",
             "in": "query",
             "type": "string",
             "required": false,
-            "description": "A last name. Wildcard * allowed.",
+            "description": "A last name. Wildcard * allowed."
           },
           {
             "name": "street",
             "in": "query",
             "type": "string",
             "required": false,
-            "description": "A street name and number. Wildcard * allowed.",
+            "description": "A street name and number. Wildcard * allowed."
           },
           {
             "name": "city",
             "in": "query",
             "type": "string",
             "required": false,
-            "description": "A city name. Wildcard * allowed.",
+            "description": "A city name. Wildcard * allowed."
           },
           {
             "name": "email",
@@ -1286,6 +1286,40 @@
           "Counter"
         ]
       }
+    },
+    "/passholders/{uitpasNumber}/coupons": {
+      "get": {
+        "summary": "Retrieves a list of coupons.",
+        "description": "Authentication and an uitpasNumber are required.",
+        "operationId": "getCoupons",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The coupons available for the given uitpasNumber.",
+            "schema": {
+              "$ref": "#/definitions/Coupons"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have a valid uitpasNumber"
+          }
+        },
+        "tags": [
+          "PassHolder",
+          "Coupon"
+        ]
+      }
     }
   },
   "tags": [
@@ -1340,6 +1374,10 @@
     {
       "name": "Association",
       "description": "Operations related to Associations."
+    },
+    {
+      "name": "Coupon",
+      "description": "Operations related to (uitpasNumber) Coupons."
     }
   ],
   "definitions": {
@@ -2818,6 +2856,31 @@
           "items": {
             "$ref": "#/definitions/CardSystem"
           }
+        }
+      }
+    },
+    "Coupons": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Cultuurbon"
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": "Dit aanbod is geldig voor elke pashouder met een Paspartoe aan reductieprijs."
+          }
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "example": "2015-12-26"
+        },
+        "remainingTotal": {
+          "type": "integer",
+          "example": 1
         }
       }
     }
