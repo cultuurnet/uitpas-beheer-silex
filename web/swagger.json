@@ -2955,14 +2955,11 @@
           "type": "string",
           "example": "Cultuurbon"
         },
-        "conditions": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "example": "Dit aanbod is geldig voor elke pashouder met een Paspartoe aan reductieprijs."
-          }
+        "description": {
+          "type": "string",
+          "example": "Dit aanbod is geldig voor elke pashouder met een Paspartoe aan reductieprijs."
         },
-        "date": {
+        "expirationDate": {
           "type": "string",
           "format": "date",
           "example": "2015-12-26"
