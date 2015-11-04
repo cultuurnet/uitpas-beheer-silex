@@ -1314,7 +1314,9 @@
         "summary": "Change the markdown help text.",
         "description": "Authentication is required.",
         "operationId": "changeHelp",
-        "produces": "application/json",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "body",
