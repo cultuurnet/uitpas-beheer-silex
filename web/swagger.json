@@ -1362,7 +1362,10 @@
           "200": {
             "description": "The coupons available for the given uitpasNumber.",
             "schema": {
-              "$ref": "#/definitions/Coupons"
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Coupon"
+              }
             }
           },
           "403": {
@@ -2948,9 +2951,13 @@
         "text"
       ]
     },
-    "Coupons": {
+    "Coupon": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string",
+          "example": "5"
+        },
         "name": {
           "type": "string",
           "example": "Cultuurbon"
