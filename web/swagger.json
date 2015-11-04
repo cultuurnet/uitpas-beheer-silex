@@ -1327,7 +1327,10 @@
         ],
         "responses": {
           "200": {
-            "description": "The help text was successfully changed."
+            "description": "The help text was successfully changed.",
+            "schema": {
+              "$ref": "#/definitions/Help"
+            }
           },
           "400": {
             "description": "The request was not correct."
@@ -2886,16 +2889,14 @@
           "type": "string",
           "example": "This is some fake *Markdown* text"
         },
-        "editors": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Uid"
-          }
+        "canUpdate": {
+          "type": "boolean",
+          "description": "If the current user can update the help text or not."
         }
       },
       "required": [
         "text",
-        "editors"
+        "canUpdate"
       ]
     },
     "HelpTextUpdateCommand": {
