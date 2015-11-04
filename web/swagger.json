@@ -1301,9 +1301,6 @@
             "schema": {
               "$ref": "#/definitions/Help"
             }
-          },
-          "404": {
-            "description": "The markdown text is not available."
           }
         },
         "tags": [
@@ -1330,16 +1327,13 @@
         ],
         "responses": {
           "200": {
-            "description": "The help text is successfully changed."
+            "description": "The help text was successfully changed."
           },
           "400": {
-            "description": "The help text could not be changed."
+            "description": "The request was not correct."
           },
           "403": {
             "description": "The user is not authorised to change the help text."
-          },
-          "404": {
-            "description": "The provided new help text is invalid or missing."
           }
         },
         "tags": [
