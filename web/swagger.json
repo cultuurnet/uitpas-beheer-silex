@@ -1299,7 +1299,7 @@
           "200": {
             "description": "Returns an object with the help text markdown and a list of UiTids for the users who can edit the markdown text.",
             "schema": {
-              "$ref": "#/definitions/HelpObject"
+              "$ref": "#/definitions/Help"
             }
           },
           "404": {
@@ -2885,10 +2885,10 @@
         }
       }
     },
-    "HelpObject": {
+    "Help": {
       "type": "object",
       "properties": {
-        "helpText": {
+        "text": {
           "type": "string",
           "example": "This is some fake *Markdown* text"
         },
@@ -2900,14 +2900,14 @@
         }
       },
       "required": [
-        "helpText",
+        "text",
         "editors"
       ]
     },
     "HelpTextUpdateCommand": {
       "type": "object",
       "properties": {
-        "helpText": {
+        "text": {
           "type": "string",
           "example": "This is some new fake *Markdown* text"
         }
