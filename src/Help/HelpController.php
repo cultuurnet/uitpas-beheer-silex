@@ -35,7 +35,7 @@ class HelpController
             [
                 'text' => $text->toNative(),
                 // @todo Put list of editor ids here.
-                'editors' => []
+                'editors' => [],
             ]
         );
     }
@@ -54,7 +54,7 @@ class HelpController
             [
                 'text' => $text->toNative(),
                 // @todo Put list of editor ids here.
-                'editors' => []
+                'editors' => [],
             ]
         );
     }

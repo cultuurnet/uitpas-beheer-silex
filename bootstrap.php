@@ -45,22 +45,26 @@ $app->register(new \CultuurNet\UiTIDProvider\Security\UiTIDSecurityServiceProvid
  * Override the default authentication provider for uitid with our own
  * that adds additional roles to specific users.
  */
-$app['security.authentication_provider.uitid._proto'] = $app->protect(function ($name, $options) use ($app) {
-    return $app->share(function () use ($app, $options) {
-        $authenticator = new \CultuurNet\UiTIDProvider\Security\UiTIDAuthenticator($app['uitid_user_service']);
-        $roles = isset($options['roles']) ? $options['roles'] : [];
-        if (empty($roles)) {
-            return $authenticator;
-        }
+$app['security.authentication_provider.uitid._proto'] = $app->protect(
+    function ($name, $options) use ($app) {
+        return $app->share(
+            function () use ($app, $options) {
+                $authenticator = new \CultuurNet\UiTIDProvider\Security\UiTIDAuthenticator($app['uitid_user_service']);
+                $roles = isset($options['roles']) ? $options['roles'] : [];
+                if (empty($roles)) {
+                    return $authenticator;
+                }
 
-        $authenticator = new \CultuurNet\UiTPASBeheer\Security\RoleAddingAuthenticationProviderDecorator(
-            $authenticator,
-            $roles
+                $authenticator = new \CultuurNet\UiTPASBeheer\Security\RoleAddingAuthenticationProviderDecorator(
+                    $authenticator,
+                    $roles
+                );
+
+                return $authenticator;
+            }
         );
-
-        return $authenticator;
-    });
-});
+    }
+);
 
 /**
  * CultureFeed services.
