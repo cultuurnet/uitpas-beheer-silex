@@ -418,35 +418,35 @@
             "description": "A date if birth.",
             "required": false,
             "type": "string",
-            "format": "date",
+            "format": "date"
           },
           {
             "name": "firstName",
             "in": "query",
             "type": "string",
             "required": false,
-            "description": "A first name. Wildcard * allowed.",
+            "description": "A first name. Wildcard * allowed."
           },
           {
             "name": "name",
             "in": "query",
             "type": "string",
             "required": false,
-            "description": "A last name. Wildcard * allowed.",
+            "description": "A last name. Wildcard * allowed."
           },
           {
             "name": "street",
             "in": "query",
             "type": "string",
             "required": false,
-            "description": "A street name and number. Wildcard * allowed.",
+            "description": "A street name and number. Wildcard * allowed."
           },
           {
             "name": "city",
             "in": "query",
             "type": "string",
             "required": false,
-            "description": "A city name. Wildcard * allowed.",
+            "description": "A city name. Wildcard * allowed."
           },
           {
             "name": "email",
