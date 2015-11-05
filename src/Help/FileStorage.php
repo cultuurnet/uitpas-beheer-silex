@@ -25,7 +25,12 @@ class FileStorage implements StorageInterface
      */
     public function load()
     {
-        return new Text(file_get_contents($this->path));
+        $contents = '';
+        if (is_readable($this->path)) {
+            $contents = file_get_contents($this->path);
+        }
+
+        return new Text($contents);
     }
 
     /**

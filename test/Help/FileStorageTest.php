@@ -41,6 +41,22 @@ class FileStorageTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_loads_empty_text_if_file_is_missing()
+    {
+        $filePath = vfsStream::url('var/help.md');
+        $storage = new FileStorage($filePath);
+
+        $actualText = $storage->load();
+
+        $this->assertEquals(
+            new Text(''),
+            $actualText
+        );
+    }
+
+    /**
+     * @test
+     */
     public function it_can_save_text_to_a_file()
     {
         $this->assertFalse(vfsStreamWrapper::getRoot()->hasChild('help.md'));
