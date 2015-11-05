@@ -3026,7 +3026,8 @@
           "example": "1"
         },
         "creationDate": {
-          "type": "date",
+          "type": "string",
+          "format": "date",
           "example": "2015-04-12"
         },
         "eventTitle": {
