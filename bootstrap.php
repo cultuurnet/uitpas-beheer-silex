@@ -149,6 +149,11 @@ $app->register(new \CultuurNet\UiTPASBeheer\Counter\Member\MemberServiceProvider
 $app->register(new \CultuurNet\UiTPASBeheer\Membership\Association\AssociationServiceProvider());
 
 /**
+ * UiTPAS Coupon service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\Coupon\CouponServiceProvider());
+
+/**
  * Clock service.
  */
 $app->register(

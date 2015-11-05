@@ -44,8 +44,8 @@ class Coupon implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            "id" => $this->getId(),
-            "name" => $this->getName(),
+            "id" => (String) $this->getId(),
+            "name" => (String) $this->getName()->toNative(),
         ];
     }
 
