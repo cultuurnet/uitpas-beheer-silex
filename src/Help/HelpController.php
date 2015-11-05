@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class HelpController
 {
@@ -53,8 +54,11 @@ class HelpController
             throw new AccessDeniedHttpException();
         }
 
-        // @todo Deserialize text from request body.
-        $text = new Text('foobar');
+        $deserializer = new UpdateTextJsonDeserializer();
+        /** @var Text $text */
+        $text = $deserializer->deserialize(
+            new StringLiteral($request->getContent())
+        );
 
         $this->storage->save($text);
 
@@ -67,12 +71,18 @@ class HelpController
      */
     private function createResponse(Text $text)
     {
-        return new JsonResponse(
+        $response = new JsonResponse(
             [
                 'text' => $text->toNative(),
                 'canUpdate' => $this->canUpdate(),
             ]
         );
+
+        $response->setPublic();
+        $response->setMaxAge(0);
+        $response->setSharedMaxAge(0);
+
+        return $response;
     }
 
     /**
