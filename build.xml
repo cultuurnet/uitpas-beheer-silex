@@ -11,6 +11,17 @@
         </exec>
     </target>
 
+    <target name="swagger-validate">
+        <exec executable="npm" passthru="true" checkreturn="true">
+            <arg value="run"/>
+            <arg value="validate-swagger-lint"/>
+        </exec>
+        <exec executable="npm" passthru="true" checkreturn="true">
+            <arg value="run"/>
+            <arg value="validate-swagger-schema"/>
+        </exec>
+    </target>
+
     <target name="githooks">
         <copy file="contrib/pre-commit" todir=".git/hooks" />
     </target>
@@ -47,6 +58,7 @@
     <target name="test">
         <phingcall target="composer-validate"/>
         <phingcall target="lint"/>
+        <phingcall target="swagger-validate"/>
         <phingcall target="unit-tests"/>
         <phingcall target="coding-standards"/>
     </target>
