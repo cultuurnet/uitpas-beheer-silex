@@ -24,7 +24,7 @@ $app['security.firewalls'] = array(
     'secured' => array(
         'pattern' => '^.*$',
         'uitid' => [
-            'roles' => $app['config']['roles'],
+            'roles' => isset($app['config']['roles']) ? $app['config']['roles'] : [],
         ],
         'users' => $app['uitid_firewall_user_provider'],
     ),
