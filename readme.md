@@ -26,3 +26,8 @@ The following roles are available:
 For development purposes, we advice you to install the included git hooks with the following command:
 
     ./vendor/bin/phing githooks
+
+One of the hooks will try to validate the project's Swagger file. This requires you to install some node dependencies.
+ Make sure npm is available and install them by running this command at the root of the project:
+
+    npm install
