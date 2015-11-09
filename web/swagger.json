@@ -888,6 +888,42 @@
       }
     },
     "/passholders/{uitpasNumber}/activities/ticket-sales": {
+      "get": {
+        "summary": "Retrieves a list of ticketsales.",
+        "description": "Authentication and an uitpasNumber are required.",
+        "operationId": "getTicketsales",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The ticketsales for the given uitpasNumber.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TicketSale"
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have a valid uitpasNumber"
+          }
+        },
+        "tags": [
+          "Activity",
+          "PassHolder",
+          "Ticketsale"
+        ]
+      },
       "post": {
         "summary": "Sell a ticket to a passholder or group.",
         "description": "Authentication and an active counter are required.",
@@ -926,7 +962,8 @@
         },
         "tags": [
           "Activity",
-          "PassHolder"
+          "PassHolder",
+          "Ticketsale"
         ]
       }
     },
@@ -1375,43 +1412,6 @@
         "tags": [
           "PassHolder",
           "Coupon"
-        ]
-      }
-    },
-    "/passholders/{uitpasNumber}/ticketsales": {
-      "get": {
-        "summary": "Retrieves a list of ticketsales.",
-        "description": "Authentication and an uitpasNumber are required.",
-        "operationId": "getTicketsales",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "uitpasNumber",
-            "in": "path",
-            "description": "The uitpas number of the passholder.",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The ticketsales for the given uitpasNumber.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Ticketsale"
-              }
-            }
-          },
-          "403": {
-            "description": "The user is not authenticated or does not have a valid uitpasNumber"
-          }
-        },
-        "tags": [
-          "PassHolder",
-          "Ticketsale"
         ]
       }
     }
@@ -2772,6 +2772,13 @@
         "creationDate": {
           "type": "string",
           "format": "date-time"
+        },
+        "eventTitle": {
+          "type": "string",
+          "example": "Evenement naam"
+        },
+        "coupon": {
+          "$ref": "#/definitions/Coupon"
         }
       },
       "required": [
@@ -3015,30 +3022,6 @@
         "remainingTotal": {
           "type": "integer",
           "example": 1
-        }
-      }
-    },
-    "TicketSale": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "example": "1"
-        },
-        "creationDate": {
-          "type": "string",
-          "format": "date",
-          "example": "2015-04-12"
-        },
-        "eventTitle": {
-          "type": "string",
-          "example": "Evenement naam"
-        },
-        "tariff": {
-          "$ref": "#/definitions/Price"
-        },
-        "coupon": {
-          "$ref": "#/definitions/Coupon"
         }
       }
     }
