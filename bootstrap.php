@@ -34,6 +34,7 @@ $app->register(new \CultuurNet\UiTPASBeheer\Exception\ExceptionHandlerServicePro
  * Session service.
  */
 $app->register(new \Silex\Provider\SessionServiceProvider());
+$app->register(new CultuurNet\UiTIDProvider\Session\SessionConfigurationProvider());
 
 /**
  * Security services.
