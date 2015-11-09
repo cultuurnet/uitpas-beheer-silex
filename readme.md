@@ -3,6 +3,24 @@
 
 ![Swagger Validator](http://online.swagger.io/validator/?url=https://raw.githubusercontent.com/cultuurnet/uitpas-beheer-silex/master/web/swagger.json)
 
+# Configuration
+
+## Authorization
+
+Add pairs of user names and a list of granted roles under 'roles' in config.yml:
+
+```yaml
+roles:
+  johndoe:
+    - ROLE_HELP_EDIT
+  janedoe:
+    - ROLE_HELP_EDIT
+```
+
+The following roles are available:
+
+- ROLE_HELP_EDIT: edit the help text
+
 # Git hooks
 
 For development purposes, we advice you to install the included git hooks with the following command:

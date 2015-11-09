@@ -13,7 +13,7 @@
     }
   ],
   "require": {
-    "cultuurnet/silex-uitid-provider": "dev-master",
+    "cultuurnet/silex-uitid-provider": "dev-feature/UBR-341 as 0.1",
     "cultuurnet/culturefeed-php": "dev-feature/UBR as 1.5.2",
     "cultuurnet/search": "~1.2",
     "cultuurnet/calendar-summary": "~1.0",
@@ -53,7 +53,8 @@
     "squizlabs/php_codesniffer": "~2.2",
     "phing/phing": "~2.10",
     "satooshi/php-coveralls": "~0.7",
-    "guzzle/plugin-mock": "~3.9.2"
+    "guzzle/plugin-mock": "~3.9.2",
+    "mikey179/vfsStream": "~1.6.0"
   },
   "autoload": {
     "psr-4": {
