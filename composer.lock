@@ -1,10 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a10a3560fd2ad3310f00be6e3d195892",
+    "hash": "5be731f82d79487cba4825c8fec1f485",
+    "content-hash": "392c2bf0df7268dd06a678122dd3523c",
     "packages": [
         {
             "name": "2dotstwice/collection",
@@ -480,16 +481,16 @@
         },
         {
             "name": "cultuurnet/silex-uitid-provider",
-            "version": "dev-feature/UBR-339",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/silex-uitid-provider.git",
-                "reference": "ffd38f15a6e7959532eb351db9625da0d7a47713"
+                "reference": "e50488ea2d3f1b2a3d7ade1198d472ced5abdfd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/ffd38f15a6e7959532eb351db9625da0d7a47713",
-                "reference": "ffd38f15a6e7959532eb351db9625da0d7a47713",
+                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/e50488ea2d3f1b2a3d7ade1198d472ced5abdfd4",
+                "reference": "e50488ea2d3f1b2a3d7ade1198d472ced5abdfd4",
                 "shasum": ""
             },
             "require": {
@@ -520,7 +521,7 @@
                 "GPL-3.0"
             ],
             "description": "Silex UiTID authentication provider.",
-            "time": "2015-11-09 11:27:38"
+            "time": "2015-11-09 09:12:06"
         },
         {
             "name": "cultuurnet/udb3-symfony",
@@ -1290,12 +1291,12 @@
             "version": "0.3.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/thephpleague/Geotools.git",
+                "url": "https://github.com/thephpleague/geotools.git",
                 "reference": "cd3cb252000d50a3db819218de1dbb96e6316449"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/Geotools/zipball/cd3cb252000d50a3db819218de1dbb96e6316449",
+                "url": "https://api.github.com/repos/thephpleague/geotools/zipball/cd3cb252000d50a3db819218de1dbb96e6316449",
                 "reference": "cd3cb252000d50a3db819218de1dbb96e6316449",
                 "shasum": ""
             },
