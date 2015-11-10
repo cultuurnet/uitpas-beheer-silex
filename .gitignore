@@ -2,3 +2,5 @@ config.yml
 vendor
 build
 web/swagger
+/node_modules
+/var/*

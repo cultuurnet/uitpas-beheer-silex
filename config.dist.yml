@@ -10,3 +10,6 @@ search:
   base_url: http://www.uitid.be/uitid/rest/searchv2
 bootstrap:
   logging: false
+roles:
+  Default2d2:
+  - ROLE_HELP_EDIT
