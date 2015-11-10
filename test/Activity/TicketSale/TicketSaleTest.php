@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
 
+use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\RegisteredTicketSale;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
@@ -35,7 +36,7 @@ class TicketSaleTest extends \PHPUnit_Framework_TestCase
     protected $creationDate;
 
     /**
-     * @var TicketSale
+     * @var RegisteredTicketSale
      */
     protected $ticketSale;
 
@@ -58,7 +59,7 @@ class TicketSaleTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $this->ticketSale = new TicketSale(
+        $this->ticketSale = new RegisteredTicketSale(
             $this->id,
             $this->price,
             $this->creationDate
@@ -96,7 +97,7 @@ class TicketSaleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             $this->ticketSale,
-            TicketSale::fromCultureFeedTicketSale($cfTicketSale)
+            RegisteredTicketSale::fromCultureFeedTicketSale($cfTicketSale)
         );
     }
 }

@@ -3,6 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
 
 use CultuurNet\UiTPASBeheer\Activity\SalesInformation\Price\PriceClass;
+use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\RegisteredTicketSale;
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\Registration;
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\TariffId;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
@@ -102,7 +103,7 @@ class TicketSaleServiceTest extends \PHPUnit_Framework_TestCase
             )
             ->willReturn($this->cfTicketSale);
 
-        $expected = new TicketSale(
+        $expected = new RegisteredTicketSale(
             new StringLiteral('30818'),
             new Real(2.0),
             new DateTime(

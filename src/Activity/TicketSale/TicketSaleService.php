@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
 
+use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\RegisteredTicketSale;
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\Registration;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
@@ -13,7 +14,7 @@ class TicketSaleService extends CounterAwareUitpasService implements TicketSaleS
      * @param UiTPASNumber $uitpasNumber
      * @param Registration $registration
      *
-     * @return TicketSale
+     * @return RegisteredTicketSale
      *
      * @throws CompleteResponseException
      *   When a CultureFeed_Exception was caught.
@@ -44,6 +45,6 @@ class TicketSaleService extends CounterAwareUitpasService implements TicketSaleS
             throw CompleteResponseException::fromCultureFeedException($e);
         }
 
-        return TicketSale::fromCultureFeedTicketSale($cfTicketSale);
+        return RegisteredTicketSale::fromCultureFeedTicketSale($cfTicketSale);
     }
 }

@@ -1,27 +1,15 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
+namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration;
 
+use CultuurNet\UiTPASBeheer\Activity\TicketSale\TicketSaleTrait;
 use ValueObjects\DateTime\DateTime;
 use ValueObjects\Number\Real;
 use ValueObjects\StringLiteral\StringLiteral;
 
-final class TicketSale implements \JsonSerializable
+final class RegisteredTicketSale implements \JsonSerializable
 {
-    /**
-     * @var StringLiteral
-     */
-    protected $id;
-
-    /**
-     * @var Real
-     */
-    protected $price;
-
-    /**
-     * @var DateTime
-     */
-    protected $creationDate;
+    use TicketSaleTrait;
 
     /**
      * @param StringLiteral $id
@@ -39,30 +27,6 @@ final class TicketSale implements \JsonSerializable
     }
 
     /**
-     * @return StringLiteral
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return Real
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getCreationDate()
-    {
-        return $this->creationDate;
-    }
-
-    /**
      * @return array
      */
     public function jsonSerialize()
@@ -76,11 +40,11 @@ final class TicketSale implements \JsonSerializable
 
     /**
      * @param \CultureFeed_Uitpas_Event_TicketSale $ticketSale
-     * @return TicketSale
+     * @return RegisteredTicketSale
      */
     public static function fromCultureFeedTicketSale(\CultureFeed_Uitpas_Event_TicketSale $ticketSale)
     {
-        return new TicketSale(
+        return new RegisteredTicketSale(
             new StringLiteral((string) $ticketSale->id),
             new Real((float) $ticketSale->price),
             DateTime::fromNativeDateTime(new \DateTime('@' . $ticketSale->creationDate))

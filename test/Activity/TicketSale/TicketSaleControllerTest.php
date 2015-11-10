@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
 
+use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\RegisteredTicketSale;
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\RegistrationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
@@ -70,7 +71,7 @@ class TicketSaleControllerTest extends \PHPUnit_Framework_TestCase
                 $registration
             )
             ->willReturn(
-                new TicketSale(
+                new RegisteredTicketSale(
                     new StringLiteral('30818'),
                     new Real(2.0),
                     new DateTime(
