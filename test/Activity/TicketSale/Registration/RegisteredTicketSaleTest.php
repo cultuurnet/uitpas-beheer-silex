@@ -2,7 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration;
 
-use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\RegisteredTicketSale;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
