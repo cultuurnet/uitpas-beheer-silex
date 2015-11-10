@@ -8,8 +8,15 @@ use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\Registration;
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\TariffId;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
+use CultuurNet\UiTPASBeheer\PassHolder\PassHolder;
+use CultuurNet\UiTPASBeheer\PassHolder\PassHolderNotFoundException;
 use CultuurNet\UiTPASBeheer\PassHolder\PassHolderServiceInterface;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformation;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use CultuurNet\UiTPASBeheer\User\Properties\Uid;
+use Guzzle\Common\Validation\String;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
 use ValueObjects\DateTime\Hour;
@@ -223,5 +230,126 @@ class TicketSaleServiceTest extends \PHPUnit_Framework_TestCase
                 'A CompleteResponseException should have been thrown. Caught ' . get_class($e) . ' instead.'
             );
         }
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_no_passholder_is_found_for_an_uitpas_number()
+    {
+        $this->passHolderService->expects($this->once())
+            ->method('getByUitpasNumber')
+            ->with($this->uitpasNumber)
+            ->willReturn(null);
+
+        $this->setExpectedException(PassHolderNotFoundException::class);
+
+        $this->service->getByUiTPASNumber($this->uitpasNumber);
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_a_list_of_ticket_sales_by_uitpas_number()
+    {
+        $uid = new Uid('123456');
+
+        $passHolder = (new PassHolder(
+            new Name(
+                new StringLiteral('John'),
+                new StringLiteral('Doe')
+            ),
+            new Address(
+                new StringLiteral('3000'),
+                new StringLiteral('Leuven')
+            ),
+            new BirthInformation(
+                new Date(
+                    new Year('2015'),
+                    Month::getByName('SEPTEMBER'),
+                    new MonthDay('9')
+                )
+            )
+        ))->withUid($uid);
+
+        $this->passHolderService->expects($this->once())
+            ->method('getByUiTPASNumber')
+            ->with($this->uitpasNumber)
+            ->willReturn($passHolder);
+
+        $expectedQuery = new \CultureFeed_Uitpas_Event_Query_SearchTicketSalesOptions();
+        $expectedQuery->uid = $uid->toNative();
+        $expectedQuery->balieConsumerKey = $this->counterConsumerKey->toNative();
+
+        $cfTicketSaleA = new \CultureFeed_Uitpas_Event_TicketSale();
+        $cfTicketSaleA->id = 'aaa';
+        $cfTicketSaleA->nodeTitle = 'Lorem Ipsum';
+        $cfTicketSaleA->tariff = 1.5;
+        $cfTicketSaleA->creationDate = 1447174206;
+
+        $cfTicketSaleB = new \CultureFeed_Uitpas_Event_TicketSale();
+        $cfTicketSaleB->id = 'bbb';
+        $cfTicketSaleB->nodeTitle = 'Dolor Sit Amet';
+        $cfTicketSaleB->tariff = 2.0;
+        $cfTicketSaleB->creationDate = 0;
+
+        $cfResultSet = new \CultureFeed_ResultSet(2, [$cfTicketSaleA, $cfTicketSaleB]);
+
+        $this->uitpas->expects($this->once())
+            ->method('searchTicketSales')
+            ->with($expectedQuery)
+            ->willReturn($cfResultSet);
+
+        $expected = [
+            new TicketSale(
+                new StringLiteral('aaa'),
+                new Real(1.5),
+                DateTime::fromNativeDateTime(new \DateTime('@1447174206')),
+                new StringLiteral('Lorem Ipsum')
+            ),
+            new TicketSale(
+                new StringLiteral('bbb'),
+                new Real(2.0),
+                DateTime::fromNativeDateTime(new \DateTime('@0')),
+                new StringLiteral('Dolor Sit Amet')
+            ),
+        ];
+
+        $actual = $this->service->getByUiTPASNumber($this->uitpasNumber);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_no_uid_is_found_for_an_uitpas_number()
+    {
+        $passHolder = new PassHolder(
+            new Name(
+                new StringLiteral('John'),
+                new StringLiteral('Doe')
+            ),
+            new Address(
+                new StringLiteral('3000'),
+                new StringLiteral('Leuven')
+            ),
+            new BirthInformation(
+                new Date(
+                    new Year('2015'),
+                    Month::getByName('SEPTEMBER'),
+                    new MonthDay('9')
+                )
+            )
+        );
+
+        $this->passHolderService->expects($this->once())
+            ->method('getByUitpasNumber')
+            ->with($this->uitpasNumber)
+            ->willReturn($passHolder);
+
+        $this->setExpectedException(PassHolderNotFoundException::class);
+
+        $this->service->getByUiTPASNumber($this->uitpasNumber);
     }
 }
