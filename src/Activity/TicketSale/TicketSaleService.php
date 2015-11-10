@@ -5,11 +5,33 @@ namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\RegisteredTicketSale;
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\Registration;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
+use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
+use CultuurNet\UiTPASBeheer\PassHolder\PassHolderNotFoundException;
+use CultuurNet\UiTPASBeheer\PassHolder\PassHolderService;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 
 class TicketSaleService extends CounterAwareUitpasService implements TicketSaleServiceInterface
 {
+    /**
+     * @var PassHolderService
+     */
+    protected $passHolderService;
+
+    /**
+     * @param \CultureFeed_Uitpas $uitpasService
+     * @param CounterConsumerKey $counterConsumerKey
+     * @param PassHolderService $passHolderService
+     */
+    public function __construct(
+        \CultureFeed_Uitpas $uitpasService,
+        CounterConsumerKey $counterConsumerKey,
+        PassHolderService $passHolderService
+    ) {
+        parent::__construct($uitpasService, $counterConsumerKey);
+        $this->passHolderService = $passHolderService;
+    }
+
     /**
      * @param UiTPASNumber $uitpasNumber
      * @param Registration $registration
@@ -46,5 +68,36 @@ class TicketSaleService extends CounterAwareUitpasService implements TicketSaleS
         }
 
         return RegisteredTicketSale::fromCultureFeedTicketSale($cfTicketSale);
+    }
+
+    /**
+     * @param UiTPASNumber $uitpasNumber
+     * @return TicketSale[]
+     *
+     * @throws PassHolderNotFoundException
+     *   When no UID was found for the provided uitpasNumber.
+     */
+    public function getByUiTPASNumber(UiTPASNumber $uitpasNumber)
+    {
+        $passHolder = $this->passHolderService->getByUitpasNumber($uitpasNumber);
+
+        if (is_null($passHolder) || is_null($passHolder->getUid())) {
+            throw new PassHolderNotFoundException();
+        }
+
+        $query = new \CultureFeed_Uitpas_Event_Query_SearchTicketSalesOptions();
+        $query->uid = $passHolder->getUid()->toNative();
+        $query->balieConsumerKey = $this->getCounterConsumerKey();
+
+        $cfResults = $this->getUitpasService()->searchTicketSales($query);
+
+        $ticketSales = array_map(
+            function ($cfTicketSale) {
+                return TicketSale::fromCultureFeedTicketSale($cfTicketSale);
+            },
+            $cfResults->objects
+        );
+
+        return $ticketSales;
     }
 }

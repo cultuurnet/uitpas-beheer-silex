@@ -52,4 +52,18 @@ class TicketSaleController
         return JsonResponse::create($ticketSale)
             ->setPrivate();
     }
+
+    /**
+     * @param $uitpasNumber
+     *
+     * @return Response
+     */
+    public function getByUiTPASNumber($uitpasNumber)
+    {
+        $uitpasNumber = new UiTPASNumber($uitpasNumber);
+        $ticketSales = $this->service->getByUiTPASNumber($uitpasNumber);
+
+        return JsonResponse::create($ticketSales)
+            ->setPrivate();
+    }
 }
