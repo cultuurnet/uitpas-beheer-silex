@@ -1439,8 +1439,8 @@
         ],
         "parameters": [
           {
-            "name": "feedback",
-            "in": "feedback",
+            "name": "body",
+            "in": "body",
             "description": "An object containing the feedback form-elements.",
             "required": true,
             "schema": {
