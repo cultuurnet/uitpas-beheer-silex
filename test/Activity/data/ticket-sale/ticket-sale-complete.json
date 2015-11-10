@@ -1,0 +1,10 @@
+{
+  "id": "30818",
+  "price": 2,
+  "creationDate": "2015-08-20T13:58:22+00:00",
+  "eventTitle": "Foo Bar",
+  "coupon": {
+    "id": "5",
+    "name": "Demo coupon"
+  }
+}
