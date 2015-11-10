@@ -16,7 +16,6 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformation;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\User\Properties\Uid;
-use Guzzle\Common\Validation\String;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
 use ValueObjects\DateTime\Hour;
@@ -32,6 +31,8 @@ use ValueObjects\StringLiteral\StringLiteral;
 
 class TicketSaleServiceTest extends \PHPUnit_Framework_TestCase
 {
+    use TicketSaleTestDataTrait;
+
     /**
      * @var \CultureFeed_Uitpas|\PHPUnit_Framework_MockObject_MockObject
      */
@@ -300,20 +301,7 @@ class TicketSaleServiceTest extends \PHPUnit_Framework_TestCase
             ->with($expectedQuery)
             ->willReturn($cfResultSet);
 
-        $expected = [
-            new TicketSale(
-                new StringLiteral('aaa'),
-                new Real(1.5),
-                DateTime::fromNativeDateTime(new \DateTime('@1447174206')),
-                new StringLiteral('Lorem Ipsum')
-            ),
-            new TicketSale(
-                new StringLiteral('bbb'),
-                new Real(2.0),
-                DateTime::fromNativeDateTime(new \DateTime('@0')),
-                new StringLiteral('Dolor Sit Amet')
-            ),
-        ];
+        $expected = $this->getTicketSaleHistory();
 
         $actual = $this->service->getByUiTPASNumber($this->uitpasNumber);
 
