@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
+namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration;
 
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\RegisteredTicketSale;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
@@ -16,7 +16,7 @@ use ValueObjects\DateTime\Year;
 use ValueObjects\Number\Real;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class TicketSaleTest extends \PHPUnit_Framework_TestCase
+class RegisteredTicketSaleTest extends \PHPUnit_Framework_TestCase
 {
     use JsonAssertionTrait;
 
