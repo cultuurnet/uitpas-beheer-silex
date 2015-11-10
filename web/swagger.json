@@ -1441,7 +1441,7 @@
           {
             "name": "message",
             "in": "feedback",
-            "description": "An object containing the feedback message",
+            "description": "A string containing the feedback message",
             "required": true,
             "schema": {
               "$ref": "#/definitions/Feedback"
@@ -3119,13 +3119,8 @@
       }
     },
     "Feedback": {
-      "type": "object",
-      "properties": {
-        "message": {
-          "type": "string",
-          "example": "This is a fake feedback message."
-        }
-      }
+      "type": "string",
+      "message": "This is a fake feedback message."
     }
   }
 }
