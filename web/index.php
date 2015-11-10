@@ -23,7 +23,9 @@ $app['security.firewalls'] = array(
     ),
     'secured' => array(
         'pattern' => '^.*$',
-        'uitid' => true,
+        'uitid' => [
+            'roles' => isset($app['config']['roles']) ? $app['config']['roles'] : [],
+        ],
         'users' => $app['uitid_firewall_user_provider'],
     ),
 );
@@ -112,5 +114,10 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\Membership\Association\Association
  * API callbacks for Coupons.
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\Coupon\CouponControllerProvider());
+
+/**
+ * API callbacks for Help.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\Help\HelpControllerProvider());
 
 $app->run();
