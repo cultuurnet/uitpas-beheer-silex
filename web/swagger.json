@@ -1431,7 +1431,7 @@
     },
     "/feedback": {
       "post": {
-        "summary": "Send the feedback message",
+        "summary": "Send the feedback form",
         "description": "Authentication is required.",
         "operationId": "feedback",
         "produces": [
@@ -1439,9 +1439,9 @@
         ],
         "parameters": [
           {
-            "name": "message",
+            "name": "feedback",
             "in": "feedback",
-            "description": "A string containing the feedback message",
+            "description": "An object containing the feedback form-elements.",
             "required": true,
             "schema": {
               "$ref": "#/definitions/Feedback"
@@ -3119,8 +3119,30 @@
       }
     },
     "Feedback": {
-      "type": "string",
-      "message": "This is a fake feedback message."
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "example": "2015-12-26"
+        },
+        "name": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "counter": {
+          "type": "string",
+          "example": "cc De Werf"
+        },
+        "email": {
+          "type": "string",
+          "example": "mail@info.com"
+        },
+        "message": {
+          "type": "string",
+          "example": "This is a fake feedback message."
+        }
+      }
     }
   }
 }
