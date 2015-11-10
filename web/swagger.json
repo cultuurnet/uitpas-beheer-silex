@@ -890,7 +890,7 @@
     "/passholders/{uitpasNumber}/activities/ticket-sales": {
       "get": {
         "summary": "Retrieves a list of ticketsales.",
-        "description": "Authentication and an uitpasNumber are required.",
+        "description": "Authentication and an active counter are required.",
         "operationId": "getTicketsales",
         "produces": [
           "application/json"
@@ -914,8 +914,14 @@
               }
             }
           },
+          "400": {
+            "description": "The uitpasNumber is invalid or missing.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
           "403": {
-            "description": "The user is not authenticated or does not have a valid uitpasNumber"
+            "description": "The user is not authenticated or does not have an active counter."
           }
         },
         "tags": [
