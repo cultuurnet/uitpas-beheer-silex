@@ -888,6 +888,48 @@
       }
     },
     "/passholders/{uitpasNumber}/activities/ticket-sales": {
+      "get": {
+        "summary": "Retrieves a list of ticketsales.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "getTicketsales",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The ticketsales for the given uitpasNumber.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TicketSale"
+              }
+            }
+          },
+          "400": {
+            "description": "The uitpasNumber is invalid or missing.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "Activity",
+          "PassHolder",
+          "Ticketsale"
+        ]
+      },
       "post": {
         "summary": "Sell a ticket to a passholder or group.",
         "description": "Authentication and an active counter are required.",
@@ -926,7 +968,8 @@
         },
         "tags": [
           "Activity",
-          "PassHolder"
+          "PassHolder",
+          "Ticketsale"
         ]
       }
     },
@@ -1442,6 +1485,10 @@
     {
       "name": "Coupon",
       "description": "Operations related to (uitpasNumber) Coupons."
+    },
+    {
+      "name": "Ticketsale",
+      "description": "Operations related to (uitpasNumber) Ticketsales."
     }
   ],
   "definitions": {
@@ -2734,6 +2781,13 @@
         "creationDate": {
           "type": "string",
           "format": "date-time"
+        },
+        "eventTitle": {
+          "type": "string",
+          "example": "Evenement naam"
+        },
+        "coupon": {
+          "$ref": "#/definitions/Coupon"
         }
       },
       "required": [
