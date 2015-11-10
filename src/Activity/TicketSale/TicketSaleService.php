@@ -8,25 +8,25 @@ use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\PassHolder\PassHolderNotFoundException;
-use CultuurNet\UiTPASBeheer\PassHolder\PassHolderService;
+use CultuurNet\UiTPASBeheer\PassHolder\PassHolderServiceInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 
 class TicketSaleService extends CounterAwareUitpasService implements TicketSaleServiceInterface
 {
     /**
-     * @var PassHolderService
+     * @var PassHolderServiceInterface
      */
     protected $passHolderService;
 
     /**
      * @param \CultureFeed_Uitpas $uitpasService
      * @param CounterConsumerKey $counterConsumerKey
-     * @param PassHolderService $passHolderService
+     * @param PassHolderServiceInterface $passHolderService
      */
     public function __construct(
         \CultureFeed_Uitpas $uitpasService,
         CounterConsumerKey $counterConsumerKey,
-        PassHolderService $passHolderService
+        PassHolderServiceInterface $passHolderService
     ) {
         parent::__construct($uitpasService, $counterConsumerKey);
         $this->passHolderService = $passHolderService;

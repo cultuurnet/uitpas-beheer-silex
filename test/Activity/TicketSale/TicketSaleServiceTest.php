@@ -8,6 +8,7 @@ use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\Registration;
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\TariffId;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
+use CultuurNet\UiTPASBeheer\PassHolder\PassHolderServiceInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
@@ -33,6 +34,11 @@ class TicketSaleServiceTest extends \PHPUnit_Framework_TestCase
      * @var CounterConsumerKey
      */
     protected $counterConsumerKey;
+
+    /**
+     * @var PassHolderServiceInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $passHolderService;
 
     /**
      * @var TicketSaleService
@@ -66,9 +72,12 @@ class TicketSaleServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->counterConsumerKey = new CounterConsumerKey('foo-bar');
 
+        $this->passHolderService = $this->getMock(PassHolderServiceInterface::class);
+
         $this->service = new TicketSaleService(
             $this->uitpas,
-            $this->counterConsumerKey
+            $this->counterConsumerKey,
+            $this->passHolderService
         );
 
         $this->uitpasNumber = new UiTPASNumber('1000000600717');
