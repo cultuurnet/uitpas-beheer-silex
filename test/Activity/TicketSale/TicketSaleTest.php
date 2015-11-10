@@ -99,7 +99,7 @@ class TicketSaleTest extends \PHPUnit_Framework_TestCase
     {
         $cfTicketSale = new \CultureFeed_Uitpas_Event_TicketSale();
         $cfTicketSale->id = 30818;
-        $cfTicketSale->price = 2;
+        $cfTicketSale->tariff = 2;
         $cfTicketSale->creationDate = 1440079102;
         $cfTicketSale->nodeTitle = 'Foo Bar';
 

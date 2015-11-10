@@ -61,7 +61,7 @@ final class TicketSale implements \JsonSerializable
     {
         return new TicketSale(
             new StringLiteral((string) $ticketSale->id),
-            new Real((float) $ticketSale->price),
+            new Real((float) $ticketSale->tariff),
             DateTime::fromNativeDateTime(new \DateTime('@' . $ticketSale->creationDate)),
             new StringLiteral($ticketSale->nodeTitle)
         );
