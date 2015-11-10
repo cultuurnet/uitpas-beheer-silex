@@ -111,6 +111,11 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\Counter\Member\MemberControllerPro
 $app->mount('/', new \CultuurNet\UiTPASBeheer\Membership\Association\AssociationControllerProvider());
 
 /**
+ * API callbacks for Coupons.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\Coupon\CouponControllerProvider());
+
+/**
  * API callbacks for Help.
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\Help\HelpControllerProvider());

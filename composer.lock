@@ -485,12 +485,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/silex-uitid-provider.git",
-                "reference": "e50488ea2d3f1b2a3d7ade1198d472ced5abdfd4"
+                "reference": "8a32ed529683a8f98afd457d99aa1da21c49c92f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/e50488ea2d3f1b2a3d7ade1198d472ced5abdfd4",
-                "reference": "e50488ea2d3f1b2a3d7ade1198d472ced5abdfd4",
+                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/8a32ed529683a8f98afd457d99aa1da21c49c92f",
+                "reference": "8a32ed529683a8f98afd457d99aa1da21c49c92f",
                 "shasum": ""
             },
             "require": {
@@ -521,7 +521,7 @@
                 "GPL-3.0"
             ],
             "description": "Silex UiTID authentication provider.",
-            "time": "2015-11-09 09:12:06"
+            "time": "2015-11-09 13:36:00"
         },
         {
             "name": "cultuurnet/udb3-symfony",
