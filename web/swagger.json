@@ -1429,6 +1429,44 @@
         ]
       }
     },
+    "/feedback": {
+      "post": {
+        "summary": "Send the feedback message",
+        "description": "Authentication is required.",
+        "operationId": "feedback",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "message",
+            "in": "feedback",
+            "description": "An object containing the feedback message",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Feedback"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The feedback was send successfully.",
+            "schema": {
+              "$ref": "#/definitions/Feedback"
+            }
+          },
+          "400": {
+            "description": "The request was not correct."
+          },
+          "403": {
+            "description": "The user is not authorised to send feedback."
+          }
+        },
+        "tags": [
+          "Feedback"
+        ]
+      }
+    },
     "/passholders/{uitpasNumber}/coupons": {
       "get": {
         "summary": "Retrieves a list of coupons.",
@@ -1523,6 +1561,10 @@
     {
       "name": "Help",
       "description": "Operations related to the help text."
+    },
+    {
+      "name": "Feedback",
+      "description": "Operations related to feedback."
     },
     {
       "name": "Coupon",
@@ -3073,6 +3115,15 @@
         "remainingTotal": {
           "type": "integer",
           "example": 1
+        }
+      }
+    },
+    "Feedback": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "This is a fake feedback message."
         }
       }
     }
