@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration;
+namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
 
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use ValueObjects\DateTime\Date;
@@ -15,7 +15,7 @@ use ValueObjects\DateTime\Year;
 use ValueObjects\Number\Real;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class RegisteredTicketSaleTest extends \PHPUnit_Framework_TestCase
+class TicketSaleTest extends \PHPUnit_Framework_TestCase
 {
     use JsonAssertionTrait;
 
@@ -35,9 +35,14 @@ class RegisteredTicketSaleTest extends \PHPUnit_Framework_TestCase
     protected $creationDate;
 
     /**
-     * @var RegisteredTicketSale
+     * @var TicketSale
      */
     protected $ticketSale;
+
+    /**
+     * @var StringLiteral
+     */
+    protected $eventTitle;
 
     public function setUp()
     {
@@ -57,11 +62,13 @@ class RegisteredTicketSaleTest extends \PHPUnit_Framework_TestCase
                 new Second(22)
             )
         );
+        $this->eventTitle = new StringLiteral('Foo Bar');
 
-        $this->ticketSale = new RegisteredTicketSale(
+        $this->ticketSale = new TicketSale(
             $this->id,
             $this->price,
-            $this->creationDate
+            $this->creationDate,
+            $this->eventTitle
         );
     }
 
@@ -73,6 +80,7 @@ class RegisteredTicketSaleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->id, $this->ticketSale->getId());
         $this->assertEquals($this->price, $this->ticketSale->getPrice());
         $this->assertEquals($this->creationDate, $this->ticketSale->getCreationDate());
+        $this->assertEquals($this->eventTitle, $this->ticketSale->getEventTitle());
     }
 
     /**
@@ -81,7 +89,7 @@ class RegisteredTicketSaleTest extends \PHPUnit_Framework_TestCase
     public function it_encodes_to_json()
     {
         $json = json_encode($this->ticketSale);
-        $this->assertJsonEquals($json, 'Activity/data/ticket-sale/registered-ticket-sale.json');
+        $this->assertJsonEquals($json, 'Activity/data/ticket-sale/ticket-sale-minimal.json');
     }
 
     /**
@@ -93,10 +101,11 @@ class RegisteredTicketSaleTest extends \PHPUnit_Framework_TestCase
         $cfTicketSale->id = 30818;
         $cfTicketSale->price = 2;
         $cfTicketSale->creationDate = 1440079102;
+        $cfTicketSale->nodeTitle = 'Foo Bar';
 
         $this->assertEquals(
             $this->ticketSale,
-            RegisteredTicketSale::fromCultureFeedTicketSale($cfTicketSale)
+            TicketSale::fromCultureFeedTicketSale($cfTicketSale)
         );
     }
 }

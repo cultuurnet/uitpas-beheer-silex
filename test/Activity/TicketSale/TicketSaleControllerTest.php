@@ -97,6 +97,6 @@ class TicketSaleControllerTest extends \PHPUnit_Framework_TestCase
 
         $actualTicketSaleJson = $response->getContent();
 
-        $this->assertJsonEquals($actualTicketSaleJson, 'Activity/data/ticket-sale/ticket-sale-minimal.json');
+        $this->assertJsonEquals($actualTicketSaleJson, 'Activity/data/ticket-sale/registered-ticket-sale.json');
     }
 }
