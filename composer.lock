@@ -277,12 +277,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "43970d698a0b5dfcc899b199ffde732e748d6fd3"
+                "reference": "360d0b107ea46c4184c10d1d6a02fbe25d98dd1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/43970d698a0b5dfcc899b199ffde732e748d6fd3",
-                "reference": "43970d698a0b5dfcc899b199ffde732e748d6fd3",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/360d0b107ea46c4184c10d1d6a02fbe25d98dd1b",
+                "reference": "360d0b107ea46c4184c10d1d6a02fbe25d98dd1b",
                 "shasum": ""
             },
             "require": {
@@ -336,7 +336,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-10-29 15:37:51"
+            "time": "2015-11-10 08:09:42"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -4394,16 +4394,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.16",
+            "version": "4.8.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "625f8c345606ed0f3a141dfb88f4116f0e22978e"
+                "reference": "fa33d4ad96481b91df343d83e8c8aabed6b1dfd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/625f8c345606ed0f3a141dfb88f4116f0e22978e",
-                "reference": "625f8c345606ed0f3a141dfb88f4116f0e22978e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fa33d4ad96481b91df343d83e8c8aabed6b1dfd3",
+                "reference": "fa33d4ad96481b91df343d83e8c8aabed6b1dfd3",
                 "shasum": ""
             },
             "require": {
@@ -4462,7 +4462,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-10-23 06:48:33"
+            "time": "2015-11-11 11:32:49"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
