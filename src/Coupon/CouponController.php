@@ -4,6 +4,7 @@ namespace CultuurNet\UiTPASBeheer\Coupon;
 
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class CouponController
 {
@@ -17,6 +18,10 @@ class CouponController
         $this->couponService = $couponService;
     }
 
+    /**
+    * @param $uitpasNumber
+    * @return Response
+    */
     public function getCouponsForPassholder($uitpasNumber)
     {
         $coupons = $this->couponService->getCouponsForPassholder(new UiTPASNumber($uitpasNumber));
@@ -28,6 +33,7 @@ class CouponController
             $coupons
         );
 
-        return JsonResponse::create($serializedCoupons);
+        return JsonResponse::create($serializedCoupons)
+          ->setPrivate();
     }
 }
