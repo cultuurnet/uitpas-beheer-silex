@@ -53,8 +53,10 @@ class CouponControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function it_responds_the_coupons_for_passholder()
     {
-        $coupons = array();
+
         $uitpasNumber = new UiTPASNumber('0930000125607');
+
+        $coupons = array();
         for ($i = 1; $i <= 3; $i++) {
             $id = new StringLiteral((string) $i);
             $name = new StringLiteral('Coupon ' . $i);
