@@ -3142,7 +3142,10 @@
           "type": "string",
           "example": "This is a fake feedback message."
         }
-      }
+      },
+      "required": [
+        "message"
+      ]
     }
   }
 }
