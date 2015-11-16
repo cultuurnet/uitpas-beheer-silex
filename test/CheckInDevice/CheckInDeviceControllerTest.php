@@ -143,4 +143,37 @@ class CheckInDeviceControllerTest extends \PHPUnit_Framework_TestCase
             $json
         );
     }
+
+    /**
+     * @test
+     */
+    public function it_can_connect_a_device_to_an_activity_automatically()
+    {
+        $deviceId = new StringLiteral('foo');
+
+        $activity = new CheckInDevice(
+            $deviceId,
+            new StringLiteral('test device')
+        );
+
+        $this->checkInDevices->expects($this->once())
+            ->method('letDeviceChooseActivityAutomatically')
+            ->with(
+                $deviceId
+            )
+            ->willReturn(
+                $activity
+            );
+
+        $requestBody = '{"activityId": null}';
+        $request = new Request([], [], [], [], [], [], $requestBody);
+
+        $response = $this->controller->connectDeviceToActivity($request, $deviceId->toNative());
+        $json = $response->getContent();
+
+        $this->assertJsonStringEqualsJsonFile(
+            __DIR__ . '/data/device_without_activity.json',
+            $json
+        );
+    }
 }

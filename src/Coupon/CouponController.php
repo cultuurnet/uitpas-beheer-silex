@@ -17,6 +17,10 @@ class CouponController
         $this->couponService = $couponService;
     }
 
+    /**
+    * @param $uitpasNumber
+    * @return JsonResponse
+    */
     public function getCouponsForPassholder($uitpasNumber)
     {
         $coupons = $this->couponService->getCouponsForPassholder(new UiTPASNumber($uitpasNumber));
@@ -28,6 +32,7 @@ class CouponController
             $coupons
         );
 
-        return JsonResponse::create($serializedCoupons);
+        return JsonResponse::create($serializedCoupons)
+          ->setPrivate();
     }
 }
