@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
 
+use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\RegisteredTicketSale;
 use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\RegistrationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
@@ -21,6 +22,7 @@ use ValueObjects\StringLiteral\StringLiteral;
 class TicketSaleControllerTest extends \PHPUnit_Framework_TestCase
 {
     use JsonAssertionTrait;
+    use TicketSaleTestDataTrait;
 
     /**
      * @var TicketSaleController
@@ -70,7 +72,7 @@ class TicketSaleControllerTest extends \PHPUnit_Framework_TestCase
                 $registration
             )
             ->willReturn(
-                new TicketSale(
+                new RegisteredTicketSale(
                     new StringLiteral('30818'),
                     new Real(2.0),
                     new DateTime(
@@ -96,6 +98,24 @@ class TicketSaleControllerTest extends \PHPUnit_Framework_TestCase
 
         $actualTicketSaleJson = $response->getContent();
 
-        $this->assertJsonEquals($actualTicketSaleJson, 'Activity/data/ticket-sale/ticket-sale-minimal.json');
+        $this->assertJsonEquals($actualTicketSaleJson, 'Activity/data/ticket-sale/registered-ticket-sale.json');
+    }
+
+    /**
+     * @test
+     */
+    public function it_responds_with_a_list_of_ticket_sales_when_searching_by_uitpas_number()
+    {
+        $uitpasNumber = new UiTPASNumber('1000000600717');
+
+        $this->service->expects($this->once())
+            ->method('getByUiTPASNumber')
+            ->with($uitpasNumber)
+            ->willReturn($this->getTicketSaleHistory());
+
+        $response = $this->controller->getByUiTPASNumber($uitpasNumber->toNative());
+
+        $json = $response->getContent();
+        $this->assertJsonEquals($json, 'Activity/data/ticket-sale/history.json');
     }
 }

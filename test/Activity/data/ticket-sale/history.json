@@ -1,0 +1,14 @@
+[
+  {
+    "id": "aaa",
+    "price": 1.5,
+    "creationDate": "2015-11-10T16:50:06+00:00",
+    "eventTitle": "Lorem Ipsum"
+  },
+  {
+    "id": "bbb",
+    "price": 2,
+    "creationDate": "1970-01-01T00:00:00+00:00",
+    "eventTitle": "Dolor Sit Amet"
+  }
+]
