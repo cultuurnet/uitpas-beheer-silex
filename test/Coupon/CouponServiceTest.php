@@ -4,6 +4,7 @@ namespace CultuurNet\UiTPASBeheer\Coupon;
 
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class CouponServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -17,7 +18,6 @@ class CouponServiceTest extends \PHPUnit_Framework_TestCase
      */
     protected $couponService;
 
-    /**
     /**
      * @var \CultureFeed_Uitpas|\PHPUnit_Framework_MockObject_MockObject
      */
@@ -49,18 +49,22 @@ class CouponServiceTest extends \PHPUnit_Framework_TestCase
             $coupon->id = (string) $i;
             $coupon->name = 'Coupon ' . $i;
             $cfCoupons[] = $coupon;
-            $expected[] = Coupon::fromCultureFeedCoupon($coupon);
+            $expected[] = new Coupon(
+                new StringLiteral($coupon->id),
+                new StringLiteral($coupon->name)
+            );
         }
 
         $resultSet = new \CultureFeed_ResultSet(
             count($cfCoupons),
-            array_values($cfCoupons)
+            $cfCoupons
         );
 
-        $this->uitpas->expects($this->any())
+        $this->uitpas->expects($this->once())
             ->method('getCouponsForPassholder')
             ->with($this->uitpasNumber, $this->counterConsumerKey)
             ->willReturn($resultSet);
+
         $actual = $this->couponService->getCouponsForPassholder($this->uitpasNumber);
         $this->assertEquals($expected, $actual);
     }
