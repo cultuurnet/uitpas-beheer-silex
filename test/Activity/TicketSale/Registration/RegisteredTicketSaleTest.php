@@ -1,8 +1,7 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
+namespace CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration;
 
-use CultuurNet\UiTPASBeheer\Coupon\Coupon;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
@@ -16,7 +15,7 @@ use ValueObjects\DateTime\Year;
 use ValueObjects\Number\Real;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class TicketSaleTest extends \PHPUnit_Framework_TestCase
+class RegisteredTicketSaleTest extends \PHPUnit_Framework_TestCase
 {
     use JsonAssertionTrait;
 
@@ -36,22 +35,7 @@ class TicketSaleTest extends \PHPUnit_Framework_TestCase
     protected $creationDate;
 
     /**
-     * @var StringLiteral
-     */
-    protected $eventTitle;
-
-    /**
-     * @var Coupon
-     */
-    protected $coupon;
-
-    /**
-     * @var TicketSale
-     */
-    protected $minimalTicketSale;
-
-    /**
-     * @var TicketSale
+     * @var RegisteredTicketSale
      */
     protected $ticketSale;
 
@@ -73,20 +57,12 @@ class TicketSaleTest extends \PHPUnit_Framework_TestCase
                 new Second(22)
             )
         );
-        $this->eventTitle = new StringLiteral('Foo Bar');
-        $this->coupon = new Coupon(
-            new StringLiteral('5'),
-            new StringLiteral('Demo coupon')
-        );
 
-        $this->minimalTicketSale = new TicketSale(
+        $this->ticketSale = new RegisteredTicketSale(
             $this->id,
             $this->price,
-            $this->creationDate,
-            $this->eventTitle
+            $this->creationDate
         );
-
-        $this->ticketSale = $this->minimalTicketSale->withCoupon($this->coupon);
     }
 
     /**
@@ -97,8 +73,6 @@ class TicketSaleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->id, $this->ticketSale->getId());
         $this->assertEquals($this->price, $this->ticketSale->getPrice());
         $this->assertEquals($this->creationDate, $this->ticketSale->getCreationDate());
-        $this->assertEquals($this->eventTitle, $this->ticketSale->getEventTitle());
-        $this->assertEquals($this->coupon, $this->ticketSale->getCoupon());
     }
 
     /**
@@ -106,11 +80,8 @@ class TicketSaleTest extends \PHPUnit_Framework_TestCase
      */
     public function it_encodes_to_json()
     {
-        $minimalJson = json_encode($this->minimalTicketSale);
-        $this->assertJsonEquals($minimalJson, 'Activity/data/ticket-sale/ticket-sale-minimal.json');
-
         $json = json_encode($this->ticketSale);
-        $this->assertJsonEquals($json, 'Activity/data/ticket-sale/ticket-sale-complete.json');
+        $this->assertJsonEquals($json, 'Activity/data/ticket-sale/registered-ticket-sale.json');
     }
 
     /**
@@ -120,17 +91,12 @@ class TicketSaleTest extends \PHPUnit_Framework_TestCase
     {
         $cfTicketSale = new \CultureFeed_Uitpas_Event_TicketSale();
         $cfTicketSale->id = 30818;
-        $cfTicketSale->tariff = 2;
+        $cfTicketSale->price = 2;
         $cfTicketSale->creationDate = 1440079102;
-        $cfTicketSale->nodeTitle = 'Foo Bar';
-
-        $cfTicketSale->ticketSaleCoupon = new \CultureFeed_Uitpas_Event_TicketSale_Coupon();
-        $cfTicketSale->ticketSaleCoupon->id = '5';
-        $cfTicketSale->ticketSaleCoupon->name = 'Demo coupon';
 
         $this->assertEquals(
             $this->ticketSale,
-            TicketSale::fromCultureFeedTicketSale($cfTicketSale)
+            RegisteredTicketSale::fromCultureFeedTicketSale($cfTicketSale)
         );
     }
 }

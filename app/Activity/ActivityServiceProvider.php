@@ -50,7 +50,8 @@ class ActivityServiceProvider implements ServiceProviderInterface
             function (Application $app) {
                 return new TicketSaleService(
                     $app['uitpas'],
-                    $app['counter_consumer_key']
+                    $app['counter_consumer_key'],
+                    $app['passholder_service']
                 );
             }
         );
