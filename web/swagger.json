@@ -3027,6 +3027,25 @@
           "example": "2015-12-26"
         },
         "remainingTotal": {
+          "$ref": "#/definitions/RemainingTotal"
+        }
+      }
+    },
+    "RemainingTotal": {
+      "type": "object",
+      "properties": {
+        "period": {
+          "type": "string",
+          "enum": [
+            "DAY",
+            "WEEK",
+            "MONTH",
+            "QUARTER",
+            "YEAR",
+            "ABSOLUTE"
+          ]
+        },
+        "volume": {
           "type": "integer",
           "example": 1
         }
