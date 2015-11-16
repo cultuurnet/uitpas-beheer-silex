@@ -6,6 +6,7 @@
 namespace CultuurNet\UiTPASBeheer\CheckInDevice;
 
 use CultuurNet\UiTPASBeheer\Activity\Activity;
+use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use ValueObjects\StringLiteral\StringLiteral;
@@ -49,10 +50,10 @@ class CheckInDeviceController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $checkInDeviceId
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \CultuurNet\UiTPASBeheer\Exception\MissingPropertyException
+     * @return JsonResponse
+     * @throws MissingPropertyException
      */
     public function connectDeviceToActivity(Request $request, $checkInDeviceId)
     {
