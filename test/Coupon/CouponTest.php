@@ -35,7 +35,13 @@ class CouponTest extends \PHPUnit_Framework_TestCase
             new StringLiteral('182'),
             new StringLiteral('SUPER DUPER DISCOUNT COUPON!')
         );
-        $coupon = $coupon->withRemainingTotal(new Integer(5));
+
+        $remainingTotal = new RemainingTotal(
+            RemainingTotalType::fromNative('WEEK'),
+            new Integer(5)
+        );
+
+        $coupon = $coupon->withRemainingTotal($remainingTotal);
         $coupon = $coupon->withDescription(new StringLiteral('SUPER DUPER DISCOUNT COUPON! Much WoW'));
         $coupon = $coupon->withStartDate(new Integer(1443654000));
         $coupon = $coupon->withExpirationDate(new Integer(1475276400));
@@ -47,7 +53,10 @@ class CouponTest extends \PHPUnit_Framework_TestCase
             'description' => 'SUPER DUPER DISCOUNT COUPON! Much WoW',
             'expirationDate' => '2016-09-30',
             'startDate' => '2015-09-30',
-            'remainingTotal' => 5,
+            'remainingTotal' => [
+                'type' => 'WEEK',
+                'volume' => 5,
+            ],
         ];
 
         $this->assertEquals($expectedCoupon, $serializedCoupon);
@@ -58,25 +67,31 @@ class CouponTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_include_extra_properties()
     {
-        $remainingTotal = new \CultureFeed_Uitpas_PeriodConstraint();
-        $remainingTotal->volume = 5;
+        $cfRemainingTotal = new \CultureFeed_Uitpas_PeriodConstraint();
+        $cfRemainingTotal->type = 'WEEK';
+        $cfRemainingTotal->volume = 5;
 
         $cfCoupon = new \CultureFeed_Uitpas_Event_TicketSale_Coupon();
         $cfCoupon->id = '182';
         $cfCoupon->name = 'SUPER DUPER DISCOUNT COUPON!';
         $cfCoupon->description = 'SUPER DUPER DISCOUNT COUPON! Much WoW';
-        $cfCoupon->remainingTotal = $remainingTotal;
+        $cfCoupon->remainingTotal = $cfRemainingTotal;
         $cfCoupon->validTo = 1475276400;
         $cfCoupon->validFrom = 1443654000;
 
 
         $couponFromCfCoupon = Coupon::fromCultureFeedCoupon($cfCoupon);
 
+        $expectedRemainingTotal = new RemainingTotal(
+            RemainingTotalType::fromNative('WEEK'),
+            new Integer(5)
+        );
+
         $expectedCoupon = new Coupon(
             new StringLiteral('182'),
             new StringLiteral('SUPER DUPER DISCOUNT COUPON!')
         );
-        $expectedCoupon = $expectedCoupon->withRemainingTotal(new Integer(5));
+        $expectedCoupon = $expectedCoupon->withRemainingTotal($expectedRemainingTotal);
         $expectedCoupon = $expectedCoupon->withDescription(new StringLiteral('SUPER DUPER DISCOUNT COUPON! Much WoW'));
         $expectedCoupon = $expectedCoupon->withStartDate(new Integer(1443654000));
         $expectedCoupon = $expectedCoupon->withExpirationDate(new Integer(1475276400));
