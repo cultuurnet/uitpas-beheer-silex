@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ba08766ac8a332fb1d8205129b853cdc",
-    "content-hash": "8a9e4a7c1696a1e04b58c35059b8f8b8",
+    "hash": "5be731f82d79487cba4825c8fec1f485",
+    "content-hash": "392c2bf0df7268dd06a678122dd3523c",
     "packages": [
         {
             "name": "2dotstwice/collection",
@@ -276,16 +276,16 @@
         },
         {
             "name": "cultuurnet/culturefeed-php",
-            "version": "dev-feature/UBR-347",
+            "version": "dev-feature/UBR",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "b018c0c0de522e1116803a5a329a9dc753cc688e"
+                "reference": "e9c825957daa6c1260471dd7f0c7ac2c6288e298"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/b018c0c0de522e1116803a5a329a9dc753cc688e",
-                "reference": "b018c0c0de522e1116803a5a329a9dc753cc688e",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/e9c825957daa6c1260471dd7f0c7ac2c6288e298",
+                "reference": "e9c825957daa6c1260471dd7f0c7ac2c6288e298",
                 "shasum": ""
             },
             "require": {
@@ -339,7 +339,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-11-17 08:53:42"
+            "time": "2015-11-17 13:18:40"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -488,12 +488,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/silex-uitid-provider.git",
-                "reference": "8a32ed529683a8f98afd457d99aa1da21c49c92f"
+                "reference": "6b651c386cdcfa1c1b02664a6ceabec0930a8357"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/8a32ed529683a8f98afd457d99aa1da21c49c92f",
-                "reference": "8a32ed529683a8f98afd457d99aa1da21c49c92f",
+                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/6b651c386cdcfa1c1b02664a6ceabec0930a8357",
+                "reference": "6b651c386cdcfa1c1b02664a6ceabec0930a8357",
                 "shasum": ""
             },
             "require": {
@@ -511,6 +511,11 @@
                 "squizlabs/php_codesniffer": "~2.2"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "CultuurNet\\UiTIDProvider\\": [
@@ -524,7 +529,7 @@
                 "GPL-3.0"
             ],
             "description": "Silex UiTID authentication provider.",
-            "time": "2015-11-09 13:36:00"
+            "time": "2015-11-17 10:03:27"
         },
         {
             "name": "cultuurnet/udb3-symfony",
@@ -5094,7 +5099,7 @@
         {
             "alias": "1.5.2",
             "alias_normalized": "1.5.2.0",
-            "version": "dev-feature/UBR-347",
+            "version": "dev-feature/UBR",
             "package": "cultuurnet/culturefeed-php"
         },
         {
