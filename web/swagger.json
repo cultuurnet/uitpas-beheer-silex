@@ -1638,8 +1638,7 @@
           "example": 28320
         },
         "city": {
-          "type": "string",
-          "example": "Madrid"
+          "$ref": "#/definitions/City"
         },
         "country": {
           "type": "string",
@@ -2416,8 +2415,7 @@
           "example": "9308"
         },
         "city": {
-          "type": "string",
-          "example": "Aalst"
+          "$ref": "#/definitions/City"
         }
       },
       "required": [
@@ -2492,6 +2490,33 @@
         "exchangeable": {
           "type": "boolean",
           "example": true
+        },
+        "description1": {
+          "type": "string",
+          "example": "description1"
+        },
+        "description2": {
+          "type": "string",
+          "example": "description2"
+        },
+        "validForCities": {
+          "type": "array",
+          "description": "Cities for which the advantage is valid, if empty valid for all cities.",
+          "items": {
+            "$ref": "#/definitions/City"
+          }
+        },
+        "validForCounters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Counter"
+          }
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "description": "The end date of the granting period.",
+          "example": "2016/09/10"
         }
       },
       "required": [
@@ -2500,6 +2525,10 @@
         "points",
         "exchangeable"
       ]
+    },
+    "City": {
+      "type": "string",
+      "example": "Leuven"
     },
     "postObjectWithCounterId": {
       "properties": {
