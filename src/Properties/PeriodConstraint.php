@@ -57,6 +57,17 @@ class PeriodConstraint implements \JsonSerializable
     }
 
     /**
+     * @param PeriodConstraint $comparison
+     * @return bool
+     */
+    public function sameValueAs(PeriodConstraint $comparison)
+    {
+        // This does the trick as long as jsonSerialize() output contains all
+        // properties that should be compared here.
+        return $this->jsonSerialize() === $comparison->jsonSerialize();
+    }
+
+    /**
      * @inheritDoc
      */
     public function jsonSerialize()
