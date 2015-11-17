@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5be731f82d79487cba4825c8fec1f485",
-    "content-hash": "392c2bf0df7268dd06a678122dd3523c",
+    "hash": "ea11a9b5b1a5922358a57f586e5a2724",
+    "content-hash": "830c0e4b50a45a63b6e5f1b7922811c6",
     "packages": [
         {
             "name": "2dotstwice/collection",
@@ -276,16 +276,16 @@
         },
         {
             "name": "cultuurnet/culturefeed-php",
-            "version": "dev-feature/UBR",
+            "version": "dev-feature/UBR-353",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "ff5a23b38d0e7908331a7c76d973592ae17eb383"
+                "reference": "b5ebd2894a057c27993d25a5e19cfd8b976271d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/ff5a23b38d0e7908331a7c76d973592ae17eb383",
-                "reference": "ff5a23b38d0e7908331a7c76d973592ae17eb383",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/b5ebd2894a057c27993d25a5e19cfd8b976271d6",
+                "reference": "b5ebd2894a057c27993d25a5e19cfd8b976271d6",
                 "shasum": ""
             },
             "require": {
@@ -339,7 +339,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-11-16 08:54:10"
+            "time": "2015-11-17 19:30:59"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -492,7 +492,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/8a32ed529683a8f98afd457d99aa1da21c49c92f",
+                "url": "https://api.github.com/repos/cultuurnet/silex-uitid-provider/zipball/6b651c386cdcfa1c1b02664a6ceabec0930a8357",
                 "reference": "8a32ed529683a8f98afd457d99aa1da21c49c92f",
                 "shasum": ""
             },
@@ -5094,7 +5094,7 @@
         {
             "alias": "1.5.2",
             "alias_normalized": "1.5.2.0",
-            "version": "dev-feature/UBR",
+            "version": "dev-feature/UBR-353",
             "package": "cultuurnet/culturefeed-php"
         },
         {

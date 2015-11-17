@@ -7,6 +7,7 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class TicketSaleController
@@ -31,6 +32,20 @@ class TicketSaleController
     ) {
         $this->service = $service;
         $this->registrationJsonDeserializer = $registrationJsonDeserializer;
+    }
+
+    /**
+     * @param string $ticketId
+     *
+     * @return Response
+     */
+    public function cancel($ticketId)
+    {
+        $ticketId = new StringLiteral($ticketId);
+
+        $ticketCancellation = $this->service->cancel($ticketId);
+        return JsonResponse::create($ticketCancellation)
+            ->setPrivate();
     }
 
     /**

@@ -10,6 +10,7 @@ use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\PassHolder\PassHolderNotFoundException;
 use CultuurNet\UiTPASBeheer\PassHolder\PassHolderServiceInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class TicketSaleService extends CounterAwareUitpasService implements TicketSaleServiceInterface
 {
@@ -30,6 +31,21 @@ class TicketSaleService extends CounterAwareUitpasService implements TicketSaleS
     ) {
         parent::__construct($uitpasService, $counterConsumerKey);
         $this->passHolderService = $passHolderService;
+    }
+
+    /**
+     * @param \ValueObjects\StringLiteral\StringLiteral $ticketId
+     * @return boolean
+     * @throws CompleteResponseException
+     */
+    public function cancel(StringLiteral $ticketId)
+    {
+        $ticketCancellation = $this->getUitpasService()->cancelTicketSaleById(
+            $ticketId->toNative(),
+            $this->getCounterConsumerKey()
+        );
+
+        return $ticketCancellation;
     }
 
     /**

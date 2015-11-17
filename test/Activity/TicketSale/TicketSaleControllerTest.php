@@ -118,4 +118,22 @@ class TicketSaleControllerTest extends \PHPUnit_Framework_TestCase
         $json = $response->getContent();
         $this->assertJsonEquals($json, 'Activity/data/ticket-sale/history.json');
     }
+
+    /**
+     * @test
+     */
+    public function it_responds_with_a_boolean_when_cancelling_a_ticket()
+    {
+        $ticketId = new StringLiteral('123');
+
+        $this->service->expects($this->once())
+            ->method('cancel')
+            ->with($ticketId)
+            ->willReturn(true);
+
+        $response = $this->controller->cancel($ticketId->toNative());
+
+        $json = $response->getContent();
+        $this->assertEquals($json, 'true');
+    }
 }
