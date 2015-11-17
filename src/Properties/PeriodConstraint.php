@@ -1,13 +1,13 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Coupon;
+namespace CultuurNet\UiTPASBeheer\Properties;
 
 use ValueObjects\Number\Integer;
 
-class RemainingTotal implements \JsonSerializable
+class PeriodConstraint implements \JsonSerializable
 {
     /**
-     * @var RemainingTotalType
+     * @var PeriodType
      */
     protected $type;
 
@@ -17,12 +17,12 @@ class RemainingTotal implements \JsonSerializable
     protected $volume;
 
     /**
-     * RemainingTotal constructor.
+     * PeriodConstraint constructor.
      *
-     * @param RemainingTotalType $type
+     * @param PeriodType $type
      * @param \ValueObjects\Number\Integer $volume
      */
-    public function __construct(RemainingTotalType $type, Integer $volume)
+    public function __construct(PeriodType $type, Integer $volume)
     {
         $this->type = $type;
         $this->volume = $volume;
@@ -30,18 +30,18 @@ class RemainingTotal implements \JsonSerializable
 
     /**
      * @param \CultureFeed_Uitpas_PeriodConstraint $remainingTotal
-     * @return RemainingTotal
+     * @return PeriodConstraint
      */
     public static function fromCulturefeedPeriodConstraint(\CultureFeed_Uitpas_PeriodConstraint $remainingTotal)
     {
-        $type = RemainingTotalType::fromNative($remainingTotal->type);
+        $type = PeriodType::fromNative($remainingTotal->type);
         $volume = new Integer($remainingTotal->volume);
 
-        return new RemainingTotal($type, $volume);
+        return new PeriodConstraint($type, $volume);
     }
 
     /**
-     * @return RemainingTotalType
+     * @return PeriodType
      */
     public function getType()
     {

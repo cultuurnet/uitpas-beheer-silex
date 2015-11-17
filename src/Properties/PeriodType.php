@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\Coupon;
+namespace CultuurNet\UiTPASBeheer\Properties;
 
 use ValueObjects\Enum\Enum;
 
@@ -12,7 +12,7 @@ use ValueObjects\Enum\Enum;
  * @method static YEAR
  * @method static ABSOLUTE
  */
-class RemainingTotalType extends Enum
+class PeriodType extends Enum
 {
     const DAY = 'DAY';
     const WEEK = 'WEEK';

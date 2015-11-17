@@ -2,6 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\Coupon;
 
+use CultuurNet\UiTPASBeheer\Properties\PeriodConstraint;
+use CultuurNet\UiTPASBeheer\Properties\PeriodType;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -31,8 +33,8 @@ class CouponTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_be_serialized_with_all_of_its_properties()
     {
-        $remainingTotal = new RemainingTotal(
-            RemainingTotalType::fromNative('WEEK'),
+        $remainingTotal = new PeriodConstraint(
+            PeriodType::fromNative('WEEK'),
             new Integer(5)
         );
 
@@ -80,8 +82,8 @@ class CouponTest extends \PHPUnit_Framework_TestCase
 
         $couponFromCfCoupon = Coupon::fromCultureFeedCoupon($cfCoupon);
 
-        $expectedRemainingTotal = new RemainingTotal(
-            RemainingTotalType::fromNative('WEEK'),
+        $expectedRemainingTotal = new PeriodConstraint(
+            PeriodType::fromNative('WEEK'),
             new Integer(5)
         );
 

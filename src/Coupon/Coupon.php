@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Coupon;
 
+use CultuurNet\UiTPASBeheer\Properties\PeriodConstraint;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 use ValueObjects\DateTime\Date;
@@ -29,7 +30,7 @@ class Coupon implements \JsonSerializable
     protected $startDate;
 
     /**
-     * @var RemainingTotal
+     * @var PeriodConstraint
      */
     protected $remainingTotal;
 
@@ -85,7 +86,7 @@ class Coupon implements \JsonSerializable
     }
 
     /**
-     * @return RemainingTotal
+     * @return PeriodConstraint
      */
     public function getRemainingTotal()
     {
@@ -126,10 +127,10 @@ class Coupon implements \JsonSerializable
     }
 
     /**
-     * @param RemainingTotal $remainingTotal
+     * @param PeriodConstraint $remainingTotal
      * @return Coupon
      */
-    public function withRemainingTotal(RemainingTotal $remainingTotal)
+    public function withRemainingTotal(PeriodConstraint $remainingTotal)
     {
         return $this->with('remainingTotal', $remainingTotal);
     }
@@ -210,7 +211,7 @@ class Coupon implements \JsonSerializable
 
         if (!empty($cfCoupon->remainingTotal)) {
             $coupon = $coupon->withRemainingTotal(
-                RemainingTotal::fromCulturefeedPeriodConstraint($cfCoupon->remainingTotal)
+                PeriodConstraint::fromCulturefeedPeriodConstraint($cfCoupon->remainingTotal)
             );
         }
 
