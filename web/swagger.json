@@ -482,14 +482,14 @@
               "$ref": "#/definitions/PassholderCollection"
             }
           },
-          "403": {
-            "description": "The user is not authenticated or has no active counter."
-          },
           "400": {
             "description": "The provided parameters are incorrect, or an API error occurred.",
             "schema": {
               "$ref": "#/definitions/Error"
             }
+          },
+          "403": {
+            "description": "The user is not authenticated or has no active counter."
           }
         },
         "tags": [
@@ -963,6 +963,48 @@
             }
           },
           "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "Activity",
+          "PassHolder",
+          "Ticketsale"
+        ]
+      }
+    },
+    "/passholders/{uitpasNumber}/activities/ticket-sales/{ticketSaleId}": {
+      "delete": {
+        "summary": "Delete a ticketsale from the passholder or group.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "deleteTicketSale",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder or group.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ticketSaleId",
+            "in": "path",
+            "description": "The id of the ticket sale that should be deleted.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted the ticket sale from the passholder or group."
+          },
+          "400": {
+            "description": "UiTPAS API error."
+          },
+          "401": {
             "description": "The user is not authenticated or does not have an active counter."
           }
         },
@@ -2511,7 +2553,9 @@
     },
     "Activity": {
       "allOf": [
-        {"$ref": "#/definitions/BasicActivity"},
+        {
+          "$ref": "#/definitions/BasicActivity"
+        },
         {
           "properties": {
             "description": {
