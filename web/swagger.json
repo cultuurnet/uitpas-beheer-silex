@@ -1599,8 +1599,7 @@
           "example": 28320
         },
         "city": {
-          "type": "string",
-          "example": "Madrid"
+          "$ref": "#/definitions/City"
         },
         "country": {
           "type": "string",
@@ -2377,8 +2376,7 @@
           "example": "9308"
         },
         "city": {
-          "type": "string",
-          "example": "Aalst"
+          "$ref": "#/definitions/City"
         }
       },
       "required": [
