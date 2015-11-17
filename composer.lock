@@ -106,24 +106,27 @@
         },
         {
             "name": "cultuurnet/calendar-summary",
-            "version": "v1.0.3",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/calendar-summary.git",
-                "reference": "1c09392d846cffd407ef6c181b52cc42f72aee89"
+                "reference": "208885b8b73730c18337883f9927fef4bf913577"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/calendar-summary/zipball/1c09392d846cffd407ef6c181b52cc42f72aee89",
-                "reference": "1c09392d846cffd407ef6c181b52cc42f72aee89",
+                "url": "https://api.github.com/repos/cultuurnet/calendar-summary/zipball/208885b8b73730c18337883f9927fef4bf913577",
+                "reference": "208885b8b73730c18337883f9927fef4bf913577",
                 "shasum": ""
             },
             "require": {
-                "ext-intl": "*"
+                "cultuurnet/cdb": "~2.0",
+                "ext-intl": "*",
+                "php": ">=5.5.0"
             },
             "require-dev": {
                 "phing/phing": "~2.10",
                 "phpunit/phpunit": "~4.5",
+                "satooshi/php-coveralls": "~0.7",
                 "squizlabs/php_codesniffer": "~2.2"
             },
             "type": "library",
@@ -145,7 +148,7 @@
                 "Apache-2.0"
             ],
             "description": "Library to convert a cdbXML input to a readable summary",
-            "time": "2015-06-01 14:20:21"
+            "time": "2015-11-13 08:49:40"
         },
         {
             "name": "cultuurnet/cdb",
@@ -277,12 +280,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "16d0626d5873780c29b293fb7e6014e7219adc36"
+                "reference": "b018c0c0de522e1116803a5a329a9dc753cc688e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/16d0626d5873780c29b293fb7e6014e7219adc36",
-                "reference": "16d0626d5873780c29b293fb7e6014e7219adc36",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/b018c0c0de522e1116803a5a329a9dc753cc688e",
+                "reference": "b018c0c0de522e1116803a5a329a9dc753cc688e",
                 "shasum": ""
             },
             "require": {
@@ -336,7 +339,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2015-11-10 10:34:42"
+            "time": "2015-11-17 08:53:42"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -4394,16 +4397,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.16",
+            "version": "4.8.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "625f8c345606ed0f3a141dfb88f4116f0e22978e"
+                "reference": "fa33d4ad96481b91df343d83e8c8aabed6b1dfd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/625f8c345606ed0f3a141dfb88f4116f0e22978e",
-                "reference": "625f8c345606ed0f3a141dfb88f4116f0e22978e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fa33d4ad96481b91df343d83e8c8aabed6b1dfd3",
+                "reference": "fa33d4ad96481b91df343d83e8c8aabed6b1dfd3",
                 "shasum": ""
             },
             "require": {
@@ -4462,7 +4465,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-10-23 06:48:33"
+            "time": "2015-11-11 11:32:49"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
