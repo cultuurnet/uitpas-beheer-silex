@@ -1450,10 +1450,7 @@
         ],
         "responses": {
           "200": {
-            "description": "The feedback was send successfully.",
-            "schema": {
-              "$ref": "#/definitions/Feedback"
-            }
+            "description": "The feedback was send successfully."
           },
           "400": {
             "description": "The request was not correct."
