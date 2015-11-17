@@ -29,7 +29,7 @@ class Coupon implements \JsonSerializable
     protected $startDate;
 
     /**
-     * @var Integer
+     * @var RemainingTotal
      */
     protected $remainingTotal;
 
@@ -84,6 +84,9 @@ class Coupon implements \JsonSerializable
         return $this->startDate;
     }
 
+    /**
+     * @return RemainingTotal
+     */
     public function getRemainingTotal()
     {
         return $this->remainingTotal;
@@ -123,13 +126,14 @@ class Coupon implements \JsonSerializable
     }
 
     /**
-     * @param \ValueObjects\Number\Integer $remainingTotal
+     * @param RemainingTotal $remainingTotal
      * @return Coupon
      */
-    public function withRemainingTotal(Integer $remainingTotal)
+    public function withRemainingTotal(RemainingTotal $remainingTotal)
     {
         return $this->with('remainingTotal', $remainingTotal);
     }
+
     /**
      * @param string $property
      * @param mixed $value
@@ -169,7 +173,7 @@ class Coupon implements \JsonSerializable
         }
 
         if (!is_null($this->remainingTotal)) {
-            $data['remainingTotal'] = $this->getRemainingTotal()->toNative();
+            $data['remainingTotal'] = $this->getRemainingTotal()->jsonSerialize();
         }
 
         return $data;
@@ -204,9 +208,9 @@ class Coupon implements \JsonSerializable
             );
         }
 
-        if (!empty($cfCoupon->remainingTotal) && !empty($cfCoupon->remainingTotal->volume)) {
+        if (!empty($cfCoupon->remainingTotal)) {
             $coupon = $coupon->withRemainingTotal(
-                new Integer($cfCoupon->remainingTotal->volume)
+                RemainingTotal::fromCulturefeedPeriodConstraint($cfCoupon->remainingTotal)
             );
         }
 
