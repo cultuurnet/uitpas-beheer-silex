@@ -3071,11 +3071,11 @@
           "example": "2015-12-26"
         },
         "remainingTotal": {
-          "$ref": "#/definitions/RemainingTotal"
+          "$ref": "#/definitions/PeriodConstraint"
         }
       }
     },
-    "RemainingTotal": {
+    "PeriodConstraint": {
       "type": "object",
       "properties": {
         "period": {
