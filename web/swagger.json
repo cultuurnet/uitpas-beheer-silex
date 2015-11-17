@@ -1429,6 +1429,41 @@
         ]
       }
     },
+    "/feedback": {
+      "post": {
+        "summary": "Send the feedback form",
+        "description": "Authentication is required.",
+        "operationId": "feedback",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the feedback form-elements.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Feedback"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The feedback was send successfully."
+          },
+          "400": {
+            "description": "The request was not correct."
+          },
+          "403": {
+            "description": "The user is not authorised to send feedback."
+          }
+        },
+        "tags": [
+          "Feedback"
+        ]
+      }
+    },
     "/passholders/{uitpasNumber}/coupons": {
       "get": {
         "summary": "Retrieves a list of coupons.",
@@ -1523,6 +1558,10 @@
     {
       "name": "Help",
       "description": "Operations related to the help text."
+    },
+    {
+      "name": "Feedback",
+      "description": "Operations related to feedback."
     },
     {
       "name": "Coupon",
@@ -3075,6 +3114,35 @@
           "example": 1
         }
       }
+    },
+    "Feedback": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "example": "2015-12-26"
+        },
+        "name": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "counter": {
+          "type": "string",
+          "example": "cc De Werf"
+        },
+        "email": {
+          "type": "string",
+          "example": "mail@info.com"
+        },
+        "message": {
+          "type": "string",
+          "example": "This is a fake feedback message."
+        }
+      },
+      "required": [
+        "message"
+      ]
     }
   }
 }
