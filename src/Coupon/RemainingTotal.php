@@ -62,7 +62,7 @@ class RemainingTotal implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'type' => $this->getType()->toNative(),
+            'period' => $this->getType()->toNative(),
             'volume' => $this->getVolume()->toNative(),
         ];
     }

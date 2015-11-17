@@ -53,7 +53,7 @@ class CouponTest extends \PHPUnit_Framework_TestCase
             'expirationDate' => '2016-09-30',
             'startDate' => '2015-09-30',
             'remainingTotal' => [
-                'type' => 'WEEK',
+                'period' => 'WEEK',
                 'volume' => 5,
             ],
         ];
@@ -77,7 +77,6 @@ class CouponTest extends \PHPUnit_Framework_TestCase
         $cfCoupon->remainingTotal = $cfRemainingTotal;
         $cfCoupon->validTo = 1475276400;
         $cfCoupon->validFrom = 1443654000;
-
 
         $couponFromCfCoupon = Coupon::fromCultureFeedCoupon($cfCoupon);
 
