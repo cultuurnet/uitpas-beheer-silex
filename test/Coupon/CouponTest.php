@@ -31,20 +31,19 @@ class CouponTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_be_serialized_with_all_of_its_properties()
     {
-        $coupon = new Coupon(
-            new StringLiteral('182'),
-            new StringLiteral('SUPER DUPER DISCOUNT COUPON!')
-        );
-
         $remainingTotal = new RemainingTotal(
             RemainingTotalType::fromNative('WEEK'),
             new Integer(5)
         );
 
-        $coupon = $coupon->withRemainingTotal($remainingTotal);
-        $coupon = $coupon->withDescription(new StringLiteral('SUPER DUPER DISCOUNT COUPON! Much WoW'));
-        $coupon = $coupon->withStartDate(new Integer(1443654000));
-        $coupon = $coupon->withExpirationDate(new Integer(1475276400));
+        $coupon = (new Coupon(
+            new StringLiteral('182'),
+            new StringLiteral('SUPER DUPER DISCOUNT COUPON!')
+        ))
+            ->withRemainingTotal($remainingTotal)
+            ->withDescription(new StringLiteral('SUPER DUPER DISCOUNT COUPON! Much WoW'))
+            ->withStartDate(new Integer(1443654000))
+            ->withExpirationDate(new Integer(1475276400));
 
         $serializedCoupon = $coupon->jsonSerialize();
         $expectedCoupon = [
@@ -87,14 +86,14 @@ class CouponTest extends \PHPUnit_Framework_TestCase
             new Integer(5)
         );
 
-        $expectedCoupon = new Coupon(
+        $expectedCoupon = (new Coupon(
             new StringLiteral('182'),
             new StringLiteral('SUPER DUPER DISCOUNT COUPON!')
-        );
-        $expectedCoupon = $expectedCoupon->withRemainingTotal($expectedRemainingTotal);
-        $expectedCoupon = $expectedCoupon->withDescription(new StringLiteral('SUPER DUPER DISCOUNT COUPON! Much WoW'));
-        $expectedCoupon = $expectedCoupon->withStartDate(new Integer(1443654000));
-        $expectedCoupon = $expectedCoupon->withExpirationDate(new Integer(1475276400));
+        ))
+            ->withRemainingTotal($expectedRemainingTotal)
+            ->withDescription(new StringLiteral('SUPER DUPER DISCOUNT COUPON! Much WoW'))
+            ->withStartDate(new Integer(1443654000))
+            ->withExpirationDate(new Integer(1475276400));
 
         $this->assertEquals($expectedCoupon, $couponFromCfCoupon);
     }
