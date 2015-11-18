@@ -1421,6 +1421,41 @@
         ]
       }
     },
+    "/feedback": {
+      "post": {
+        "summary": "Send the feedback form",
+        "description": "Authentication is required.",
+        "operationId": "feedback",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the feedback form-elements.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Feedback"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The feedback was send successfully."
+          },
+          "400": {
+            "description": "The request was not correct."
+          },
+          "403": {
+            "description": "The user is not authorised to send feedback."
+          }
+        },
+        "tags": [
+          "Feedback"
+        ]
+      }
+    },
     "/passholders/{uitpasNumber}/coupons": {
       "get": {
         "summary": "Retrieves a list of coupons.",
@@ -1517,6 +1552,10 @@
       "description": "Operations related to the help text."
     },
     {
+      "name": "Feedback",
+      "description": "Operations related to feedback."
+    },
+    {
       "name": "Coupon",
       "description": "Operations related to (uitpasNumber) Coupons."
     },
@@ -1591,8 +1630,7 @@
           "example": 28320
         },
         "city": {
-          "type": "string",
-          "example": "Madrid"
+          "$ref": "#/definitions/City"
         },
         "country": {
           "type": "string",
@@ -2369,8 +2407,7 @@
           "example": "9308"
         },
         "city": {
-          "type": "string",
-          "example": "Aalst"
+          "$ref": "#/definitions/City"
         }
       },
       "required": [
@@ -2445,6 +2482,33 @@
         "exchangeable": {
           "type": "boolean",
           "example": true
+        },
+        "description1": {
+          "type": "string",
+          "example": "description1"
+        },
+        "description2": {
+          "type": "string",
+          "example": "description2"
+        },
+        "validForCities": {
+          "type": "array",
+          "description": "Cities for which the advantage is valid, if empty valid for all cities.",
+          "items": {
+            "$ref": "#/definitions/City"
+          }
+        },
+        "validForCounters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Counter"
+          }
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "description": "The end date of the granting period.",
+          "example": "2016/09/10"
         }
       },
       "required": [
@@ -2453,6 +2517,10 @@
         "points",
         "exchangeable"
       ]
+    },
+    "City": {
+      "type": "string",
+      "example": "Leuven"
     },
     "postObjectWithCounterId": {
       "properties": {
@@ -3063,10 +3131,58 @@
           "example": "2015-12-26"
         },
         "remainingTotal": {
+          "$ref": "#/definitions/PeriodConstraint"
+        }
+      }
+    },
+    "PeriodConstraint": {
+      "type": "object",
+      "properties": {
+        "period": {
+          "type": "string",
+          "enum": [
+            "DAY",
+            "WEEK",
+            "MONTH",
+            "QUARTER",
+            "YEAR",
+            "ABSOLUTE"
+          ]
+        },
+        "volume": {
           "type": "integer",
           "example": 1
         }
       }
+    },
+    "Feedback": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "example": "2015-12-26"
+        },
+        "name": {
+          "type": "string",
+          "example": "John Doe"
+        },
+        "counter": {
+          "type": "string",
+          "example": "cc De Werf"
+        },
+        "email": {
+          "type": "string",
+          "example": "mail@info.com"
+        },
+        "message": {
+          "type": "string",
+          "example": "This is a fake feedback message."
+        }
+      },
+      "required": [
+        "message"
+      ]
     }
   }
 }

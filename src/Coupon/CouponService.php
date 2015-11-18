@@ -32,10 +32,7 @@ class CouponService extends CounterAwareUitpasService implements CouponServiceIn
 
         $coupons = array_map(
             function ($cfCoupon) {
-                return new Coupon(
-                    new StringLiteral($cfCoupon->id),
-                    new stringLiteral($cfCoupon->name)
-                );
+                return Coupon::fromCultureFeedCoupon($cfCoupon);
             },
             $couponsResultSet->objects
         );
