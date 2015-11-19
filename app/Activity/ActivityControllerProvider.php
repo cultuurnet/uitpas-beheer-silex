@@ -57,7 +57,7 @@ class ActivityControllerProvider implements ControllerProviderInterface
             'ticketsale_controller:getByUiTPASNumber'
         );
         $controllers->post('/passholders/{uitpasNumber}/activities/ticket-sales', 'ticketsale_controller:register');
-        $controllers->delete('/passholders/activities/ticket-sales/{ticketId}/cancel', 'ticketsale_controller:cancel');
+        $controllers->delete('/passholders/{uitpasNumber}/activities/ticket-sales/{ticketSaleId}', 'ticketsale_controller:cancel');
 
         return $controllers;
     }

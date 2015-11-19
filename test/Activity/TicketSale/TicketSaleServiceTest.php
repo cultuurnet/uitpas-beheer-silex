@@ -115,14 +115,9 @@ class TicketSaleServiceTest extends \PHPUnit_Framework_TestCase
             ->with(
                 $ticketId->toNative(),
                 $this->counterConsumerKey->toNative()
-            )
-            ->willReturn(true);
+            );
 
-        $expected = true;
-
-        $actual = $this->service->cancel($ticketId);
-
-        $this->assertEquals($expected, $actual);
+        $this->service->cancel($ticketId);
     }
 
     /**

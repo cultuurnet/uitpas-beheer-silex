@@ -973,26 +973,33 @@
         ]
       }
     },
-    "/passholders/activities/ticket-sales/{ticketSaleId}/cancel": {
+    "/passholders/{uitpasNumber}/activities/ticket-sales/{ticketSaleId}": {
       "delete": {
-        "summary": "Cancel a ticket sale.",
+        "summary": "Delete a ticketsale from the passholder or group.",
         "description": "Authentication and an active counter are required.",
-        "operationId": "cancelTicketSale",
+        "operationId": "deleteTicketSale",
         "produces": [
           "application/json"
         ],
         "parameters": [
           {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder or group.",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "ticketSaleId",
             "in": "path",
-            "description": "The id of the ticket sale that should be canceled.",
+            "description": "The id of the ticket sale that should be deleted.",
             "required": true,
             "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Successfully cancelled the ticket sale."
+            "description": "Successfully deleted the ticket sale from the passholder or group."
           },
           "400": {
             "description": "UiTPAS API error."
@@ -1003,6 +1010,7 @@
         },
         "tags": [
           "Activity",
+          "PassHolder",
           "Ticketsale"
         ]
       }

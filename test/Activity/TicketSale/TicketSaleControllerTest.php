@@ -122,18 +122,14 @@ class TicketSaleControllerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_responds_with_a_boolean_when_cancelling_a_ticket()
+    public function it_responds_when_cancelling_a_ticket()
     {
         $ticketId = new StringLiteral('123');
 
         $this->service->expects($this->once())
             ->method('cancel')
-            ->with($ticketId)
-            ->willReturn(true);
+            ->with($ticketId);
 
-        $response = $this->controller->cancel($ticketId->toNative());
-
-        $json = $response->getContent();
-        $this->assertEquals($json, 'true');
+        $this->controller->cancel($ticketId->toNative());
     }
 }

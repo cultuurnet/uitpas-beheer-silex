@@ -35,17 +35,15 @@ class TicketSaleController
     }
 
     /**
-     * @param string $ticketId
+     * @param string $ticketSaleId
      *
      * @return Response
      */
-    public function cancel($ticketId)
+    public function cancel($ticketSaleId)
     {
-        $ticketId = new StringLiteral($ticketId);
-
-        $ticketCancellation = $this->service->cancel($ticketId);
-        return JsonResponse::create($ticketCancellation)
-            ->setPrivate();
+        $ticketSaleId = new StringLiteral($ticketSaleId);
+        $this->service->cancel($ticketSaleId);
+        return new Response();
     }
 
     /**

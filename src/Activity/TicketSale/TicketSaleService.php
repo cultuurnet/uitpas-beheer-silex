@@ -34,18 +34,16 @@ class TicketSaleService extends CounterAwareUitpasService implements TicketSaleS
     }
 
     /**
-     * @param \ValueObjects\StringLiteral\StringLiteral $ticketId
+     * @param \ValueObjects\StringLiteral\StringLiteral $ticketSaleId
      * @return boolean
      * @throws CompleteResponseException
      */
-    public function cancel(StringLiteral $ticketId)
+    public function cancel(StringLiteral $ticketSaleId)
     {
-        $ticketCancellation = $this->getUitpasService()->cancelTicketSaleById(
-            $ticketId->toNative(),
+        $this->getUitpasService()->cancelTicketSaleById(
+            $ticketSaleId->toNative(),
             $this->getCounterConsumerKey()
         );
-
-        return $ticketCancellation;
     }
 
     /**
