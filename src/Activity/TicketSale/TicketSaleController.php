@@ -34,6 +34,18 @@ class TicketSaleController
     }
 
     /**
+     * @param string $ticketSaleId
+     *
+     * @return Response
+     */
+    public function cancel($ticketSaleId)
+    {
+        $ticketSaleId = new StringLiteral($ticketSaleId);
+        $this->service->cancel($ticketSaleId);
+        return new Response();
+    }
+
+    /**
      * @param Request $request
      * @param $uitpasNumber
      *

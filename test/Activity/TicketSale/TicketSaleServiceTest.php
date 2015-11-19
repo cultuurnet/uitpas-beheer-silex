@@ -106,6 +106,23 @@ class TicketSaleServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_cancels_a_ticket_sale()
+    {
+        $ticketId = new StringLiteral('123');
+
+        $this->uitpas->expects($this->once())
+            ->method('cancelTicketSaleById')
+            ->with(
+                $ticketId->toNative(),
+                $this->counterConsumerKey->toNative()
+            );
+
+        $this->service->cancel($ticketId);
+    }
+
+    /**
+     * @test
+     */
     public function it_registers_a_ticket_sale()
     {
         $this->uitpas->expects($this->once())

@@ -7,6 +7,7 @@ use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\RegistrationJsonDes
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
 use ValueObjects\DateTime\Hour;
@@ -117,5 +118,21 @@ class TicketSaleControllerTest extends \PHPUnit_Framework_TestCase
 
         $json = $response->getContent();
         $this->assertJsonEquals($json, 'Activity/data/ticket-sale/history.json');
+    }
+
+    /**
+     * @test
+     */
+    public function it_responds_when_cancelling_a_ticket()
+    {
+        $ticketId = new StringLiteral('123');
+
+        $this->service->expects($this->once())
+            ->method('cancel')
+            ->with($ticketId);
+
+        $response = $this->controller->cancel($ticketId->toNative());
+
+        $this->assertInstanceOf(Response::class, $response);
     }
 }
