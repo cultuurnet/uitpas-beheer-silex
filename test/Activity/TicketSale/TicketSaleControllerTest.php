@@ -7,6 +7,7 @@ use CultuurNet\UiTPASBeheer\Activity\TicketSale\Registration\RegistrationJsonDes
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
 use ValueObjects\DateTime\Hour;
@@ -130,6 +131,8 @@ class TicketSaleControllerTest extends \PHPUnit_Framework_TestCase
             ->method('cancel')
             ->with($ticketId);
 
-        $this->controller->cancel($ticketId->toNative());
+        $response = $this->controller->cancel($ticketId->toNative());
+
+        $this->assertInstanceOf(Response::class, $response);
     }
 }
