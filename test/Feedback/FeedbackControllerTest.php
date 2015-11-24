@@ -4,7 +4,6 @@ namespace CultuurNet\UiTPASBeheer\Feedback;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\SerializerInterface;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class FeedbackControllerTest extends \PHPUnit_Framework_TestCase
