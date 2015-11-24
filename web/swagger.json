@@ -1457,6 +1457,9 @@
           },
           "403": {
             "description": "The user is not authorised to send feedback."
+          },
+          "500": {
+            "description": "The feedback could not be sent because of a server error."
           }
         },
         "tags": [
@@ -3166,11 +3169,6 @@
     "Feedback": {
       "type": "object",
       "properties": {
-        "date": {
-          "type": "string",
-          "format": "date",
-          "example": "2015-12-26"
-        },
         "name": {
           "type": "string",
           "example": "John Doe"
