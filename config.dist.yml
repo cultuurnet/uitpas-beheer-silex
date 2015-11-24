@@ -14,6 +14,9 @@ swiftmailer.options:
   # a great tool for debugging mail. Check it out! http://mailcatcher.me/
   host: 127.0.0.1
   port: 1025
+feedback:
+  to: foo@bar.com
+  subject: "UiTPAS balie beheer feedback."
 bootstrap:
   logging: false
 roles:
