@@ -120,4 +120,9 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\Coupon\CouponControllerProvider())
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\Help\HelpControllerProvider());
 
+/**
+ * API callbacks for Feedback.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\Feedback\FeedbackControllerProvider());
+
 $app->run();
