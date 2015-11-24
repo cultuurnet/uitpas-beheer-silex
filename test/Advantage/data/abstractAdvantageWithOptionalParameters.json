@@ -12,33 +12,15 @@
   "validForCounters": [
     {
       "id": 1,
-      "consumerKey": null,
-      "name": "counter 1",
-      "role": null,
-      "actorId": null,
-      "cardSystems": [],
-      "permissions": [],
-      "groups": []
+      "name": "counter 1"
     },
     {
       "id": 2,
-      "consumerKey": null,
-      "name": "counter 2",
-      "role": null,
-      "actorId": null,
-      "cardSystems": [],
-      "permissions": [],
-      "groups": []
+      "name": "counter 2"
     },
     {
       "id": 3,
-      "consumerKey": null,
-      "name": "counter 3",
-      "role": null,
-      "actorId": null,
-      "cardSystems": [],
-      "permissions": [],
-      "groups": []
+      "name": "counter 3"
     }
   ],
   "endDate": "2015-12-04"

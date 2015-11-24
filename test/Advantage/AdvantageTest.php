@@ -213,7 +213,7 @@ class AdvantageTest extends \PHPUnit_Framework_TestCase
 
         $validForCounters = array();
         for ($i = 0; $i <= 2; $i++) {
-            $counter = new \CultureFeed_Uitpas_Counter_Employee();
+            $counter = new \CultureFeed_Uitpas_Passholder_Counter();
             $counter->id = $i + 1;
             $counter->name = "counter " . $counter->id;
 

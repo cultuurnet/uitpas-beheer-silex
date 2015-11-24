@@ -55,7 +55,7 @@ abstract class Advantage implements \JsonSerializable
     protected $validForCities;
 
     /**
-     * @var \CultureFeed_Uitpas_Counter_Employee[]|null
+     * @var \CultureFeed_Uitpas_Passholder_Counter[]|null
      */
     protected $validForCounters;
 
@@ -165,7 +165,7 @@ abstract class Advantage implements \JsonSerializable
     }
 
     /**
-     * @return \CultureFeed_Uitpas_Counter_Employee[]
+     * @return \CultureFeed_Uitpas_Passholder_Counter[]
      */
     public function getValidForCounters()
     {
