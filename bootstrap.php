@@ -188,6 +188,15 @@ $app->register(
 );
 
 /**
+ * Mailing service.
+ */
+$app->register(new Silex\Provider\SwiftmailerServiceProvider());
+$app['swiftmailer.use_spool'] = false;
+if (isset($app['config']['swiftmailer.options'])) {
+    $app['swiftmailer.options'] = $app['config']['swiftmailer.options'];
+}
+
+/**
  * Load additional bootstrap files.
  */
 foreach ($app['config']['bootstrap'] as $identifier => $enabled) {
