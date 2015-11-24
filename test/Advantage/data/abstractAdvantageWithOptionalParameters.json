@@ -1,0 +1,45 @@
+{
+  "id": "welcome--10",
+  "title": "Some title",
+  "points": 5,
+  "exchangeable": true,
+  "description1": "description1",
+  "description2": "description2",
+  "validForCities": [
+    "Brussel",
+    "Leuven"
+  ],
+  "validForCounters": [
+    {
+      "id": 1,
+      "consumerKey": null,
+      "name": "counter 1",
+      "role": null,
+      "actorId": null,
+      "cardSystems": [],
+      "permissions": [],
+      "groups": []
+    },
+    {
+      "id": 2,
+      "consumerKey": null,
+      "name": "counter 2",
+      "role": null,
+      "actorId": null,
+      "cardSystems": [],
+      "permissions": [],
+      "groups": []
+    },
+    {
+      "id": 3,
+      "consumerKey": null,
+      "name": "counter 3",
+      "role": null,
+      "actorId": null,
+      "cardSystems": [],
+      "permissions": [],
+      "groups": []
+    }
+  ],
+  "endDate": "2015-12-04"
+}

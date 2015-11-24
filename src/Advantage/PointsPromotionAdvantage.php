@@ -35,6 +35,12 @@ class PointsPromotionAdvantage extends Advantage
         $points = new Integer($promotion->points);
         $exchangeable = ($promotion->cashInState == $promotion::CASHIN_POSSIBLE);
 
+        $description1 = !is_null($promotion->description1) ? $promotion->description1 : null;
+        $description2 = !is_null($promotion->description2) ? $promotion->description2 : null;
+        $validForCities = !is_null($promotion->validForCities) ? $promotion->validForCities : null;
+        //$validForCounters = !isnull($promotion->valid)
+        //$endDate = !isnull($promotion->end)
+
         return new static(
             $id,
             $title,
