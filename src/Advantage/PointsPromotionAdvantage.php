@@ -2,6 +2,12 @@
 
 namespace CultuurNet\UiTPASBeheer\Advantage;
 
+use CultuurNet\UiTPASBeheer\Properties\City;
+use CultuurNet\UiTPASBeheer\Properties\CityCollection;
+use ValueObjects\DateTime\Date;
+use ValueObjects\DateTime\Month;
+use ValueObjects\DateTime\MonthDay;
+use ValueObjects\DateTime\Year;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -35,17 +41,45 @@ class PointsPromotionAdvantage extends Advantage
         $points = new Integer($promotion->points);
         $exchangeable = ($promotion->cashInState == $promotion::CASHIN_POSSIBLE);
 
-        $description1 = !is_null($promotion->description1) ? $promotion->description1 : null;
-        $description2 = !is_null($promotion->description2) ? $promotion->description2 : null;
-        $validForCities = !is_null($promotion->validForCities) ? $promotion->validForCities : null;
-        //$validForCounters = !isnull($promotion->valid)
-        //$endDate = !isnull($promotion->end)
-
-        return new static(
+        $advantage = new static(
             $id,
             $title,
             $points,
             $exchangeable
         );
+
+        if (!empty($promotion->description1)) {
+            $advantage = $advantage->withDescription1(new StringLiteral($promotion->description1));
+        }
+
+        if (!empty($promotion->description2)) {
+            $advantage = $advantage->withDescription2(new StringLiteral($promotion->description2));
+        }
+
+        if (!empty($promotion->validForCities)) {
+            $cityCollection = new CityCollection();
+
+            foreach ($promotion->validForCities as $city) {
+                $cityCollection = $cityCollection->with(new City($city));
+            }
+
+            $advantage = $advantage->withValidForCities($cityCollection);
+        }
+
+        if (!empty($promotion->counters)) {
+            $advantage = $advantage->withValidForCounters($promotion->counters);
+        }
+
+        if (!empty($promotion->cashingPeriodEnd)) {
+            $dateParts = explode('-', $promotion->cashingPeriodEnd);
+            $dateParts[1] = $dateParts[1] - 1;
+            $advantage = $advantage->withEndDate(new Date(
+                new Year($dateParts[0]),
+                Month::getByOrdinal($dateParts[1]),
+                new MonthDay((int)$dateParts[2])
+            ));
+        }
+
+        return $advantage;
     }
 }
