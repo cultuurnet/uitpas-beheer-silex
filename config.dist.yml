@@ -8,6 +8,15 @@ uitid:
   base_url: http://www.uitid.be/uitid/rest/
 search:
   base_url: http://www.uitid.be/uitid/rest/searchv2
+swiftmailer.options:
+  # This connects to a mailserver at port 1025
+  # This is not the standard SMTP port, but the default port of Mailcatcher,
+  # a great tool for debugging mail. Check it out! http://mailcatcher.me/
+  host: 127.0.0.1
+  port: 1025
+feedback:
+  to: foo@bar.com
+  subject: "UiTPAS balie beheer feedback."
 bootstrap:
   logging: false
 roles:
