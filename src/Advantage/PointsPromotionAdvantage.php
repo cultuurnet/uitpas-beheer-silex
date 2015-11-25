@@ -67,15 +67,10 @@ class PointsPromotionAdvantage extends Advantage
         }
 
         if (!empty($promotion->cashingPeriodEnd)) {
-            $dateParts = explode('-', $promotion->cashingPeriodEnd);
-            $dateParts[1] = $dateParts[1] - 1;
-            $advantage = $advantage->withEndDate(
-                new Date(
-                    new Year($dateParts[0]),
-                    Month::getByOrdinal($dateParts[1]),
-                    new MonthDay((int) $dateParts[2])
-                )
-            );
+            $dateTime = \DateTime::createFromFormat('Y-m-d', $promotion->cashingPeriodEnd);
+            $date = Date::fromNativeDateTime($dateTime);
+
+            $advantage = $advantage->withEndDate($date);
         }
 
         return $advantage;
