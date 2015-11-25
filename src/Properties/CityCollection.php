@@ -27,4 +27,24 @@ class CityCollection extends AbstractCollection implements \JsonSerializable
     {
         return $this->toArray();
     }
+
+    /**
+     * @param $advantage
+     * @return CityCollection|AbstractCollection|static
+     */
+    public static function fromCultureFeedAdvantage($advantage)
+    {
+        if (!$advantage instanceof \CultureFeed_Uitpas_Passholder_WelcomeAdvantage
+        && !$advantage instanceof \CultureFeed_Uitpas_Passholder_PointsPromotion) {
+            throw new \InvalidArgumentException();
+        }
+
+        $cityCollection = new CityCollection();
+
+        foreach ($advantage->validForCities as $city) {
+            $cityCollection = $cityCollection->with(new City($city));
+        }
+
+        return $cityCollection;
+    }
 }

@@ -57,11 +57,7 @@ class PointsPromotionAdvantage extends Advantage
         }
 
         if (!empty($promotion->validForCities)) {
-            $cityCollection = new CityCollection();
-
-            foreach ($promotion->validForCities as $city) {
-                $cityCollection = $cityCollection->with(new City($city));
-            }
+            $cityCollection = CityCollection::fromCultureFeedAdvantage($promotion);
 
             $advantage = $advantage->withValidForCities($cityCollection);
         }

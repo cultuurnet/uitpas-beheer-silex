@@ -58,12 +58,7 @@ class WelcomeAdvantage extends Advantage
         }
 
         if (!empty($welcomeAdvantage->validForCities)) {
-            $cityCollection = new CityCollection();
-
-            foreach ($welcomeAdvantage->validForCities as $city) {
-                $cityCollection = $cityCollection->with(new City($city));
-            }
-
+            $cityCollection = CityCollection::fromCultureFeedAdvantage($welcomeAdvantage);
             $advantage = $advantage->withValidForCities($cityCollection);
         }
 
