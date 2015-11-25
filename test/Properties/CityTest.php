@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nicolas
- * Date: 24/11/15
- * Time: 10:32
- */
 
 namespace CultuurNet\UiTPASBeheer\Properties;
 
