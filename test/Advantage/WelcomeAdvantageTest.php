@@ -66,7 +66,7 @@ class WelcomeAdvantageTest extends \PHPUnit_Framework_TestCase
         $cfAdvantage->description2 = 'Second description';
         $cfAdvantage->validForCities = [
             "Brussel",
-            "Leuven"
+            "Leuven",
         ];
 
         $validForCounters = array();

@@ -117,7 +117,7 @@ class PointsPromotionAdvantageTest extends \PHPUnit_Framework_TestCase
         $description2 = 'Second description';
         $validForCities = [
             "Brussel",
-            "Leuven"
+            "Leuven",
         ];
         $validForCounters = array();
         for ($i = 0; $i <= 2; $i++) {
