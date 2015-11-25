@@ -12,9 +12,9 @@ class FeedbackTest extends \PHPUnit_Framework_TestCase
     public function it_returns_all_properties()
     {
         $feedback = $this->getFeedback();
-        $this->assertEquals($this->getName(), $feedback->getName());
-        $this->assertEquals($this->getEmail(), $feedback->getEmail());
-        $this->assertEquals($this->getCounter(), $feedback->getCounterName());
+        $this->assertEquals($this->getFromName(), $feedback->getName());
+        $this->assertEquals($this->getFromEmail(), $feedback->getEmail());
+        $this->assertEquals($this->getFromCounter(), $feedback->getCounterName());
         $this->assertEquals($this->getMessage(), $feedback->getMessage());
     }
 }

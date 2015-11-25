@@ -58,8 +58,8 @@ class FeedbackEmailServiceTest extends \PHPUnit_Framework_TestCase
         $expectedMail = new \Swift_Message();
 
         $expectedMail->setFrom(
-            $this->getEmail()->toNative(),
-            $this->getName()->toNative()
+            $this->getFromEmail()->toNative(),
+            $this->getFromName()->toNative()
         );
 
         $expectedMail->setTo($this->to->toNative());

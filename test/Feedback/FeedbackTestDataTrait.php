@@ -10,7 +10,7 @@ trait FeedbackTestDataTrait
     /**
      * @return StringLiteral
      */
-    public function getName()
+    public function getFromName()
     {
         return new StringLiteral('Alain');
     }
@@ -18,7 +18,7 @@ trait FeedbackTestDataTrait
     /**
      * @return EmailAddress
      */
-    public function getEmail()
+    public function getFromEmail()
     {
         return new EmailAddress('protput@heteiland.be');
     }
@@ -26,7 +26,7 @@ trait FeedbackTestDataTrait
     /**
      * @return StringLiteral
      */
-    public function getCounter()
+    public function getFromCounter()
     {
         return new StringLiteral('Het Eiland');
     }
@@ -56,9 +56,9 @@ trait FeedbackTestDataTrait
     public function getFeedback()
     {
         return new Feedback(
-            $this->getName(),
-            $this->getEmail(),
-            $this->getCounter(),
+            $this->getFromName(),
+            $this->getFromEmail(),
+            $this->getFromCounter(),
             $this->getMessage()
         );
     }
