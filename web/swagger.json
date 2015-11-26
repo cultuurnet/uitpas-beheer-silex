@@ -845,41 +845,6 @@
       }
     },
     "/passholders/{uitpasNumber}/activities/checkins": {
-      "get": {
-        "summary": "Retrieves a list of checkins.",
-        "description": "Authentication and an active counter are required.",
-        "operationId": "passholderCheckins",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "uitpasNumber",
-            "in": "path",
-            "description": "The uitpas number of the passholder.",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The checkins for the given uitpasNumber.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Checkin"
-              }
-            }
-          },
-          "403": {
-            "description": "The user is not authenticated or does not have an active counter."
-          }
-        },
-        "tags": [
-          "Activity",
-          "PassHolder"
-        ]
-      },
       "post": {
         "summary": "Checkin a passholder.",
         "description": "Authentication and an active counter are required.",
@@ -1094,6 +1059,43 @@
         "tags": [
           "Kansenstatuut",
           "PassHolder"
+        ]
+      }
+    },
+    "/passholders/{uitpasNumber}/points-history": {
+      "get": {
+        "summary": "Retrieves a list of actions increasing or decreasing the points.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "passholderPointsHistory",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The checkins for the given uitpasNumber.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PointHistory"
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "PassHolder",
+          "Points"
         ]
       }
     },
@@ -1605,6 +1607,10 @@
     {
       "name": "Ticketsale",
       "description": "Operations related to (uitpasNumber) Ticketsales."
+    },
+    {
+      "name": "Points",
+      "description": "Operations related to Points."
     }
   ],
   "definitions": {
@@ -2943,18 +2949,19 @@
         "creationDate"
       ]
     },
-    "Checkin": {
+    "PointHistory": {
       "type": "object",
       "properties": {
         "id": {
           "type": "string",
           "example": "18"
         },
-        "cashingDate": {
+        "date": {
           "type": "string",
-          "format": "date-time"
+          "format": "date-time",
+          "example": "2016/09/10"
         },
-        "promotionTitle": {
+        "title": {
           "type": "string",
           "example": "Gratis stickers"
         },
@@ -2972,8 +2979,8 @@
       },
       "required": [
         "id",
-        "cashingDate",
-        "promotionTitle",
+        "date",
+        "title",
         "points",
         "type"
       ]
