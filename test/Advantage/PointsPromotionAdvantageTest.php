@@ -128,7 +128,7 @@ class PointsPromotionAdvantageTest extends \PHPUnit_Framework_TestCase
             $validForCounters[$i] = $counter;
         }
 
-        $endDate = '2015-12-04';
+        $endDate = '1483225199';
 
         $cfPromotion = new \CultureFeed_Uitpas_Passholder_PointsPromotion(
             $id,
@@ -156,9 +156,9 @@ class PointsPromotionAdvantageTest extends \PHPUnit_Framework_TestCase
             ->with(new City("Leuven"));
 
         $endDatValueObject = new Date(
-            new Year(2015),
+            new Year(2016),
             Month::DECEMBER(),
-            new MonthDay(4)
+            new MonthDay(31)
         );
 
         $expectedAdvantage = (new PointsPromotionAdvantage(
