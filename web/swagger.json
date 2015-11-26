@@ -845,6 +845,41 @@
       }
     },
     "/passholders/{uitpasNumber}/activities/checkins": {
+      "get": {
+        "summary": "Retrieves a list of checkins.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "checkinPassholder",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The checkins for the given uitpasNumber.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Checkin"
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "Activity",
+          "PassHolder"
+        ]
+      },
       "post": {
         "summary": "Checkin a passholder.",
         "description": "Authentication and an active counter are required.",
@@ -2906,6 +2941,41 @@
         "id",
         "price",
         "creationDate"
+      ]
+    },
+    "Checkin": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "18"
+        },
+        "cashingDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "promotionTitle": {
+          "type": "string",
+          "example": "Gratis stickers"
+        },
+        "points": {
+          "type": "integer",
+          "formt": "int32"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "ADVANTAGE",
+            "CHECKIN"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "cashingDate",
+        "promotionTitle",
+        "points",
+        "type"
       ]
     },
     "KansenstatuutUpdateCommand": {
