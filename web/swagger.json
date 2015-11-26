@@ -848,7 +848,7 @@
       "get": {
         "summary": "Retrieves a list of checkins.",
         "description": "Authentication and an active counter are required.",
-        "operationId": "checkinPassholder",
+        "operationId": "passholderCheckins",
         "produces": [
           "application/json"
         ],
@@ -2960,7 +2960,7 @@
         },
         "points": {
           "type": "integer",
-          "formt": "int32"
+          "format": "int32"
         },
         "type": {
           "type": "string",
