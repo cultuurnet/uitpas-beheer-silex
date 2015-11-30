@@ -3322,7 +3322,8 @@
         "uitpasNumber": {
           "type": "array",
           "items": {
-            "type": "string"
+            "type": "string",
+            "example": "0930000164804"
           }
         },
         "dateOfBirth": {
