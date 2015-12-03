@@ -2,6 +2,12 @@
 
 namespace CultuurNet\UiTPASBeheer\Advantage;
 
+use CultuurNet\UiTPASBeheer\Properties\City;
+use CultuurNet\UiTPASBeheer\Properties\CityCollection;
+use ValueObjects\DateTime\Date;
+use ValueObjects\DateTime\Month;
+use ValueObjects\DateTime\MonthDay;
+use ValueObjects\DateTime\Year;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -35,11 +41,38 @@ class PointsPromotionAdvantage extends Advantage
         $points = new Integer($promotion->points);
         $exchangeable = ($promotion->cashInState == $promotion::CASHIN_POSSIBLE);
 
-        return new static(
+        $advantage = new static(
             $id,
             $title,
             $points,
             $exchangeable
         );
+
+        if (!empty($promotion->description1)) {
+            $advantage = $advantage->withDescription1(new StringLiteral($promotion->description1));
+        }
+
+        if (!empty($promotion->description2)) {
+            $advantage = $advantage->withDescription2(new StringLiteral($promotion->description2));
+        }
+
+        if (!empty($promotion->validForCities)) {
+            $cityCollection = CityCollection::fromCultureFeedAdvantage($promotion);
+
+            $advantage = $advantage->withValidForCities($cityCollection);
+        }
+
+        if (!empty($promotion->counters)) {
+            $advantage = $advantage->withValidForCounters($promotion->counters);
+        }
+
+        if (!empty($promotion->cashingPeriodEnd)) {
+            $dateTime = \DateTime::createFromFormat('U', $promotion->cashingPeriodEnd);
+            $date = Date::fromNativeDateTime($dateTime);
+
+            $advantage = $advantage->withEndDate($date);
+        }
+
+        return $advantage;
     }
 }

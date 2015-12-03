@@ -1,0 +1,27 @@
+{
+  "id": "welcome--10",
+  "title": "Some title",
+  "points": 5,
+  "exchangeable": true,
+  "description1": "description1",
+  "description2": "description2",
+  "validForCities": [
+    "Brussel",
+    "Leuven"
+  ],
+  "validForCounters": [
+    {
+      "id": 1,
+      "name": "counter 1"
+    },
+    {
+      "id": 2,
+      "name": "counter 2"
+    },
+    {
+      "id": 3,
+      "name": "counter 3"
+    }
+  ],
+  "endDate": "2015-12-04"
+}
