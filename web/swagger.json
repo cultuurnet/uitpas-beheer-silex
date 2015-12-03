@@ -2604,7 +2604,7 @@
           "type": "string",
           "format": "date",
           "description": "The end date of the granting period.",
-          "example": "2016/09/10"
+          "example": "2016-09-10"
         }
       },
       "required": [
