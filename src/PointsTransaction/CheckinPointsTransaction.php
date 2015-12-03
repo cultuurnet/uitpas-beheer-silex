@@ -31,6 +31,7 @@ class CheckinPointsTransaction extends PointsTransaction
     public static function fromCultureFeedEventCheckin(\CultureFeed_Uitpas_Event_CheckinActivity $checkin)
     {
         $dateTime = \DateTime::createFromFormat('U', $checkin->creationDate);
+        $dateTime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
         $creationDate = Date::fromNativeDateTime($dateTime);
         $title = new StringLiteral((string) $checkin->nodeTitle);
         $points = new Integer($checkin->points);

@@ -23,7 +23,7 @@ class CheckinPointsTransactionTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        //date_default_timezone_set('Europe/Brussels');
+        date_default_timezone_set('Europe/Brussels');
     }
 
     /**
