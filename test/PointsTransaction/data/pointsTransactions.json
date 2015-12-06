@@ -1,0 +1,22 @@
+[
+  {
+    "creation_date": "2015-12-04",
+    "title": "Event 4th of December",
+    "points": 10
+  },
+  {
+    "creation_date": "2015-06-23",
+    "title": "Cake for points",
+    "points": 15
+  },
+  {
+    "creation_date": "2015-05-13",
+    "title": "Event 13th of May",
+    "points": 20
+  },
+  {
+    "creation_date": "2015-01-21",
+    "title": "Event 21st of January",
+    "points": 15
+  }
+]
