@@ -169,4 +169,28 @@ class CheckinPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $checkins);
     }
+
+    /**
+     * @test
+     */
+    public function it_returns_null_when_no_points_transactions_can_be_found()
+    {
+        $uitpasNumber = new UiTPASNumber('0930000125607');
+
+        $this->uitpas->expects($this->once())
+            ->method('searchCheckins')
+            ->willThrowException(new \CultureFeed_Exception('Not found.', 'not_found'));
+
+        $startDate = Date::fromNativeDateTime(
+            \DateTime::createFromFormat('U', $this->startTime)
+        );
+
+        $endDate = Date::fromNativeDateTime(
+            \DateTime::createFromFormat('U', $this->endTime)
+        );
+
+        $checkins = $this->service->search($uitpasNumber, $startDate, $endDate);
+
+        $this->assertNull($checkins);
+    }
 }

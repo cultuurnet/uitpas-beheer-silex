@@ -149,4 +149,28 @@ class CashedPromotionPointsTransactionServiceTest extends \PHPUnit_Framework_Tes
 
         $this->assertEquals($expected, $cashedInPromotions);
     }
+
+    /**
+     * @test
+     */
+    public function it_returns_null_when_no_points_transactions_can_be_found()
+    {
+        $uitpasNumber = new UiTPASNumber('0930000125607');
+
+        $this->uitpas->expects($this->once())
+            ->method('getCashedInPromotionPoints')
+            ->willThrowException(new \CultureFeed_Exception('Not found.', 'not_found'));
+
+        $startDate = Date::fromNativeDateTime(
+            \DateTime::createFromFormat('U', $this->startTime)
+        );
+
+        $endDate = Date::fromNativeDateTime(
+            \DateTime::createFromFormat('U', $this->endTime)
+        );
+
+        $cashedInPromotions = $this->service->search($uitpasNumber, $startDate, $endDate);
+
+        $this->assertNull($cashedInPromotions);
+    }
 }
