@@ -36,7 +36,7 @@ class CheckinPointsTransactionService extends CounterAwareUitpasService implemen
      * @param Date $endDate
      * @return PointsTransaction|null
      */
-    public function get(UiTPASNumber $uitpasNumber, Date $startDate, Date $endDate)
+    public function search(UiTPASNumber $uitpasNumber, Date $startDate, Date $endDate)
     {
         $uitpasService = $this->getUitpasService();
 

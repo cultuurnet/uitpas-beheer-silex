@@ -34,7 +34,7 @@ class CheckinPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
     protected $uitpas;
 
     /**
-     * @var CashedPromotionPointsTransactionService
+     * @var CheckinPointsTransactionService
      */
     protected $service;
 
@@ -165,7 +165,7 @@ class CheckinPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
             ->with($expectedOptions)
             ->willReturn($cfCheckinActivities);
 
-        $checkins = $this->service->get($uitpasNumber, $startDate, $endDate);
+        $checkins = $this->service->search($uitpasNumber, $startDate, $endDate);
 
         $this->assertEquals($expected, $checkins);
     }

@@ -152,7 +152,7 @@ class CashedPromotionPointsTransactionServiceTest extends \PHPUnit_Framework_Tes
             ->with($expectedOptions)
             ->willReturn($cfCashedInPromotions);
 
-        $cashedInPromotions = $this->service->get($uitpasNumber, $startDate, $endDate);
+        $cashedInPromotions = $this->service->search($uitpasNumber, $startDate, $endDate);
 
         $this->assertEquals($expected, $cashedInPromotions);
     }

@@ -37,7 +37,7 @@ class CashedPromotionPointsTransactionService extends CounterAwareUitpasService 
      * @param Date $endDate
      * @return PointsTransaction|null
      */
-    public function get(UiTPASNumber $uitpasNumber, Date $startDate, Date $endDate)
+    public function search(UiTPASNumber $uitpasNumber, Date $startDate, Date $endDate)
     {
         $query = new \CultureFeed_Uitpas_Passholder_Query_SearchCashedInPromotionPointsOptions();
         $query->balieConsumerKey = $this->getCounterConsumerKey();
