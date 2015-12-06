@@ -28,7 +28,10 @@ class PointsHistoryControllerProvider implements ControllerProviderInterface
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
-        $controllers->get('/passholders/{uitpasNumber}/points-history', 'pointshistory_controller:search');
+        $controllers->get(
+            '/passholders/{uitpasNumber}/points-history',
+            'pointshistory_controller:getPointsTransactionsForPassholder'
+        );
 
         return $controllers;
     }
