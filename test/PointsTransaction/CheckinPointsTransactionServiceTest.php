@@ -54,19 +54,20 @@ class CheckinPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        date_default_timezone_set('Europe/Brussels');
+
         // Mock the system clock.
-        $now = new DateTimeImmutable('now', new DateTimeZone('Europe/Brussels'));
+        $now = new DateTimeImmutable("2015-12-06", new DateTimeZone('Europe/Brussels'));
         $clock = new FrozenClock($now);
-        $this->startTime = $clock->getDateTime()->getTimestamp();
-        $this->endTime = strtotime("-1 year", $this->startTime);
+        $this->endTime = $clock->getDateTime()->getTimestamp();
+        $this->startTime = strtotime("-1 year", $this->endTime);
 
         $this->uitpas = $this->getMock(\CultureFeed_Uitpas::class);
         $this->counterConsumerKey = new CounterConsumerKey('key');
 
         $this->service = new CheckinPointsTransactionService(
             $this->uitpas,
-            $this->counterConsumerKey,
-            $clock
+            $this->counterConsumerKey
         );
 
         $passHolder = new CultureFeed_Uitpas_Passholder();
@@ -86,7 +87,7 @@ class CheckinPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_can_get_all_cashed_promotion_points_for_a_user()
+    public function it_can_get_all_checkin_promotion_points_for_a_user()
     {
         $uitpasNumber = new UiTPASNumber('0930000125607');
 
@@ -146,13 +147,13 @@ class CheckinPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
             $expected2,
         ];
 
-        $startDate = Date::fromNativeDateTime(
-            \DateTime::createFromFormat('U', $this->startTime)
-        );
+        $startDateTime = \DateTime::createFromFormat('U', $this->startTime);
+        $startDateTime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $startDate = Date::fromNativeDateTime($startDateTime);
 
-        $endDate = Date::fromNativeDateTime(
-            \DateTime::createFromFormat('U', $this->endTime)
-        );
+        $endDateTime = \DateTime::createFromFormat('U', $this->endTime);
+        $endDateTime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $endDate = Date::fromNativeDateTime($endDateTime);
 
         $expectedOptions = new \CultureFeed_Uitpas_Event_Query_SearchCheckinsOptions();
         $expectedOptions->balieConsumerKey = $this->counterConsumerKey->toNative();
@@ -181,13 +182,13 @@ class CheckinPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
             ->method('searchCheckins')
             ->willThrowException(new \CultureFeed_Exception('Not found.', 'not_found'));
 
-        $startDate = Date::fromNativeDateTime(
-            \DateTime::createFromFormat('U', $this->startTime)
-        );
+        $startDateTime = \DateTime::createFromFormat('U', $this->startTime);
+        $startDateTime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $startDate = Date::fromNativeDateTime($startDateTime);
 
-        $endDate = Date::fromNativeDateTime(
-            \DateTime::createFromFormat('U', $this->endTime)
-        );
+        $endDateTime = \DateTime::createFromFormat('U', $this->endTime);
+        $endDateTime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $endDate = Date::fromNativeDateTime($endDateTime);
 
         $checkins = $this->service->search($uitpasNumber, $startDate, $endDate);
 

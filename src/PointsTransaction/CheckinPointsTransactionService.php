@@ -2,7 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\PointsTransaction;
 
-use CultuurNet\Clock\Clock;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
@@ -11,23 +10,14 @@ use ValueObjects\DateTime\Date;
 class CheckinPointsTransactionService extends CounterAwareUitpasService implements PointsTransactionServiceInterface
 {
     /**
-     * @var Clock
-     */
-    protected $clock;
-
-    /**
      * @param \CultureFeed_Uitpas $uitpasService
      * @param CounterConsumerKey $counterConsumerKey
-     * @param Clock $clock
      */
     public function __construct(
         \CultureFeed_Uitpas $uitpasService,
-        CounterConsumerKey $counterConsumerKey,
-        Clock $clock
+        CounterConsumerKey $counterConsumerKey
     ) {
         parent::__construct($uitpasService, $counterConsumerKey);
-
-        $this->clock = $clock;
     }
 
     /**
@@ -50,9 +40,8 @@ class CheckinPointsTransactionService extends CounterAwareUitpasService implemen
         $query = new \CultureFeed_Uitpas_Event_Query_SearchCheckinsOptions();
         $query->balieConsumerKey = $this->getCounterConsumerKey();
         $query->uid = $passHolder->uitIdUser->id;
-        $currentTime = $this->clock->getDateTime()->getTimestamp();
-        $query->startDate = $currentTime;
-        $query->endDate = strtotime("-1 year", $currentTime);
+        $query->startDate = $startDate->toNativeDateTime()->getTimestamp();
+        $query->endDate = $endDate->toNativeDateTime()->getTimestamp();
 
         try {
             $result = $this->getUitpasService()->searchCheckins($query);

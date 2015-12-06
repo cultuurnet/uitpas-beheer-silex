@@ -2,7 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\PointsTransaction;
 
-use CultuurNet\Clock\Clock;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
@@ -12,23 +11,14 @@ class CashedPromotionPointsTransactionService extends CounterAwareUitpasService 
     PointsTransactionServiceInterface
 {
     /**
-     * @var Clock
-     */
-    protected $clock;
-
-    /**
      * @param \CultureFeed_Uitpas $uitpasService
      * @param CounterConsumerKey $counterConsumerKey
-     * @param Clock $clock
      */
     public function __construct(
         \CultureFeed_Uitpas $uitpasService,
-        CounterConsumerKey $counterConsumerKey,
-        Clock $clock
+        CounterConsumerKey $counterConsumerKey
     ) {
         parent::__construct($uitpasService, $counterConsumerKey);
-
-        $this->clock = $clock;
     }
 
     /**
@@ -42,9 +32,8 @@ class CashedPromotionPointsTransactionService extends CounterAwareUitpasService 
         $query = new \CultureFeed_Uitpas_Passholder_Query_SearchCashedInPromotionPointsOptions();
         $query->balieConsumerKey = $this->getCounterConsumerKey();
         $query->uitpasNumber = $uitpasNumber->toNative();
-        $currentTime = $this->clock->getDateTime()->getTimestamp();
-        $query->cashingPeriodBegin = $currentTime;
-        $query->cashingPeriodEnd = strtotime("-1 year", $currentTime);
+        $query->cashingPeriodBegin = $startDate->toNativeDateTime()->getTimestamp();
+        $query->cashingPeriodEnd = $endDate->toNativeDateTime()->getTimestamp();
 
         try {
             $result = $this->getUitpasService()->getCashedInPromotionPoints($query);

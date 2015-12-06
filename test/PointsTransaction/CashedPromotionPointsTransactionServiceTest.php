@@ -47,19 +47,20 @@ class CashedPromotionPointsTransactionServiceTest extends \PHPUnit_Framework_Tes
 
     public function setUp()
     {
+        date_default_timezone_set('Europe/Brussels');
+
         // Mock the system clock.
-        $now = new DateTimeImmutable('now', new DateTimeZone('Europe/Brussels'));
+        $now = new DateTimeImmutable("2015-12-06", new DateTimeZone('Europe/Brussels'));
         $clock = new FrozenClock($now);
-        $this->startTime = $clock->getDateTime()->getTimestamp();
-        $this->endTime = strtotime("-1 year", $this->startTime);
+        $this->endTime = $clock->getDateTime()->getTimestamp();
+        $this->startTime = strtotime("-1 year", $this->endTime);
 
         $this->uitpas = $this->getMock(\CultureFeed_Uitpas::class);
         $this->counterConsumerKey = new CounterConsumerKey('key');
 
         $this->service = new CashedPromotionPointsTransactionService(
             $this->uitpas,
-            $this->counterConsumerKey,
-            $clock
+            $this->counterConsumerKey
         );
     }
 
@@ -126,13 +127,13 @@ class CashedPromotionPointsTransactionServiceTest extends \PHPUnit_Framework_Tes
             $expected2,
         ];
 
-        $startDate = Date::fromNativeDateTime(
-            \DateTime::createFromFormat('U', $this->startTime)
-        );
+        $startDateTime = \DateTime::createFromFormat('U', $this->startTime);
+        $startDateTime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $startDate = Date::fromNativeDateTime($startDateTime);
 
-        $endDate = Date::fromNativeDateTime(
-            \DateTime::createFromFormat('U', $this->endTime)
-        );
+        $endDateTime = \DateTime::createFromFormat('U', $this->endTime);
+        $endDateTime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $endDate = Date::fromNativeDateTime($endDateTime);
 
         $expectedOptions = new \CultureFeed_Uitpas_Passholder_Query_SearchCashedInPromotionPointsOptions();
         $expectedOptions->balieConsumerKey = $this->counterConsumerKey->toNative();
@@ -161,13 +162,13 @@ class CashedPromotionPointsTransactionServiceTest extends \PHPUnit_Framework_Tes
             ->method('getCashedInPromotionPoints')
             ->willThrowException(new \CultureFeed_Exception('Not found.', 'not_found'));
 
-        $startDate = Date::fromNativeDateTime(
-            \DateTime::createFromFormat('U', $this->startTime)
-        );
+        $startDateTime = \DateTime::createFromFormat('U', $this->startTime);
+        $startDateTime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $startDate = Date::fromNativeDateTime($startDateTime);
 
-        $endDate = Date::fromNativeDateTime(
-            \DateTime::createFromFormat('U', $this->endTime)
-        );
+        $endDateTime = \DateTime::createFromFormat('U', $this->endTime);
+        $endDateTime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $endDate = Date::fromNativeDateTime($endDateTime);
 
         $cashedInPromotions = $this->service->search($uitpasNumber, $startDate, $endDate);
 

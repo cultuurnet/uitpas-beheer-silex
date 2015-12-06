@@ -23,8 +23,7 @@ class PointsHistoryServiceProvider implements ServiceProviderInterface
             function (Application $app) {
                 return new CashedPromotionPointsTransactionService(
                     $app['uitpas'],
-                    $app['counter_consumer_key'],
-                    $app['clock']
+                    $app['counter_consumer_key']
                 );
             }
         );
@@ -33,8 +32,7 @@ class PointsHistoryServiceProvider implements ServiceProviderInterface
             function (Application $app) {
                 return new CheckinPointsTransactionService(
                     $app['uitpas'],
-                    $app['counter_consumer_key'],
-                    $app['clock']
+                    $app['counter_consumer_key']
                 );
             }
         );

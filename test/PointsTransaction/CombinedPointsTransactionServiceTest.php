@@ -75,14 +75,12 @@ class CombinedPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->checkinService = new CheckinPointsTransactionService(
             $this->uitpas,
-            $this->counterConsumerKey,
-            $clock
+            $this->counterConsumerKey
         );
 
         $this->cashedPromotionService = new CashedPromotionPointsTransactionService(
             $this->uitpas,
-            $this->counterConsumerKey,
-            $clock
+            $this->counterConsumerKey
         );
 
         $this->combinedPointsTransactionService = new CombinedPointsTransactionService(
@@ -120,13 +118,13 @@ class CombinedPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
         // Get expected data.
         $expected = $this->get_expected_data();
 
-        $startDate = Date::fromNativeDateTime(
-            \DateTime::createFromFormat('U', $this->startTime)
-        );
+        $startDateTime = \DateTime::createFromFormat('U', $this->startTime);
+        $startDateTime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $startDate = Date::fromNativeDateTime($startDateTime);
 
-        $endDate = Date::fromNativeDateTime(
-            \DateTime::createFromFormat('U', $this->endTime)
-        );
+        $endDateTime = \DateTime::createFromFormat('U', $this->endTime);
+        $endDateTime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
+        $endDate = Date::fromNativeDateTime($endDateTime);
 
         $this->uitpas->expects($this->once())
             ->method('searchCheckins')
