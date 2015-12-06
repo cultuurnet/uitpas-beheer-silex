@@ -82,12 +82,12 @@ class PointsTransaction implements \JsonSerializable
      * which is a value of any type other than a resource.
      * @since 5.4.0
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         return [
             'creation_date' => $this->creationDate->toNativeDateTime()->format('Y-m-d'),
             'title' => $this->title->toNative(),
-            'points' => $this->points->toNative()
+            'points' => $this->points->toNative(),
         ];
     }
 }

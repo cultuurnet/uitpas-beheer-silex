@@ -62,7 +62,7 @@ class PointsTransactionTest extends PHPUnit_Framework_TestCase
                 $this->type,
                 $this->creationDate,
                 $this->title,
-                $this->points
+                $this->points,
             ]
         );
     }

@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nicolas
- * Date: 02/12/15
- * Time: 10:23
- */
 
 namespace CultuurNet\UiTPASBeheer\PointsTransaction;
-
 
 use CultuurNet\Clock\FrozenClock;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;

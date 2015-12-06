@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: nicolas
- * Date: 02/12/15
- * Time: 09:58
- */
 
 namespace CultuurNet\UiTPASBeheer\PointsTransaction;
-
 
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\Month;
@@ -90,7 +83,7 @@ class CheckinPointsTransactionTest extends \PHPUnit_Framework_TestCase
                     new MonthDay(4)
                 ),
                 new StringLiteral('Delicious coffee'),
-                new Integer(5)
+                new Integer(5),
             ],
             [
                 new Date(
@@ -99,7 +92,7 @@ class CheckinPointsTransactionTest extends \PHPUnit_Framework_TestCase
                     new MonthDay(11)
                 ),
                 new StringLiteral('Event in the wild'),
-                new Integer(10)
+                new Integer(10),
             ],
         ];
     }
