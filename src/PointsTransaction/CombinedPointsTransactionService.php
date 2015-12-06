@@ -40,9 +40,9 @@ class CombinedPointsTransactionService implements PointsTransactionServiceInterf
     {
         $transactions = [];
         foreach ($this->services as $service) {
-            $new_transactions = $service->search($uitpasNumber, $startDate, $endDate);
-            if (!empty($new_transactions)) {
-                $transactions = array_merge($transactions, $new_transactions);
+            $newTransactions = $service->search($uitpasNumber, $startDate, $endDate);
+            if (!empty($newTransactions)) {
+                $transactions = array_merge($transactions, $newTransactions);
             }
         }
 
