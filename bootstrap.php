@@ -180,6 +180,11 @@ $app->register(new \CultuurNet\UiTPASBeheer\Membership\Association\AssociationSe
 $app->register(new \CultuurNet\UiTPASBeheer\Coupon\CouponServiceProvider());
 
 /**
+ * UiTPAS Points History service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\PointsHistory\PointsHistoryServiceProvider());
+
+/**
  * Clock service.
  */
 $app->register(
