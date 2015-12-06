@@ -43,15 +43,12 @@ class CombinedPointsTransactionService implements PointsTransactionServiceInterf
             $transactions = array_merge($transactions, $service->search($uitpasNumber, $startDate, $endDate));
         }
 
-        var_dump($transactions, 'transactions');
-        var_dump("hier");
-
         // Sort transactions.
         usort(
             $transactions,
             function ($item1, $item2) {
-                $timestamp1 = $item1->getCreationDate->toNativeDateTime()->getTimestamp();
-                $timestamp2 = $item2->getCreationDate->toNativeDateTime()->getTimestamp();
+                $timestamp1 = $item1->getCreationDate()->toNativeDateTime()->getTimestamp();
+                $timestamp2 = $item2->getCreationDate()->toNativeDateTime()->getTimestamp();
                 return $timestamp2 - $timestamp1;
             }
         );
