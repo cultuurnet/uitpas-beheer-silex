@@ -3055,22 +3055,16 @@
         },
         "points": {
           "type": "integer",
-          "format": "int32"
-        },
-        "type": {
-          "type": "string",
-          "enum": [
-            "ADVANTAGE",
-            "CHECKIN"
-          ]
+          "format": "int32",
+          "example": "-5",
+          "description": "Contains a minus sign for negative numbers."
         }
       },
       "required": [
         "id",
         "date",
         "title",
-        "points",
-        "type"
+        "points"
       ]
     },
     "KansenstatuutUpdateCommand": {
