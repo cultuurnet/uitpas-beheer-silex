@@ -21,6 +21,11 @@ class PointsTransactionTest extends PHPUnit_Framework_TestCase
     protected $pointsTransaction;
 
     /**
+     * @var StringLiteral
+     */
+    protected $id;
+
+    /**
      * @var PointsTransactionType
      */
     protected $type;
@@ -45,6 +50,7 @@ class PointsTransactionTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
+        $this->id = new StringLiteral('22');
         $this->type = PointsTransactionType::CASHED_PROMOTION();
         $this->creationDate = new Date(
             new Year('2015'),
@@ -59,6 +65,7 @@ class PointsTransactionTest extends PHPUnit_Framework_TestCase
         $this->pointsTransaction = $this->getMockForAbstractClass(
             PointsTransaction::class,
             [
+                $this->id,
                 $this->type,
                 $this->creationDate,
                 $this->title,
@@ -72,6 +79,7 @@ class PointsTransactionTest extends PHPUnit_Framework_TestCase
      */
     public function it_can_return_the_data_from_the_constructor()
     {
+        $this->assertEquals($this->id, $this->pointsTransaction->getId());
         $this->assertEquals($this->type, $this->pointsTransaction->getType());
         $this->assertEquals($this->creationDate, $this->pointsTransaction->getCreationDate());
         $this->assertEquals($this->title, $this->pointsTransaction->getTitle());

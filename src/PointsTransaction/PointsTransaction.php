@@ -9,6 +9,11 @@ use ValueObjects\StringLiteral\StringLiteral;
 class PointsTransaction implements \JsonSerializable
 {
     /**
+     * @var StringLiteral
+     */
+    protected $id;
+
+    /**
      * @var PointsTransactionType
      */
     protected $type;
@@ -32,15 +37,25 @@ class PointsTransaction implements \JsonSerializable
      * PointsTransaction constructor.
      */
     public function __construct(
+        StringLiteral $id,
         PointsTransactionType $type,
         Date $creationDate,
         StringLiteral $title,
         Integer $points
     ) {
+        $this->id = $id;
         $this->type = $type;
         $this->creationDate = $creationDate;
         $this->title = $title;
         $this->points = $points;
+    }
+
+    /**
+     * @return StringLiteral
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -85,7 +100,8 @@ class PointsTransaction implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'creation_date' => $this->creationDate->toNativeDateTime()->format('Y-m-d'),
+            'id' => $this->id->toNative(),
+            'date' => $this->creationDate->toNativeDateTime()->format('Y-m-d'),
             'title' => $this->title->toNative(),
             'points' => $this->points->toNative(),
         ];
