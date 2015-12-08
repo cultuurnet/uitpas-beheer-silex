@@ -60,6 +60,7 @@ class PointsTransactionControllerTest extends \PHPUnit_Framework_TestCase
         );
 
         $checkin3 = new CheckinPointsTransaction(
+            new StringLiteral('35'),
             new Date(
                 new Year(2015),
                 Month::DECEMBER(),
@@ -69,6 +70,7 @@ class PointsTransactionControllerTest extends \PHPUnit_Framework_TestCase
             new Integer(10)
         );
         $cashedPromotion1 = new CashedPromotionPointsTransaction(
+            new StringLiteral('16'),
             new Date(
                 new Year(2015),
                 Month::JUNE(),
@@ -79,6 +81,7 @@ class PointsTransactionControllerTest extends \PHPUnit_Framework_TestCase
         );
 
         $checkin2  = new CheckinPointsTransaction(
+            new StringLiteral('23'),
             new Date(
                 new Year(2015),
                 Month::MAY(),
@@ -88,6 +91,7 @@ class PointsTransactionControllerTest extends \PHPUnit_Framework_TestCase
             new Integer(20)
         );
         $checkin1  = new CheckinPointsTransaction(
+            new StringLiteral('12'),
             new Date(
                 new Year(2015),
                 Month::JANUARY(),
