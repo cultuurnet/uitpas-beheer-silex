@@ -177,7 +177,9 @@ class CheckinPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $checkins);
     }
 
-
+    /**
+     * @test
+     */
     public function it_returns_null_when_no_points_transactions_can_be_found()
     {
         $uitpasNumber = new UiTPASNumber('0930000125607');
