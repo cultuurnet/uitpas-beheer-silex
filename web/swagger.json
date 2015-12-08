@@ -1693,13 +1693,12 @@
       "description": "Operations related to (uitpasNumber) Ticketsales."
     },
     {
-<<<<<<< HEAD
       "name": "Points",
       "description": "Operations related to Points."
-=======
+    },
+    {
       "name": "Bulk operation",
       "description": "Operations related to passholder bulk operations."
->>>>>>> origin/release/0.8
     }
   ],
   "definitions": {
