@@ -14,9 +14,14 @@ class CheckinPointsTransaction extends PointsTransaction
      * @param StringLiteral $title
      * @param Integer $points
      */
-    public function __construct(Date $creationDate, StringLiteral $title, Integer $points)
+    public function __construct(StringLiteral $id, Date $creationDate, StringLiteral $title, Integer $points)
     {
+        // Explicitly make these points positive, as they were added to the total amount of points.
+        $plusPoints = abs($points->toNative());
+        $points = new Integer($plusPoints);
+
         parent::__construct(
+            $id,
             PointsTransactionType::CHECKIN_ACTIVITY(),
             $creationDate,
             $title,
@@ -30,6 +35,7 @@ class CheckinPointsTransaction extends PointsTransaction
      */
     public static function fromCultureFeedEventCheckin(\CultureFeed_Uitpas_Event_CheckinActivity $checkin)
     {
+        $id = new StringLiteral((string) $checkin->id);
         $dateTime = \DateTime::createFromFormat('U', $checkin->creationDate);
         $dateTime->setTimezone(new \DateTimeZone(date_default_timezone_get()));
         $creationDate = Date::fromNativeDateTime($dateTime);
@@ -37,6 +43,7 @@ class CheckinPointsTransaction extends PointsTransaction
         $points = new Integer($checkin->points);
 
         return new static(
+            $id,
             $creationDate,
             $title,
             $points

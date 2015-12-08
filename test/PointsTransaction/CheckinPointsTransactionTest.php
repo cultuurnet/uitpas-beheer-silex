@@ -23,19 +23,22 @@ class CheckinPointsTransactionTest extends \PHPUnit_Framework_TestCase
      * @test
      * @dataProvider pointsTransactionDataProvider
      *
+     * @param StringLiteral $id
      * @param Date $creationDate
      * @param StringLiteral $title
      * @param \ValueObjects\Number\Integer $points
      */
     public function it_initiates_objects_with_a_fixed_type_and_stores_all_other_info(
+        StringLiteral $id,
         Date $creationDate,
         StringLiteral $title,
         Integer $points
     ) {
-        $checkin = new CheckinPointsTransaction($creationDate, $title, $points);
+        $checkin = new CheckinPointsTransaction($id, $creationDate, $title, $points);
 
         $this->assertTrue($checkin->getType()->sameValueAs(PointsTransactionType::CHECKIN_ACTIVITY()));
 
+        $this->assertEquals($id, $checkin->getId());
         $this->assertEquals($creationDate, $checkin->getCreationDate());
         $this->assertEquals($title, $checkin->getTitle());
         $this->assertEquals($points, $checkin->getPoints());
@@ -45,16 +48,19 @@ class CheckinPointsTransactionTest extends \PHPUnit_Framework_TestCase
      * @test
      * @dataProvider pointsTransactionDataProvider
      *
+     * @param StringLiteral $id
      * @param Date $creationDate
      * @param StringLiteral $title
      * @param \ValueObjects\Number\Integer $points
      */
     public function it_can_create_an_instance_from_a_culturefeed_points_promotion_object(
+        StringLiteral $id,
         Date $creationDate,
         StringLiteral $title,
         Integer $points
     ) {
         $cfCheckinActivity = new \CultureFeed_Uitpas_Event_CheckinActivity();
+        $cfCheckinActivity->id = $id;
         $cfCheckinActivity->creationDate = $creationDate->toNativeDateTime()->getTimestamp();
         $cfCheckinActivity->nodeTitle = $title->toNative();
         $cfCheckinActivity->points = $points->toNative();
@@ -62,6 +68,7 @@ class CheckinPointsTransactionTest extends \PHPUnit_Framework_TestCase
         $checkin = CheckinPointsTransaction::fromCultureFeedEventCheckin($cfCheckinActivity);
 
         $expectedCheckin = new CheckinPointsTransaction(
+            $id,
             $creationDate,
             $title,
             $points
@@ -77,6 +84,7 @@ class CheckinPointsTransactionTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
+                new StringLiteral('18'),
                 new Date(
                     new Year(2015),
                     Month::DECEMBER(),
@@ -86,6 +94,7 @@ class CheckinPointsTransactionTest extends \PHPUnit_Framework_TestCase
                 new Integer(5),
             ],
             [
+                new StringLiteral('29'),
                 new Date(
                     new Year(2015),
                     Month::JULY(),
