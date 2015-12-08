@@ -149,7 +149,7 @@ class CombinedPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
     public function get_checkin_service_data()
     {
         $cfCheckinActivity1 = new \CultureFeed_Uitpas_Event_CheckinActivity();
-        $cfCheckinActivity1->id = 1;
+        $cfCheckinActivity1->id = 15;
         $date = new Date(
             new Year(2015),
             Month::JANUARY(),
@@ -161,7 +161,7 @@ class CombinedPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
         $cfCheckinActivity1->points = 10;
 
         $cfCheckinActivity2 = new \CultureFeed_Uitpas_Event_CheckinActivity();
-        $cfCheckinActivity2->id = 1;
+        $cfCheckinActivity2->id = 23;
         $date = new Date(
             new Year(2015),
             Month::JULY(),
@@ -173,7 +173,7 @@ class CombinedPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
         $cfCheckinActivity2->points = 5;
 
         $cfCheckinActivity3 = new \CultureFeed_Uitpas_Event_CheckinActivity();
-        $cfCheckinActivity3->id = 2;
+        $cfCheckinActivity3->id = 35;
         $date = new Date(
             new Year(2015),
             Month::DECEMBER(),
@@ -203,7 +203,7 @@ class CombinedPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
     public function get_cashed_promotions_service_data()
     {
         $cfCashedInPromoption1 = new \CultureFeed_Uitpas_Passholder_CashedInPointsPromotion();
-        $cfCashedInPromoption1->id = 1;
+        $cfCashedInPromoption1->id = 12;
         $date = new Date(
             new Year(2015),
             Month::MARCH(),
@@ -215,7 +215,7 @@ class CombinedPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
         $cfCashedInPromoption1->points = 5;
 
         $cfCashedInPromoption2 = new \CultureFeed_Uitpas_Passholder_CashedInPointsPromotion();
-        $cfCashedInPromoption2->id = 2;
+        $cfCashedInPromoption2->id = 16;
         $date = new Date(
             new Year(2015),
             Month::AUGUST(),
@@ -239,6 +239,7 @@ class CombinedPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
     public function get_expected_data()
     {
         $expected1 = new CheckinPointsTransaction(
+            new StringLiteral('35'),
             new Date(
                 new Year(2015),
                 Month::DECEMBER(),
@@ -249,6 +250,7 @@ class CombinedPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected2 = new CashedPromotionPointsTransaction(
+            new StringLiteral('16'),
             new Date(
                 new Year(2015),
                 Month::AUGUST(),
@@ -259,6 +261,7 @@ class CombinedPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected3 = new CheckinPointsTransaction(
+            new StringLiteral('23'),
             new Date(
                 new Year(2015),
                 Month::JULY(),
@@ -269,6 +272,7 @@ class CombinedPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected4 = new CashedPromotionPointsTransaction(
+            new StringLiteral('12'),
             new Date(
                 new Year(2015),
                 Month::MARCH(),
@@ -279,6 +283,7 @@ class CombinedPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected5 = new CheckinPointsTransaction(
+            new StringLiteral('15'),
             new Date(
                 new Year(2015),
                 Month::JANUARY(),

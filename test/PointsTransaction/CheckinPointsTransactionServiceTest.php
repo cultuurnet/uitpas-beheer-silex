@@ -123,6 +123,7 @@ class CheckinPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
         $cfCheckinActivities = new \CultureFeed_ResultSet(2, $cfCheckinActivityCollection);
 
         $expected1 = new CheckinPointsTransaction(
+            new StringLiteral('1'),
             new Date(
                 new Year(2015),
                 Month::JULY(),
@@ -133,6 +134,7 @@ class CheckinPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
         );
 
         $expected2 = new CheckinPointsTransaction(
+            new StringLiteral('2'),
             new Date(
                 new Year(2015),
                 Month::DECEMBER(),
@@ -160,6 +162,8 @@ class CheckinPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
         $expectedOptions->uid = $this->passHolder->uitIdUser->id;
         $expectedOptions->startDate = $this->startTime;
         $expectedOptions->endDate = $this->endTime;
+        $expectedOptions->max = 100;
+        $expectedOptions->checkinViaBalieConsumerKey = $this->counterConsumerKey->toNative();
 
         $this->uitpas->expects($this->once())
             ->method('searchCheckins')

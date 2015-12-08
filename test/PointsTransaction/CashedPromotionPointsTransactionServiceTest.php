@@ -103,6 +103,7 @@ class CashedPromotionPointsTransactionServiceTest extends \PHPUnit_Framework_Tes
         $cfCashedInPromotions = new \CultureFeed_ResultSet(2, $cfCashedInPromotionsCollection);
 
         $expected1 = new CashedPromotionPointsTransaction(
+            new StringLiteral('1'),
             new Date(
                 new Year(2015),
                 Month::JULY(),
@@ -113,6 +114,7 @@ class CashedPromotionPointsTransactionServiceTest extends \PHPUnit_Framework_Tes
         );
 
         $expected2 = new CashedPromotionPointsTransaction(
+            new StringLiteral('2'),
             new Date(
                 new Year(2015),
                 Month::DECEMBER(),
@@ -140,6 +142,7 @@ class CashedPromotionPointsTransactionServiceTest extends \PHPUnit_Framework_Tes
         $expectedOptions->uitpasNumber = $uitpasNumber->toNative();
         $expectedOptions->cashingPeriodBegin = $this->startTime;
         $expectedOptions->cashingPeriodEnd = $this->endTime;
+        $expectedOptions->max = 100;
 
         $this->uitpas->expects($this->once())
             ->method('getCashedInPromotionPoints')
