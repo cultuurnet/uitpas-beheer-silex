@@ -42,6 +42,8 @@ class CheckinPointsTransactionService extends CounterAwareUitpasService implemen
         $query->uid = $passHolder->uitIdUser->id;
         $query->startDate = $startDate->toNativeDateTime()->getTimestamp();
         $query->endDate = $endDate->toNativeDateTime()->getTimestamp();
+        $query->checkinViaBalieConsumerKey = $this->getCounterConsumerKey();
+        $query->max = 100;
 
         try {
             $result = $this->getUitpasService()->searchCheckins($query);

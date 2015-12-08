@@ -34,6 +34,7 @@ class CashedPromotionPointsTransactionService extends CounterAwareUitpasService 
         $query->uitpasNumber = $uitpasNumber->toNative();
         $query->cashingPeriodBegin = $startDate->toNativeDateTime()->getTimestamp();
         $query->cashingPeriodEnd = $endDate->toNativeDateTime()->getTimestamp();
+        $query->max = 100;
 
         try {
             $result = $this->getUitpasService()->getCashedInPromotionPoints($query);
