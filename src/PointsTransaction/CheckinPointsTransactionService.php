@@ -43,16 +43,24 @@ class CheckinPointsTransactionService extends CounterAwareUitpasService implemen
         $query->startDate = $startDate->toNativeDateTime()->getTimestamp();
         $query->endDate = $endDate->toNativeDateTime()->getTimestamp();
         $query->checkinViaBalieConsumerKey = $this->getCounterConsumerKey();
-        $query->max = 100;
+        $query->max = 20;
+        $query->start = 0;
 
         try {
-            $result = $this->getUitpasService()->searchCheckins($query);
+            $checkinResults = array();
+
+            do {
+                $result = $this->getUitpasService()->searchCheckins($query);
+                $checkinResults = array_merge($checkinResults, $result->objects);
+                $query = clone $query;
+                $query->start += $query->max;
+            } while ($query->start < $result->total);
 
             $checkins = array_map(
                 function (\CultureFeed_Uitpas_Event_CheckinActivity $checkin) {
                     return CheckinPointsTransaction::fromCultureFeedEventCheckin($checkin);
                 },
-                $result->objects
+                $checkinResults
             );
 
             return $checkins;

@@ -162,22 +162,22 @@ class CheckinPointsTransactionServiceTest extends \PHPUnit_Framework_TestCase
         $expectedOptions->uid = $this->passHolder->uitIdUser->id;
         $expectedOptions->startDate = $this->startTime;
         $expectedOptions->endDate = $this->endTime;
-        $expectedOptions->max = 100;
+        $expectedOptions->max = 20;
+        $expectedOptions->start = 0;
         $expectedOptions->checkinViaBalieConsumerKey = $this->counterConsumerKey->toNative();
 
         $this->uitpas->expects($this->once())
             ->method('searchCheckins')
             ->with($expectedOptions)
             ->willReturn($cfCheckinActivities);
+            //->willReturnCallback();
 
         $checkins = $this->service->search($uitpasNumber, $startDate, $endDate);
 
         $this->assertEquals($expected, $checkins);
     }
 
-    /**
-     * @test
-     */
+
     public function it_returns_null_when_no_points_transactions_can_be_found()
     {
         $uitpasNumber = new UiTPASNumber('0930000125607');

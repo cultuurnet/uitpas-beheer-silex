@@ -142,7 +142,8 @@ class CashedPromotionPointsTransactionServiceTest extends \PHPUnit_Framework_Tes
         $expectedOptions->uitpasNumber = $uitpasNumber->toNative();
         $expectedOptions->cashingPeriodBegin = $this->startTime;
         $expectedOptions->cashingPeriodEnd = $this->endTime;
-        $expectedOptions->max = 100;
+        $expectedOptions->max = 20;
+        //$expectedOptions->start = 0;
 
         $this->uitpas->expects($this->once())
             ->method('getCashedInPromotionPoints')

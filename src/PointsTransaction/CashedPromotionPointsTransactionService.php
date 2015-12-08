@@ -34,10 +34,18 @@ class CashedPromotionPointsTransactionService extends CounterAwareUitpasService 
         $query->uitpasNumber = $uitpasNumber->toNative();
         $query->cashingPeriodBegin = $startDate->toNativeDateTime()->getTimestamp();
         $query->cashingPeriodEnd = $endDate->toNativeDateTime()->getTimestamp();
-        $query->max = 100;
+        $query->max = 20;
+        $query->start = 0;
 
         try {
-            $result = $this->getUitpasService()->getCashedInPromotionPoints($query);
+            $cashedPromotionResults = array();
+
+            do {
+                $result = $this->getUitpasService()->getCashedInPromotionPoints($query);
+                $cashedPromotionResults = array_merge($cashedPromotionResults, $result->objects);
+                $query = clone $query;
+                $query->start += $query->max;
+            } while ($query->start < $result->total);
 
             $cashedPromotions = array_map(
                 function (\CultureFeed_Uitpas_Passholder_CashedInPointsPromotion $cashedInPointsPromotion) {
@@ -45,7 +53,7 @@ class CashedPromotionPointsTransactionService extends CounterAwareUitpasService 
                         $cashedInPointsPromotion
                     );
                 },
-                $result->objects
+                $cashedPromotionResults
             );
 
             return $cashedPromotions;
