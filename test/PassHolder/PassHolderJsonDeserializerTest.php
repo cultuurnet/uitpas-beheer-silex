@@ -4,11 +4,11 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\AddressJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\NameJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferencesJsonDeserializer;
+use CultuurNet\UiTPASBeheer\Properties\AddressJsonDeserializer;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class PassHolderJsonDeserializerTest extends \PHPUnit_Framework_TestCase

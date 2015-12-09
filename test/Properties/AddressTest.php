@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
+namespace CultuurNet\UiTPASBeheer\Properties;
 
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use ValueObjects\StringLiteral\StringLiteral;
@@ -47,7 +47,7 @@ class AddressTest extends \PHPUnit_Framework_TestCase
     public function it_encodes_all_data_to_json()
     {
         $json = json_encode($this->address);
-        $this->assertJsonEquals($json, 'PassHolder/data/properties/address-complete.json');
+        $this->assertJsonEquals($json, 'Properties/data/address-complete.json');
     }
 
     /**
@@ -60,7 +60,7 @@ class AddressTest extends \PHPUnit_Framework_TestCase
             $this->city
         );
         $json = json_encode($address);
-        $this->assertJsonEquals($json, 'PassHolder/data/properties/address-minimum.json');
+        $this->assertJsonEquals($json, 'Properties/data/address-minimum.json');
     }
 
     /**
