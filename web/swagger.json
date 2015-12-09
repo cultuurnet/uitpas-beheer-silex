@@ -2247,7 +2247,7 @@
           "$ref": "#/definitions/PassHolderName"
         },
         "address": {
-          "$ref": "#/definitions/PassHolderAddress"
+          "$ref": "#/definitions/Address"
         },
         "birth": {
           "$ref": "#/definitions/PassHolderBirthInformation"
@@ -2362,7 +2362,7 @@
           "$ref": "#/definitions/PassHolderName"
         },
         "address": {
-          "$ref": "#/definitions/PassHolderAddress"
+          "$ref": "#/definitions/Address"
         },
         "birth": {
           "$ref": "#/definitions/PassHolderBirthInformation"
@@ -2492,7 +2492,7 @@
         "last"
       ]
     },
-    "PassHolderAddress": {
+    "Address": {
       "properties": {
         "street": {
           "type": "string",
@@ -2722,6 +2722,13 @@
               "type": "string",
               "example": "vanaf 1/9"
             },
+            "where": {
+              "$ref": "#/definitions/ActivityLocation"
+            },
+            "age": {
+              "type": "string",
+              "example": "+ 12 jaar"
+            },
             "checkinConstraint": {
               "$ref": "#/definitions/CheckinConstraint"
             },
@@ -2743,6 +2750,17 @@
         "id",
         "title"
       ]
+    },
+    "ActivityLocation": {
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "CC De Werf"
+        },
+        "address": {
+          "$ref": "#/definitions/Address"
+        }
+      }
     },
     "CheckinConstraint": {
       "properties": {
