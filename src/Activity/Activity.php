@@ -6,6 +6,7 @@ use CultureFeed_Uitpas_Event_CultureEvent;
 use CultureFeed_Cdb_Item_Event;
 use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation;
 use CultuurNet\UiTPASBeheer\Activity\Specifications\IsFree;
+use CultuurNet\UiTPASBeheer\Properties\Location;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -36,6 +37,20 @@ class Activity implements \JsonSerializable
      * Textual indication of when the activity is occurring.
      */
     protected $when;
+
+    /**
+     * @var Location|null
+     *
+     * Object containing information about where the activity is occurring.
+     */
+    protected $location;
+
+    /**
+     * @var Integer|null
+     *
+     * Textual indication of the age target group of the activity.
+     */
+    protected $age;
 
     /**
      * @var CheckinConstraint
@@ -93,6 +108,28 @@ class Activity implements \JsonSerializable
     }
 
     /**
+     * @param Location $location
+     * @return Activity
+     */
+    public function withLocation(Location $location)
+    {
+        $c = clone $this;
+        $c->location = $location;
+        return $c;
+    }
+
+    /**
+     * @param Integer $age
+     * @return Activity
+     */
+    public function withAge(Integer $age)
+    {
+        $c = clone $this;
+        $c->age = $age;
+        return $c;
+    }
+
+    /**
      * @param SalesInformation $salesInformation
      * @return Activity
      */
@@ -117,6 +154,22 @@ class Activity implements \JsonSerializable
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return Location|null
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * @return Integer|null
+     */
+    public function getAge()
+    {
+        return $this->age;
     }
 
     /**
@@ -182,6 +235,14 @@ class Activity implements \JsonSerializable
 
         if (!is_null($this->salesInformation) && !$data['free']) {
             $data['sales'] = $this->salesInformation->jsonSerialize();
+        }
+
+        if (!is_null($this->location)) {
+            $data['where'] = $this->location->jsonSerialize();
+        }
+
+        if (!is_null($this->age)) {
+            $data['age'] = $this->age->toNative();
         }
 
         return $data;
