@@ -14,7 +14,9 @@ use CultuurNet\Search\ServiceInterface;
 use CultuurNet\UiTPASBeheer\Activity\Activity;
 use CultuurNet\UiTPASBeheer\Activity\ActivityServiceInterface;
 use CultuurNet\UiTPASBeheer\Activity\PagedResultSet;
+use CultuurNet\UiTPASBeheer\Properties\Location;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 use CultuurNet\UiTPASBeheer\Activity\Cdbid;
 
@@ -112,16 +114,16 @@ class SearchAPI2AugmentedActivityService implements ActivityServiceInterface
     private function augmentActivity(Activity $activity)
     {
         $cdbEvent = $this->getCdbEvent($activity);
-
         $details = $cdbEvent->getDetails()->getDetailByLanguage('nl');
+
+        // Add the activity description
         $description = new StringLiteral(
             trim((string) $details->getShortDescription())
         );
-
         $augmentedActivity = $activity->withDescription($description);
 
+        // Try to add the activity time.
         $calendar = $cdbEvent->getCalendar();
-
         try {
             $when = new StringLiteral(
                 (string) $this->calendarFormatter->format($calendar, 'md')
@@ -131,6 +133,21 @@ class SearchAPI2AugmentedActivityService implements ActivityServiceInterface
         } catch (FormatterException $e) {
             // Format not supported for the calendar type, for example for a
             // CultureFeed_Cdb_Data_Calendar_TimestampList.
+        }
+
+        // Try to add the activity location.
+        $cdbLocation = $cdbEvent->getLocation();
+        try {
+            $location = Location::fromCultureFeedCbdDataLocation($cdbLocation);
+
+            $augmentedActivity = $augmentedActivity->withLocation($location);
+        } catch (FormatterException $e) {
+
+        }
+
+        // Add the activity age target.
+        if (!is_null($cdbEvent->getAgeFrom())) {
+            $augmentedActivity = $augmentedActivity->withAge(new Integer($cdbEvent->getAgeFrom()));
         }
 
         return $augmentedActivity;

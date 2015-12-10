@@ -19,6 +19,8 @@ use CultuurNet\UiTPASBeheer\Activity\Cdbid;
 use CultuurNet\UiTPASBeheer\Activity\CheckinConstraint;
 use CultuurNet\UiTPASBeheer\Activity\PagedResultSet;
 use CultuurNet\UiTPASBeheer\Activity\SimpleQuery;
+use CultuurNet\UiTPASBeheer\Properties\Address;
+use CultuurNet\UiTPASBeheer\Properties\Location;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\DateTime\DateTime;
 use ValueObjects\Number\Integer;
@@ -60,6 +62,16 @@ class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
             $this->decoratedActivityService,
             $this->searchService,
             $this->calendarFormatter
+        );
+
+        $address = new Address(
+            new StringLiteral('9300'),
+            new StringLiteral('Aalst')
+        );
+        $address = $address->withStreet(new StringLiteral('Molenstraat 51'));
+        $this->location = new Location(
+            new StringLiteral('CC De Werf'),
+            $address
         );
     }
 
@@ -200,7 +212,7 @@ class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_adds_description_and_when_to_an_activity_when_search_succeeds()
+    public function it_adds_additional_fields_to_an_activity_when_search_succeeds()
     {
         $query = (new SimpleQuery())->withQuery(new StringLiteral('foobar'));
         $originalResultSet = $this->setUpDecoratedActivityService($query);
@@ -229,13 +241,19 @@ class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
         $expectedActivities = [
             $activities[0]
                 ->withDescription(new StringLiteral('description test event 1'))
-                ->withWhen(new StringLiteral('2016-06-01')),
+                ->withWhen(new StringLiteral('2016-06-01'))
+                ->withAge(new Integer(6))
+                ->withLocation($this->location),
             $activities[1]
                 ->withDescription(new StringLiteral('description test event 2'))
-                ->withWhen(new StringLiteral('2016-08-01')),
+                ->withWhen(new StringLiteral('2016-08-01'))
+                ->withAge(new Integer(6))
+                ->withLocation($this->location),
             $activities[2]
                 ->withDescription(new StringLiteral('description test event 3'))
-                ->withWhen(new StringLiteral('2016-07-01')),
+                ->withWhen(new StringLiteral('2016-07-01'))
+                ->withAge(new Integer(6))
+                ->withLocation($this->location),
         ];
 
         $expectedResultSet = new PagedResultSet(
@@ -271,11 +289,17 @@ class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
 
         $expectedActivities = [
             $activities[0]
-                ->withDescription(new StringLiteral('description test event 1')),
+                ->withDescription(new StringLiteral('description test event 1'))
+                ->withAge(new Integer(6))
+                ->withLocation($this->location),
             $activities[1]
-                ->withDescription(new StringLiteral('description test event 2')),
+                ->withDescription(new StringLiteral('description test event 2'))
+                ->withAge(new Integer(6))
+                ->withLocation($this->location),
             $activities[2]
-                ->withDescription(new StringLiteral('description test event 3')),
+                ->withDescription(new StringLiteral('description test event 3'))
+                ->withAge(new Integer(6))
+                ->withLocation($this->location),
         ];
 
         $expectedResultSet = new PagedResultSet(
