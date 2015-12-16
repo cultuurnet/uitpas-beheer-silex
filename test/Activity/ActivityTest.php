@@ -17,6 +17,7 @@ use ValueObjects\DateTime\Second;
 use ValueObjects\DateTime\Time;
 use ValueObjects\DateTime\Year;
 use ValueObjects\Number\Integer;
+use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class ActivityTest extends \PHPUnit_Framework_TestCase
@@ -50,7 +51,7 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
     protected $location;
 
     /**
-     * @var Integer
+     * @var Natural
      */
     protected $age;
 
@@ -85,7 +86,7 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->description = new StringLiteral('Some description');
         $this->when = new StringLiteral('yesterday');
         $this->location = new Location(new StringLiteral('CC De Werf'), $address);
-        $this->age = new Integer(6);
+        $this->age = new Natural(6);
         $this->points = new Integer(1);
 
         $checkinStartDate = new DateTime(

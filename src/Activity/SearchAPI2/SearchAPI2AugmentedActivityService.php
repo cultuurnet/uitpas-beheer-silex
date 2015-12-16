@@ -16,7 +16,7 @@ use CultuurNet\UiTPASBeheer\Activity\ActivityServiceInterface;
 use CultuurNet\UiTPASBeheer\Activity\PagedResultSet;
 use CultuurNet\UiTPASBeheer\Properties\Location;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
-use ValueObjects\Number\Integer;
+use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
 use CultuurNet\UiTPASBeheer\Activity\Cdbid;
 
@@ -147,7 +147,9 @@ class SearchAPI2AugmentedActivityService implements ActivityServiceInterface
 
         // Add the activity age target.
         if (!is_null($cdbEvent->getAgeFrom())) {
-            $augmentedActivity = $augmentedActivity->withAge(new Integer($cdbEvent->getAgeFrom()));
+            $augmentedActivity = $augmentedActivity->withAge(
+                new Natural($cdbEvent->getAgeFrom())
+            );
         }
 
         return $augmentedActivity;

@@ -8,6 +8,7 @@ use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation;
 use CultuurNet\UiTPASBeheer\Activity\Specifications\IsFree;
 use CultuurNet\UiTPASBeheer\Properties\Location;
 use ValueObjects\Number\Integer;
+use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
 
 /**
@@ -46,9 +47,9 @@ class Activity implements \JsonSerializable
     protected $location;
 
     /**
-     * @var Integer|null
+     * @var Natural|null
      *
-     * Textual indication of the age target group of the activity.
+     * Minimum age target group of the activity.
      */
     protected $age;
 
@@ -119,10 +120,10 @@ class Activity implements \JsonSerializable
     }
 
     /**
-     * @param Integer $age
+     * @param Natural $age
      * @return Activity
      */
-    public function withAge(Integer $age)
+    public function withAge(Natural $age)
     {
         $c = clone $this;
         $c->age = $age;
@@ -165,7 +166,7 @@ class Activity implements \JsonSerializable
     }
 
     /**
-     * @return Integer|null
+     * @return Natural|null
      */
     public function getAge()
     {

@@ -24,6 +24,7 @@ use CultuurNet\UiTPASBeheer\Properties\Location;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use ValueObjects\DateTime\DateTime;
 use ValueObjects\Number\Integer;
+use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
@@ -242,17 +243,17 @@ class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
             $activities[0]
                 ->withDescription(new StringLiteral('description test event 1'))
                 ->withWhen(new StringLiteral('2016-06-01'))
-                ->withAge(new Integer(6))
+                ->withAge(new Natural(6))
                 ->withLocation($this->location),
             $activities[1]
                 ->withDescription(new StringLiteral('description test event 2'))
                 ->withWhen(new StringLiteral('2016-08-01'))
-                ->withAge(new Integer(6))
+                ->withAge(new Natural(6))
                 ->withLocation($this->location),
             $activities[2]
                 ->withDescription(new StringLiteral('description test event 3'))
                 ->withWhen(new StringLiteral('2016-07-01'))
-                ->withAge(new Integer(6))
+                ->withAge(new Natural(6))
                 ->withLocation($this->location),
         ];
 
@@ -290,15 +291,15 @@ class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
         $expectedActivities = [
             $activities[0]
                 ->withDescription(new StringLiteral('description test event 1'))
-                ->withAge(new Integer(6))
+                ->withAge(new Natural(6))
                 ->withLocation($this->location),
             $activities[1]
                 ->withDescription(new StringLiteral('description test event 2'))
-                ->withAge(new Integer(6))
+                ->withAge(new Natural(6))
                 ->withLocation($this->location),
             $activities[2]
                 ->withDescription(new StringLiteral('description test event 3'))
-                ->withAge(new Integer(6))
+                ->withAge(new Natural(6))
                 ->withLocation($this->location),
         ];
 
