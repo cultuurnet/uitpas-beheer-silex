@@ -136,7 +136,7 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
             ->withDescription($this->description)
             ->withSalesInformation($this->salesInformation)
             ->withLocation($this->location)
-            ->withAge($this->age);
+            ->withMinimumAge($this->age);
     }
 
     /**
@@ -150,7 +150,7 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->when, $this->activity->getWhen());
         $this->assertEquals($this->checkinConstraint, $this->activity->getCheckinConstraint());
         $this->assertEquals($this->points, $this->activity->getPoints());
-        $this->assertEquals($this->age, $this->activity->getAge());
+        $this->assertEquals($this->age, $this->activity->getMinimumAge());
         $this->assertEquals($this->location, $this->activity->getLocation());
         $this->assertEquals($this->salesInformation, $this->activity->getSalesInformation());
     }

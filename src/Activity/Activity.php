@@ -51,7 +51,7 @@ class Activity implements \JsonSerializable
      *
      * Minimum age target group of the activity.
      */
-    protected $age;
+    protected $minimumAge;
 
     /**
      * @var CheckinConstraint
@@ -123,10 +123,10 @@ class Activity implements \JsonSerializable
      * @param Natural $age
      * @return Activity
      */
-    public function withAge(Natural $age)
+    public function withMinimumAge(Natural $age)
     {
         $c = clone $this;
-        $c->age = $age;
+        $c->minimumAge = $age;
         return $c;
     }
 
@@ -168,9 +168,9 @@ class Activity implements \JsonSerializable
     /**
      * @return Natural|null
      */
-    public function getAge()
+    public function getMinimumAge()
     {
-        return $this->age;
+        return $this->minimumAge;
     }
 
     /**
@@ -242,8 +242,8 @@ class Activity implements \JsonSerializable
             $data['where'] = $this->location->jsonSerialize();
         }
 
-        if (!is_null($this->age)) {
-            $data['age'] = $this->age->toNative();
+        if (!is_null($this->minimumAge)) {
+            $data['age'] = $this->minimumAge->toNative();
         }
 
         return $data;

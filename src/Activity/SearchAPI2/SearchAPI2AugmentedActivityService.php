@@ -147,7 +147,7 @@ class SearchAPI2AugmentedActivityService implements ActivityServiceInterface
 
         // Add the activity age target.
         if (!is_null($cdbEvent->getAgeFrom())) {
-            $augmentedActivity = $augmentedActivity->withAge(
+            $augmentedActivity = $augmentedActivity->withMinimumAge(
                 new Natural($cdbEvent->getAgeFrom())
             );
         }
