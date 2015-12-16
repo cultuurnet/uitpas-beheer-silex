@@ -137,13 +137,10 @@ class SearchAPI2AugmentedActivityService implements ActivityServiceInterface
 
         // Try to add the activity location.
         $cdbLocation = $cdbEvent->getLocation();
-        try {
-            $location = Location::fromCultureFeedCbdDataLocation($cdbLocation);
 
-            $augmentedActivity = $augmentedActivity->withLocation($location);
-        } catch (FormatterException $e) {
+        $location = Location::fromCultureFeedCbdDataLocation($cdbLocation);
 
-        }
+        $augmentedActivity = $augmentedActivity->withLocation($location);
 
         // Add the activity age target.
         if (!is_null($cdbEvent->getAgeFrom())) {
