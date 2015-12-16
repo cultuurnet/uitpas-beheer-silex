@@ -8,26 +8,35 @@ use CultuurNet\UiTPASBeheer\Properties\Address;
 final class Location implements \JsonSerializable
 {
     /**
-     * @var StringLiteral
+     * @var StringLiteral|null
      */
     protected $name;
 
     /**
-     * @var Address
+     * @var Address|null
      */
     protected $address;
 
     /**
-     * Location constructor.
-     * @param \ValueObjects\StringLiteral\StringLiteral $name
-     * @param Address $address
+     * @param StringLiteral $name
+     * @return Location
      */
-    public function __construct(
-        StringLiteral $name,
-        Address $address
-    ) {
-        $this->name = new StringLiteral(trim($name));
-        $this->address = $address;
+    public function withName(StringLiteral $name)
+    {
+        $c = clone $this;
+        $c->name = new StringLiteral(trim($name));
+        return $c;
+    }
+
+    /**
+     * @param Address $address
+     * @return Location
+     */
+    public function withAddress(Address $address)
+    {
+        $c = clone $this;
+        $c->address = $address;
+        return $c;
     }
 
     /**
@@ -62,8 +71,12 @@ final class Location implements \JsonSerializable
     {
         $data = [];
 
-        $data['name'] = $this->name->toNative();
-        $data['address'] = $this->address->jsonSerialize();
+        if (!is_null($this->name)) {
+            $data['name'] = $this->name->toNative();
+        }
+        if (!is_null($this->address)) {
+            $data['address'] = $this->address->jsonSerialize();
+        }
 
         return $data;
     }
@@ -74,18 +87,25 @@ final class Location implements \JsonSerializable
      */
     public static function fromCultureFeedCbdDataLocation(\CultureFeed_Cdb_Data_Location $cfLocation)
     {
+        $location = new self();
+
         $name = new StringLiteral($cfLocation->getLabel());
+        if ($name) {
+            $location->withName($name);
+        }
 
         $physicalAddress = $cfLocation->getAddress()->getPhysicalAddress();
-        $address = new Address(
-            new StringLiteral($physicalAddress->getZip()),
-            new StringLiteral($physicalAddress->getCity())
-        );
+        if ($physicalAddress) {
+            $address = new Address(
+                new StringLiteral($physicalAddress->getZip()),
+                new StringLiteral($physicalAddress->getCity())
+            );
 
-        $streetAndNumber = $physicalAddress->getStreet() . ' ' . $physicalAddress->getHouseNumber();
-        $address = $address->withStreet(new StringLiteral($streetAndNumber));
+            $streetAndNumber = $physicalAddress->getStreet() . ' ' . $physicalAddress->getHouseNumber();
+            $address = $address->withStreet(new StringLiteral($streetAndNumber));
 
-        $location = new self($name, $address);
+            $location->withAddress($address);
+        }
 
         return $location;
     }

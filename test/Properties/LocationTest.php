@@ -51,7 +51,8 @@ class LocationTest extends \PHPUnit_Framework_TestCase
             $this->city
         ))->withStreet($this->street);
 
-        $this->location = new Location($this->name, $this->address);
+        $this->location = new Location();
+        $this->location = $this->location->withName($this->name)->withAddress($this->address);
     }
 
     /**

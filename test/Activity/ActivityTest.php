@@ -85,7 +85,10 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->title = new StringLiteral('Some title');
         $this->description = new StringLiteral('Some description');
         $this->when = new StringLiteral('yesterday');
-        $this->location = new Location(new StringLiteral('CC De Werf'), $address);
+        $this->location = new Location();
+        $this->location = $this->location
+            ->withName(new StringLiteral('CC De Werf'))
+            ->withAddress($address);
         $this->age = new Natural(6);
         $this->points = new Integer(1);
 
