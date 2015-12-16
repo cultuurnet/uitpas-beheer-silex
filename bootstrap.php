@@ -191,6 +191,11 @@ $app->register(
 );
 
 /**
+ * UiTPAS Points History service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\PointsHistory\PointsHistoryServiceProvider());
+
+/**
  * Clock service.
  */
 $app->register(
