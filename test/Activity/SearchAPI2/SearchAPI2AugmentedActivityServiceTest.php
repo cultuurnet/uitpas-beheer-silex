@@ -13,7 +13,6 @@ use CultuurNet\Search\Parameter\Query;
 use CultuurNet\Search\SearchResult;
 use CultuurNet\Search\ServiceInterface;
 use CultuurNet\UiTPASBeheer\Activity\Activity;
-use CultuurNet\UiTPASBeheer\Activity\ActivityNotFoundException;
 use CultuurNet\UiTPASBeheer\Activity\ActivityServiceInterface;
 use CultuurNet\UiTPASBeheer\Activity\Cdbid;
 use CultuurNet\UiTPASBeheer\Activity\CheckinConstraint;
@@ -45,6 +44,11 @@ class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
     protected $activityService;
 
     /**
+     * @var Location
+     */
+    protected $location;
+
+    /**
      * @var CalendarFormatterInterface|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $calendarFormatter;
@@ -70,10 +74,10 @@ class SearchAPI2AugmentedActivityServiceTest extends \PHPUnit_Framework_TestCase
             new StringLiteral('Aalst')
         );
         $address = $address->withStreet(new StringLiteral('Molenstraat 51'));
-        $this->location = new Location(
-            new StringLiteral('CC De Werf'),
-            $address
-        );
+        $this->location = new Location();
+        $this->location = $this->location
+            ->withName(new StringLiteral('CC De Werf'))
+            ->withAddress($address);
     }
 
     /**

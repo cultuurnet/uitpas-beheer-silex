@@ -65,7 +65,7 @@ final class Location implements \JsonSerializable
     }
 
     /**
-     * @return array
+     * @return array|null
      */
     public function jsonSerialize()
     {
@@ -76,6 +76,10 @@ final class Location implements \JsonSerializable
         }
         if (!is_null($this->address)) {
             $data['address'] = $this->address->jsonSerialize();
+        }
+
+        if (empty($data)) {
+            return null;
         }
 
         return $data;
@@ -91,7 +95,7 @@ final class Location implements \JsonSerializable
 
         $name = new StringLiteral($cfLocation->getLabel());
         if ($name) {
-            $location->withName($name);
+            $location = $location->withName($name);
         }
 
         $physicalAddress = $cfLocation->getAddress()->getPhysicalAddress();
@@ -104,7 +108,7 @@ final class Location implements \JsonSerializable
             $streetAndNumber = $physicalAddress->getStreet() . ' ' . $physicalAddress->getHouseNumber();
             $address = $address->withStreet(new StringLiteral($streetAndNumber));
 
-            $location->withAddress($address);
+            $location = $location->withAddress($address);
         }
 
         return $location;
