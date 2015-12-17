@@ -39,7 +39,7 @@ class PointsTransactionController
     {
         $currentTime = $this->clock->getDateTime()->getTimestamp();
         $startTime = strtotime("-1 year", $currentTime);
-        $endTime = $currentTime;
+        $endTime = strtotime("+1 day", $currentTime);
 
         $startDate = Date::fromNativeDateTime(
             \DateTime::createFromFormat('U', $startTime)
