@@ -2,6 +2,12 @@
 
 namespace CultuurNet\UiTPASBeheer\Advantage;
 
+use CultuurNet\UiTPASBeheer\Properties\City;
+use CultuurNet\UiTPASBeheer\Properties\CityCollection;
+use ValueObjects\DateTime\Date;
+use ValueObjects\DateTime\Month;
+use ValueObjects\DateTime\MonthDay;
+use ValueObjects\DateTime\Year;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -56,14 +62,54 @@ class WelcomeAdvantageTest extends \PHPUnit_Framework_TestCase
         $cfAdvantage->title = $title;
         $cfAdvantage->cashedIn = !$exchangeable;
 
+        $cfAdvantage->description1 = 'First description';
+        $cfAdvantage->description2 = 'Second description';
+        $cfAdvantage->validForCities = [
+            "Brussel",
+            "Leuven",
+        ];
+
+        $validForCounters = array();
+        for ($i = 0; $i <= 2; $i++) {
+            $counter = new \CultureFeed_Uitpas_Passholder_Counter();
+            $counter->id = $i + 1;
+            $counter->name = "counter " . $counter->id;
+
+            $validForCounters[$i] = $counter;
+        }
+
+        $endDate = '2015-12-04';
+
+        $cfAdvantage->counters = $validForCounters;
+        $cfAdvantage->cashingPeriodEnd = $endDate;
+
+
         $advantage = WelcomeAdvantage::fromCultureFeedWelcomeAdvantage($cfAdvantage);
 
-        $this->assertAdvantageData(
-            $advantage,
+        $validForCitiesCollection = (new CityCollection())
+            ->with(new City("Brussel"))
+            ->with(new City("Leuven"));
+
+        $endDatValueObject = new Date(
+            new Year(2015),
+            Month::DECEMBER(),
+            new MonthDay(4)
+        );
+
+        $expectedAdvantage = (new WelcomeAdvantage(
             $id,
             $title,
-            new Integer(0),
             $exchangeable
+        ))
+            ->withDescription1(new StringLiteral('First description'))
+            ->withDescription2(new StringLiteral('Second description'))
+            ->withValidForCities($validForCitiesCollection)
+            ->withValidForCounters($validForCounters)
+            ->withEndDate($endDatValueObject);
+
+        $this->assertEquals(
+            $expectedAdvantage,
+            $advantage
         );
     }
 

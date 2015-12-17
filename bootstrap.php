@@ -180,12 +180,38 @@ $app->register(new \CultuurNet\UiTPASBeheer\Membership\Association\AssociationSe
 $app->register(new \CultuurNet\UiTPASBeheer\Coupon\CouponServiceProvider());
 
 /**
+ * UiTPAS Feedback service.
+ */
+$app->register(
+    new \CultuurNet\UiTPASBeheer\Feedback\FeedbackServiceProvider(),
+    [
+        'feedback.from' => $app['config']['feedback']['from'],
+        'feedback.to' => $app['config']['feedback']['to'],
+        'feedback.subject' => $app['config']['feedback']['subject'],
+    ]
+);
+
+/**
+ * UiTPAS Points History service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\PointsHistory\PointsHistoryServiceProvider());
+
+/**
  * Clock service.
  */
 $app->register(
     new \CultuurNet\UiTPASBeheer\ClockServiceProvider(),
     ['clock.timezone' => 'Europe/Brussels']
 );
+
+/**
+ * Mailing service.
+ */
+$app->register(new Silex\Provider\SwiftmailerServiceProvider());
+$app['swiftmailer.use_spool'] = false;
+if (isset($app['config']['swiftmailer.options'])) {
+    $app['swiftmailer.options'] = $app['config']['swiftmailer.options'];
+}
 
 /**
  * Load additional bootstrap files.

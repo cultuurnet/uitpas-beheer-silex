@@ -1062,6 +1062,124 @@
         ]
       }
     },
+    "/passholders/{uitpasNumber}/points-history": {
+      "get": {
+        "summary": "Retrieves a list of actions increasing or decreasing the points.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "passholderPointsHistory",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The checkins for the given uitpasNumber.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PointHistory"
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "PassHolder",
+          "Points"
+        ]
+      }
+    },
+    "/passholders/bulkoperations/export": {
+      "post": {
+        "summary": "Create a new passholders export with the given bulk selection.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "passholdersBulkOperationExport",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the current passholder search and optional selected uitpas numbers.",
+            "schema": {
+              "$ref": "#/definitions/BulkSelection"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Info about the export.",
+            "schema": {
+              "$ref": "#/definitions/ExportInfo"
+            }
+          },
+          "400": {
+            "description": "The provided parameters are incorrect, or an API error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "Bulk operation",
+          "Passholder"
+        ]
+      }
+    },
+    "/passholders/bulkoperations/export/{exportId}": {
+      "get": {
+        "summary": "Returns the status, and optionally the download uri, of the passholder export.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "getPassholdersBulkOperationExportStatus",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "exportId",
+            "in": "path",
+            "description": "The ID of the export that has been, or is being, generated.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Info about the export.",
+            "schema": {
+              "$ref": "#/definitions/ExportStatus"
+            }
+          },
+          "400": {
+            "description": "The provided parameters are incorrect, or an API error occurred.",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "Bulk operation",
+          "Passholder"
+        ]
+      }
+    },
     "/checkindevices": {
       "get": {
         "summary": "List checkin devices.",
@@ -1457,6 +1575,9 @@
           },
           "403": {
             "description": "The user is not authorised to send feedback."
+          },
+          "500": {
+            "description": "The feedback could not be sent because of a server error."
           }
         },
         "tags": [
@@ -1570,6 +1691,14 @@
     {
       "name": "Ticketsale",
       "description": "Operations related to (uitpasNumber) Ticketsales."
+    },
+    {
+      "name": "Points",
+      "description": "Operations related to Points."
+    },
+    {
+      "name": "Bulk operation",
+      "description": "Operations related to passholder bulk operations."
     }
   ],
   "definitions": {
@@ -2159,7 +2288,7 @@
           "$ref": "#/definitions/PassHolderName"
         },
         "address": {
-          "$ref": "#/definitions/PassHolderAddress"
+          "$ref": "#/definitions/Address"
         },
         "birth": {
           "$ref": "#/definitions/PassHolderBirthInformation"
@@ -2274,7 +2403,7 @@
           "$ref": "#/definitions/PassHolderName"
         },
         "address": {
-          "$ref": "#/definitions/PassHolderAddress"
+          "$ref": "#/definitions/Address"
         },
         "birth": {
           "$ref": "#/definitions/PassHolderBirthInformation"
@@ -2404,7 +2533,7 @@
         "last"
       ]
     },
-    "PassHolderAddress": {
+    "Address": {
       "properties": {
         "street": {
           "type": "string",
@@ -2516,7 +2645,7 @@
           "type": "string",
           "format": "date",
           "description": "The end date of the granting period.",
-          "example": "2016/09/10"
+          "example": "2016-09-10"
         }
       },
       "required": [
@@ -2634,6 +2763,13 @@
               "type": "string",
               "example": "vanaf 1/9"
             },
+            "where": {
+              "$ref": "#/definitions/ActivityLocation"
+            },
+            "age": {
+              "type": "string",
+              "example": "+ 12 jaar"
+            },
             "checkinConstraint": {
               "$ref": "#/definitions/CheckinConstraint"
             },
@@ -2655,6 +2791,17 @@
         "id",
         "title"
       ]
+    },
+    "ActivityLocation": {
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "CC De Werf"
+        },
+        "address": {
+          "$ref": "#/definitions/Address"
+        }
+      }
     },
     "CheckinConstraint": {
       "properties": {
@@ -2908,6 +3055,36 @@
         "creationDate"
       ]
     },
+    "PointHistory": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "18"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2016-09-10"
+        },
+        "title": {
+          "type": "string",
+          "example": "Gratis stickers"
+        },
+        "points": {
+          "type": "integer",
+          "format": "int32",
+          "example": "-5",
+          "description": "Contains a minus sign for negative numbers."
+        }
+      },
+      "required": [
+        "id",
+        "date",
+        "title",
+        "points"
+      ]
+    },
     "KansenstatuutUpdateCommand": {
       "type": "object",
       "properties": {
@@ -2985,35 +3162,28 @@
       ]
     },
     "ExpenseReportInfo": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "example": "12345"
+      "allOf": [
+        {
+          "$ref": "#/definitions/ExportInfo"
         },
-        "range": {
-          "$ref": "#/definitions/DateRange"
+        {
+          "properties": {
+            "range": {
+              "$ref": "#/definitions/DateRange"
+            }
+          }
         }
-      },
+      ],
       "required": [
         "id",
         "range"
       ]
     },
     "ExpenseReportStatus": {
-      "type": "object",
-      "properties": {
-        "completed": {
-          "type": "boolean"
-        },
-        "download": {
-          "type": "string",
-          "format": "uri",
-          "example": "http://foo.bar/counters/active/expense-reports/342/financialOverview_342_2015-12-01_2015-12-31.zip"
+      "allOf": [
+        {
+          "$ref": "#/definitions/ExportStatus"
         }
-      },
-      "required": [
-        "completed"
       ]
     },
     "Member": {
@@ -3166,11 +3336,6 @@
     "Feedback": {
       "type": "object",
       "properties": {
-        "date": {
-          "type": "string",
-          "format": "date",
-          "example": "2015-12-26"
-        },
         "name": {
           "type": "string",
           "example": "John Doe"
@@ -3191,6 +3356,99 @@
       "required": [
         "message"
       ]
+    },
+    "BulkSelection": {
+      "type": "object",
+      "properties": {
+        "selection": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": "0930000164804"
+          }
+        },
+        "searchParameters": {
+          "$ref": "#/definitions/SearchParameters"
+        }
+      },
+      "required": [
+        "searchParameters"
+      ]
+    },
+    "ExportStatus": {
+      "type": "object",
+      "properties": {
+        "completed": {
+          "type": "boolean"
+        },
+        "download": {
+          "type": "string",
+          "format": "uri",
+          "example": "http://foo.bar/counters/active/expense-reports/342/financialOverview_342_2015-12-01_2015-12-31.zip"
+        }
+      },
+      "required": [
+        "completed"
+      ]
+    },
+    "ExportInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "12345"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    },
+    "SearchParameters": {
+      "type": "object",
+      "properties": {
+        "uitpasNumber": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": "0930000164804"
+          }
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "example": "1983-02-03"
+        },
+        "firstName": {
+          "type": "string",
+          "example": "Albe*"
+        },
+        "name": {
+          "type": "string",
+          "example": "Conta*"
+        },
+        "street": {
+          "type": "string",
+          "example": "Bondgenotenlaan"
+        },
+        "city": {
+          "$ref": "#/definitions/City"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "example": "foo@bar.com"
+        },
+        "membershipAssociationId": {
+          "type": "string",
+          "example": "De Bos Crossers"
+        },
+        "membershipStatus": {
+          "type": "string",
+          "enum": [
+            "ACTIVE",
+            "EXPIRED"
+          ]
+        }
+      }
     }
   }
 }
