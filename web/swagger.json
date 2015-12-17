@@ -1062,29 +1062,100 @@
         ]
       }
     },
-    "/passholders/bulkoperations/export": {
-      "post": {
+    "/passholders.xslx": {
+      "get": {
         "summary": "Create a new passholders export with the given bulk selection.",
         "description": "Authentication and an active counter are required.",
-        "operationId": "passholdersBulkOperationExport",
+        "operationId": "passholdersExport",
         "produces": [
-          "application/json"
+          "application/json",
+          "application/xlsx"
         ],
         "parameters": [
           {
-            "name": "body",
-            "in": "body",
-            "description": "An object containing the current passholder search and optional selected uitpas numbers.",
-            "schema": {
-              "$ref": "#/definitions/BulkSelection"
-            }
+            "name": "uitpasNumber",
+            "in": "query",
+            "description": "UiTPAS-number to include in the list of passholders. Add multiple uitpasNumber parameters to include multiple numbers. (uitpasNumber[]=123456&uitpasNumber[]=123457&uitpasNumber[]=123458)",
+            "required": false,
+            "type": "string",
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "dateOfBirth",
+            "in": "query",
+            "description": "A date if birth.",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "firstName",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "A first name. Wildcard * allowed."
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "A last name. Wildcard * allowed."
+          },
+          {
+            "name": "street",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "A street name and number. Wildcard * allowed."
+          },
+          {
+            "name": "city",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "A city name. Wildcard * allowed."
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "An email address. No wildcards allowed",
+            "format": "email"
+          },
+          {
+            "name": "membershipAssociationId",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "A group association ID."
+          },
+          {
+            "name": "membershipStatus",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The group membership status.",
+            "enum": [
+              "ACTIVE",
+              "EXPIRED"
+            ]
+          },
+          {
+            "name": "selection",
+            "in": "query",
+            "description": "A set of UitPAS-numbers to narrow down the export search selection. (uitpasNumber[]=123456&uitpasNumber[]=123457&uitpasNumber[]=123458)",
+            "required": false,
+            "type": "string",
+            "collectionFormat": "multi"
           }
         ],
         "responses": {
           "200": {
-            "description": "Info about the export.",
+            "description": "A file containing the requested information",
             "schema": {
-              "$ref": "#/definitions/ExportInfo"
+              "type": "file"
             }
           },
           "400": {
@@ -1099,47 +1170,7 @@
         },
         "tags": [
           "Bulk operation",
-          "Passholder"
-        ]
-      }
-    },
-    "/passholders/bulkoperations/export/{exportId}": {
-      "get": {
-        "summary": "Returns the status, and optionally the download uri, of the passholder export.",
-        "description": "Authentication and an active counter are required.",
-        "operationId": "getPassholdersBulkOperationExportStatus",
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "exportId",
-            "in": "path",
-            "description": "The ID of the export that has been, or is being, generated.",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Info about the export.",
-            "schema": {
-              "$ref": "#/definitions/ExportStatus"
-            }
-          },
-          "400": {
-            "description": "The provided parameters are incorrect, or an API error occurred.",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "The user is not authenticated or does not have an active counter."
-          }
-        },
-        "tags": [
-          "Bulk operation",
-          "Passholder"
+          "PassHolder"
         ]
       }
     },
@@ -3286,24 +3317,6 @@
         "message"
       ]
     },
-    "BulkSelection": {
-      "type": "object",
-      "properties": {
-        "selection": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "example": "0930000164804"
-          }
-        },
-        "searchParameters": {
-          "$ref": "#/definitions/SearchParameters"
-        }
-      },
-      "required": [
-        "searchParameters"
-      ]
-    },
     "ExportStatus": {
       "type": "object",
       "properties": {
@@ -3331,53 +3344,6 @@
       "required": [
         "id"
       ]
-    },
-    "SearchParameters": {
-      "type": "object",
-      "properties": {
-        "uitpasNumber": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "example": "0930000164804"
-          }
-        },
-        "dateOfBirth": {
-          "type": "string",
-          "example": "1983-02-03"
-        },
-        "firstName": {
-          "type": "string",
-          "example": "Albe*"
-        },
-        "name": {
-          "type": "string",
-          "example": "Conta*"
-        },
-        "street": {
-          "type": "string",
-          "example": "Bondgenotenlaan"
-        },
-        "city": {
-          "$ref": "#/definitions/City"
-        },
-        "email": {
-          "type": "string",
-          "format": "email",
-          "example": "foo@bar.com"
-        },
-        "membershipAssociationId": {
-          "type": "string",
-          "example": "De Bos Crossers"
-        },
-        "membershipStatus": {
-          "type": "string",
-          "enum": [
-            "ACTIVE",
-            "EXPIRED"
-          ]
-        }
-      }
     }
   }
 }
