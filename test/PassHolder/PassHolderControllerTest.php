@@ -8,6 +8,9 @@ use CultuurNet\UiTPASBeheer\Exception\IncorrectParameterValueException;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
 use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
+use CultuurNet\UiTPASBeheer\Export\FileWriterInterface;
+use CultuurNet\UiTPASBeheer\Export\Xls\XlsFileName;
+use CultuurNet\UiTPASBeheer\Export\Xls\XlsFileWriter;
 use CultuurNet\UiTPASBeheer\Identity\Identity;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
@@ -50,6 +53,16 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
     protected $service;
 
     /**
+     * @var PassHolderIteratorFactoryInterface
+     */
+    protected $passHolderIteratorFactory;
+
+    /**
+     * @var FileWriterInterface
+     */
+    protected $exportFileWriter;
+
+    /**
      * @var PassHolderJsonDeserializer|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $passholderDeserializer;
@@ -78,6 +91,10 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
     {
         $this->service = $this->getMock(PassHolderServiceInterface::class);
 
+        $this->passHolderIteratorFactory = $this->getMock(PassHolderIteratorFactoryInterface::class);
+
+        $this->exportFileWriter = $this->getMock(FileWriterInterface::class);
+
         $this->passholderDeserializer = new PassHolderJsonDeserializer(
             new NameJsonDeserializer(),
             new AddressJsonDeserializer(),
@@ -97,6 +114,8 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->controller = new PassHolderController(
             $this->service,
+            $this->passHolderIteratorFactory,
+            $this->exportFileWriter,
             $this->passholderDeserializer,
             $this->registrationDeserializer,
             $this->searchQuery,
