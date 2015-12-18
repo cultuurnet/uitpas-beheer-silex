@@ -5,6 +5,8 @@ namespace CultuurNet\UiTPASBeheer\Activity;
 use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation;
 use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformationTestDataTrait;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
+use CultuurNet\UiTPASBeheer\Properties\Address;
+use CultuurNet\UiTPASBeheer\Properties\Location;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
 use ValueObjects\DateTime\Hour;
@@ -15,6 +17,7 @@ use ValueObjects\DateTime\Second;
 use ValueObjects\DateTime\Time;
 use ValueObjects\DateTime\Year;
 use ValueObjects\Number\Integer;
+use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class ActivityTest extends \PHPUnit_Framework_TestCase
@@ -43,6 +46,16 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
     protected $id;
 
     /**
+     * @var Location
+     */
+    protected $location;
+
+    /**
+     * @var Natural
+     */
+    protected $age;
+
+    /**
      * @var StringLiteral
      */
     protected $title;
@@ -64,10 +77,19 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        $address = (new Address(
+            new StringLiteral('3000'),
+            new StringLiteral('Leuven')
+        ))->withStreet(new StringLiteral('Karel Van Lotharingenstraat 4'));
         $this->id = new StringLiteral('10');
         $this->title = new StringLiteral('Some title');
         $this->description = new StringLiteral('Some description');
         $this->when = new StringLiteral('yesterday');
+        $this->location = new Location();
+        $this->location = $this->location
+            ->withName(new StringLiteral('CC De Werf'))
+            ->withAddress($address);
+        $this->age = new Natural(6);
         $this->points = new Integer(1);
 
         $checkinStartDate = new DateTime(
@@ -115,7 +137,9 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->activity = $this->activity
             ->withWhen($this->when)
             ->withDescription($this->description)
-            ->withSalesInformation($this->salesInformation);
+            ->withSalesInformation($this->salesInformation)
+            ->withLocation($this->location)
+            ->withMinimumAge($this->age);
     }
 
     /**
@@ -129,6 +153,8 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->when, $this->activity->getWhen());
         $this->assertEquals($this->checkinConstraint, $this->activity->getCheckinConstraint());
         $this->assertEquals($this->points, $this->activity->getPoints());
+        $this->assertEquals($this->age, $this->activity->getMinimumAge());
+        $this->assertEquals($this->location, $this->activity->getLocation());
         $this->assertEquals($this->salesInformation, $this->activity->getSalesInformation());
     }
 

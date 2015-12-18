@@ -6,7 +6,9 @@ use CultureFeed_Uitpas_Event_CultureEvent;
 use CultureFeed_Cdb_Item_Event;
 use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation;
 use CultuurNet\UiTPASBeheer\Activity\Specifications\IsFree;
+use CultuurNet\UiTPASBeheer\Properties\Location;
 use ValueObjects\Number\Integer;
+use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
 
 /**
@@ -36,6 +38,20 @@ class Activity implements \JsonSerializable
      * Textual indication of when the activity is occurring.
      */
     protected $when;
+
+    /**
+     * @var Location|null
+     *
+     * Object containing information about where the activity is occurring.
+     */
+    protected $location;
+
+    /**
+     * @var Natural|null
+     *
+     * Minimum age target group of the activity.
+     */
+    protected $minimumAge;
 
     /**
      * @var CheckinConstraint
@@ -93,6 +109,28 @@ class Activity implements \JsonSerializable
     }
 
     /**
+     * @param Location $location
+     * @return Activity
+     */
+    public function withLocation(Location $location)
+    {
+        $c = clone $this;
+        $c->location = $location;
+        return $c;
+    }
+
+    /**
+     * @param Natural $age
+     * @return Activity
+     */
+    public function withMinimumAge(Natural $age)
+    {
+        $c = clone $this;
+        $c->minimumAge = $age;
+        return $c;
+    }
+
+    /**
      * @param SalesInformation $salesInformation
      * @return Activity
      */
@@ -117,6 +155,22 @@ class Activity implements \JsonSerializable
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return Location|null
+     */
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    /**
+     * @return Natural|null
+     */
+    public function getMinimumAge()
+    {
+        return $this->minimumAge;
     }
 
     /**
@@ -182,6 +236,14 @@ class Activity implements \JsonSerializable
 
         if (!is_null($this->salesInformation) && !$data['free']) {
             $data['sales'] = $this->salesInformation->jsonSerialize();
+        }
+
+        if (!is_null($this->location)) {
+            $data['where'] = $this->location->jsonSerialize();
+        }
+
+        if (!is_null($this->minimumAge)) {
+            $data['age'] = $this->minimumAge->toNative();
         }
 
         return $data;

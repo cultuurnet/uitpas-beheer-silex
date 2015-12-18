@@ -2,12 +2,12 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\AddressJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\NameJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferencesJsonDeserializer;
+use CultuurNet\UiTPASBeheer\Properties\AddressJsonDeserializer;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 

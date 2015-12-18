@@ -1,11 +1,11 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
+namespace CultuurNet\UiTPASBeheer\Properties;
 
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class AddressTest extends \PHPUnit_Framework_TestCase
+class LocationTest extends \PHPUnit_Framework_TestCase
 {
     use JsonAssertionTrait;
 
@@ -25,12 +25,23 @@ class AddressTest extends \PHPUnit_Framework_TestCase
     protected $city;
 
     /**
+     * @var StringLiteral
+     */
+    protected $name;
+
+    /**
      * @var Address
      */
     protected $address;
 
+    /**
+     * @var Location
+     */
+    protected $location;
+
     public function setUp()
     {
+        $this->name = new StringLiteral('CC De Werf');
         $this->street = new StringLiteral('Rue Ferd 123 /0001');
         $this->postalCode = new StringLiteral('1090');
         $this->city = new StringLiteral('Jette (Brussel)');
@@ -39,6 +50,9 @@ class AddressTest extends \PHPUnit_Framework_TestCase
             $this->postalCode,
             $this->city
         ))->withStreet($this->street);
+
+        $this->location = new Location();
+        $this->location = $this->location->withName($this->name)->withAddress($this->address);
     }
 
     /**
@@ -46,21 +60,8 @@ class AddressTest extends \PHPUnit_Framework_TestCase
      */
     public function it_encodes_all_data_to_json()
     {
-        $json = json_encode($this->address);
-        $this->assertJsonEquals($json, 'PassHolder/data/properties/address-complete.json');
-    }
-
-    /**
-     * @test
-     */
-    public function it_omits_empty_properties_from_json()
-    {
-        $address = new Address(
-            $this->postalCode,
-            $this->city
-        );
-        $json = json_encode($address);
-        $this->assertJsonEquals($json, 'PassHolder/data/properties/address-minimum.json');
+        $json = json_encode($this->location);
+        $this->assertJsonEquals($json, 'Properties/data/location-complete.json');
     }
 
     /**
@@ -68,32 +69,43 @@ class AddressTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_extract_properties_from_a_culturefeed_passholder()
     {
-        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
-        $cfPassHolder->postalCode = '1090';
-        $cfPassHolder->city = 'Jette (Brussel)';
-        $cfPassHolder->street = 'Rue Ferd 123 /0001';
-
-        $address = Address::fromCultureFeedPassHolder($cfPassHolder);
-
         $this->assertEquals(
-            $cfPassHolder->postalCode,
-            $address
+            '1090',
+            $this->location
+                ->getAddress()
                 ->getPostalCode()
                 ->toNative()
         );
 
         $this->assertEquals(
-            $cfPassHolder->city,
-            $address
+            'Jette (Brussel)',
+            $this->location
+                ->getAddress()
                 ->getCity()
                 ->toNative()
         );
 
         $this->assertEquals(
-            $cfPassHolder->street,
-            $address
+            'Rue Ferd 123 /0001',
+            $this->location
+                ->getAddress()
                 ->getStreet()
                 ->toNative()
         );
+
+        $this->assertEquals(
+            'CC De Werf',
+            $this->location
+                ->getName()
+                ->toNative()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_check_if_a_location_is_the_same_as_another()
+    {
+        $this->assertTrue($this->location->sameValueAs($this->location));
     }
 }

@@ -2767,8 +2767,9 @@
               "$ref": "#/definitions/ActivityLocation"
             },
             "age": {
-              "type": "string",
-              "example": "+ 12 jaar"
+              "type": "integer",
+              "format": "int32",
+              "example": 12
             },
             "checkinConstraint": {
               "$ref": "#/definitions/CheckinConstraint"

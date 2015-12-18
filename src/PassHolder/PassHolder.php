@@ -3,7 +3,6 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutCollection;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformation;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformation;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
@@ -13,6 +12,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
+use CultuurNet\UiTPASBeheer\Properties\Address;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASCollection;
 use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use ValueObjects\Number\Integer;

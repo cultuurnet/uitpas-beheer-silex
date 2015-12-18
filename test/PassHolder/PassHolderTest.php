@@ -3,13 +3,12 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
-use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutCollection;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformation;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformation;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
+use CultuurNet\UiTPASBeheer\Properties\Address;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
 
