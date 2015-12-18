@@ -15,6 +15,11 @@ class FeedbackEmailService implements FeedbackServiceInterface
     /**
      * @var EmailAddress
      */
+    private $from;
+
+    /**
+     * @var EmailAddress
+     */
     private $to;
 
     /**
@@ -24,15 +29,18 @@ class FeedbackEmailService implements FeedbackServiceInterface
 
     /**
      * @param \Swift_Mailer $mailer
+     * @param EmailAddress $from
      * @param EmailAddress $to
      * @param StringLiteral $subject
      */
     public function __construct(
         \Swift_Mailer $mailer,
+        EmailAddress $from,
         EmailAddress $to,
         StringLiteral $subject
     ) {
         $this->mailer = $mailer;
+        $this->from = $from;
         $this->to = $to;
         $this->subject = $subject;
     }
@@ -49,7 +57,9 @@ class FeedbackEmailService implements FeedbackServiceInterface
 
         $message->setTo($this->to->toNative());
 
-        $message->addFrom(
+        $message->addFrom($this->from->toNative());
+
+        $message->addReplyTo(
             $feedback->getEmail()->toNative(),
             $feedback->getName()->toNative()
         );

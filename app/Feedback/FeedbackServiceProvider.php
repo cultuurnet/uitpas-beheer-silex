@@ -25,6 +25,7 @@ class FeedbackServiceProvider implements ServiceProviderInterface
             function (Application $app) {
                 return new FeedbackEmailService(
                     $app['mailer'],
+                    new EmailAddress($app['feedback.from']),
                     new EmailAddress($app['feedback.to']),
                     new StringLiteral($app['feedback.subject'])
                 );
