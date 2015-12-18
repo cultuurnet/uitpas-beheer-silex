@@ -1062,14 +1062,13 @@
         ]
       }
     },
-    "/passholders.xslx": {
+    "/passholders.xsl": {
       "get": {
         "summary": "Create a new passholders export with the given bulk selection.",
         "description": "Authentication and an active counter are required.",
         "operationId": "passholdersExport",
         "produces": [
-          "application/json",
-          "application/xlsx"
+          "application/vnd.ms-excel"
         ],
         "parameters": [
           {
