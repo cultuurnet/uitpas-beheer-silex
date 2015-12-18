@@ -171,6 +171,15 @@ class PassHolderController
                     'UiTPAS nummer',
                     'Naam',
                     'Voornaam',
+                    'Geboortedatum',
+                    'Geslacht',
+                    'Adres',
+                    'Postcode',
+                    'Gemeente',
+                    'Telefoon',
+                    'GSM',
+                    'Nationaliteit',
+                    'id'
                 ]
             );
             flush();
@@ -179,11 +188,29 @@ class PassHolderController
 
             /* @var PassHolder $passHolder */
             foreach ($passHolders as $uitpasNumber => $passHolder) {
+                $contactInformation = $passHolder->getContactInformation();
+                if (!empty($contactInformation)) {
+                    $telephoneNumber = $contactInformation->getTelephoneNumber();
+                    $mobileNumber = $contactInformation->getMobileNumber();
+                } else {
+                    $telephoneNumber = '';
+                    $mobileNumber = '';
+                }
+
                 print $this->exportFileWriter->write(
                     [
                         $uitpasNumber,
-                        $passHolder->getName()->getLastName()->toNative(),
-                        $passHolder->getName()->getFirstName()->toNative(),
+                        (string) $passHolder->getName()->getLastName(),
+                        (string) $passHolder->getName()->getFirstName(),
+                        (string) $passHolder->getBirthInformation()->getDate(),
+                        (string) $passHolder->getGender(),
+                        (string) $passHolder->getAddress()->getStreet(),
+                        (string) $passHolder->getAddress()->getPostalCode(),
+                        (string) $passHolder->getAddress()->getCity(),
+                        $telephoneNumber,
+                        $mobileNumber,
+                        (string) $passHolder->getNationality(),
+                        (string) $passHolder->getUid()
                     ]
                 );
                 flush();
