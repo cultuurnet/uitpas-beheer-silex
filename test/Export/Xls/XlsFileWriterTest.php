@@ -45,8 +45,8 @@ class XlsFileWriterTest extends \PHPUnit_Framework_TestCase
     public function it_can_return_http_headers_for_streaming_to_a_browser()
     {
         $expected = [
-            'Content-Type: application/vnd.ms-excel; charset="UTF-8"',
-            'Content-Disposition: inline; filename="foo.xls"',
+            'Content-Type' => 'application/vnd.ms-excel; charset="UTF-8"',
+            'Content-Disposition' => 'attachment; filename="foo.xls"',
         ];
 
         $actual = $this->writer->getHttpHeaders();

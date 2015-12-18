@@ -67,18 +67,18 @@ class XlsFileWriter implements FileWriterInterface
     public function getHttpHeaders()
     {
         $contentType = sprintf(
-            'Content-Type: application/vnd.ms-excel; charset="%s"',
+            'application/vnd.ms-excel; charset="%s"',
             $this->encoding
         );
 
         $contentDisposition = sprintf(
-            'Content-Disposition: inline; filename="%s"',
+            'attachment; filename="%s"',
             $this->fileName->toNative()
         );
 
         return [
-            $contentType,
-            $contentDisposition,
+            'Content-Type' => $contentType,
+            'Content-Disposition' => $contentDisposition,
         ];
     }
 

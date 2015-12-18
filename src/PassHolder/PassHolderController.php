@@ -7,6 +7,7 @@ use CultuurNet\Hydra\Symfony\PageUrlGenerator;
 use CultuurNet\UiTPASBeheer\Exception\IncorrectParameterValueException;
 use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
+use CultuurNet\UiTPASBeheer\Export\FileWriterInterface;
 use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
 use CultuurNet\UiTPASBeheer\Membership\MembershipStatus;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedCollection;
@@ -17,6 +18,7 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberInvalidException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ValueObjects\DateTime\Date;
 use ValueObjects\Exception\InvalidNativeArgumentException;
@@ -30,6 +32,16 @@ class PassHolderController
      * @var PassHolderServiceInterface
      */
     protected $passHolderService;
+
+    /**
+     * @var PassHolderIteratorFactoryInterface
+     */
+    protected $passHolderIteratorFactory;
+
+    /**
+     * @var FileWriterInterface
+     */
+    protected $exportFileWriter;
 
     /**
      * @var DeserializerInterface
@@ -53,6 +65,8 @@ class PassHolderController
 
     /**
      * @param PassHolderServiceInterface $passHolderService
+     * @param PassHolderIteratorFactoryInterface $passHolderIteratorFactory
+     * @param FileWriterInterface $exportFileWriter
      * @param DeserializerInterface $passHolderJsonDeserializer
      * @param DeserializerInterface $registrationJsonDeserializer
      * @param QueryBuilderInterface $searchQuery
@@ -60,12 +74,16 @@ class PassHolderController
      */
     public function __construct(
         PassHolderServiceInterface $passHolderService,
+        PassHolderIteratorFactoryInterface $passHolderIteratorFactory,
+        FileWriterInterface $exportFileWriter,
         DeserializerInterface $passHolderJsonDeserializer,
         DeserializerInterface $registrationJsonDeserializer,
         QueryBuilderInterface $searchQuery,
         UrlGeneratorInterface $urlGenerator
     ) {
         $this->passHolderService = $passHolderService;
+        $this->passHolderIteratorFactory = $passHolderIteratorFactory;
+        $this->exportFileWriter = $exportFileWriter;
         $this->passHolderJsonDeserializer = $passHolderJsonDeserializer;
         $this->registrationJsonDeserializer = $registrationJsonDeserializer;
         $this->searchQuery = $searchQuery;
@@ -85,35 +103,150 @@ class PassHolderController
      */
     public function search(Request $request)
     {
-        $searchQuery = $this->searchQuery;
+        $searchQuery = $this->getSearchQueryFromQueryParameters(
+            $request,
+            $this->searchQuery
+        );
 
+        // Handle both page and limit parameters together.
+        $page = $request->query->getInt('page', 1);
+        $limit = $request->query->getInt('limit', 10);
+
+        $searchQuery = $searchQuery->withPagination(
+            new Integer($page),
+            new Integer($limit)
+        );
+
+        $resultSet = $this->passHolderService->search($searchQuery);
+
+        $pageUrlGenerator = new PageUrlGenerator(
+            $request->query,
+            $this->urlGenerator,
+            $request->attributes->get('_route')
+        );
+
+        $pagedCollection = new PagedCollection(
+            $page,
+            $limit,
+            $resultSet->getResults(),
+            $resultSet->getTotal()->toNative(),
+            $pageUrlGenerator
+        );
+
+        // These are technically not invalid formatted, but the search just
+        // didn't return any results for them.
+        $invalidUitpasNumbers = $resultSet->getInvalidUitpasNumbers();
+        if (!is_null($invalidUitpasNumbers)) {
+            $pagedCollection = $pagedCollection->withInvalidUitpasNumbers($invalidUitpasNumbers);
+        }
+
+        return JsonResponse::create($pagedCollection)
+            ->setPrivate();
+    }
+
+    /**
+     * @param Request $request
+     * @return StreamedResponse
+     */
+    public function export(Request $request)
+    {
+        $selection = $request->query->get('selection');
+
+        if (!empty($selection)) {
+            $uitpasNumbers = $this->getUitpasNumberCollectionFromQueryParameterValue($selection);
+            $searchQuery = $this->searchQuery->withUiTPASNumbers($uitpasNumbers);
+        } else {
+            $searchQuery = $this->getSearchQueryFromQueryParameters(
+                $request,
+                $this->searchQuery
+            );
+        }
+
+        $passHolders = $this->passHolderIteratorFactory->search($searchQuery);
+        $fileWriter = $this->exportFileWriter;
+
+        $streamCallback = function () use ($passHolders, $fileWriter) {
+            print $fileWriter->open();
+            flush();
+
+            print $fileWriter->write(
+                [
+                    'UiTPAS nummer',
+                    'Naam',
+                    'Voornaam',
+                ]
+            );
+            flush();
+
+            /* @var PassHolder $passHolder */
+            foreach ($passHolders as $uitpasNumber => $passHolder) {
+                print $fileWriter->write(
+                    [
+                        $uitpasNumber,
+                        $passHolder->getName()->getLastName()->toNative(),
+                        $passHolder->getName()->getFirstName()->toNative(),
+                    ]
+                );
+            }
+
+            print $fileWriter->close();
+            flush();
+        };
+
+        return new StreamedResponse($streamCallback, 200, $fileWriter->getHttpHeaders());
+    }
+
+    /**
+     * @param array|string $value
+     *
+     * @return UiTPASNumberCollection
+     *
+     * @throws IncorrectParameterValueException
+     */
+    private function getUitpasNumberCollectionFromQueryParameterValue($value)
+    {
+        if (!is_array($value)) {
+            $value = array($value);
+        }
+
+        $uitpasNumbers = [];
+        $invalid = [];
+        foreach ($value as $uitpasNumber) {
+            try {
+                $uitpasNumbers[] = new UiTPASNumber($uitpasNumber);
+            } catch (UiTPASNumberInvalidException $e) {
+                $invalid[] = $uitpasNumber;
+            }
+        }
+
+        if (!empty($invalid)) {
+            throw new IncorrectParameterValueException(
+                'uitpasNumber',
+                'INVALID_UITPAS_NUMBER',
+                $invalid
+            );
+        }
+
+        return UiTPASNumberCollection::fromArray($uitpasNumbers);
+    }
+
+    /**
+     * @param Request $request
+     * @param QueryBuilderInterface $searchQuery
+     *
+     * @return QueryBuilderInterface
+     *
+     * @throws IncorrectParameterValueException
+     * @throws UnknownParameterException
+     */
+    private function getSearchQueryFromQueryParameters(
+        Request $request,
+        QueryBuilderInterface $searchQuery
+    ) {
         foreach ($request->query->all() as $parameter => $value) {
             switch ($parameter) {
                 case 'uitpasNumber':
-                    if (!is_array($value)) {
-                        $value = array($value);
-                    }
-
-                    $uitpasNumbers = [];
-                    $invalid = [];
-                    foreach ($value as $uitpasNumber) {
-                        try {
-                            $uitpasNumbers[] = new UiTPASNumber($uitpasNumber);
-                        } catch (UiTPASNumberInvalidException $e) {
-                            $invalid[] = $uitpasNumber;
-                        }
-                    }
-
-                    if (!empty($invalid)) {
-                        throw new IncorrectParameterValueException(
-                            'uitpasNumber',
-                            'INVALID_UITPAS_NUMBER',
-                            $invalid
-                        );
-                    }
-
-                    $uitpasNumbers = UiTPASNumberCollection::fromArray($uitpasNumbers);
-
+                    $uitpasNumbers = $this->getUitpasNumberCollectionFromQueryParameterValue($value);
                     $searchQuery = $searchQuery->withUiTPASNumbers(
                         $uitpasNumbers
                     );
@@ -191,40 +324,7 @@ class PassHolderController
             }
         }
 
-        // Handle both page and limit parameters together.
-        $page = $request->query->getInt('page', 1);
-        $limit = $request->query->getInt('limit', 10);
-
-        $searchQuery = $searchQuery->withPagination(
-            new Integer($page),
-            new Integer($limit)
-        );
-
-        $resultSet = $this->passHolderService->search($searchQuery);
-
-        $pageUrlGenerator = new PageUrlGenerator(
-            $request->query,
-            $this->urlGenerator,
-            $request->attributes->get('_route')
-        );
-
-        $pagedCollection = new PagedCollection(
-            $page,
-            $limit,
-            $resultSet->getResults(),
-            $resultSet->getTotal()->toNative(),
-            $pageUrlGenerator
-        );
-
-        // These are technically not invalid formatted, but the search just
-        // didn't return any results for them.
-        $invalidUitpasNumbers = $resultSet->getInvalidUitpasNumbers();
-        if (!is_null($invalidUitpasNumbers)) {
-            $pagedCollection = $pagedCollection->withInvalidUitpasNumbers($invalidUitpasNumbers);
-        }
-
-        return JsonResponse::create($pagedCollection)
-            ->setPrivate();
+        return $searchQuery;
     }
 
     /**
