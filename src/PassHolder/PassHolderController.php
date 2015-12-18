@@ -162,14 +162,11 @@ class PassHolderController
             );
         }
 
-        $passHolders = $this->passHolderIteratorFactory->search($searchQuery);
-        $fileWriter = $this->exportFileWriter;
-
-        $streamCallback = function () use ($passHolders, $fileWriter) {
-            print $fileWriter->open();
+        $streamCallback = function () use ($searchQuery) {
+            print $this->exportFileWriter->open();
             flush();
 
-            print $fileWriter->write(
+            print $this->exportFileWriter->write(
                 [
                     'UiTPAS nummer',
                     'Naam',
@@ -178,22 +175,25 @@ class PassHolderController
             );
             flush();
 
+            $passHolders = $this->passHolderIteratorFactory->search($searchQuery);
+
             /* @var PassHolder $passHolder */
             foreach ($passHolders as $uitpasNumber => $passHolder) {
-                print $fileWriter->write(
+                print $this->exportFileWriter->write(
                     [
                         $uitpasNumber,
                         $passHolder->getName()->getLastName()->toNative(),
                         $passHolder->getName()->getFirstName()->toNative(),
                     ]
                 );
+                flush();
             }
 
-            print $fileWriter->close();
+            print $this->exportFileWriter->close();
             flush();
         };
 
-        return new StreamedResponse($streamCallback, 200, $fileWriter->getHttpHeaders());
+        return new StreamedResponse($streamCallback, 200, $this->exportFileWriter->getHttpHeaders());
     }
 
     /**

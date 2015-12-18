@@ -38,7 +38,8 @@ class PassHolderServiceProvider implements ServiceProviderInterface
         $app['passholder_iterator_factory'] = $app->share(
             function (Application $app) {
                 return new PassHolderIteratorFactory(
-                    $app['passholder_service']
+                    $app['passholder_service'],
+                    $app['passholder.export.limit_per_api_request']
                 );
             }
         );

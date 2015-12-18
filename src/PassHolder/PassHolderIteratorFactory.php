@@ -13,23 +13,27 @@ class PassHolderIteratorFactory implements PassHolderIteratorFactoryInterface
     private $passHolderService;
 
     /**
+     * @var int
+     */
+    private $limitPerPage;
+
+    /**
      * @param PassHolderServiceInterface $passHolderService
+     * @param int $limitPerPage
      */
     public function __construct(
-        PassHolderServiceInterface $passHolderService
+        PassHolderServiceInterface $passHolderService,
+        $limitPerPage = 20
     ) {
         $this->passHolderService = $passHolderService;
+        $this->limitPerPage = $limitPerPage;
     }
 
     /**
      * @param QueryBuilderInterface $queryBuilder
-     * @param int $limitPerPage
      * @return \Iterator
      */
-    public function search(
-        QueryBuilderInterface $queryBuilder,
-        $limitPerPage = 20
-    ) {
+    public function search(QueryBuilderInterface $queryBuilder) {
         $preQueryResultSet = $this->passHolderService->search(
             $queryBuilder
                 ->withPagination(
@@ -39,7 +43,7 @@ class PassHolderIteratorFactory implements PassHolderIteratorFactoryInterface
         );
 
         $total = $preQueryResultSet->getTotal()->toNative();
-        $totalPages = ceil($total / $limitPerPage);
+        $totalPages = ceil($total / $this->limitPerPage);
         $currentPage = 0;
 
         while ($currentPage < $totalPages) {
@@ -49,7 +53,7 @@ class PassHolderIteratorFactory implements PassHolderIteratorFactoryInterface
                 $queryBuilder
                     ->withPagination(
                         new Integer($currentPage),
-                        new Integer($limitPerPage)
+                        new Integer($this->limitPerPage)
                     )
             );
 
