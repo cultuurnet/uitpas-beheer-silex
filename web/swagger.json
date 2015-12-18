@@ -1062,7 +1062,7 @@
         ]
       }
     },
-    "/passholders.xsl": {
+    "/passholders.xls": {
       "get": {
         "summary": "Create a new passholders export with the given bulk selection.",
         "description": "Authentication and an active counter are required.",
