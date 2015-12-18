@@ -32,9 +32,7 @@ class PointsTransactionControllerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-
         $now = DateTimeImmutable::createFromFormat('U', '1449237174', new DateTimeZone('Europe/Brussels'));
-        //$now = new DateTimeImmutable('1449237174', new DateTimeZone('Europe/Brussels'));
         $this->clock = new FrozenClock($now);
         $this->service = $this->getMock(CombinedPointsTransactionService::class);
         $this->controller = new PointsTransactionController($this->service, $this->clock);
@@ -49,15 +47,15 @@ class PointsTransactionControllerTest extends \PHPUnit_Framework_TestCase
 
         $currentTime = $this->clock->getDateTime()->getTimestamp();
         $startTime = strtotime("-1 year", $currentTime);
-        $endTime = $currentTime;
+        $endTime = strtotime("+1 day", $currentTime);
 
-        $startDate = Date::fromNativeDateTime(
-            \DateTime::createFromFormat('U', $startTime)
-        );
+        $startDateTime = \DateTime::createFromFormat('U', $startTime);
+        $startDateTime->setTimezone(new \DateTimeZone('Europe/Brussels'));
+        $startDate = Date::fromNativeDateTime($startDateTime);
 
-        $endDate = Date::fromNativeDateTime(
-            \DateTime::createFromFormat('U', $endTime)
-        );
+        $endDateTime = \DateTime::createFromFormat('U', $endTime);
+        $endDateTime->setTimezone(new \DateTimeZone('Europe/Brussels'));
+        $endDate = Date::fromNativeDateTime($endDateTime);
 
         $checkin3 = new CheckinPointsTransaction(
             new StringLiteral('35'),
