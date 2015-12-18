@@ -116,8 +116,18 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\Membership\Association\Association
 $app->mount('/', new \CultuurNet\UiTPASBeheer\Coupon\CouponControllerProvider());
 
 /**
+ * API callbacks for points history.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\PointsHistory\PointsHistoryControllerProvider());
+
+/**
  * API callbacks for Help.
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\Help\HelpControllerProvider());
+
+/**
+ * API callbacks for Feedback.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\Feedback\FeedbackControllerProvider());
 
 $app->run();
