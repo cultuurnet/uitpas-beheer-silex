@@ -179,7 +179,7 @@ class PassHolderController
                     'Telefoon',
                     'GSM',
                     'Nationaliteit',
-                    'id'
+                    'id',
                 ]
             );
             flush();
@@ -210,7 +210,7 @@ class PassHolderController
                         $telephoneNumber,
                         $mobileNumber,
                         (string) $passHolder->getNationality(),
-                        (string) $passHolder->getUid()
+                        (string) $passHolder->getUid(),
                     ]
                 );
                 flush();

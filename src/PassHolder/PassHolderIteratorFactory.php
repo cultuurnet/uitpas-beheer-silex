@@ -33,7 +33,8 @@ class PassHolderIteratorFactory implements PassHolderIteratorFactoryInterface
      * @param QueryBuilderInterface $queryBuilder
      * @return \Iterator
      */
-    public function search(QueryBuilderInterface $queryBuilder) {
+    public function search(QueryBuilderInterface $queryBuilder)
+    {
         $preQueryResultSet = $this->passHolderService->search(
             $queryBuilder
                 ->withPagination(
