@@ -129,7 +129,7 @@ trait PassHolderDataTrait
                 30,
                 (new KansenStatuut(
                     new Date(
-                        new Year('2015'),
+                        new Year('2016'),
                         Month::getByName('SEPTEMBER'),
                         new MonthDay(15)
                     )

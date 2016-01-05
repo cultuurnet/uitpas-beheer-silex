@@ -8,6 +8,9 @@ use CultuurNet\UiTPASBeheer\Exception\IncorrectParameterValueException;
 use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
 use CultuurNet\UiTPASBeheer\Export\FileWriterInterface;
+use CultuurNet\UiTPASBeheer\KansenStatuut\Filter\KansenStatuutSpecificationFilter;
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
+use CultuurNet\UiTPASBeheer\KansenStatuut\Specifications\UsableByCounter;
 use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
 use CultuurNet\UiTPASBeheer\Membership\MembershipStatus;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedCollection;
@@ -64,6 +67,11 @@ class PassHolderController
     protected $urlGenerator;
 
     /**
+     * @var \CultureFeed_Uitpas_Counter_Employee
+     */
+    protected $counter;
+
+    /**
      * @param PassHolderServiceInterface $passHolderService
      * @param PassHolderIteratorFactoryInterface $passHolderIteratorFactory
      * @param FileWriterInterface $exportFileWriter
@@ -71,6 +79,7 @@ class PassHolderController
      * @param DeserializerInterface $registrationJsonDeserializer
      * @param QueryBuilderInterface $searchQuery
      * @param UrlGeneratorInterface $urlGenerator
+     * @param \CultureFeed_Uitpas_Counter_Employee $counter
      */
     public function __construct(
         PassHolderServiceInterface $passHolderService,
@@ -79,7 +88,8 @@ class PassHolderController
         DeserializerInterface $passHolderJsonDeserializer,
         DeserializerInterface $registrationJsonDeserializer,
         QueryBuilderInterface $searchQuery,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        \CultureFeed_Uitpas_Counter_Employee $counter
     ) {
         $this->passHolderService = $passHolderService;
         $this->passHolderIteratorFactory = $passHolderIteratorFactory;
@@ -88,6 +98,7 @@ class PassHolderController
         $this->registrationJsonDeserializer = $registrationJsonDeserializer;
         $this->searchQuery = $searchQuery;
         $this->urlGenerator = $urlGenerator;
+        $this->counter = $counter;
     }
 
     /**
@@ -179,6 +190,7 @@ class PassHolderController
                     'Telefoon',
                     'GSM',
                     'Nationaliteit',
+                    'Kansenstatuut einddatum',
                     'ID',
                 ]
             );
@@ -186,16 +198,35 @@ class PassHolderController
 
             $passHolders = $this->passHolderIteratorFactory->search($searchQuery);
 
+            $kansenStatuutFilter = new KansenStatuutSpecificationFilter(
+                new UsableByCounter($this->counter)
+            );
+
             /* @var PassHolder $passHolder */
             foreach ($passHolders as $uitpasNumber => $passHolder) {
                 $contactInformation = $passHolder->getContactInformation();
+                $telephoneNumber = '';
+                $mobileNumber = '';
+
                 if (!empty($contactInformation)) {
                     $telephoneNumber = $contactInformation->getTelephoneNumber();
                     $mobileNumber = $contactInformation->getMobileNumber();
-                } else {
-                    $telephoneNumber = '';
-                    $mobileNumber = '';
                 }
+
+                $kansenStatuutEndDate = '';
+                $kansenStatuten = $passHolder->getKansenStatuten();
+                if (!empty($kansenStatuten)) {
+                    $filteredKansenStatuten = $kansenStatuutFilter->filter($passHolder->getKansenStatuten());
+
+                    if (!empty($filteredKansenStatuten->length())) {
+                        /** @var KansenStatuut $kansenStatuut */
+                        $filteredKansenStatuten = $filteredKansenStatuten->toArray();
+                        $kansenStatuut = reset($filteredKansenStatuten);
+                        $kansenStatuutEndDate = $kansenStatuut->getEndDate()->toNativeDateTime()->format('d-m-Y');
+                    }
+                }
+
+
 
                 print $this->exportFileWriter->write(
                     [
@@ -210,6 +241,7 @@ class PassHolderController
                         (string) $telephoneNumber,
                         (string) $mobileNumber,
                         (string) $passHolder->getNationality(),
+                        (string) $kansenStatuutEndDate,
                         (string) $passHolder->getUid(),
                     ]
                 );

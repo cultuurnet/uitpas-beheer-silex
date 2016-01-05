@@ -4,6 +4,7 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
+use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\Exception\IncorrectParameterValueException;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
@@ -84,6 +85,21 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
      */
     protected $controller;
 
+    /**
+     * @var string
+     */
+    protected $counterConsumerKey;
+
+    /**
+     * @var \CultureFeed_Uitpas_Counter_EmployeeCardSystem
+     */
+    protected $counterCardSystem;
+
+    /**
+     * @var \CultureFeed_Uitpas_Counter_Employee
+     */
+    protected $counter;
+
     public function setUp()
     {
         $this->service = $this->getMock(PassHolderServiceInterface::class);
@@ -109,6 +125,16 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->urlGenerator = $this->getMock(UrlGeneratorInterface::class);
 
+        $this->counterConsumerKey = new CounterConsumerKey('key');
+
+        $this->counterCardSystem = new \CultureFeed_Uitpas_Counter_EmployeeCardSystem();
+        $this->counterCardSystem->id = 30;
+        $this->counterCardSystem->name = 'UiTPAS Regio Brussel';
+
+        $this->counter = new \CultureFeed_Uitpas_Counter_Employee();
+        $this->counter->consumerKey = $this->counterConsumerKey->toNative();
+        $this->counter->cardSystems = array($this->counterCardSystem);
+
         $this->controller = new PassHolderController(
             $this->service,
             $this->passHolderIteratorFactory,
@@ -116,7 +142,8 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             $this->passholderDeserializer,
             $this->registrationDeserializer,
             $this->searchQuery,
-            $this->urlGenerator
+            $this->urlGenerator,
+            $this->counter
         );
     }
 
@@ -595,6 +622,7 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
                         'Telefoon',
                         'GSM',
                         'Nationaliteit',
+                        'Kansenstatuut einddatum',
                         'ID',
                     ],
                 ],
@@ -611,6 +639,7 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
                         '0488694231',
                         '0499748596',
                         'Maroc',
+                        '15-09-2016',
                         '5',
                     ],
                 ]
@@ -709,6 +738,7 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
                         'Telefoon',
                         'GSM',
                         'Nationaliteit',
+                        'Kansenstatuut einddatum',
                         'ID',
                     ],
                 ],
@@ -725,6 +755,7 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
                         '',
                         '',
                         'Maroc',
+                        '15-09-2016',
                         '5',
                     ],
                 ]
