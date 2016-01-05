@@ -179,7 +179,7 @@ class PassHolderController
                     'Telefoon',
                     'GSM',
                     'Nationaliteit',
-                    'id',
+                    'ID',
                 ]
             );
             flush();
@@ -202,13 +202,13 @@ class PassHolderController
                         $uitpasNumber,
                         (string) $passHolder->getName()->getLastName(),
                         (string) $passHolder->getName()->getFirstName(),
-                        (string) $passHolder->getBirthInformation()->getDate(),
+                        (string) $passHolder->getBirthInformation()->getDate()->toNativeDateTime()->format('d-m-Y'),
                         (string) $passHolder->getGender(),
                         (string) $passHolder->getAddress()->getStreet(),
                         (string) $passHolder->getAddress()->getPostalCode(),
                         (string) $passHolder->getAddress()->getCity(),
-                        $telephoneNumber,
-                        $mobileNumber,
+                        (string) $telephoneNumber,
+                        (string) $mobileNumber,
                         (string) $passHolder->getNationality(),
                         (string) $passHolder->getUid(),
                     ]
