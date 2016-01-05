@@ -29,7 +29,8 @@ class InAnyOfCardSystems
     {
         /* @var CardSystem $cardSystem */
         foreach ($this->cardSystemCollection as $cardSystem) {
-            if ($object->getCardSystem()->getId()->sameValueAs($cardSystem->getId())) {
+            if (!empty($object->getCardSystem()) &&
+                $object->getCardSystem()->getId()->sameValueAs($cardSystem->getId())) {
                 return true;
             }
         }
