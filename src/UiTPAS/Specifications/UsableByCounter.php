@@ -4,9 +4,16 @@ namespace CultuurNet\UiTPASBeheer\UiTPAS\Specifications;
 
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystemCollection;
+use CultuurNet\UiTPASBeheer\CardSystem\Specifications\InAnyOfCardSystems;
+use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 
-class UsableByCounter extends InAnyOfCardSystems
+class UsableByCounter implements UiTPASSpecificationInterface
 {
+    /**
+     * @var InAnyOfCardSystems
+     */
+    private $cardSystemSpecification;
+
     /**
      * @param \CultureFeed_Uitpas_Counter_Employee $cfCounterEmployee
      */
@@ -20,6 +27,15 @@ class UsableByCounter extends InAnyOfCardSystems
             $cardSystemCollection = $cardSystemCollection->with($cardSystem);
         }
 
-        parent::__construct($cardSystemCollection);
+        $this->cardSystemSpecification = new InAnyOfCardSystems($cardSystemCollection);
+    }
+
+    /**
+     * @param UiTPAS $uitpas
+     * @return bool
+     */
+    public function isSatisfiedBy(UiTPAS $uitpas)
+    {
+        return $this->cardSystemSpecification->isSatisfiedBy($uitpas);
     }
 }

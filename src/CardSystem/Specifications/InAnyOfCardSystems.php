@@ -1,12 +1,12 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\UiTPAS\Specifications;
+namespace CultuurNet\UiTPASBeheer\CardSystem\Specifications;
 
+use CultuurNet\UiTPASBeheer\CardSystem\BelongsToCardSystemInterface;
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystemCollection;
-use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 
-class InAnyOfCardSystems implements UiTPASSpecificationInterface
+class InAnyOfCardSystems
 {
     /**
      * @var CardSystemCollection
@@ -22,14 +22,14 @@ class InAnyOfCardSystems implements UiTPASSpecificationInterface
     }
 
     /**
-     * @param UiTPAS $uitpas
+     * @param BelongsToCardSystemInterface $object
      * @return bool
      */
-    public function isSatisfiedBy(UiTPAS $uitpas)
+    public function isSatisfiedBy(BelongsToCardSystemInterface $object)
     {
         /* @var CardSystem $cardSystem */
         foreach ($this->cardSystemCollection as $cardSystem) {
-            if ($uitpas->getCardSystem()->getId()->sameValueAs($cardSystem->getId())) {
+            if ($object->getCardSystem()->getId()->sameValueAs($cardSystem->getId())) {
                 return true;
             }
         }
