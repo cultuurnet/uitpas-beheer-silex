@@ -26,7 +26,8 @@ class PassHolderControllerProvider implements ControllerProviderInterface
                     $app['passholder_json_deserializer'],
                     $app['registration_json_deserializer'],
                     new Query(),
-                    $app['url_generator']
+                    $app['url_generator'],
+                    $app['counter']
                 );
             }
         );
