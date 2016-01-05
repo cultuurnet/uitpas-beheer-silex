@@ -226,7 +226,19 @@ class PassHolderController
                     }
                 }
 
+                $genderEn = (string) $passHolder->getGender();
+                switch ($genderEn) {
+                    case 'MALE':
+                        $genderNl = 'Man';
+                        break;
 
+                    case 'FEMALE':
+                        $genderNl = 'Vrouw';
+                        break;
+
+                    default:
+                        $genderNl = '';
+                }
 
                 print $this->exportFileWriter->write(
                     [
@@ -234,7 +246,7 @@ class PassHolderController
                         (string) $passHolder->getName()->getLastName(),
                         (string) $passHolder->getName()->getFirstName(),
                         (string) $passHolder->getBirthInformation()->getDate()->toNativeDateTime()->format('d-m-Y'),
-                        (string) $passHolder->getGender(),
+                        $genderNl,
                         (string) $passHolder->getAddress()->getStreet(),
                         (string) $passHolder->getAddress()->getPostalCode(),
                         (string) $passHolder->getAddress()->getCity(),
