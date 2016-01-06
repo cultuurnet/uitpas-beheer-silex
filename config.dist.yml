@@ -15,7 +15,8 @@ swiftmailer.options:
   host: 127.0.0.1
   port: 1025
 feedback:
-  to: foo@bar.com
+  from: noreply@uitid.be
+  to: info@uitpas.be
   subject: "UiTPAS balie beheer feedback."
 bootstrap:
   logging: false

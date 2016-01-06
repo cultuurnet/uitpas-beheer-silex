@@ -17,6 +17,11 @@ class FeedbackEmailServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @var EmailAddress
      */
+    private $from;
+
+    /**
+     * @var EmailAddress
+     */
     private $to;
 
     /**
@@ -40,11 +45,13 @@ class FeedbackEmailServiceTest extends \PHPUnit_Framework_TestCase
             $callOriginalConstructor
         );
 
+        $this->from = new EmailAddress('noreply@uitid.be');
         $this->to = new EmailAddress('foo@bar.com');
         $this->subject = new StringLiteral('Ma Alain toch.');
 
         $this->service = new FeedbackEmailService(
             $this->mailer,
+            $this->from,
             $this->to,
             $this->subject
         );
@@ -57,7 +64,9 @@ class FeedbackEmailServiceTest extends \PHPUnit_Framework_TestCase
     {
         $expectedMail = new \Swift_Message();
 
-        $expectedMail->setFrom(
+        $expectedMail->setFrom($this->from->toNative());
+
+        $expectedMail->setReplyTo(
             $this->getFromEmail()->toNative(),
             $this->getFromName()->toNative()
         );

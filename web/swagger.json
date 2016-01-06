@@ -1062,6 +1062,43 @@
         ]
       }
     },
+    "/passholders/{uitpasNumber}/points-history": {
+      "get": {
+        "summary": "Retrieves a list of actions increasing or decreasing the points.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "passholderPointsHistory",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The checkins for the given uitpasNumber.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PointHistory"
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "PassHolder",
+          "Points"
+        ]
+      }
+    },
     "/passholders.xls": {
       "get": {
         "summary": "Create a new passholders export with the given bulk selection.",
@@ -1684,6 +1721,10 @@
     {
       "name": "Ticketsale",
       "description": "Operations related to (uitpasNumber) Ticketsales."
+    },
+    {
+      "name": "Points",
+      "description": "Operations related to Points."
     },
     {
       "name": "Bulk operation",
@@ -3042,6 +3083,36 @@
         "id",
         "price",
         "creationDate"
+      ]
+    },
+    "PointHistory": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "18"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2016-09-10"
+        },
+        "title": {
+          "type": "string",
+          "example": "Gratis stickers"
+        },
+        "points": {
+          "type": "integer",
+          "format": "int32",
+          "example": "-5",
+          "description": "Contains a minus sign for negative numbers."
+        }
+      },
+      "required": [
+        "id",
+        "date",
+        "title",
+        "points"
       ]
     },
     "KansenstatuutUpdateCommand": {

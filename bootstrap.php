@@ -190,10 +190,16 @@ $app->register(new \CultuurNet\UiTPASBeheer\Coupon\CouponServiceProvider());
 $app->register(
     new \CultuurNet\UiTPASBeheer\Feedback\FeedbackServiceProvider(),
     [
+        'feedback.from' => $app['config']['feedback']['from'],
         'feedback.to' => $app['config']['feedback']['to'],
         'feedback.subject' => $app['config']['feedback']['subject'],
     ]
 );
+
+/**
+ * UiTPAS Points History service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\PointsHistory\PointsHistoryServiceProvider());
 
 /**
  * Clock service.
