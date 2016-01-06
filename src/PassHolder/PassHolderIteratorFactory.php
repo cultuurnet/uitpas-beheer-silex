@@ -35,21 +35,9 @@ class PassHolderIteratorFactory implements PassHolderIteratorFactoryInterface
      */
     public function search(QueryBuilderInterface $queryBuilder)
     {
-        $preQueryResultSet = $this->passHolderService->search(
-            $queryBuilder
-                ->withPagination(
-                    new Integer(1),
-                    new Integer(1)
-                )
-        );
+        $currentPage = 1;
 
-        $total = $preQueryResultSet->getTotal()->toNative();
-        $totalPages = ceil($total / $this->limitPerPage);
-        $currentPage = 0;
-
-        while ($currentPage < $totalPages) {
-            $currentPage++;
-
+        do {
             $resultSet = $this->passHolderService->search(
                 $queryBuilder
                     ->withPagination(
@@ -65,6 +53,10 @@ class PassHolderIteratorFactory implements PassHolderIteratorFactoryInterface
                 $passHolder = $identity->getPassHolder();
                 yield $primaryUitpasNumber => $passHolder;
             }
-        }
+
+            $count = $currentPage * $this->limitPerPage;
+            $currentPage++;
+            $total = $resultSet->getTotal()->toNative();
+        } while ($count < $total);
     }
 }

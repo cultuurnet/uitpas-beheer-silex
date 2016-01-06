@@ -140,20 +140,12 @@ class PassHolderIteratorFactoryTest extends \PHPUnit_Framework_TestCase
             ]
         );
 
-        $this->passHolderService->expects($this->exactly(2))
+        $this->passHolderService->expects($this->once())
             ->method('search')
-            ->withConsecutive(
-                array(
-                    $this->searchQuery->withPagination(
-                        new Integer(1),
-                        new Integer(1)
-                    ),
-                ),
-                array(
-                    $this->searchQuery->withPagination(
-                        new Integer(1),
-                        new Integer(20)
-                    ),
+            ->with(
+                $this->searchQuery->withPagination(
+                    new Integer(1),
+                    new Integer(20)
                 )
             )
             ->willReturn($results);
