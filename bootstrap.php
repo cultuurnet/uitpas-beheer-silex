@@ -34,12 +34,38 @@ $app->register(new \CultuurNet\UiTPASBeheer\Exception\ExceptionHandlerServicePro
  * Session service.
  */
 $app->register(new \Silex\Provider\SessionServiceProvider());
+$app->register(new CultuurNet\UiTIDProvider\Session\SessionConfigurationProvider());
 
 /**
  * Security services.
  */
 $app->register(new \Silex\Provider\SecurityServiceProvider());
 $app->register(new \CultuurNet\UiTIDProvider\Security\UiTIDSecurityServiceProvider());
+
+/**
+ * Override the default authentication provider for uitid with our own
+ * that adds additional roles to specific users.
+ */
+$app['security.authentication_provider.uitid._proto'] = $app->protect(
+    function ($name, $options) use ($app) {
+        return $app->share(
+            function () use ($app, $options) {
+                $authenticator = new \CultuurNet\UiTIDProvider\Security\UiTIDAuthenticator($app['uitid_user_service']);
+                $roles = isset($options['roles']) ? $options['roles'] : [];
+                if (empty($roles)) {
+                    return $authenticator;
+                }
+
+                $authenticator = new \CultuurNet\UiTPASBeheer\Security\RoleAddingAuthenticationProviderDecorator(
+                    $authenticator,
+                    $roles
+                );
+
+                return $authenticator;
+            }
+        );
+    }
+);
 
 /**
  * CultureFeed services.
@@ -149,12 +175,43 @@ $app->register(new \CultuurNet\UiTPASBeheer\Counter\Member\MemberServiceProvider
 $app->register(new \CultuurNet\UiTPASBeheer\Membership\Association\AssociationServiceProvider());
 
 /**
+ * UiTPAS Coupon service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\Coupon\CouponServiceProvider());
+
+/**
+ * UiTPAS Feedback service.
+ */
+$app->register(
+    new \CultuurNet\UiTPASBeheer\Feedback\FeedbackServiceProvider(),
+    [
+        'feedback.from' => $app['config']['feedback']['from'],
+        'feedback.to' => $app['config']['feedback']['to'],
+        'feedback.subject' => $app['config']['feedback']['subject'],
+    ]
+);
+
+/**
+ * UiTPAS Points History service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\PointsHistory\PointsHistoryServiceProvider());
+
+/**
  * Clock service.
  */
 $app->register(
     new \CultuurNet\UiTPASBeheer\ClockServiceProvider(),
     ['clock.timezone' => 'Europe/Brussels']
 );
+
+/**
+ * Mailing service.
+ */
+$app->register(new Silex\Provider\SwiftmailerServiceProvider());
+$app['swiftmailer.use_spool'] = false;
+if (isset($app['config']['swiftmailer.options'])) {
+    $app['swiftmailer.options'] = $app['config']['swiftmailer.options'];
+}
 
 /**
  * Load additional bootstrap files.

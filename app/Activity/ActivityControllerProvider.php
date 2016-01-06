@@ -52,7 +52,12 @@ class ActivityControllerProvider implements ControllerProviderInterface
 
         $controllers->post('/passholders/{uitpasNumber}/activities/checkins', 'checkin_controller:checkin');
 
+        $controllers->get(
+            '/passholders/{uitpasNumber}/activities/ticket-sales',
+            'ticketsale_controller:getByUiTPASNumber'
+        );
         $controllers->post('/passholders/{uitpasNumber}/activities/ticket-sales', 'ticketsale_controller:register');
+        $controllers->delete('/passholders/{uitpasNumber}/activities/ticket-sales/{ticketSaleId}', 'ticketsale_controller:cancel');
 
         return $controllers;
     }

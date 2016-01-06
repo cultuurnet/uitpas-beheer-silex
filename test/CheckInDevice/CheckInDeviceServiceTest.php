@@ -151,6 +151,43 @@ class CheckInDeviceServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_can_connect_a_device_to_an_activity_automatically()
+    {
+        $deviceId = 'foo';
+
+        $cfDevice = new \CultureFeed_Uitpas_Counter_Device();
+        $cfDevice->consumerKey = $deviceId;
+        $cfDevice->name = 'some test device';
+
+        $expectedDevice = new CheckInDevice(
+            new StringLiteral($deviceId),
+            new StringLiteral('some test device')
+        );
+
+        $this->uitpas->expects($this->once())
+            ->method('connectDeviceWithEvent')
+            ->with(
+                $deviceId,
+                '',
+                $this->counterConsumerKey
+            )
+            ->willReturn(
+                $cfDevice
+            );
+
+        $actualDevice = $this->service->letDeviceChooseActivityAutomatically(
+            new StringLiteral($deviceId)
+        );
+
+        $this->assertEquals(
+            $expectedDevice,
+            $actualDevice
+        );
+    }
+
+    /**
+     * @test
+     */
     public function it_retrieves_all_check_in_devices()
     {
         $device1 = new \CultureFeed_Uitpas_Counter_Device();

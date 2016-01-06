@@ -2,64 +2,70 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity\TicketSale;
 
+use CultuurNet\UiTPASBeheer\Coupon\Coupon;
 use ValueObjects\DateTime\DateTime;
 use ValueObjects\Number\Real;
 use ValueObjects\StringLiteral\StringLiteral;
 
 final class TicketSale implements \JsonSerializable
 {
+    use TicketSaleTrait {
+        TicketSaleTrait::jsonSerialize as jsonSerializeCommonProperties;
+    }
+
     /**
      * @var StringLiteral
      */
-    protected $id;
+    private $eventTitle;
 
     /**
-     * @var Real
+     * @var Coupon
      */
-    protected $price;
-
-    /**
-     * @var DateTime
-     */
-    protected $creationDate;
+    private $coupon;
 
     /**
      * @param StringLiteral $id
      * @param Real $price
      * @param DateTime $creationDate
+     * @param StringLiteral $eventTitle
      */
     public function __construct(
         StringLiteral $id,
         Real $price,
-        DateTime $creationDate
+        DateTime $creationDate,
+        StringLiteral $eventTitle
     ) {
         $this->id = $id;
         $this->price = $price;
         $this->creationDate = $creationDate;
+        $this->eventTitle = $eventTitle;
     }
 
     /**
      * @return StringLiteral
      */
-    public function getId()
+    public function getEventTitle()
     {
-        return $this->id;
+        return $this->eventTitle;
     }
 
     /**
-     * @return Real
+     * @param Coupon $coupon
+     * @return TicketSale
      */
-    public function getPrice()
+    public function withCoupon(Coupon $coupon)
     {
-        return $this->price;
+        $c = clone $this;
+        $c->coupon = $coupon;
+        return $c;
     }
 
     /**
-     * @return DateTime
+     * @return Coupon|null
      */
-    public function getCreationDate()
+    public function getCoupon()
     {
-        return $this->creationDate;
+        return $this->coupon;
     }
 
     /**
@@ -67,23 +73,35 @@ final class TicketSale implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        return [
-            'id' => $this->id->toNative(),
-            'price' => $this->price->toNative(),
-            'creationDate' => $this->creationDate->toNativeDateTime()->format(\DateTime::RFC3339),
-        ];
+        $data = $this->jsonSerializeCommonProperties();
+        $data['eventTitle'] = $this->eventTitle->toNative();
+
+        if (!is_null($this->coupon)) {
+            $data['coupon'] = $this->coupon->jsonSerialize();
+        }
+
+        return $data;
     }
 
     /**
-     * @param \CultureFeed_Uitpas_Event_TicketSale $ticketSale
+     * @param \CultureFeed_Uitpas_Event_TicketSale $cfTicketSale
      * @return TicketSale
      */
-    public static function fromCultureFeedTicketSale(\CultureFeed_Uitpas_Event_TicketSale $ticketSale)
+    public static function fromCultureFeedTicketSale(\CultureFeed_Uitpas_Event_TicketSale $cfTicketSale)
     {
-        return new TicketSale(
-            new StringLiteral((string) $ticketSale->id),
-            new Real((float) $ticketSale->price),
-            DateTime::fromNativeDateTime(new \DateTime('@' . $ticketSale->creationDate))
+        $ticketSale = new TicketSale(
+            new StringLiteral((string) $cfTicketSale->id),
+            new Real((float) $cfTicketSale->tariff),
+            DateTime::fromNativeDateTime(new \DateTime('@' . $cfTicketSale->creationDate)),
+            new StringLiteral((string) $cfTicketSale->nodeTitle)
         );
+
+        if (!empty($cfTicketSale->ticketSaleCoupon)) {
+            $ticketSale = $ticketSale->withCoupon(
+                Coupon::fromCultureFeedCoupon($cfTicketSale->ticketSaleCoupon)
+            );
+        }
+
+        return $ticketSale;
     }
 }

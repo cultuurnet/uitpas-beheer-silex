@@ -45,38 +45,12 @@ class ExpenseReportApiService extends OAuthProtectedService implements ExpenseRe
         $contentType = $response->getHeader('Content-Type');
         $contentDisposition = $response->getHeader('Content-Disposition');
 
-        // @see http://jira.uitdatabank.be:8080/browse/UBR-296
-        $contentDisposition = $this->fixContentDispositionFileName($contentDisposition);
-
         $contentStream = $response->getBody(false);
 
         return new ExpenseReportDownload(
             $contentStream,
             new StringLiteral((string) $contentType),
             new StringLiteral((string) $contentDisposition)
-        );
-    }
-
-    /**
-     * Makes sure the filename in the content disposition header is encapsulated in quotation marks.
-     * @see http://jira.uitdatabank.be:8080/browse/UBR-296
-     *
-     * @param string $contentDisposition
-     *
-     * @return string
-     */
-    private function fixContentDispositionFileName($contentDisposition)
-    {
-        $pattern = '/^attachment; filename="?(.*?)"?$/';
-        $match = array();
-
-        if (!preg_match($pattern, $contentDisposition, $match)) {
-            return $contentDisposition;
-        }
-
-        return sprintf(
-            'attachment; filename="%s"',
-            $match[1]
         );
     }
 }

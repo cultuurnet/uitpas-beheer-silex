@@ -34,6 +34,18 @@ class TicketSaleController
     }
 
     /**
+     * @param string $ticketSaleId
+     *
+     * @return Response
+     */
+    public function cancel($ticketSaleId)
+    {
+        $ticketSaleId = new StringLiteral($ticketSaleId);
+        $this->service->cancel($ticketSaleId);
+        return new Response();
+    }
+
+    /**
      * @param Request $request
      * @param $uitpasNumber
      *
@@ -50,6 +62,20 @@ class TicketSaleController
         $ticketSale = $this->service->register($uitpasNumber, $registration);
 
         return JsonResponse::create($ticketSale)
+            ->setPrivate();
+    }
+
+    /**
+     * @param $uitpasNumber
+     *
+     * @return Response
+     */
+    public function getByUiTPASNumber($uitpasNumber)
+    {
+        $uitpasNumber = new UiTPASNumber($uitpasNumber);
+        $ticketSales = $this->service->getByUiTPASNumber($uitpasNumber);
+
+        return JsonResponse::create($ticketSales)
             ->setPrivate();
     }
 }
