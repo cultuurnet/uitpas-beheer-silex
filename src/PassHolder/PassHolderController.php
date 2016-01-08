@@ -13,6 +13,9 @@ use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\KansenStatuut\Specifications\UsableByCounter;
 use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
 use CultuurNet\UiTPASBeheer\Membership\MembershipStatus;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\HumanReadableGender;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Language;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedCollection;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\QueryBuilderInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
@@ -226,19 +229,8 @@ class PassHolderController
                     }
                 }
 
-                $genderEn = (string) $passHolder->getGender();
-                switch ($genderEn) {
-                    case 'MALE':
-                        $genderNl = 'Man';
-                        break;
-
-                    case 'FEMALE':
-                        $genderNl = 'Vrouw';
-                        break;
-
-                    default:
-                        $genderNl = '';
-                }
+                $gender = $passHolder->getGender();
+                $genderNl = new HumanReadableGender($gender, Language::NL());
 
                 print $this->exportFileWriter->write(
                     [
@@ -246,7 +238,7 @@ class PassHolderController
                         (string) $passHolder->getName()->getLastName(),
                         (string) $passHolder->getName()->getFirstName(),
                         (string) $passHolder->getBirthInformation()->getDate()->toNativeDateTime()->format('d-m-Y'),
-                        $genderNl,
+                        $genderNl->toNative(),
                         (string) $passHolder->getAddress()->getStreet(),
                         (string) $passHolder->getAddress()->getPostalCode(),
                         (string) $passHolder->getAddress()->getCity(),
