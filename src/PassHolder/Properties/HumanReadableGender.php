@@ -17,41 +17,28 @@ class HumanReadableGender extends StringLiteral
      */
     private $language;
 
+    /**
+     * @var array
+     */
+    private $readableGenders;
+
     public function __construct(Gender $gender, Language $language)
     {
         $this->gender = $gender;
         $this->language = $language;
-    }
+        $this->readableGenders = [
+            'EN' => [
+                'MALE' => 'Man',
+                'FEMALE' => 'Woman',
+            ],
+            'NL' => [
+                'MALE' => 'Man',
+                'FEMALE' => 'Vrouw',
+            ],
+        ];
 
-    public function toNative()
-    {
-        $genderCode = $this->gender->toNative();
-        $languageCode = $this->language->toNative();
-        $readableGender = '';
+        $value = $this->readableGenders[$this->language->toNative()][$this->gender->toNative()];
 
-        if ($languageCode == 'EN') {
-            switch ($genderCode) {
-                case 'MALE':
-                    $readableGender = 'Man';
-                    break;
-
-                case 'FEMALE':
-                    $readableGender = 'Woman';
-                    break;
-            }
-
-        } elseif ($languageCode = 'NL') {
-            switch ($genderCode) {
-                case 'MALE':
-                    $readableGender = 'Man';
-                    break;
-
-                case 'FEMALE':
-                    $readableGender = 'Vrouw';
-                    break;
-            }
-        }
-
-        return $readableGender;
+        parent::__construct($value);
     }
 }
