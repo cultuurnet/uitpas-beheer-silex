@@ -1,11 +1,11 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\UiTPAS\Specifications;
+namespace CultuurNet\UiTPASBeheer\KansenStatuut\Specifications;
 
 use CultuurNet\UiTPASBeheer\CardSystem\Specifications\UsableByCounter as CardSystemUsableByCounter;
-use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 
-class UsableByCounter implements UiTPASSpecificationInterface
+class UsableByCounter implements KansenStatuutSpecificationInterface
 {
     /**
      * @var CardSystemUsableByCounter
@@ -22,11 +22,11 @@ class UsableByCounter implements UiTPASSpecificationInterface
     }
 
     /**
-     * @param UiTPAS $uitpas
+     * @param KansenStatuut $kansenStatuut
      * @return bool
      */
-    public function isSatisfiedBy(UiTPAS $uitpas)
+    public function isSatisfiedBy(KansenStatuut $kansenStatuut)
     {
-        return $this->cardSystemSpecification->isSatisfiedBy($uitpas);
+        return $this->cardSystemSpecification->isSatisfiedBy($kansenStatuut);
     }
 }

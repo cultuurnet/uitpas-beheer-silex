@@ -4,20 +4,21 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
+use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
+use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\Exception\IncorrectParameterValueException;
 use CultuurNet\UiTPASBeheer\Exception\ReadableCodeExceptionInterface;
-use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
 use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
+use CultuurNet\UiTPASBeheer\Export\FileWriterInterface;
 use CultuurNet\UiTPASBeheer\Identity\Identity;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutJsonDeserializer;
 use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
 use CultuurNet\UiTPASBeheer\Membership\MembershipStatus;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\AddressJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserializer;
-use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutJsonDeserializer;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\NameJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferencesJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
@@ -50,6 +51,16 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
     protected $service;
 
     /**
+     * @var PassHolderIteratorFactoryInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $passHolderIteratorFactory;
+
+    /**
+     * @var FileWriterInterface|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $exportFileWriter;
+
+    /**
      * @var PassHolderJsonDeserializer|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $passholderDeserializer;
@@ -74,9 +85,28 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
      */
     protected $controller;
 
+    /**
+     * @var string
+     */
+    protected $counterConsumerKey;
+
+    /**
+     * @var \CultureFeed_Uitpas_Counter_EmployeeCardSystem
+     */
+    protected $counterCardSystem;
+
+    /**
+     * @var \CultureFeed_Uitpas_Counter_Employee
+     */
+    protected $counter;
+
     public function setUp()
     {
         $this->service = $this->getMock(PassHolderServiceInterface::class);
+
+        $this->passHolderIteratorFactory = $this->getMock(PassHolderIteratorFactoryInterface::class);
+
+        $this->exportFileWriter = $this->getMock(FileWriterInterface::class);
 
         $this->passholderDeserializer = new PassHolderJsonDeserializer(
             new NameJsonDeserializer(),
@@ -95,12 +125,25 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->urlGenerator = $this->getMock(UrlGeneratorInterface::class);
 
+        $this->counterConsumerKey = new CounterConsumerKey('key');
+
+        $this->counterCardSystem = new \CultureFeed_Uitpas_Counter_EmployeeCardSystem();
+        $this->counterCardSystem->id = 30;
+        $this->counterCardSystem->name = 'UiTPAS Regio Brussel';
+
+        $this->counter = new \CultureFeed_Uitpas_Counter_Employee();
+        $this->counter->consumerKey = $this->counterConsumerKey->toNative();
+        $this->counter->cardSystems = array($this->counterCardSystem);
+
         $this->controller = new PassHolderController(
             $this->service,
+            $this->passHolderIteratorFactory,
+            $this->exportFileWriter,
             $this->passholderDeserializer,
             $this->registrationDeserializer,
             $this->searchQuery,
-            $this->urlGenerator
+            $this->urlGenerator,
+            $this->counter
         );
     }
 
@@ -501,5 +544,235 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException(CompleteResponseException::class);
         $this->controller->register($request, $uitpasNumberValue);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_export_passholders_from_a_selection()
+    {
+        $request = new Request(
+            [
+                'uitpasNumber' => [
+                    '0930000420206',
+                    '0930000237915',
+                ],
+            ]
+        );
+
+        $expectedQuery = (new Query())
+            ->withUiTPASNumbers(
+                (new UiTPASNumberCollection())
+                    ->with(new UiTPASNumber('0930000420206'))
+                    ->with(new UiTPASNumber('0930000237915'))
+            )
+            ->withPagination(
+                new Integer(1),
+                new Integer(10)
+            );
+
+        $uitpas = new UiTPAS(
+            new UiTPASNumber('0930000420206'),
+            UiTPASStatus::ACTIVE(),
+            UiTPASType::CARD(),
+            new CardSystem(
+                new CardSystemId('2'),
+                new StringLiteral('Uitpas regio Landen')
+            )
+        );
+
+        $passHolder = $this->getCompletePassHolder()
+            ->withUiTPASCollection(
+                (new UiTPASCollection())
+                    ->with($uitpas)
+            );
+
+        $results = array('0930000420206' => $passHolder);
+
+        $this->passHolderIteratorFactory->expects($this->once())
+            ->method('search')
+            ->with($expectedQuery)
+            ->willReturn($results);
+
+        $this->exportFileWriter->expects($this->once())
+            ->method('getHttpHeaders')
+            ->willReturn(array());
+
+        $this->exportFileWriter->expects($this->once())
+            ->method('open')
+            ->willReturn('START' . PHP_EOL);
+
+        $this->exportFileWriter->expects($this->once())
+            ->method('close')
+            ->willReturn('END');
+
+        $this->exportFileWriter->expects($this->exactly(2))
+            ->method('write')
+            ->withConsecutive(
+                [
+                    [
+                        'UiTPAS nummer',
+                        'Naam',
+                        'Voornaam',
+                        'Geboortedatum',
+                        'Geslacht',
+                        'Adres',
+                        'Postcode',
+                        'Gemeente',
+                        'Telefoon',
+                        'GSM',
+                        'Nationaliteit',
+                        'Kansenstatuut einddatum',
+                        'ID',
+                    ],
+                ],
+                [
+                    [
+                        '0930000420206',
+                        'Zyrani',
+                        'Layla',
+                        '13-09-1976',
+                        'Vrouw',
+                        'Rue Perdue 101 /0003',
+                        '1090',
+                        'Jette (Brussel)',
+                        '0488694231',
+                        '0499748596',
+                        'Maroc',
+                        '15-09-2016',
+                        '5',
+                    ],
+                ]
+            )
+            ->willReturn('ROW' . PHP_EOL);
+
+        $response = $this->controller->export($request);
+
+        ob_start();
+        $response->sendContent();
+        $output = ob_get_clean();
+
+        $expectedOutput = 'START'  . PHP_EOL .
+            'ROW'  . PHP_EOL .
+            'ROW'  . PHP_EOL .
+            'END';
+
+        $this->assertEquals($expectedOutput, $output);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_export_passholders_from_query_parameters()
+    {
+        $request = new Request(
+            [
+                'selection' => [
+                    '0930000420206',
+                    '0930000237915',
+                ],
+            ]
+        );
+
+        $expectedQuery = (new Query())
+            ->withUiTPASNumbers(
+                (new UiTPASNumberCollection())
+                    ->with(new UiTPASNumber('0930000420206'))
+                    ->with(new UiTPASNumber('0930000237915'))
+            )
+            ->withPagination(
+                new Integer(1),
+                new Integer(10)
+            );
+
+        $uitpas = new UiTPAS(
+            new UiTPASNumber('0930000420206'),
+            UiTPASStatus::ACTIVE(),
+            UiTPASType::CARD(),
+            new CardSystem(
+                new CardSystemId('2'),
+                new StringLiteral('Uitpas regio Landen')
+            )
+        );
+
+        $passHolder = $this->getCompletePassHolder()
+            ->withUiTPASCollection(
+                (new UiTPASCollection())
+                    ->with($uitpas)
+            );
+
+        $passHolder = $passHolder->withoutContactInformation();
+
+        $results = array('0930000420206' => $passHolder);
+
+        $this->passHolderIteratorFactory->expects($this->once())
+            ->method('search')
+            ->with($expectedQuery)
+            ->willReturn($results);
+
+        $this->exportFileWriter->expects($this->once())
+            ->method('getHttpHeaders')
+            ->willReturn(array());
+
+        $this->exportFileWriter->expects($this->once())
+            ->method('open')
+            ->willReturn('START' . PHP_EOL);
+
+        $this->exportFileWriter->expects($this->once())
+            ->method('close')
+            ->willReturn('END');
+
+        $this->exportFileWriter->expects($this->exactly(2))
+            ->method('write')
+            ->withConsecutive(
+                [
+                    [
+                        'UiTPAS nummer',
+                        'Naam',
+                        'Voornaam',
+                        'Geboortedatum',
+                        'Geslacht',
+                        'Adres',
+                        'Postcode',
+                        'Gemeente',
+                        'Telefoon',
+                        'GSM',
+                        'Nationaliteit',
+                        'Kansenstatuut einddatum',
+                        'ID',
+                    ],
+                ],
+                [
+                    [
+                        '0930000420206',
+                        'Zyrani',
+                        'Layla',
+                        '13-09-1976',
+                        'Vrouw',
+                        'Rue Perdue 101 /0003',
+                        '1090',
+                        'Jette (Brussel)',
+                        '',
+                        '',
+                        'Maroc',
+                        '15-09-2016',
+                        '5',
+                    ],
+                ]
+            )
+            ->willReturn('ROW' . PHP_EOL);
+
+        $response = $this->controller->export($request);
+
+        ob_start();
+        $response->sendContent();
+        $output = ob_get_clean();
+
+        $expectedOutput = 'START'  . PHP_EOL .
+            'ROW'  . PHP_EOL .
+            'ROW'  . PHP_EOL .
+            'END';
+
+        $this->assertEquals($expectedOutput, $output);
     }
 }
