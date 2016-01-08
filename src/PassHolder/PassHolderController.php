@@ -4,8 +4,8 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\Hydra\Symfony\PageUrlGenerator;
-use CultuurNet\UiTPASBeheer\Exception\IncorrectParameterValueException;
 use CultuurNet\UiTPASBeheer\Exception\CompleteResponseException;
+use CultuurNet\UiTPASBeheer\Exception\IncorrectParameterValueException;
 use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
 use CultuurNet\UiTPASBeheer\Export\FileWriterInterface;
 use CultuurNet\UiTPASBeheer\KansenStatuut\Filter\KansenStatuutSpecificationFilter;
@@ -13,17 +13,15 @@ use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\KansenStatuut\Specifications\UsableByCounter;
 use CultuurNet\UiTPASBeheer\Membership\Association\Properties\AssociationId;
 use CultuurNet\UiTPASBeheer\Membership\MembershipStatus;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\HumanReadableGender;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Language;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedCollection;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\QueryBuilderInterface;
+use CultuurNet\UiTPASBeheer\Properties\Language;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberCollection;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberInvalidException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ValueObjects\DateTime\Date;
@@ -238,7 +236,7 @@ class PassHolderController
                         (string) $passHolder->getName()->getLastName(),
                         (string) $passHolder->getName()->getFirstName(),
                         (string) $passHolder->getBirthInformation()->getDate()->toNativeDateTime()->format('d-m-Y'),
-                        $genderNl->toNative(),
+                        (string) $genderNl,
                         (string) $passHolder->getAddress()->getStreet(),
                         (string) $passHolder->getAddress()->getPostalCode(),
                         (string) $passHolder->getAddress()->getCity(),

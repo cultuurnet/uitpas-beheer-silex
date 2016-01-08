@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
+namespace CultuurNet\UiTPASBeheer\Properties;
 
 use ValueObjects\Enum\Enum;
 

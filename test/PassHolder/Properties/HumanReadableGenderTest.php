@@ -2,6 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
 
+use CultuurNet\UiTPASBeheer\Properties\Language;
+
 class HumanReadableGenderTest extends \PHPUnit_Framework_TestCase
 {
     /**

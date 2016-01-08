@@ -2,7 +2,10 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
 
-class HumanReadableGender
+use CultuurNet\UiTPASBeheer\Properties\Language;
+use ValueObjects\StringLiteral\StringLiteral;
+
+class HumanReadableGender extends StringLiteral
 {
     /**
      * @var Gender
