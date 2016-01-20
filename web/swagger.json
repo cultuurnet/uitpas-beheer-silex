@@ -320,7 +320,7 @@
           {
             "name": "uitpasNumber",
             "in": "path",
-            "description": "The uitpas number of the passholder.",
+            "description": "The uitpas number of the passholder. Required when the reason is anything other than CARD_UPGRADE or EXTRA_CARD.",
             "required": true,
             "type": "string"
           },
@@ -359,6 +359,13 @@
             "name": "voucher_number",
             "in": "query",
             "description": "Voucher number of the passholder.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cardSystemId",
+            "in": "query",
+            "description": "Card system id of the system to get the price for. Required when the reason is CARD_UPGRADE or EXTRA_CARD.",
             "required": false,
             "type": "string"
           }
