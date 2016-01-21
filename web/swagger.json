@@ -309,7 +309,7 @@
         ]
       }
     },
-    "/uitpas/{uitpasNumber}/price": {
+    "/uitpas/price": {
       "get": {
         "summary": "Retrieve the price to register the specified uitpas.",
         "operationId": "getPrice",
@@ -317,13 +317,6 @@
           "application/json"
         ],
         "parameters": [
-          {
-            "name": "uitpasNumber",
-            "in": "path",
-            "description": "The uitpas number of the passholder. Required when the reason is anything other than CARD_UPGRADE or EXTRA_CARD.",
-            "required": true,
-            "type": "string"
-          },
           {
             "name": "reason",
             "in": "query",
@@ -339,6 +332,13 @@
               "LOSS_KANSENSTATUUT",
               "OBTAIN_KANSENSTATUUT"
             ]
+          },
+          {
+            "name": "uitpasNumber",
+            "in": "query",
+            "description": "The uitpas number of the passholder. Required when the reason is anything other than CARD_UPGRADE.",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "date_of_birth",
@@ -365,7 +365,7 @@
           {
             "name": "cardSystemId",
             "in": "query",
-            "description": "Card system id of the system to get the price for. Required when the reason is CARD_UPGRADE or EXTRA_CARD.",
+            "description": "Card system id of the system to get the price for. Required when the reason is CARD_UPGRADE.",
             "required": false,
             "type": "string"
           }
