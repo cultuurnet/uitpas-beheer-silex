@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "UiTPAS Admin",
-    "description": "An administration interface fot UiTPAS, a system to manage users and activities of cultural offers in the Flanders region. Most operations require that you authenticate first with your UiTID.",
+    "description": "An administration interface for UiTPAS, a system to manage users and activities of cultural offers in the Flanders region. Most operations require that you authenticate first with your UiTID.",
     "version": "3.0.0",
     "contact": {
       "name": "CultuurNet Vlaanderen vzw",
@@ -1651,6 +1651,121 @@
           "Coupon"
         ]
       }
+    },
+    "/passholders/{uitpasNumber}/profile": {
+      "get": {
+        "summary": "Retrieves passholders information, associations and memberships.",
+        "description": "Authentication and an uitpasNumber are required.",
+        "operationId": "getPassholderProfile",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Information, associations and memberships belonging to the passholder.",
+            "schema": {
+              "$ref": "#/definitions/PassholderProfile"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have a valid uitpasNumber"
+          }
+        },
+        "tags": [
+          "PassHolder",
+          "Membership"
+        ]
+      }
+    },
+    "/passholders/{uitpasNumber}/profile/memberships": {
+      "post": {
+        "summary": "Register the membership for the passholder.",
+        "description": "Authentication is required.",
+        "operationId": "registerMembership",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the association-id and endDate.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/registerMembershipRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The membership was registered successfully to the passholder."
+          },
+          "400": {
+            "description": "The request was not correct."
+          },
+          "403": {
+            "description": "The user is not authorised to register memberships."
+          },
+          "500": {
+            "description": "The operation could not be performed because of a server error."
+          }
+        },
+        "tags": [
+          "Passholder",
+          "Membership"
+        ]
+      },
+      "delete": {
+        "summary": "Remove a membership for the passholder.",
+        "description": "Authentication is required.",
+        "operationId": "stopMembership",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The feedback was send successfully."
+          },
+          "400": {
+            "description": "The request was not correct."
+          },
+          "403": {
+            "description": "The user is not authorised to stop memberships."
+          },
+          "500": {
+            "description": "The operation could not be performed because of a server error."
+          }
+        },
+        "tags": [
+          "Passholder",
+          "Membership"
+        ]
+      }
     }
   },
   "tags": [
@@ -1729,6 +1844,10 @@
     {
       "name": "Bulk operation",
       "description": "Operations related to passholder bulk operations."
+    },
+    {
+      "name": "Membership",
+      "description": "Operations related to memberships."
     }
   ],
   "definitions": {
@@ -2370,6 +2489,194 @@
         "address",
         "birth"
       ]
+    },
+    "PassholderProfile": {
+      "properties": {
+        "passholder": {
+          "$ref": "#/definitions/PassholderProfilePassholder"
+        },
+        "atLeastOneKansenstatuutExpired": {
+          "type": "boolean"
+        },
+        "otherAssociations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Association"
+          }
+        },
+        "allAssociations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Association"
+          }
+        }
+      }
+    },
+    "PassholderProfilePassholder": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "secondName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "emailPreference": {
+          "type": "string"
+        },
+        "smsPreference": {
+          "type": "string"
+        },
+        "inszNumber": {
+          "type": "string"
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "format": "date",
+          "example": "2003-12-26"
+        },
+        "gender": {
+          "$ref": "#/definitions/Gender"
+        },
+        "street": {
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "box": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "telephone": {
+          "type": "string"
+        },
+        "gsm": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        },
+        "placeOfBirth": {
+          "$ref": "#/definitions/Timestamp"
+        },
+        "price": {
+          "type": "string"
+        },
+        "kansenStatuut": {
+          "type": "string"
+        },
+        "kansenStatuutEndDate": {
+          "type": "string"
+        },
+        "kansenStatuutExpired": {
+          "type": "string"
+        },
+        "kansenStatuutIngracePeriod": {
+          "type": "string"
+        },
+        "uitIdUser": {
+          "$ref": "#/definitions/UitIdUser"
+        },
+        "blocked": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "memberships": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Membership"
+          }
+        },
+        "registrationBalieConsumerKey": {
+          "$ref": "#/definitions/Uid"
+        },
+        "points": {
+          "type": "integer"
+        },
+        "moreInfo": {
+          "type": "string"
+        },
+        "schoolConsumerKey": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string"
+        },
+        "cardSystemSpecific": {
+          "type": "string"
+        },
+        "numberOfCheckins": {
+          "type": "integer"
+        },
+        "inszNumberHash": {
+          "type": "string"
+        },
+        "uitpasNumber": {
+          "type": "string"
+        },
+        "voucherNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "UitIdUser": {
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/Uid"
+        },
+        "nick": {
+          "type": "string"
+        }
+      }
+    },
+    "Timestamp": {
+      "type": "integer",
+      "example": 1483225199,
+      "description": "Unix time stamp"
+    },
+    "Membership": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "associationId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "endDate": {
+          "$ref": "#/definitions/Timestamp"
+        },
+        "association": {
+          "$ref": "#/definitions/Association"
+        },
+        "renewable": {
+          "type": "boolean"
+        },
+        "renewDate": {
+          "$ref": "#/definitions/Timestamp"
+        },
+        "newEndDate": {
+          "type": "string"
+        },
+        "expired": {
+          "type": "boolean"
+        }
+      }
     },
     "PassholderCollection": {
       "properties": {
@@ -3413,6 +3720,22 @@
       },
       "required": [
         "id"
+      ]
+    },
+    "registerMembershipRequest": {
+      "type": "object",
+      "properties": {
+        "associationId": {
+          "type": "integer"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date",
+          "example": "2020-03-29"
+        }
+      },
+      "required": [
+        "associationId"
       ]
     }
   }
