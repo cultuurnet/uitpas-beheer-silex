@@ -103,7 +103,4 @@ final class Inquiry
     {
         return $this->voucherNumber;
     }
-
-
 }
-
