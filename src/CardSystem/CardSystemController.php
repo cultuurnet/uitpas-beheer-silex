@@ -5,6 +5,7 @@
 
 namespace CultuurNet\UiTPASBeheer\CardSystem;
 
+use CultuurNet\UiTPASBeheer\CardSystem\Price\Inquiry;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\Exception\IncorrectParameterValueException;
 use CultuurNet\UiTPASBeheer\Exception\UnknownEnumParameterValueException;
