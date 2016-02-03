@@ -2,11 +2,11 @@
 
 namespace CultuurNet\UiTPASBeheer\UiTPAS;
 
+use CultuurNet\UiTPASBeheer\CardSystem\BelongsToCardSystemInterface;
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
-use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use ValueObjects\StringLiteral\StringLiteral;
 
-final class UiTPAS implements \JsonSerializable
+final class UiTPAS implements \JsonSerializable, BelongsToCardSystemInterface
 {
     /**
      * @var UiTPASNumber

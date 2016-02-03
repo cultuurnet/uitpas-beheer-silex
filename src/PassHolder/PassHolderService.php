@@ -141,6 +141,43 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
     }
 
     /**
+     * @param UiTPASNumber $uitpasNumber
+     * @param CardSystemUpgrade $cardSystemUpgrade
+     */
+    public function upgradeCardSystems(UiTPASNumber $uitpasNumber, CardSystemUpgrade $cardSystemUpgrade)
+    {
+        $registration = new \CultureFeed_Uitpas_Passholder_Query_RegisterInCardSystemOptions();
+        $registration->balieConsumerKey = $this->getCounterConsumerKey();
+
+        $cardSystemId = $cardSystemUpgrade->getCardSystemId();
+        if ($cardSystemId) {
+            $registration->cardSystemId = $cardSystemId->toNative();
+        } else {
+            $registration->uitpasNumber = $cardSystemUpgrade
+                ->getNewUiTPAS()
+                ->toNative();
+
+            $registration->kansenStatuut = false;
+            $kansenStatuut = $cardSystemUpgrade->getKansenStatuut();
+            if ($kansenStatuut) {
+                $registration->kansenStatuut = true;
+                $registration->kansenStatuutEndDate = $kansenStatuut
+                    ->getEndDate()
+                    ->toNativeDateTime()
+                    ->getTimestamp();
+            }
+        }
+
+        $passHolderId = $this->getByUitpasNumber($uitpasNumber)->getUid();
+
+        $this->getUitpasService()->registerPassholderInCardSystem(
+            $passHolderId->toNative(),
+            $registration
+        );
+    }
+
+
+    /**
      * {@inheritdoc}
      **/
     public function register(

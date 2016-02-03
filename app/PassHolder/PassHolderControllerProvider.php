@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\Query;
 use Silex\Application;
 use Silex\ControllerCollection;
@@ -9,6 +10,8 @@ use Silex\ControllerProviderInterface;
 
 class PassHolderControllerProvider implements ControllerProviderInterface
 {
+    const EXPORT_FILENAME = 'passholders.xls';
+
     /**
      * @param Application $app
      * @return ControllerCollection
@@ -19,10 +22,16 @@ class PassHolderControllerProvider implements ControllerProviderInterface
             function (Application $app) {
                 return new PassHolderController(
                     $app['passholder_service'],
+                    $app['passholder_iterator_factory'],
+                    $app['passholder_export_filewriter'],
                     $app['passholder_json_deserializer'],
                     $app['registration_json_deserializer'],
+                    new CardSystemUpgradeJsonDeserializer(
+                        new KansenStatuutJsonDeserializer()
+                    ),
                     new Query(),
-                    $app['url_generator']
+                    $app['url_generator'],
+                    $app['counter']
                 );
             }
         );
@@ -35,6 +44,9 @@ class PassHolderControllerProvider implements ControllerProviderInterface
         $controllers->get('/passholders/{uitpasNumber}', 'passholder_controller:getByUitpasNumber');
         $controllers->put('/passholders/{uitpasNumber}', 'passholder_controller:register');
         $controllers->post('/passholders/{uitpasNumber}', 'passholder_controller:update');
+        $controllers->post('/passholders/{uitpasNumber}/cardsystems', 'passholder_controller:upgradeCardSystems');
+
+        $controllers->get('/' . self::EXPORT_FILENAME, 'passholder_controller:export');
 
         return $controllers;
     }

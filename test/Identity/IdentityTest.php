@@ -416,4 +416,30 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
             $identity
         );
     }
+
+    /**
+     * @test
+     */
+    public function it_can_return_a_passholder()
+    {
+        $firstName = new StringLiteral('Layla');
+        $lastName = new StringLiteral('Zyrani');
+        $name = new Name($firstName, $lastName);
+
+        $postalCode = new StringLiteral('1090');
+        $city = new StringLiteral('Jette (Brussel)');
+        $address = new Address($postalCode, $city);
+
+        $dateTime = new \DateTime('1976-08-13');
+        $dateOfBirth = Date::fromNativeDateTime($dateTime);
+        $birthInformation = new BirthInformation($dateOfBirth);
+
+        $expectedPassHolder = new PassHolder(
+            $name,
+            $address,
+            $birthInformation
+        );
+
+        $this->assertEquals($expectedPassHolder, $this->identityWithPassHolder->getPassHolder());
+    }
 }

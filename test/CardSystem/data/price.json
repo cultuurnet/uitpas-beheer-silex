@@ -1,0 +1,11 @@
+{
+  "price": 5,
+  "kansenStatuut": false,
+  "ageRange": {
+    "from": 18
+  },
+  "voucherType": {
+    "name": "Bevraging vrijetijdsactiviteiten",
+    "prefix": "200"
+  }
+}

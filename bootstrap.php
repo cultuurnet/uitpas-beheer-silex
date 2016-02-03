@@ -122,7 +122,12 @@ $app->register(new \CultuurNet\UiTPASBeheer\Identity\IdentityServiceProvider());
 /**
  * UiTPAS PassHolder service.
  */
-$app->register(new \CultuurNet\UiTPASBeheer\PassHolder\PassHolderServiceProvider());
+$app->register(
+    new \CultuurNet\UiTPASBeheer\PassHolder\PassHolderServiceProvider(),
+    array(
+        'passholder.export.limit_per_api_request' => $app['config']['export']['limit_per_api_request'],
+    )
+);
 
 /**
  * UiTPAS Activity service.
@@ -195,6 +200,8 @@ $app->register(
  * UiTPAS Points History service.
  */
 $app->register(new \CultuurNet\UiTPASBeheer\PointsHistory\PointsHistoryServiceProvider());
+
+$app->register(new \CultuurNet\UiTPASBeheer\CardSystem\CardSystemServiceProvider());
 
 /**
  * Clock service.

@@ -23,3 +23,5 @@ bootstrap:
 roles:
   Default2d2:
   - ROLE_HELP_EDIT
+export:
+  limit_per_api_request: 50

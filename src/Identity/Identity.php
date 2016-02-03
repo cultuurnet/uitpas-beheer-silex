@@ -52,6 +52,14 @@ final class Identity implements \JsonSerializable
     }
 
     /**
+     * @return PassHolder
+     */
+    public function getPassHolder()
+    {
+        return $this->passHolder;
+    }
+
+    /**
      * @param Group $group
      * @return Identity
      */
