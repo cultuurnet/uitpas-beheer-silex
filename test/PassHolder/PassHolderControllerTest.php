@@ -31,6 +31,7 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberCollection;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\Month;
@@ -69,6 +70,11 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
      * @var RegistrationJsonDeserializer|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $registrationDeserializer;
+
+    /**
+     * @var CardSystemUpgradeJsonDeserializer|\PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $cardSystemUpgradeJsonDeserializer;
 
     /**
      * @var Query
@@ -121,6 +127,10 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             new KansenStatuutJsonDeserializer()
         );
 
+        $this->cardSystemUpgradeJsonDeserializer = new CardSystemUpgradeJsonDeserializer(
+            new KansenStatuutJsonDeserializer()
+        );
+
         $this->searchQuery = new Query();
 
         $this->urlGenerator = $this->getMock(UrlGeneratorInterface::class);
@@ -141,6 +151,7 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             $this->exportFileWriter,
             $this->passholderDeserializer,
             $this->registrationDeserializer,
+            $this->cardSystemUpgradeJsonDeserializer,
             $this->searchQuery,
             $this->urlGenerator,
             $this->counter
@@ -483,6 +494,37 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException(CompleteResponseException::class);
         $this->controller->update($request, $uitpasNumberValue);
+    }
+
+    /**
+     * @test
+     */
+    public function it_upgrades_the_passholder_cardsystems()
+    {
+        $uitpasNumberValue = '0930000125607';
+        $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
+
+        $data = file_get_contents(__DIR__ . '/data/cardsystem-upgrade-without-new-uitpas.json');
+        $request = new Request([], [], [], [], [], [], $data);
+
+        $expectedUpgrade = CardSystemUpgrade::withoutNewUiTPAS(new CardSystemId('1'))
+            ->withVoucherNumber(
+                new VoucherNumber('free ticket to ride')
+            );
+
+        $this->service->expects($this->once())
+            ->method('upgradeCardSystems')
+            ->with(
+                $uitpasNumber,
+                $expectedUpgrade
+            );
+
+        $response = $this->controller->upgradeCardSystems(
+            $request,
+            $uitpasNumberValue
+        );
+
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
     }
 
     /**
