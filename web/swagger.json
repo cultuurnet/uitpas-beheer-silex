@@ -2576,6 +2576,12 @@
           "items": {
             "$ref": "#/definitions/UiTPAS"
           }
+        },
+        "cardSystems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CardSystem"
+          }
         }
       },
       "required": [
