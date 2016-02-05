@@ -497,8 +497,10 @@ final class PassHolder implements \JsonSerializable
                 $passHolder = $passHolder->withUiTPASCollection($uitpasCollection);
             }
 
-            $passHolder->cardSystems = CardSystemCollection::fromCultureFeedPassHolderCardSystemSpecific(
-                $cfPassHolder->cardSystemSpecific
+            $passHolder = $passHolder->withCardSystems(
+                CardSystemCollection::fromCultureFeedPassHolderCardSystemSpecific(
+                    $cfPassHolder->cardSystemSpecific
+                )
             );
         }
 
@@ -511,5 +513,14 @@ final class PassHolder implements \JsonSerializable
         );
 
         return $passHolder;
+    }
+
+    /**
+     * @param CardSystemCollection $cardSystems
+     * @return PassHolder
+     */
+    public function withCardSystems(CardSystemCollection $cardSystems)
+    {
+        return $this->with('cardSystems', $cardSystems);
     }
 }
