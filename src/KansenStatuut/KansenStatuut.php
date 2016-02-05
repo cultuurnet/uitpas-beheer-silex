@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\KansenStatuut;
 
+use CultuurNet\UiTPASBeheer\CardSystem\BelongsToCardSystemInterface;
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
 use ValueObjects\DateTime\Date;
@@ -10,7 +11,7 @@ use ValueObjects\DateTime\Date;
  * @todo Move remarks property to PassHolder.
  * @see http://jira.uitdatabank.be:8080/browse/UBR-235
  */
-final class KansenStatuut implements \JsonSerializable
+final class KansenStatuut implements \JsonSerializable, BelongsToCardSystemInterface
 {
     /**
      * @var Date

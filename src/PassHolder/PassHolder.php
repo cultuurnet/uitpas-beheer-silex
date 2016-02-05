@@ -231,6 +231,14 @@ final class PassHolder implements \JsonSerializable
     }
 
     /**
+     * @return PassHolder
+     */
+    public function withoutContactInformation()
+    {
+        return $this->with('contactInformation', null);
+    }
+
+    /**
      * @return ContactInformation|null
      */
     public function getContactInformation()

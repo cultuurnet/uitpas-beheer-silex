@@ -2,6 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\UiTPASBeheer\Export\Xls\XlsFileName;
+use CultuurNet\UiTPASBeheer\Export\Xls\XlsFileWriter;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\AddressJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserializer;
@@ -29,6 +31,23 @@ class PassHolderServiceProvider implements ServiceProviderInterface
                     $app['uitpas'],
                     $app['counter_consumer_key'],
                     $app['counter']
+                );
+            }
+        );
+
+        $app['passholder_iterator_factory'] = $app->share(
+            function (Application $app) {
+                return new PassHolderIteratorFactory(
+                    $app['passholder_service'],
+                    $app['passholder.export.limit_per_api_request']
+                );
+            }
+        );
+
+        $app['passholder_export_filewriter'] = $app->share(
+            function (Application $app) {
+                return new XlsFileWriter(
+                    new XlsFileName(PassHolderControllerProvider::EXPORT_FILENAME)
                 );
             }
         );

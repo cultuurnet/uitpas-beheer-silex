@@ -4,6 +4,7 @@ namespace CultuurNet\UiTPASBeheer\UiTPAS\Specifications;
 
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
+use CultuurNet\UiTPASBeheer\CardSystem\Specifications\InAnyOfCardSystems;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;

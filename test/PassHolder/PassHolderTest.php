@@ -91,7 +91,7 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         );
         $this->cfPassHolderFull->cardSystemSpecific[30] = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
         $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuut = true;
-        $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuutEndDate = 1442331412;
+        $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuutEndDate = 1473897600;
         $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuutExpired = true;
         $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuutInGracePeriod = false;
         $this->cfPassHolderFull->cardSystemSpecific[30]->currentCard = new \CultureFeed_Uitpas_Passholder_Card();
