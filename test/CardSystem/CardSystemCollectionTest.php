@@ -13,7 +13,7 @@ class CardSystemCollectionTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function can_return_a_collection_from_a_culturefeed_uitpas_passholder()
+    public function can_return_a_collection_from_culturefeed_uitpas_passholder_card_system_specific()
     {
         $cardSystem1Info = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
         $cardSystem1Info->cardSystem = new \CultureFeed_Uitpas_CardSystem(
@@ -27,13 +27,12 @@ class CardSystemCollectionTest extends \PHPUnit_Framework_TestCase
             'UiTPAS regio Brussel'
         );
 
-        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
-        $cfPassHolder->cardSystemSpecific = [
+        $cardSystemSpecific = [
             $cardSystem1Info,
             $cardSystem20Info,
         ];
 
-        $collection = CardSystemCollection::fromCultureFeedPassHolder($cfPassHolder);
+        $collection = CardSystemCollection::fromCultureFeedPassHolderCardSystemSpecific($cardSystemSpecific);
 
         $expectedCollection = (new CardSystemCollection())
             ->with(

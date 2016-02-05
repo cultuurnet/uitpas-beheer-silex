@@ -15,16 +15,16 @@ class CardSystemCollection extends AbstractCollection
     }
 
     /**
-     * @param \CultureFeed_Uitpas_Passholder $passHolder
+     * @param \CultureFeed_Uitpas_Passholder_CardSystemSpecific[] $cfCardSystemSpecificArray
      * @return CardSystemCollection
      */
-    public static function fromCultureFeedPassHolder(
-        \CultureFeed_Uitpas_Passholder $passHolder
+    public static function fromCultureFeedPassHolderCardSystemSpecific(
+        array $cfCardSystemSpecificArray
     ) {
         $cardSystemCollection = new self();
 
-        foreach ($passHolder->cardSystemSpecific as $cardSystemSpecific) {
-            $cardSystem = CardSystem::fromCultureFeedCardSystem($cardSystemSpecific->cardSystem);
+        foreach ($cfCardSystemSpecificArray as $cfCardSystemSpecific) {
+            $cardSystem = CardSystem::fromCultureFeedCardSystem($cfCardSystemSpecific->cardSystem);
             $cardSystemCollection = $cardSystemCollection->with($cardSystem);
         }
 
