@@ -4,7 +4,7 @@ namespace CultuurNet\UiTPASBeheer\CardSystem;
 
 use TwoDotsTwice\Collection\AbstractCollection;
 
-class CardSystemCollection extends AbstractCollection
+class CardSystemCollection extends AbstractCollection implements \JsonSerializable
 {
     /**
      * @return string
@@ -29,5 +29,13 @@ class CardSystemCollection extends AbstractCollection
         }
 
         return $cardSystemCollection;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function jsonSerialize()
+    {
+        return array_values($this->toArray());
     }
 }
