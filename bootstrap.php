@@ -201,6 +201,8 @@ $app->register(
  */
 $app->register(new \CultuurNet\UiTPASBeheer\PointsHistory\PointsHistoryServiceProvider());
 
+$app->register(new \CultuurNet\UiTPASBeheer\CardSystem\CardSystemServiceProvider());
+
 /**
  * Clock service.
  */

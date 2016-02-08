@@ -22,6 +22,7 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberCollection;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberInvalidException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use ValueObjects\DateTime\Date;
@@ -57,6 +58,8 @@ class PassHolderController
      */
     protected $registrationJsonDeserializer;
 
+    protected $cardSystemUpgradeJsonDeserializer;
+
     /**
      * @var QueryBuilderInterface
      */
@@ -78,6 +81,7 @@ class PassHolderController
      * @param FileWriterInterface $exportFileWriter
      * @param DeserializerInterface $passHolderJsonDeserializer
      * @param DeserializerInterface $registrationJsonDeserializer
+     * @param DeserializerInterface $cardSystemUpgradeJsonDeserializer
      * @param QueryBuilderInterface $searchQuery
      * @param UrlGeneratorInterface $urlGenerator
      * @param \CultureFeed_Uitpas_Counter_Employee $counter
@@ -88,6 +92,7 @@ class PassHolderController
         FileWriterInterface $exportFileWriter,
         DeserializerInterface $passHolderJsonDeserializer,
         DeserializerInterface $registrationJsonDeserializer,
+        DeserializerInterface $cardSystemUpgradeJsonDeserializer,
         QueryBuilderInterface $searchQuery,
         UrlGeneratorInterface $urlGenerator,
         \CultureFeed_Uitpas_Counter_Employee $counter
@@ -97,6 +102,7 @@ class PassHolderController
         $this->exportFileWriter = $exportFileWriter;
         $this->passHolderJsonDeserializer = $passHolderJsonDeserializer;
         $this->registrationJsonDeserializer = $registrationJsonDeserializer;
+        $this->cardSystemUpgradeJsonDeserializer = $cardSystemUpgradeJsonDeserializer;
         $this->searchQuery = $searchQuery;
         $this->urlGenerator = $urlGenerator;
         $this->counter = $counter;
@@ -471,5 +477,27 @@ class PassHolderController
             ->setPrivate();
 
         return $response;
+    }
+
+    /**
+     * @param Request $request
+     * @param string $uitpasNumber
+     * @return Response
+     */
+    public function upgradeCardSystems(Request $request, $uitpasNumber)
+    {
+        $uitpasNumber = new UiTPASNumber($uitpasNumber);
+
+        $cardSystemUpgrade = $this->cardSystemUpgradeJsonDeserializer
+            ->deserialize(
+                new StringLiteral($request->getContent())
+            );
+
+        $this->passHolderService->upgradeCardSystems(
+            $uitpasNumber,
+            $cardSystemUpgrade
+        );
+
+        return new Response();
     }
 }

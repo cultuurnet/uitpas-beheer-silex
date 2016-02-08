@@ -47,6 +47,8 @@ class UiTPASServiceTest extends \PHPUnit_Framework_TestCase
             $this->api,
             $this->counterConsumerKey
         );
+
+        date_default_timezone_set('Europe/Brussels');
     }
 
     /**

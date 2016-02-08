@@ -30,6 +30,12 @@ interface PassHolderServiceInterface
     public function update(UiTPASNumber $uitpasNumber, PassHolder $passHolder);
 
     /**
+     * @param UiTPASNumber $uitpasNumber
+     * @param CardSystemUpgrade $cardSystemUpgrade
+     */
+    public function upgradeCardSystems(UiTPASNumber $uitpasNumber, CardSystemUpgrade $cardSystemUpgrade);
+
+    /**
      * Register a new passholder to an existing UiTPAS-number.
      *
      * @param UiTPASNumber $uitpasNumber
