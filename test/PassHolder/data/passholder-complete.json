@@ -78,5 +78,23 @@
         "name": "UiTPAS Regio Brussel"
       }
     }
+  ],
+  "cardSystems": [
+    {
+      "id": "10",
+      "name": "UiTPAS Regio Aalst"
+    },
+    {
+      "id": "20",
+      "name": "UiTPAS Regio Kortrijk"
+    },
+    {
+      "id": "30",
+      "name": "UiTPAS Regio Brussel"
+    },
+    {
+      "id":"40",
+      "name":"UiTPAS Regio Leuven"
+    }
   ]
 }

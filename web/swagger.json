@@ -2571,7 +2571,7 @@
             "$ref": "#/definitions/KansenStatuut"
           }
         },
-        "uitPassen": {
+        "uitpassen": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/UiTPAS"
