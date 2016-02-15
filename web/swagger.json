@@ -185,6 +185,42 @@
         ]
       }
     },
+    "/counters/schools/{counterConsumerKey}": {
+      "get": {
+        "summary": "Get a list of counters of type school.",
+        "description": "Authentication is required.",
+        "operationId": "listSchoolCounters",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "counterConsumerKey",
+            "in": "path",
+            "description": "The consumer key of the counter to get the schools for.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of counters of type school that are related to the given counter.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Counter"
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated."
+          }
+        },
+        "tags": [
+          "Counter"
+        ]
+      }
+    },
     "/identities/{identificationNumber}": {
       "get": {
         "summary": "Find an identity by identification number. An identity is a combination of an UiTPAS and its owner (an individual or a group).",
@@ -2565,6 +2601,9 @@
           "type": "string",
           "example": "Dit maakt niet uit."
         },
+        "school": {
+          "$ref": "#/definitions/Counter"
+        },
         "kansenStatuten": {
           "type": "array",
           "items": {
@@ -2864,6 +2903,10 @@
         },
         "remarks": {
           "$ref": "#/definitions/PassholderRemarks"
+        },
+        "school": {
+          "type": "string",
+          "example": "31413BDF-DFC7-7A9F-10403618C2816E44"
         }
       },
       "required": [
