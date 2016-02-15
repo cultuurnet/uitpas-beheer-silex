@@ -16,6 +16,7 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberCollection;
 use ValueObjects\Identity\UUID;
 use ValueObjects\Number\Integer;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class PassHolderService extends CounterAwareUitpasService implements PassHolderServiceInterface
 {
@@ -138,6 +139,30 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
                 $cfPassHolder,
                 $this->getCounterConsumerKey()
             );
+
+        $picture = $passHolder->getPicture();
+
+        if ($picture) {
+            $passHolderId = $this->getByUitpasNumber($uitpasNumber)->getUid();
+
+            $this->uploadPicture($passHolderId, $picture);
+        }
+    }
+
+    /**
+     * @param StringLiteral $passHolderUUID
+     * @param StringLiteral $picture
+     */
+    private function uploadPicture(
+        StringLiteral $passHolderUUID,
+        StringLiteral $picture
+    ) {
+        $this->getUitpasService()
+            ->uploadPicture(
+                $passHolderUUID->toNative(),
+                base64_decode($picture->toNative()),
+                $this->getCounterConsumerKey()
+            );
     }
 
     /**
@@ -220,6 +245,12 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         );
 
         $UUID = UUID::fromNative($UUIDString);
+
+        $picture = $passHolder->getPicture();
+
+        if ($picture) {
+            $this->uploadPicture($UUID, $picture);
+        }
 
         return $UUID;
     }

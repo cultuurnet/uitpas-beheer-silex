@@ -149,6 +149,12 @@ class PassHolderJsonDeserializer extends JSONDeserializer
             }
         }
 
+        if (!empty($data->picture)) {
+            $passHolder = $passHolder->withPicture(
+                new StringLiteral($data->picture)
+            );
+        }
+
         return $passHolder;
     }
 }
