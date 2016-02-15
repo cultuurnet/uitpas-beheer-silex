@@ -2905,8 +2905,7 @@
           "$ref": "#/definitions/PassholderRemarks"
         },
         "school": {
-          "type": "string",
-          "example": "31413BDF-DFC7-7A9F-10403618C2816E44"
+          "$ref": "#/definitions/Counter"
         }
       },
       "required": [
