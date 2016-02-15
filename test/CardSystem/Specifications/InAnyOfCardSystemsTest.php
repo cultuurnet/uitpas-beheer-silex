@@ -1,6 +1,6 @@
 <?php
 
-namespace CultuurNet\UiTPASBeheer\UiTPAS\Specifications;
+namespace CultuurNet\UiTPASBeheer\CardSystem\Specifications;
 
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystemCollection;

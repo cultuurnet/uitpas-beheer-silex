@@ -3,6 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystemCollection;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutCollection;
@@ -110,6 +111,11 @@ trait PassHolderDataTrait
             new StringLiteral('UiTPAS Regio Brussel')
         );
 
+        $cardSystem40 = new CardSystem(
+            new CardSystemId('40'),
+            new StringLiteral('UiTPAS Regio Leuven')
+        );
+
         $kansenStatuten = (new KansenStatuutCollection())
             ->withKey(
                 10,
@@ -129,7 +135,7 @@ trait PassHolderDataTrait
                 30,
                 (new KansenStatuut(
                     new Date(
-                        new Year('2015'),
+                        new Year('2016'),
                         Month::getByName('SEPTEMBER'),
                         new MonthDay(15)
                     )
@@ -165,6 +171,12 @@ trait PassHolderDataTrait
                     $cardSystem30
                 )
             );
+
+        $cardSystemCollection = (new CardSystemCollection())
+            ->with($cardSystem10)
+            ->with($cardSystem20)
+            ->with($cardSystem30)
+            ->with($cardSystem40);
 
         return (new PassHolder(
             (new Name(
@@ -214,6 +226,8 @@ trait PassHolderDataTrait
             new Integer(20)
         )->withUiTPASCollection(
             $uitpasCollection
+        )->withCardSystems(
+            $cardSystemCollection
         )->withRemarks(
             new Remarks(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.'

@@ -50,7 +50,7 @@
             }
           },
           {
-            "endDate": "2015-09-15",
+            "endDate": "2016-09-15",
             "status": "EXPIRED",
             "cardSystem": {
               "id": "30",
@@ -73,6 +73,24 @@
               "id": "2",
               "name": "Uitpas regio Landen"
             }
+          }
+        ],
+        "cardSystems": [
+          {
+            "id": "10",
+            "name": "UiTPAS Regio Aalst"
+          },
+          {
+            "id": "20",
+            "name": "UiTPAS Regio Kortrijk"
+          },
+          {
+            "id": "30",
+            "name": "UiTPAS Regio Brussel"
+          },
+          {
+            "id":"40",
+            "name":"UiTPAS Regio Leuven"
           }
         ],
         "remarks": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus."

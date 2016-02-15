@@ -2,8 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystemCollection;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
-use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutCollection;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformation;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformation;
@@ -91,7 +91,7 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         );
         $this->cfPassHolderFull->cardSystemSpecific[30] = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
         $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuut = true;
-        $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuutEndDate = 1442331412;
+        $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuutEndDate = 1473897600;
         $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuutExpired = true;
         $this->cfPassHolderFull->cardSystemSpecific[30]->kansenStatuutInGracePeriod = false;
         $this->cfPassHolderFull->cardSystemSpecific[30]->currentCard = new \CultureFeed_Uitpas_Passholder_Card();
@@ -101,6 +101,15 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $this->cfPassHolderFull->cardSystemSpecific[30]->currentCard->kansenpas = true;
         $this->cfPassHolderFull->cardSystemSpecific[30]->currentCard->cardSystem = $cardSystem30;
         $this->cfPassHolderFull->cardSystemSpecific[30]->cardSystem = $cardSystem30;
+
+        $cardSystem40 = new \CultureFeed_Uitpas_CardSystem(
+            40,
+            'UiTPAS Regio Leuven'
+        );
+
+        $this->cfPassHolderFull->cardSystemSpecific[40] = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
+        $this->cfPassHolderFull->cardSystemSpecific[40]->kansenStatuut = false;
+        $this->cfPassHolderFull->cardSystemSpecific[40]->cardSystem = $cardSystem40;
     }
 
     /**
@@ -119,12 +128,14 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $expectedBirthInformation = BirthInformation::fromCultureFeedPassHolder($this->cfPassHolderFull);
         $expectedContactInformation = ContactInformation::fromCultureFeedPassHolder($this->cfPassHolderFull);
         $expectedPrivacyPreferences = PrivacyPreferences::fromCultureFeedPassHolder($this->cfPassHolderFull);
+        $expectedCardSystems = CardSystemCollection::fromCultureFeedPassHolderCardSystemSpecific($this->cfPassHolderFull->cardSystemSpecific);
 
         $this->assertTrue($passHolder->getName()->sameValueAs($expectedName));
         $this->assertTrue($passHolder->getAddress()->sameValueAs($expectedAddress));
         $this->assertTrue($passHolder->getBirthInformation()->sameValueAs($expectedBirthInformation));
         $this->assertTrue($passHolder->getContactInformation()->sameValueAs($expectedContactInformation));
         $this->assertTrue($passHolder->getPrivacyPreferences()->sameValueAs($expectedPrivacyPreferences));
+        $this->assertEquals($expectedCardSystems, $passHolder->getCardSystems());
 
         $this->assertEquals(2, $passHolder->getKansenStatuten()->length());
         $this->assertEquals(
