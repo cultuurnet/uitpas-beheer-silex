@@ -169,6 +169,29 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
             ->method('updatePassholder')
             ->with($cfPassHolder, $this->counterConsumerKey);
 
+        $passHolderUid = '86979a22-3e33-413d-a115-c5b05414e7c5';
+
+        $cfPassHolderRequestedToGetUid = clone $cfPassHolder;
+        $cfPassHolderRequestedToGetUid->uitIdUser = new \CultureFeed_Uitpas_Passholder_UitIdUser();
+        $cfPassHolderRequestedToGetUid->uitIdUser->id = $passHolderUid;
+        $cfPassHolderRequestedToGetUid->gender = $gender->toNative();
+
+        $this->uitpas->expects($this->once())
+            ->method('getPassholderByUitpasNumber')
+            ->with(
+                $uitpasNumberValue,
+                $this->counterConsumerKey->toNative()
+            )
+            ->willReturn($cfPassHolderRequestedToGetUid);
+
+        $this->uitpas->expects($this->once())
+            ->method('uploadPicture')
+            ->with(
+                $passHolderUid,
+                file_get_contents(__DIR__ . '/data/picture.gif'),
+                $this->counterConsumerKey->toNative()
+            );
+
         $this->service->update($uitpasNumber, $passHolder);
     }
 
@@ -308,20 +331,34 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->uitpas->expects($this->once())
             ->method('getPassholderByUitpasNumber')
-            ->with($uitpasNumberValue)
+            ->with(
+                $uitpasNumberValue,
+                $this->counterConsumerKey
+            )
             ->willThrowException(new \CultureFeed_Exception('Not found.', 404));
+        $expectedUUID = new UUID('de305d54-75b4-431b-adb2-eb6b9e546014');
 
         $this->uitpas->expects($this->once())
             ->method('createPassholder')
-            ->with($cfPassholder)
-            ->willReturn('de305d54-75b4-431b-adb2-eb6b9e546014');
+            ->with(
+                $cfPassholder,
+                $this->counterConsumerKey->toNative()
+            )
+            ->willReturn($expectedUUID->toNative());
+
+        $binaryPicture = file_get_contents(__DIR__ . '/data/picture.gif');
+        $this->uitpas->expects($this->once())
+            ->method('uploadPicture')
+            ->with(
+                $expectedUUID->toNative(),
+                $binaryPicture,
+                $this->counterConsumerKey->toNative()
+            );
 
         $newPassholderUUID = $this->service->register(
             $uitpasNumber,
             $passholder
         );
-
-        $expectedUUID = new UUID('de305d54-75b4-431b-adb2-eb6b9e546014');
 
         $this->assertEquals($expectedUUID, $newPassholderUUID);
     }

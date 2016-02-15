@@ -82,6 +82,9 @@ trait PassHolderDataTrait
             new Remarks(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.'
             )
+        )
+        ->withPicture(
+            new StringLiteral('R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=')
         );
     }
 
