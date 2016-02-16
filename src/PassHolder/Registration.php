@@ -53,7 +53,7 @@ final class Registration
     }
 
     /**
-     * @return \CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut|null
+     * @return KansenStatuut|null
      */
     public function getKansenStatuut()
     {
@@ -62,7 +62,7 @@ final class Registration
 
     /**
      * @param VoucherNumber $voucherNumber
-     * @return PassHolder
+     * @return Registration
      */
     public function withVoucherNumber(VoucherNumber $voucherNumber)
     {
@@ -70,8 +70,8 @@ final class Registration
     }
 
     /**
-     * @param \CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut $kansenStatuut
-     * @return PassHolder
+     * @param KansenStatuut $kansenStatuut
+     * @return Registration
      */
     public function withKansenstatuut(KansenStatuut $kansenStatuut)
     {
@@ -81,7 +81,7 @@ final class Registration
     /**
      * @param string $property
      * @param mixed $value
-     * @return PassHolder
+     * @return Registration
      */
     private function with($property, $value)
     {
