@@ -1973,7 +1973,7 @@
     },
     {
       "name": "School",
-      "description": "Operations related to memberships."
+      "description": "Operations related to schools."
     }
   ],
   "definitions": {
