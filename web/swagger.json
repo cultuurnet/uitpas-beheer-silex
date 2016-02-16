@@ -185,11 +185,11 @@
         ]
       }
     },
-    "/counters/schools/{counterConsumerKey}": {
+    "/schools/{counterConsumerKey}": {
       "get": {
         "summary": "Get a list of counters of type school.",
         "description": "Authentication is required.",
-        "operationId": "listSchoolCounters",
+        "operationId": "listSchools",
         "produces": [
           "application/json"
         ],
@@ -204,11 +204,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Returns a list of counters of type school that are related to the given counter.",
+            "description": "Returns a list of schools that are related to the given counter.",
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Counter"
+                "$ref": "#/definitions/School"
               }
             }
           },
@@ -217,7 +217,7 @@
           }
         },
         "tags": [
-          "Counter"
+          "School"
         ]
       }
     },
@@ -1978,6 +1978,10 @@
     {
       "name": "Membership",
       "description": "Operations related to memberships."
+    },
+    {
+      "name": "School",
+      "description": "Operations related to memberships."
     }
   ],
   "definitions": {
@@ -2602,7 +2606,7 @@
           "example": "Dit maakt niet uit."
         },
         "school": {
-          "$ref": "#/definitions/Counter"
+          "$ref": "#/definitions/School"
         },
         "kansenStatuten": {
           "type": "array",
@@ -2905,8 +2909,7 @@
           "$ref": "#/definitions/PassholderRemarks"
         },
         "school": {
-          "type": "string",
-          "example": "31413BDF-DFC7-7A9F-10403618C2816E44"
+          "$ref": "#/definitions/School"
         }
       },
       "required": [
@@ -3898,6 +3901,21 @@
       },
       "required": [
         "associationId"
+      ]
+    },
+    "School": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "De Appeltuin"
+        },
+        "id": {
+          "$ref": "#/definitions/Uid"
+        }
+      },
+      "required": [
+        "name",
+        "id"
       ]
     }
   }
