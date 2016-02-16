@@ -40,7 +40,7 @@ class SchoolTest extends \PHPUnit_Framework_TestCase
     {
         $cfCounter = new \CultureFeed_Uitpas_Counter();
         $cfCounter->name = 'Saint Whatever Institute';
-        $cfCounter->consumerKey = 'school-unique-id';
+        $cfCounter->id = 'school-unique-id';
 
         $expectedSchool = new School(
             new StringLiteral('school-unique-id'),
@@ -52,6 +52,22 @@ class SchoolTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             $expectedSchool,
             $schoolCreatedFromCounter
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function serializes_all_properties_to_json()
+    {
+        $school = new School(
+            new StringLiteral('unique-id'),
+            new StringLiteral('Saint Whatever Institute')
+        );
+
+        $this->assertJsonStringEqualsJsonFile(
+            __DIR__ . '/data/school.json',
+            json_encode($school)
         );
     }
 }

@@ -71,11 +71,11 @@ class SchoolServiceTest extends PHPUnit_Framework_TestCase
         $activeCounter->cardSystems = [$cardSystem4, $cardSystem7];
 
         $cfSchoolCounterA = new CultureFeed_Uitpas_Counter();
-        $cfSchoolCounterA->consumerKey = 'school-unique-id-A';
+        $cfSchoolCounterA->id = 'school-unique-id-A';
         $cfSchoolCounterA->name = 'School A';
 
         $cfSchoolCounterB = new CultureFeed_Uitpas_Counter();
-        $cfSchoolCounterB->consumerKey = 'school-unique-id-B';
+        $cfSchoolCounterB->id = 'school-unique-id-B';
         $cfSchoolCounterB->name = 'School B';
 
         $this->counterService->expects($this->once())

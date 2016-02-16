@@ -16,11 +16,11 @@ class SchoolCollectionTest extends PHPUnit_Framework_TestCase
     public function can_be_created_from_an_array_of_culturefeed_counters()
     {
         $cfCounterA = new \CultureFeed_Uitpas_Counter();
-        $cfCounterA->consumerKey = 'unique-counter-id-A';
+        $cfCounterA->id = 'unique-counter-id-A';
         $cfCounterA->name = 'School A';
 
         $cfCounterB = new \CultureFeed_Uitpas_Counter();
-        $cfCounterB->consumerKey = 'unique-counter-id-B';
+        $cfCounterB->id = 'unique-counter-id-B';
         $cfCounterB->name = 'School B';
 
         $cfCounters = [
@@ -48,6 +48,29 @@ class SchoolCollectionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             $expectedSchools,
             $schoolsCreatedFromCounters
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function serializes_all_schools_to_json()
+    {
+        $schoolA = new School(
+            new StringLiteral('unique-id-A'),
+            new StringLiteral('School A')
+        );
+
+        $schoolB = new School(
+            new StringLiteral('unique-id-B'),
+            new StringLiteral('School B')
+        );
+
+        $schools = SchoolCollection::fromArray([$schoolA, $schoolB]);
+
+        $this->assertJsonStringEqualsJsonFile(
+            __DIR__ . '/data/schools.json',
+            json_encode($schools)
         );
     }
 }

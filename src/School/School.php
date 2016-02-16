@@ -6,9 +6,10 @@
 namespace CultuurNet\UiTPASBeheer\School;
 
 use CultureFeed_Uitpas_Counter;
+use JsonSerializable;
 use ValueObjects\StringLiteral\StringLiteral;
 
-final class School
+final class School implements JsonSerializable
 {
     /**
      * The unique ID.
@@ -54,8 +55,19 @@ final class School
         CultureFeed_Uitpas_Counter $counter
     ) {
         return new School(
-            new StringLiteral($counter->consumerKey),
+            new StringLiteral($counter->id),
             new StringLiteral($counter->name)
         );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->getId()->toNative(),
+            'name' => $this->getName()->toNative(),
+        ];
     }
 }

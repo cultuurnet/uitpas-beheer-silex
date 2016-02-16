@@ -7,9 +7,11 @@ namespace CultuurNet\UiTPASBeheer\School;
 
 use CultureFeed_ResultSet;
 use CultureFeed_Uitpas_Counter;
+use JsonSerializable;
 use TwoDotsTwice\Collection\AbstractCollection;
+use ValueObjects\StringLiteral\StringLiteral;
 
-final class SchoolCollection extends AbstractCollection
+final class SchoolCollection extends AbstractCollection implements JsonSerializable
 {
     /**
      * @inheritdoc
@@ -35,5 +37,13 @@ final class SchoolCollection extends AbstractCollection
         }
 
         return $schools;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function jsonSerialize()
+    {
+        return $this->toArray();
     }
 }
