@@ -352,11 +352,17 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
                 ->toNative();
         }
 
+        $school = $passHolder->getSchool();
+        if ($school) {
+            $cfPassHolder->schoolConsumerKey = $school->getId()->toNative();
+        }
+
         $cfPassHolder->toPostDataKeepEmptySecondName();
         $cfPassHolder->toPostDataKeepEmptyEmail();
         $cfPassHolder->toPostDataKeepEmptyMoreInfo();
         $cfPassHolder->toPostDataKeepEmptyTelephone();
         $cfPassHolder->toPostDataKeepEmptyGSM();
+        $cfPassHolder->toPostDataKeepEmptySchoolConsumerKey();
 
         return $cfPassHolder;
     }
