@@ -425,6 +425,10 @@ final class PassHolder implements \JsonSerializable
             $data['remarks'] = $this->remarks->toNative();
         }
 
+        if (!is_null($this->school)) {
+            $data['school'] = $this->school;
+        }
+
         return $data;
     }
 

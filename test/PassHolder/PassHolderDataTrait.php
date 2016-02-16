@@ -18,6 +18,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
+use CultuurNet\UiTPASBeheer\School\School;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASCollection;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
@@ -85,6 +86,12 @@ trait PassHolderDataTrait
         )
         ->withPicture(
             new StringLiteral('R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=')
+        )
+        ->withSchool(
+            new School(
+                new StringLiteral('920f8d53-abd0-40f1-a151-960098197785'),
+                new StringLiteral('University of Life')
+            )
         );
     }
 
@@ -234,6 +241,11 @@ trait PassHolderDataTrait
         )->withRemarks(
             new Remarks(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.'
+            )
+        )
+        ->withSchool(
+            new School(
+                new StringLiteral('920f8d53-abd0-40f1-a151-960098197785')
             )
         );
     }

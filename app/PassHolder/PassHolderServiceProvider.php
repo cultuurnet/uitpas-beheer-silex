@@ -10,6 +10,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserial
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\NameJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferencesJsonDeserializer;
+use CultuurNet\UiTPASBeheer\School\SchoolJsonDeserializer;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
@@ -59,7 +60,8 @@ class PassHolderServiceProvider implements ServiceProviderInterface
                     new AddressJsonDeserializer(),
                     new BirthInformationJsonDeserializer(),
                     new ContactInformationJsonDeserializer(),
-                    new PrivacyPreferencesJsonDeserializer()
+                    new PrivacyPreferencesJsonDeserializer(),
+                    new SchoolJsonDeserializer()
                 );
             }
         );

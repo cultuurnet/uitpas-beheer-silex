@@ -24,6 +24,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferencesJsonDeserial
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedResultSet;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\Query;
+use CultuurNet\UiTPASBeheer\School\SchoolJsonDeserializer;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASCollection;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
@@ -119,7 +120,8 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             new AddressJsonDeserializer(),
             new BirthInformationJsonDeserializer(),
             new ContactInformationJsonDeserializer(),
-            new PrivacyPreferencesJsonDeserializer()
+            new PrivacyPreferencesJsonDeserializer(),
+            new SchoolJsonDeserializer()
         );
 
         $this->registrationDeserializer = new RegistrationJsonDeserializer(

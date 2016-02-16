@@ -65,9 +65,14 @@ final class School implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        return [
-            'id' => $this->getId()->toNative(),
-            'name' => $this->getName()->toNative(),
+        $data = [
+            'id' => $this->id->toNative(),
         ];
+
+        if ($this->name) {
+            $data['name'] = $this->name->toNative();
+        }
+
+        return $data;
     }
 }
