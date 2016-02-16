@@ -12,6 +12,8 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
+use CultuurNet\UiTPASBeheer\School\School;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class PassHolderTest extends \PHPUnit_Framework_TestCase
 {
@@ -110,6 +112,8 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $this->cfPassHolderFull->cardSystemSpecific[40] = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
         $this->cfPassHolderFull->cardSystemSpecific[40]->kansenStatuut = false;
         $this->cfPassHolderFull->cardSystemSpecific[40]->cardSystem = $cardSystem40;
+
+        $this->cfPassHolderFull->schoolConsumerKey = '920f8d53-abd0-40f1-a151-960098197785';
     }
 
     /**
@@ -155,6 +159,13 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
             'R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=',
             $passHolder->getPicture()->toNative()
         );
+
+        $this->assertEquals(
+            new School(
+                new StringLiteral('920f8d53-abd0-40f1-a151-960098197785')
+            ),
+            $passHolder->getSchool()
+        );
     }
 
     /**
@@ -183,6 +194,7 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($passHolder->getPicture());
         $this->assertNull($passHolder->getContactInformation());
         $this->assertNull($passHolder->getKansenStatuten());
+        $this->assertNull($passHolder->getSchool());
     }
 
     /**
