@@ -185,26 +185,18 @@
         ]
       }
     },
-    "/schools/{counterConsumerKey}": {
+    "/schools": {
       "get": {
-        "summary": "Get a list of counters of type school.",
+        "summary": "Get a list of schools related to the active counter.",
         "description": "Authentication is required.",
         "operationId": "listSchools",
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "name": "counterConsumerKey",
-            "in": "path",
-            "description": "The consumer key of the counter to get the schools for.",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "Returns a list of schools that are related to the given counter.",
+            "description": "A list of schools related to the active counter.",
             "schema": {
               "type": "array",
               "items": {
@@ -1981,7 +1973,7 @@
     },
     {
       "name": "School",
-      "description": "Operations related to memberships."
+      "description": "Operations related to schools."
     }
   ],
   "definitions": {
