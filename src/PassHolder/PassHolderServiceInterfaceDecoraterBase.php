@@ -8,7 +8,6 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\QueryBuilderInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
-use ValueObjects\Identity\UUID;
 
 abstract class PassHolderServiceInterfaceDecoraterBase implements PassHolderServiceInterface
 {
