@@ -5,9 +5,11 @@
 
 namespace CultuurNet\UiTPASBeheer\School;
 
+use ValueObjects\StringLiteral\StringLiteral;
+
 interface SchoolServiceInterface
 {
-    public function getSchool($uuid);
+    public function get(StringLiteral $uuid);
 
     public function getSchools();
 }

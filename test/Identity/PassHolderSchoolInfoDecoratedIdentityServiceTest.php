@@ -9,10 +9,12 @@ use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\PassHolder\PassHolderDataTrait;
 use CultuurNet\UiTPASBeheer\School\School;
+use CultuurNet\UiTPASBeheer\School\SchoolServiceInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
+use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit_Framework_TestCase;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -21,7 +23,7 @@ class PassHolderSchoolInfoDecoratedIdentityServiceTest extends PHPUnit_Framework
     use PassHolderDataTrait;
 
     /**
-     * @var IdentityServiceInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var IdentityServiceInterface|PHPUnit_Framework_MockObject_MockObject
      */
     private $decoratee;
 
@@ -31,14 +33,22 @@ class PassHolderSchoolInfoDecoratedIdentityServiceTest extends PHPUnit_Framework
     private $decorater;
 
     /**
+     * @var SchoolServiceInterface|PHPUnit_Framework_MockObject_MockObject
+     */
+    private $schools;
+
+    /**
      * @inheritdoc
      */
     public function setUp()
     {
         $this->decoratee = $this->getMock(IdentityServiceInterface::class);
 
+        $this->schools = $this->getMock(SchoolServiceInterface::class);
+
         $this->decorater = new PassHolderSchoolInfoDecoratedIdentityService(
-            $this->decoratee
+            $this->decoratee,
+            $this->schools
         );
     }
 
@@ -64,6 +74,8 @@ class PassHolderSchoolInfoDecoratedIdentityServiceTest extends PHPUnit_Framework
     public function adds_the_school_name_to_the_passholder_school()
     {
         $identifier = '0930000343119';
+
+        $schoolId = new StringLiteral('920f8d53-abd0-40f1-a151-960098197785');
 
         $identity = new Identity(
             new UiTPAS(
@@ -92,9 +104,14 @@ class PassHolderSchoolInfoDecoratedIdentityServiceTest extends PHPUnit_Framework
             );
 
         $schoolEnhancedWithName = new School(
-            new StringLiteral('920f8d53-abd0-40f1-a151-960098197785'),
+            $schoolId,
             new StringLiteral('University of Life')
         );
+
+        $this->schools->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo($schoolId))
+            ->willReturn($schoolEnhancedWithName);
 
         $passHolderWithSchoolName = $passHolderWithoutSchoolName->withSchool(
             $schoolEnhancedWithName

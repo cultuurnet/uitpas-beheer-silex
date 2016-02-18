@@ -13,6 +13,7 @@ use CultureFeed_Uitpas_Counter_Query_SearchCounterOptions;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Counter\CounterServiceInterface;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class SchoolService extends CounterAwareUitpasService implements SchoolServiceInterface
 {
@@ -31,7 +32,7 @@ class SchoolService extends CounterAwareUitpasService implements SchoolServiceIn
         $this->counters = $counters;
     }
 
-    public function getSchool($uuid)
+    public function get(StringLiteral $uuid)
     {
 
     }
