@@ -36,6 +36,19 @@ class PassHolderServiceProvider implements ServiceProviderInterface
             }
         );
 
+        $app['passholder_service'] = $app->extend(
+            'passholder_service',
+            function (
+                PassHolderServiceInterface $passHolderService,
+                Application $app
+            ) {
+                return new SchoolInfoDecoratedPassHolderService(
+                    $passHolderService,
+                    $app['school_service']
+                );
+            }
+        );
+
         $app['passholder_iterator_factory'] = $app->share(
             function (Application $app) {
                 return new PassHolderIteratorFactory(
