@@ -8,6 +8,7 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\QueryBuilderInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use ValueObjects\Identity\UUID;
 
 abstract class PassHolderServiceInterfaceDecoraterBase implements PassHolderServiceInterface
 {
@@ -44,7 +45,7 @@ abstract class PassHolderServiceInterfaceDecoraterBase implements PassHolderServ
         UiTPASNumber $uitpasNumber,
         CardSystemUpgrade $cardSystemUpgrade
     ) {
-        return $this->decoratee->upgradeCardSystems(
+        $this->decoratee->upgradeCardSystems(
             $uitpasNumber,
             $cardSystemUpgrade
         );
@@ -56,7 +57,7 @@ abstract class PassHolderServiceInterfaceDecoraterBase implements PassHolderServ
         VoucherNumber $voucherNumber = null,
         KansenStatuut $kansenStatuut = null
     ) {
-        return $this->register(
+        return $this->decoratee->register(
             $uitpasNumber,
             $passHolder,
             $voucherNumber,
