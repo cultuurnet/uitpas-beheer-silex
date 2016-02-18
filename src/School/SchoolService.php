@@ -22,6 +22,12 @@ class SchoolService extends CounterAwareUitpasService implements SchoolServiceIn
      */
     protected $counters;
 
+    /**
+     * SchoolService constructor.
+     * @param CultureFeed_Uitpas $uitpasService
+     * @param CounterConsumerKey $counterConsumerKey
+     * @param CounterServiceInterface $counters
+     */
     public function __construct(
         CultureFeed_Uitpas $uitpasService,
         CounterConsumerKey $counterConsumerKey,
@@ -32,9 +38,28 @@ class SchoolService extends CounterAwareUitpasService implements SchoolServiceIn
         $this->counters = $counters;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function get(StringLiteral $uuid)
     {
+        $school = null;
 
+        $conditions = new CultureFeed_Uitpas_Counter_Query_SearchCounterOptions();
+        $conditions->key = $uuid->toNative();
+
+        /** @var CultureFeed_ResultSet $countersResultSet */
+        $countersResultSet = $this->getUitpasService()->searchCounters(
+            $conditions
+        );
+
+        $cfCounter = reset($countersResultSet->objects);
+
+        if ($cfCounter) {
+            $school = School::fromCultureFeedCounter($cfCounter);
+        }
+
+        return $school;
     }
 
     /**
@@ -52,7 +77,7 @@ class SchoolService extends CounterAwareUitpasService implements SchoolServiceIn
     }
 
     /**
-     * @return SchoolCollection
+     * @inheritdoc
      */
     public function getSchools()
     {
