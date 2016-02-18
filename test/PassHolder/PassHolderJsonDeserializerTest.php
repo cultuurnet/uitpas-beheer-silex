@@ -290,4 +290,24 @@ class PassHolderJsonDeserializerTest extends \PHPUnit_Framework_TestCase
 
         $deserializer->deserialize(new StringLiteral($json));
     }
+
+    /**
+     * @test
+     */
+    public function it_refuses_to_deserialize_when_school_id_is_missing()
+    {
+        $json = $this->getFullPassholderSample();
+        unset($json->school->id);
+
+        $this->setExpectedException(
+            MissingPropertyException::class,
+            'Missing property "school->id".'
+        );
+
+        $this->deserializer->deserialize(
+            new StringLiteral(
+                json_encode($json)
+            )
+        );
+    }
 }
