@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "27991309cb720cd101ea4ac3c73edd9e",
-    "content-hash": "2744ed20a75324b4ef39e62d9e980bc6",
+    "hash": "b1324aac72a407e28d4b19b329d40f27",
+    "content-hash": "138233e32f59e0cd231b9552556d93ce",
     "packages": [
         {
             "name": "2dotstwice/collection",
@@ -4383,16 +4383,16 @@
         },
         {
             "name": "escapestudios/symfony2-coding-standard",
-            "version": "dev-master",
+            "version": "2.9.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/2dotstwice/Symfony2-coding-standard.git",
-                "reference": "fa168083ada98e993e61565012c3d4ec9b9d8cf5"
+                "url": "https://github.com/escapestudios/Symfony2-coding-standard.git",
+                "reference": "c91624f1bf4a5fbf6bf7c796c541f15d3763bc94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/2dotstwice/Symfony2-coding-standard/zipball/fa168083ada98e993e61565012c3d4ec9b9d8cf5",
-                "reference": "fa168083ada98e993e61565012c3d4ec9b9d8cf5",
+                "url": "https://api.github.com/repos/escapestudios/Symfony2-coding-standard/zipball/c91624f1bf4a5fbf6bf7c796c541f15d3763bc94",
+                "reference": "c91624f1bf4a5fbf6bf7c796c541f15d3763bc94",
                 "shasum": ""
             },
             "require": {
@@ -4404,6 +4404,7 @@
                     "dev-master": "2.x-dev"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -4420,15 +4421,11 @@
             "description": "CodeSniffer ruleset for the Symfony2 coding standard",
             "homepage": "https://github.com/escapestudios/Symfony2-coding-standard",
             "keywords": [
+                "Coding Standard",
                 "Symfony2",
-                "coding standard",
                 "phpcs"
             ],
-            "support": {
-                "source": "https://github.com/escapestudios/Symfony2-coding-standard",
-                "issues": "https://github.com/escapestudios/Symfony2-coding-standard/issues"
-            },
-            "time": "2015-07-22 15:24:34"
+            "time": "2016-01-22 12:43:53"
         },
         {
             "name": "mikey179/vfsStream",
@@ -5610,20 +5607,13 @@
             "alias_normalized": "1.5.2.0",
             "version": "dev-feature/UBR",
             "package": "cultuurnet/culturefeed-php"
-        },
-        {
-            "alias": "2.0",
-            "alias_normalized": "2.0.0.0",
-            "version": "9999999-dev",
-            "package": "escapestudios/symfony2-coding-standard"
         }
     ],
     "minimum-stability": "dev",
     "stability-flags": {
         "cultuurnet/silex-uitid-provider": 20,
         "cultuurnet/culturefeed-php": 20,
-        "cultuurnet/deserializer": 20,
-        "escapestudios/symfony2-coding-standard": 20
+        "cultuurnet/deserializer": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
