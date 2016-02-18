@@ -31,8 +31,20 @@ class SchoolInfoDecoratedPassHolderService extends PassHolderServiceInterfaceDec
 
     public function getByUitpasNumber(UiTPASNumber $uitpasNumber)
     {
-        return parent::getByUitpasNumber(
+        $passHolder = parent::getByUitpasNumber(
             $uitpasNumber
         );
+
+        if ($passHolder) {
+            $school = $passHolder->getSchool();
+            if ($school) {
+                $enhancedSchool = $this->schools
+                    ->get($school->getId());
+
+                $passHolder = $passHolder->withSchool($enhancedSchool);
+            }
+        }
+
+        return $passHolder;
     }
 }
