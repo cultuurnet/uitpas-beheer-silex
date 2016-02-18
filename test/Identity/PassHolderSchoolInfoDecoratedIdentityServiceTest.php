@@ -30,7 +30,7 @@ class PassHolderSchoolInfoDecoratedIdentityServiceTest extends PHPUnit_Framework
     /**
      * @var PassHolderSchoolInfoDecoratedIdentityService
      */
-    private $decorater;
+    private $decorator;
 
     /**
      * @var SchoolServiceInterface|PHPUnit_Framework_MockObject_MockObject
@@ -46,7 +46,7 @@ class PassHolderSchoolInfoDecoratedIdentityServiceTest extends PHPUnit_Framework
 
         $this->schools = $this->getMock(SchoolServiceInterface::class);
 
-        $this->decorater = new PassHolderSchoolInfoDecoratedIdentityService(
+        $this->decorator = new PassHolderSchoolInfoDecoratedIdentityService(
             $this->decoratee,
             $this->schools
         );
@@ -63,7 +63,7 @@ class PassHolderSchoolInfoDecoratedIdentityServiceTest extends PHPUnit_Framework
             ->with($identifier)
             ->willReturn(null);
 
-        $result = $this->decorater->get($identifier);
+        $result = $this->decorator->get($identifier);
 
         $this->assertNull($result);
     }
@@ -121,7 +121,7 @@ class PassHolderSchoolInfoDecoratedIdentityServiceTest extends PHPUnit_Framework
             $passHolderWithSchoolName
         );
 
-        $actualIdentity = $this->decorater->get($identifier);
+        $actualIdentity = $this->decorator->get($identifier);
 
         $this->assertEquals($expectedIdentity, $actualIdentity);
     }

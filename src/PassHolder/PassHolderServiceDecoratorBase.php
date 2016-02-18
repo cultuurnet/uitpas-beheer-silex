@@ -9,7 +9,7 @@ use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\QueryBuilderInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 
-abstract class PassHolderServiceInterfaceDecoraterBase implements PassHolderServiceInterface
+abstract class PassHolderServiceDecoratorBase implements PassHolderServiceInterface
 {
     /**
      * @var PassHolderServiceInterface

@@ -21,12 +21,12 @@ use ValueObjects\Identity\UUID;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class PassHolderServiceInterfaceDecoraterBaseTest extends PHPUnit_Framework_TestCase
+class PassHolderServiceDecoratorBaseTest extends PHPUnit_Framework_TestCase
 {
     use PassHolderDataTrait;
 
     /**
-     * @var PassHolderServiceInterfaceDecoraterBase
+     * @var PassHolderServiceDecoratorBase
      */
     private $decorator;
 
@@ -48,7 +48,7 @@ class PassHolderServiceInterfaceDecoraterBaseTest extends PHPUnit_Framework_Test
         $this->decoratee = $this->getMock(PassHOlderServiceInterface::class);
 
         $this->decorator = $this->getMockForAbstractClass(
-            PassHolderServiceInterfaceDecoraterBase::class,
+            PassHolderServiceDecoratorBase::class,
             [$this->decoratee]
         );
 

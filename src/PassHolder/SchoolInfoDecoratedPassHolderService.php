@@ -8,7 +8,7 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 use CultuurNet\UiTPASBeheer\School\SchoolServiceInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 
-class SchoolInfoDecoratedPassHolderService extends PassHolderServiceInterfaceDecoraterBase
+class SchoolInfoDecoratedPassHolderService extends PassHolderServiceDecoratorBase
 {
     /**
      * @var SchoolServiceInterface
