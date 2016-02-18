@@ -120,4 +120,39 @@ class SchoolServiceTest extends PHPUnit_Framework_TestCase
             $schools
         );
     }
+
+    /**
+     * @test
+     */
+    public function retrieves_a_single_school_by_its_id()
+    {
+        $schoolId = new StringLiteral('school-unique-id');
+        $schoolName = new StringLiteral('University of Life');
+
+        $expectedCounterSearchConditions = new CultureFeed_Uitpas_Counter_Query_SearchCounterOptions();
+        $expectedCounterSearchConditions->key = $schoolId->toNative();
+
+        $cfSchoolCounter = new CultureFeed_Uitpas_Counter();
+        $cfSchoolCounter->id = $schoolId->toNative();
+        $cfSchoolCounter->name = $schoolName->toNative();
+
+        $this->uitpasService->expects($this->once())
+            ->method('searchCounters')
+            ->with($expectedCounterSearchConditions)
+            ->willReturn(
+                new CultureFeed_ResultSet(1, [$cfSchoolCounter])
+            );
+
+        $expectedSchool = new School(
+            $schoolId,
+            $schoolName
+        );
+
+        $school = $this->schoolService->get($schoolId);
+
+        $this->assertEquals(
+            $expectedSchool,
+            $school
+        );
+    }
 }
