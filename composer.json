@@ -5,10 +5,6 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/2dotstwice/symfony2-coding-standard"
-    },
-    {
-      "type": "vcs",
       "url": "https://github.com/2dotstwice/silex-cors-provider"
     }
   ],
@@ -48,7 +44,7 @@
     "2dotstwice/collection": "~1.0"
   },
   "require-dev": {
-    "escapestudios/symfony2-coding-standard": "dev-master as 2.0",
+    "escapestudios/symfony2-coding-standard": "~2.0",
     "phpunit/phpunit": "~4.3",
     "squizlabs/php_codesniffer": "~2.2",
     "phing/phing": "~2.10",
