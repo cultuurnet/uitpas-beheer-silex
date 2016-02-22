@@ -96,5 +96,8 @@
       "id":"40",
       "name":"UiTPAS Regio Leuven"
     }
-  ]
+  ],
+  "school": {
+    "id": "920f8d53-abd0-40f1-a151-960098197785"
+  }
 }

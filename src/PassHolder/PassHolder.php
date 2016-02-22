@@ -14,6 +14,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
+use CultuurNet\UiTPASBeheer\School\School;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASCollection;
 use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use ValueObjects\Number\Integer;
@@ -95,6 +96,11 @@ final class PassHolder implements \JsonSerializable
      * @var CardSystemCollection|null
      */
     protected $cardSystems;
+
+    /**
+     * @var School|null
+     */
+    protected $school;
 
     /**
      * @param Name $name
@@ -419,6 +425,10 @@ final class PassHolder implements \JsonSerializable
             $data['remarks'] = $this->remarks->toNative();
         }
 
+        if (!is_null($this->school)) {
+            $data['school'] = $this->school;
+        }
+
         return $data;
     }
 
@@ -512,6 +522,13 @@ final class PassHolder implements \JsonSerializable
             PrivacyPreferences::fromCultureFeedPassHolder($cfPassHolder)
         );
 
+        if (!empty($cfPassHolder->schoolConsumerKey)) {
+            $school = new School(
+                new StringLiteral($cfPassHolder->schoolConsumerKey)
+            );
+            $passHolder = $passHolder->withSchool($school);
+        }
+
         return $passHolder;
     }
 
@@ -522,5 +539,22 @@ final class PassHolder implements \JsonSerializable
     public function withCardSystems(CardSystemCollection $cardSystems)
     {
         return $this->with('cardSystems', $cardSystems);
+    }
+
+    /**
+     * @param School $school
+     * @return PassHolder
+     */
+    public function withSchool(School $school)
+    {
+        return $this->with('school', $school);
+    }
+
+    /**
+     * @return School|null
+     */
+    public function getSchool()
+    {
+        return $this->school;
     }
 }

@@ -9,6 +9,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformationJsonDeserializ
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\NameJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferencesJsonDeserializer;
+use CultuurNet\UiTPASBeheer\School\SchoolJsonDeserializer;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class PassHolderJsonDeserializerTest extends \PHPUnit_Framework_TestCase
@@ -27,7 +28,8 @@ class PassHolderJsonDeserializerTest extends \PHPUnit_Framework_TestCase
             new AddressJsonDeserializer(),
             new BirthInformationJsonDeserializer(),
             new ContactInformationJsonDeserializer(),
-            new PrivacyPreferencesJsonDeserializer()
+            new PrivacyPreferencesJsonDeserializer(),
+            new SchoolJsonDeserializer()
         );
     }
 
@@ -267,7 +269,8 @@ class PassHolderJsonDeserializerTest extends \PHPUnit_Framework_TestCase
             new AddressJsonDeserializer(),
             new BirthInformationJsonDeserializer(),
             $contactInformationJsonDeserializer,
-            new PrivacyPreferencesJsonDeserializer()
+            new PrivacyPreferencesJsonDeserializer(),
+            new SchoolJsonDeserializer()
         );
 
         $contactInformationJsonDeserializer->expects($this->once())
@@ -286,5 +289,25 @@ class PassHolderJsonDeserializerTest extends \PHPUnit_Framework_TestCase
         );
 
         $deserializer->deserialize(new StringLiteral($json));
+    }
+
+    /**
+     * @test
+     */
+    public function it_refuses_to_deserialize_when_school_id_is_missing()
+    {
+        $json = $this->getFullPassholderSample();
+        unset($json->school->id);
+
+        $this->setExpectedException(
+            MissingPropertyException::class,
+            'Missing property "school->id".'
+        );
+
+        $this->deserializer->deserialize(
+            new StringLiteral(
+                json_encode($json)
+            )
+        );
     }
 }
