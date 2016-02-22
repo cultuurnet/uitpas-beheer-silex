@@ -119,12 +119,9 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
     public function updatePassHolderData()
     {
-        // Genders are a special case. Normally the gender is indicated by
-        // 'FEMALE' and 'MALE', when updating a passholder though the values
-        // 'F' and 'M' are expected to be used.
         return [
-            [Gender::FEMALE(), 'F'],
-            [Gender::MALE(), 'M'],
+            [Gender::FEMALE(), 'FEMALE'],
+            [Gender::MALE(), 'MALE'],
         ];
     }
 
@@ -321,7 +318,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->street = 'Rue Perdue 101 /0003';
         $cfPassholder->placeOfBirth = 'Casablanca';
         $cfPassholder->secondName = 'Zoni';
-        $cfPassholder->gender = 'F';
+        $cfPassholder->gender = 'FEMALE';
         $cfPassholder->inszNumber = '93051822361';
         $cfPassholder->nationality = 'Maroc';
         $cfPassholder->email = 'zyrani_.hotmail.com@mailinator.com';
@@ -436,7 +433,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->street = 'Rue Perdue 101 /0003';
         $cfPassholder->placeOfBirth = 'Casablanca';
         $cfPassholder->secondName = 'Zoni';
-        $cfPassholder->gender = 'F';
+        $cfPassholder->gender = 'FEMALE';
         $cfPassholder->inszNumber = '93051822361';
         $cfPassholder->nationality = 'Maroc';
         $cfPassholder->email = 'zyrani_.hotmail.com@mailinator.com';
@@ -488,7 +485,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->street = 'Rue Perdue 101 /0003';
         $cfPassholder->placeOfBirth = 'Casablanca';
         $cfPassholder->secondName = 'Zoni';
-        $cfPassholder->gender = 'F';
+        $cfPassholder->gender = 'FEMALE';
         $cfPassholder->inszNumber = '93051822361';
         $cfPassholder->nationality = 'Maroc';
         $cfPassholder->email = 'zyrani_.hotmail.com@mailinator.com';
