@@ -9,8 +9,7 @@ install:
 script:
 - ./vendor/bin/phing test
 after_success:
-- echo "$TRAVIS_PHP_VERSION"
-- if [ "$TRAVIS_PHP_VERSION" !== "7.0" ]; then ./vendor/bin/coveralls -vvv; fi
+- if [ "$TRAVIS_PHP_VERSION" != "7.0" ]; then ./vendor/bin/coveralls -vvv; fi
 notifications:
   email:
     recipients:
