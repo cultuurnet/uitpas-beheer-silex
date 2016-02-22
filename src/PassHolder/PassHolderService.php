@@ -293,9 +293,7 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
             ->getTimestamp();
 
         if ($passHolder->getGender()) {
-            $cfPassHolder->gender = $this->getCfPassholderGenderForUpdate(
-                $passHolder->getGender()
-            );
+            $cfPassHolder->gender = $passHolder->getGender()->toNative();
         }
 
         $address = $passHolder->getAddress();
@@ -365,24 +363,5 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         $cfPassHolder->toPostDataKeepEmptySchoolConsumerKey();
 
         return $cfPassHolder;
-    }
-
-    /**
-     * Get the right gender string value for updating a pass holder.
-     *
-     * Normally the gender is indicated by 'FEMALE' and 'MALE', when updating the
-     * passholder though the values 'F' and 'M' need to be used.
-     *
-     * @param Gender $gender
-     *
-     * @return string
-     */
-    private function getCfPassholderGenderForUpdate(Gender $gender)
-    {
-        if ($gender->is(Gender::FEMALE())) {
-            return 'F';
-        }
-
-        return 'M';
     }
 }
