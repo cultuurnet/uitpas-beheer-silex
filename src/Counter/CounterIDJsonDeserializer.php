@@ -23,10 +23,10 @@ class CounterIDJsonDeserializer extends JSONDeserializer
             throw new MissingPropertyException('id');
         }
 
-        if (!is_string($data->id) || !is_numeric($data->id)) {
+        if (!is_string($data->id) && !is_numeric($data->id)) {
             throw new IncorrectParameterValueException('id');
         }
 
-        return (string) $data['id'];
+        return (string) $data->id;
     }
 }
