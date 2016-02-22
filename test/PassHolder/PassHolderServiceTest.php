@@ -2,12 +2,13 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultureFeed_Uitpas_Passholder_Query_SearchPassholdersOptions;
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Identity\Identity;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedResultSet;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\Query;
@@ -18,7 +19,6 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
 use ValueObjects\DateTime\Date;
 use ValueObjects\Identity\UUID;
-use CultureFeed_Uitpas_Passholder_Query_SearchPassholdersOptions;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -27,7 +27,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
     use PassHolderDataTrait;
 
     /**
-     * @var string
+     * @var CounterConsumerKey
      */
     protected $counterConsumerKey;
 
@@ -164,10 +164,34 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassHolder->smsPreference = 'NOTIFICATION_SMS';
         $cfPassHolder->emailPreference = 'ALL_MAILS';
         $cfPassHolder->moreInfo = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.';
+        $cfPassHolder->schoolConsumerKey = '920f8d53-abd0-40f1-a151-960098197785';
 
         $this->uitpas->expects($this->once())
             ->method('updatePassholder')
             ->with($cfPassHolder, $this->counterConsumerKey);
+
+        $passHolderUid = '86979a22-3e33-413d-a115-c5b05414e7c5';
+
+        $cfPassHolderRequestedToGetUid = clone $cfPassHolder;
+        $cfPassHolderRequestedToGetUid->uitIdUser = new \CultureFeed_Uitpas_Passholder_UitIdUser();
+        $cfPassHolderRequestedToGetUid->uitIdUser->id = $passHolderUid;
+        $cfPassHolderRequestedToGetUid->gender = $gender->toNative();
+
+        $this->uitpas->expects($this->once())
+            ->method('getPassholderByUitpasNumber')
+            ->with(
+                $uitpasNumberValue,
+                $this->counterConsumerKey->toNative()
+            )
+            ->willReturn($cfPassHolderRequestedToGetUid);
+
+        $this->uitpas->expects($this->once())
+            ->method('uploadPicture')
+            ->with(
+                $passHolderUid,
+                file_get_contents(__DIR__ . '/data/picture.gif'),
+                $this->counterConsumerKey->toNative()
+            );
 
         $this->service->update($uitpasNumber, $passHolder);
     }
@@ -183,8 +207,98 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->toPostDataKeepEmptyMoreInfo();
         $cfPassholder->toPostDataKeepEmptyTelephone();
         $cfPassholder->toPostDataKeepEmptyGSM();
+        $cfPassholder->toPostDataKeepEmptySchoolConsumerKey();
 
         return $cfPassholder;
+    }
+
+    /**
+     * @test
+     */
+    public function it_upgrades_a_passholder_to_a_new_cardsystem_without_a_new_uitpas()
+    {
+        $activeUiTPASNumber = new UiTPASNumber('0930000420206');
+        $newCardSystemId = new CardSystemId('1');
+
+        $passHolderId = 1;
+
+        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassHolder->uitIdUser = new \CultureFeed_Uitpas_Passholder_UitIdUser();
+        $cfPassHolder->uitIdUser->id = $passHolderId;
+        $cfPassHolder->city = 'Leuven';
+        $cfPassHolder->postalCode = '3000';
+
+        $expectedOptions = new \CultureFeed_Uitpas_Passholder_Query_RegisterInCardSystemOptions();
+        $expectedOptions->balieConsumerKey = $this->counterConsumerKey->toNative();
+        $expectedOptions->cardSystemId = $newCardSystemId->toNative();
+
+        $this->uitpas->expects($this->once())
+            ->method('getPassholderByUitpasNumber')
+            ->with(
+                $activeUiTPASNumber->toNative(),
+                $this->counterConsumerKey
+            )
+            ->willReturn($cfPassHolder);
+
+        $this->uitpas->expects($this->once())
+            ->method('registerPassholderInCardSystem')
+            ->with(
+                $passHolderId,
+                $expectedOptions
+            );
+
+        $this->service->upgradeCardSystems(
+            $activeUiTPASNumber,
+            CardSystemUpgrade::withoutNewUiTPAS($newCardSystemId)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_upgrades_a_passholder_to_a_new_cardsystem_with_a_new_uitpas()
+    {
+        $activeUiTPASNumber = new UiTPASNumber('0930000420206');
+        $newUiTPASNumber = new UiTPASNumber('0930000415800');
+
+        $passHolderId = 1;
+
+        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassHolder->uitIdUser = new \CultureFeed_Uitpas_Passholder_UitIdUser();
+        $cfPassHolder->uitIdUser->id = $passHolderId;
+        $cfPassHolder->city = 'Leuven';
+        $cfPassHolder->postalCode = '3000';
+
+        $expectedOptions = new \CultureFeed_Uitpas_Passholder_Query_RegisterInCardSystemOptions();
+        $expectedOptions->balieConsumerKey = $this->counterConsumerKey->toNative();
+        $expectedOptions->uitpasNumber = $newUiTPASNumber->toNative();
+        $expectedOptions->kansenStatuut = true;
+        $expectedOptions->kansenStatuutEndDate = '11855890800';
+
+        $this->uitpas->expects($this->once())
+            ->method('getPassholderByUitpasNumber')
+            ->with(
+                $activeUiTPASNumber->toNative(),
+                $this->counterConsumerKey
+            )
+            ->willReturn($cfPassHolder);
+
+        $this->uitpas->expects($this->once())
+            ->method('registerPassholderInCardSystem')
+            ->with(
+                $passHolderId,
+                $expectedOptions
+            );
+
+        $kansenStatuutEndDate = Date::fromNativeDateTime(
+            new \DateTime('2345-09-13')
+        );
+        $kansenStatuut = new KansenStatuut($kansenStatuutEndDate);
+
+        $this->service->upgradeCardSystems(
+            $activeUiTPASNumber,
+            CardSystemUpgrade::withNewUiTPAS($newUiTPASNumber, $kansenStatuut)
+        );
     }
 
     /**
@@ -216,23 +330,38 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->smsPreference = 'NOTIFICATION_SMS';
         $cfPassholder->emailPreference = 'ALL_MAILS';
         $cfPassholder->moreInfo = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.';
+        $cfPassholder->schoolConsumerKey = '920f8d53-abd0-40f1-a151-960098197785';
 
         $this->uitpas->expects($this->once())
             ->method('getPassholderByUitpasNumber')
-            ->with($uitpasNumberValue)
+            ->with(
+                $uitpasNumberValue,
+                $this->counterConsumerKey
+            )
             ->willThrowException(new \CultureFeed_Exception('Not found.', 404));
+        $expectedUUID = new UUID('de305d54-75b4-431b-adb2-eb6b9e546014');
 
         $this->uitpas->expects($this->once())
             ->method('createPassholder')
-            ->with($cfPassholder)
-            ->willReturn('de305d54-75b4-431b-adb2-eb6b9e546014');
+            ->with(
+                $cfPassholder,
+                $this->counterConsumerKey->toNative()
+            )
+            ->willReturn($expectedUUID->toNative());
+
+        $binaryPicture = file_get_contents(__DIR__ . '/data/picture.gif');
+        $this->uitpas->expects($this->once())
+            ->method('uploadPicture')
+            ->with(
+                $expectedUUID->toNative(),
+                $binaryPicture,
+                $this->counterConsumerKey->toNative()
+            );
 
         $newPassholderUUID = $this->service->register(
             $uitpasNumber,
             $passholder
         );
-
-        $expectedUUID = new UUID('de305d54-75b4-431b-adb2-eb6b9e546014');
 
         $this->assertEquals($expectedUUID, $newPassholderUUID);
     }
@@ -265,6 +394,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->gsm = '0499748596';
         $cfPassholder->smsPreference = 'NOTIFICATION_SMS';
         $cfPassholder->emailPreference = 'ALL_MAILS';
+        $cfPassholder->schoolConsumerKey = '920f8d53-abd0-40f1-a151-960098197785';
 
         $this->uitpas->expects($this->once())
             ->method('getPassholderByUitpasNumber')
@@ -318,6 +448,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->kansenStatuutEndDate = '11855890800';
         $cfPassholder->voucherNumber = 'i-am-a-voucher';
         $cfPassholder->moreInfo = 'This is a kansenstatuut remark, please don\'t read me';
+        $cfPassholder->schoolConsumerKey = '920f8d53-abd0-40f1-a151-960098197785';
 
         $this->uitpas->expects($this->once())
             ->method('getPassholderByUitpasNumber')

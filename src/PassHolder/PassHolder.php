@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystemCollection;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutCollection;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformation;
@@ -13,6 +14,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
+use CultuurNet\UiTPASBeheer\School\School;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASCollection;
 use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use ValueObjects\Number\Integer;
@@ -89,6 +91,16 @@ final class PassHolder implements \JsonSerializable
      * @var UiTPASCollection|null
      */
     protected $uitpasCollection;
+
+    /**
+     * @var CardSystemCollection|null
+     */
+    protected $cardSystems;
+
+    /**
+     * @var School|null
+     */
+    protected $school;
 
     /**
      * @param Name $name
@@ -298,6 +310,14 @@ final class PassHolder implements \JsonSerializable
     }
 
     /**
+     * @return CardSystemCollection
+     */
+    public function getCardSystems()
+    {
+        return $this->cardSystems;
+    }
+
+    /**
      * @param UiTPASCollection $uitpasCollection
      * @return PassHolder
      */
@@ -397,8 +417,16 @@ final class PassHolder implements \JsonSerializable
             $data['uitpassen'] = array_values($this->uitpasCollection->jsonSerialize());
         }
 
+        if (!is_null($this->cardSystems)) {
+            $data['cardSystems'] = $this->cardSystems;
+        }
+
         if (!is_null($this->remarks)) {
             $data['remarks'] = $this->remarks->toNative();
+        }
+
+        if (!is_null($this->school)) {
+            $data['school'] = $this->school;
         }
 
         return $data;
@@ -478,6 +506,12 @@ final class PassHolder implements \JsonSerializable
             if ($uitpasCollection->length() > 0) {
                 $passHolder = $passHolder->withUiTPASCollection($uitpasCollection);
             }
+
+            $passHolder = $passHolder->withCardSystems(
+                CardSystemCollection::fromCultureFeedPassHolderCardSystemSpecific(
+                    $cfPassHolder->cardSystemSpecific
+                )
+            );
         }
 
         if (!empty($cfPassHolder->moreInfo)) {
@@ -488,6 +522,39 @@ final class PassHolder implements \JsonSerializable
             PrivacyPreferences::fromCultureFeedPassHolder($cfPassHolder)
         );
 
+        if (!empty($cfPassHolder->schoolConsumerKey)) {
+            $school = new School(
+                new StringLiteral($cfPassHolder->schoolConsumerKey)
+            );
+            $passHolder = $passHolder->withSchool($school);
+        }
+
         return $passHolder;
+    }
+
+    /**
+     * @param CardSystemCollection $cardSystems
+     * @return PassHolder
+     */
+    public function withCardSystems(CardSystemCollection $cardSystems)
+    {
+        return $this->with('cardSystems', $cardSystems);
+    }
+
+    /**
+     * @param School $school
+     * @return PassHolder
+     */
+    public function withSchool(School $school)
+    {
+        return $this->with('school', $school);
+    }
+
+    /**
+     * @return School|null
+     */
+    public function getSchool()
+    {
+        return $this->school;
     }
 }

@@ -2,8 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystemCollection;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
-use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutCollection;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Address;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformation;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformation;
@@ -12,6 +12,8 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
+use CultuurNet\UiTPASBeheer\School\School;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class PassHolderTest extends \PHPUnit_Framework_TestCase
 {
@@ -101,6 +103,17 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $this->cfPassHolderFull->cardSystemSpecific[30]->currentCard->kansenpas = true;
         $this->cfPassHolderFull->cardSystemSpecific[30]->currentCard->cardSystem = $cardSystem30;
         $this->cfPassHolderFull->cardSystemSpecific[30]->cardSystem = $cardSystem30;
+
+        $cardSystem40 = new \CultureFeed_Uitpas_CardSystem(
+            40,
+            'UiTPAS Regio Leuven'
+        );
+
+        $this->cfPassHolderFull->cardSystemSpecific[40] = new \CultureFeed_Uitpas_Passholder_CardSystemSpecific();
+        $this->cfPassHolderFull->cardSystemSpecific[40]->kansenStatuut = false;
+        $this->cfPassHolderFull->cardSystemSpecific[40]->cardSystem = $cardSystem40;
+
+        $this->cfPassHolderFull->schoolConsumerKey = '920f8d53-abd0-40f1-a151-960098197785';
     }
 
     /**
@@ -119,12 +132,14 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $expectedBirthInformation = BirthInformation::fromCultureFeedPassHolder($this->cfPassHolderFull);
         $expectedContactInformation = ContactInformation::fromCultureFeedPassHolder($this->cfPassHolderFull);
         $expectedPrivacyPreferences = PrivacyPreferences::fromCultureFeedPassHolder($this->cfPassHolderFull);
+        $expectedCardSystems = CardSystemCollection::fromCultureFeedPassHolderCardSystemSpecific($this->cfPassHolderFull->cardSystemSpecific);
 
         $this->assertTrue($passHolder->getName()->sameValueAs($expectedName));
         $this->assertTrue($passHolder->getAddress()->sameValueAs($expectedAddress));
         $this->assertTrue($passHolder->getBirthInformation()->sameValueAs($expectedBirthInformation));
         $this->assertTrue($passHolder->getContactInformation()->sameValueAs($expectedContactInformation));
         $this->assertTrue($passHolder->getPrivacyPreferences()->sameValueAs($expectedPrivacyPreferences));
+        $this->assertEquals($expectedCardSystems, $passHolder->getCardSystems());
 
         $this->assertEquals(2, $passHolder->getKansenStatuten()->length());
         $this->assertEquals(
@@ -143,6 +158,13 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             'R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=',
             $passHolder->getPicture()->toNative()
+        );
+
+        $this->assertEquals(
+            new School(
+                new StringLiteral('920f8d53-abd0-40f1-a151-960098197785')
+            ),
+            $passHolder->getSchool()
         );
     }
 
@@ -172,6 +194,7 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($passHolder->getPicture());
         $this->assertNull($passHolder->getContactInformation());
         $this->assertNull($passHolder->getKansenStatuten());
+        $this->assertNull($passHolder->getSchool());
     }
 
     /**

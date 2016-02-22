@@ -130,4 +130,11 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\Help\HelpControllerProvider());
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\Feedback\FeedbackControllerProvider());
 
+/**
+ * API callbacks for Card Systems.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\CardSystem\CardSystemControllerProvider());
+
+$app->mount('/', new \CultuurNet\UiTPASBeheer\School\SchoolControllerProvider());
+
 $app->run();

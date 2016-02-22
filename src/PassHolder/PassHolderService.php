@@ -16,6 +16,7 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberCollection;
 use ValueObjects\Identity\UUID;
 use ValueObjects\Number\Integer;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class PassHolderService extends CounterAwareUitpasService implements PassHolderServiceInterface
 {
@@ -138,7 +139,68 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
                 $cfPassHolder,
                 $this->getCounterConsumerKey()
             );
+
+        $picture = $passHolder->getPicture();
+
+        if ($picture) {
+            $passHolderId = $this->getByUitpasNumber($uitpasNumber)->getUid();
+
+            $this->uploadPicture($passHolderId, $picture);
+        }
     }
+
+    /**
+     * @param StringLiteral $passHolderUUID
+     * @param StringLiteral $picture
+     */
+    private function uploadPicture(
+        StringLiteral $passHolderUUID,
+        StringLiteral $picture
+    ) {
+        $this->getUitpasService()
+            ->uploadPicture(
+                $passHolderUUID->toNative(),
+                base64_decode($picture->toNative()),
+                $this->getCounterConsumerKey()
+            );
+    }
+
+    /**
+     * @param UiTPASNumber $uitpasNumber
+     * @param CardSystemUpgrade $cardSystemUpgrade
+     */
+    public function upgradeCardSystems(UiTPASNumber $uitpasNumber, CardSystemUpgrade $cardSystemUpgrade)
+    {
+        $registration = new \CultureFeed_Uitpas_Passholder_Query_RegisterInCardSystemOptions();
+        $registration->balieConsumerKey = $this->getCounterConsumerKey();
+
+        $cardSystemId = $cardSystemUpgrade->getCardSystemId();
+        if ($cardSystemId) {
+            $registration->cardSystemId = $cardSystemId->toNative();
+        } else {
+            $registration->uitpasNumber = $cardSystemUpgrade
+                ->getNewUiTPAS()
+                ->toNative();
+
+            $registration->kansenStatuut = false;
+            $kansenStatuut = $cardSystemUpgrade->getKansenStatuut();
+            if ($kansenStatuut) {
+                $registration->kansenStatuut = true;
+                $registration->kansenStatuutEndDate = $kansenStatuut
+                    ->getEndDate()
+                    ->toNativeDateTime()
+                    ->getTimestamp();
+            }
+        }
+
+        $passHolderId = $this->getByUitpasNumber($uitpasNumber)->getUid();
+
+        $this->getUitpasService()->registerPassholderInCardSystem(
+            $passHolderId->toNative(),
+            $registration
+        );
+    }
+
 
     /**
      * {@inheritdoc}
@@ -183,6 +245,12 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         );
 
         $UUID = UUID::fromNative($UUIDString);
+
+        $picture = $passHolder->getPicture();
+
+        if ($picture) {
+            $this->uploadPicture($UUID, $picture);
+        }
 
         return $UUID;
     }
@@ -284,11 +352,17 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
                 ->toNative();
         }
 
+        $school = $passHolder->getSchool();
+        if ($school) {
+            $cfPassHolder->schoolConsumerKey = $school->getId()->toNative();
+        }
+
         $cfPassHolder->toPostDataKeepEmptySecondName();
         $cfPassHolder->toPostDataKeepEmptyEmail();
         $cfPassHolder->toPostDataKeepEmptyMoreInfo();
         $cfPassHolder->toPostDataKeepEmptyTelephone();
         $cfPassHolder->toPostDataKeepEmptyGSM();
+        $cfPassHolder->toPostDataKeepEmptySchoolConsumerKey();
 
         return $cfPassHolder;
     }

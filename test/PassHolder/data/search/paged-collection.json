@@ -75,7 +75,28 @@
             }
           }
         ],
-        "remarks": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus."
+        "cardSystems": [
+          {
+            "id": "10",
+            "name": "UiTPAS Regio Aalst"
+          },
+          {
+            "id": "20",
+            "name": "UiTPAS Regio Kortrijk"
+          },
+          {
+            "id": "30",
+            "name": "UiTPAS Regio Brussel"
+          },
+          {
+            "id":"40",
+            "name":"UiTPAS Regio Leuven"
+          }
+        ],
+        "remarks": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.",
+        "school": {
+          "id": "920f8d53-abd0-40f1-a151-960098197785"
+        }
       }
     }
   ],

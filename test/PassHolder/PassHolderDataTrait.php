@@ -3,6 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\CardSystem\CardSystem;
+use CultuurNet\UiTPASBeheer\CardSystem\CardSystemCollection;
 use CultuurNet\UiTPASBeheer\CardSystem\Properties\CardSystemId;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutCollection;
@@ -17,6 +18,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
+use CultuurNet\UiTPASBeheer\School\School;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPAS;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASCollection;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
@@ -81,6 +83,15 @@ trait PassHolderDataTrait
             new Remarks(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.'
             )
+        )
+        ->withPicture(
+            new StringLiteral('R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=')
+        )
+        ->withSchool(
+            new School(
+                new StringLiteral('920f8d53-abd0-40f1-a151-960098197785'),
+                new StringLiteral('University of Life')
+            )
         );
     }
 
@@ -108,6 +119,11 @@ trait PassHolderDataTrait
         $cardSystem30 = new CardSystem(
             new CardSystemId('30'),
             new StringLiteral('UiTPAS Regio Brussel')
+        );
+
+        $cardSystem40 = new CardSystem(
+            new CardSystemId('40'),
+            new StringLiteral('UiTPAS Regio Leuven')
         );
 
         $kansenStatuten = (new KansenStatuutCollection())
@@ -166,6 +182,12 @@ trait PassHolderDataTrait
                 )
             );
 
+        $cardSystemCollection = (new CardSystemCollection())
+            ->with($cardSystem10)
+            ->with($cardSystem20)
+            ->with($cardSystem30)
+            ->with($cardSystem40);
+
         return (new PassHolder(
             (new Name(
                 new StringLiteral('Layla'),
@@ -214,9 +236,16 @@ trait PassHolderDataTrait
             new Integer(20)
         )->withUiTPASCollection(
             $uitpasCollection
+        )->withCardSystems(
+            $cardSystemCollection
         )->withRemarks(
             new Remarks(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.'
+            )
+        )
+        ->withSchool(
+            new School(
+                new StringLiteral('920f8d53-abd0-40f1-a151-960098197785')
             )
         );
     }

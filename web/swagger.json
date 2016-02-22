@@ -185,6 +185,34 @@
         ]
       }
     },
+    "/schools": {
+      "get": {
+        "summary": "Get a list of schools related to the active counter.",
+        "description": "Authentication is required.",
+        "operationId": "listSchools",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A list of schools related to the active counter.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/School"
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated."
+          }
+        },
+        "tags": [
+          "School"
+        ]
+      }
+    },
     "/identities/{identificationNumber}": {
       "get": {
         "summary": "Find an identity by identification number. An identity is a combination of an UiTPAS and its owner (an individual or a group).",
@@ -332,13 +360,66 @@
             "type": "string",
             "enum": [
               "FIRST_CARD",
-              "CARD_UPGRADE",
               "EXTRA_CARD",
               "LOSS_THEFT",
               "REMOVAL",
               "LOSS_KANSENSTATUUT",
               "OBTAIN_KANSENSTATUUT"
             ]
+          },
+          {
+            "name": "date_of_birth",
+            "in": "query",
+            "description": "Date of birth of the passholder.",
+            "required": false,
+            "type": "string",
+            "format": "date"
+          },
+          {
+            "name": "postal_code",
+            "in": "query",
+            "description": "Postal code of the passholder.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "voucher_number",
+            "in": "query",
+            "description": "Voucher number of the passholder.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A price object.",
+            "schema": {
+              "$ref": "#/definitions/UiTPASPrice"
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "UiTPAS"
+        ]
+      }
+    },
+    "/cardsystem/{cardSystemId}/price": {
+      "get": {
+        "summary": "Retrieve the price to register the specified uitpas.",
+        "operationId": "getUpgradePrice",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "cardSystemId",
+            "in": "path",
+            "description": "Card system id of the system to get the price for.",
+            "required": true,
+            "type": "string"
           },
           {
             "name": "date_of_birth",
@@ -1099,6 +1180,47 @@
         ]
       }
     },
+    "/passholders/{uitpasNumber}/cardsystems": {
+      "post": {
+        "summary": "Add a passholder to a card system.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "passholderUpgradeCardSystem",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "uitpasNumber",
+            "in": "path",
+            "description": "The uitpas number of the passholder.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "An object containing the card system upgrade information.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CardSystemUpgradeCommand"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The passholder was registered correctly to the card system."
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "PassHolder",
+          "UiTPAS",
+          "Kansenstatuut"
+        ]
+      }
+    },
     "/passholders.xls": {
       "get": {
         "summary": "Create a new passholders export with the given bulk selection.",
@@ -1848,6 +1970,10 @@
     {
       "name": "Membership",
       "description": "Operations related to memberships."
+    },
+    {
+      "name": "School",
+      "description": "Operations related to schools."
     }
   ],
   "definitions": {
@@ -2471,16 +2597,25 @@
           "type": "string",
           "example": "Dit maakt niet uit."
         },
+        "school": {
+          "$ref": "#/definitions/School"
+        },
         "kansenStatuten": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/KansenStatuut"
           }
         },
-        "uitPassen": {
+        "uitpassen": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/UiTPAS"
+          }
+        },
+        "cardSystems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CardSystem"
           }
         }
       },
@@ -2764,6 +2899,9 @@
         },
         "remarks": {
           "$ref": "#/definitions/PassholderRemarks"
+        },
+        "school": {
+          "$ref": "#/definitions/School"
         }
       },
       "required": [
@@ -3435,6 +3573,25 @@
         "endDate"
       ]
     },
+    "CardSystemUpgradeCommand": {
+      "type": "object",
+      "properties": {
+        "cardSystemId": {
+          "type": "string",
+          "example": "4a567b89"
+        },
+        "uitpasNumber": {
+          "type": "string",
+          "example": "0930000422202"
+        },
+        "voucherNumber": {
+          "$ref": "#/definitions/VoucherNumber"
+        },
+        "kansenStatuut": {
+          "$ref": "#/definitions/RegistrationKansenStatuut"
+        }
+      }
+    },
     "Price": {
       "type": "number",
       "format": "float",
@@ -3736,6 +3893,21 @@
       },
       "required": [
         "associationId"
+      ]
+    },
+    "School": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "De Appeltuin"
+        },
+        "id": {
+          "$ref": "#/definitions/Uid"
+        }
+      },
+      "required": [
+        "name",
+        "id"
       ]
     }
   }

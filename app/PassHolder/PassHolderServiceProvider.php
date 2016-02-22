@@ -10,6 +10,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserial
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\NameJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferencesJsonDeserializer;
+use CultuurNet\UiTPASBeheer\School\SchoolJsonDeserializer;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
@@ -31,6 +32,19 @@ class PassHolderServiceProvider implements ServiceProviderInterface
                     $app['uitpas'],
                     $app['counter_consumer_key'],
                     $app['counter']
+                );
+            }
+        );
+
+        $app['passholder_service'] = $app->extend(
+            'passholder_service',
+            function (
+                PassHolderServiceInterface $passHolderService,
+                Application $app
+            ) {
+                return new SchoolInfoDecoratedPassHolderService(
+                    $passHolderService,
+                    $app['school_service']
                 );
             }
         );
@@ -59,7 +73,8 @@ class PassHolderServiceProvider implements ServiceProviderInterface
                     new AddressJsonDeserializer(),
                     new BirthInformationJsonDeserializer(),
                     new ContactInformationJsonDeserializer(),
-                    new PrivacyPreferencesJsonDeserializer()
+                    new PrivacyPreferencesJsonDeserializer(),
+                    new SchoolJsonDeserializer()
                 );
             }
         );
