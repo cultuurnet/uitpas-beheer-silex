@@ -19,7 +19,10 @@ class CounterControllerProvider implements ControllerProviderInterface
     {
         $app['counter_controller'] = $app->share(
             function (Application $app) {
-                return new CounterController($app['counter_service']);
+                return new CounterController(
+                    $app['counter_service'],
+                    new CounterIDJsonDeserializer()
+                );
             }
         );
 

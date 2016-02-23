@@ -19,7 +19,10 @@ class CounterControllerTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->service = $this->getMock(CounterServiceInterface::class);
-        $this->controller = new CounterController($this->service);
+        $this->controller = new CounterController(
+            $this->service,
+            new CounterIDJsonDeserializer()
+        );
     }
 
     /**
@@ -77,7 +80,7 @@ class CounterControllerTest extends \PHPUnit_Framework_TestCase
     public function it_sets_the_active_counter_and_responds_the_counters_data()
     {
         $counter = new \CultureFeed_Uitpas_Counter_Employee();
-        $counter->id = 10;
+        $counter->id = '10';
 
         $this->service->expects($this->once())
             ->method('getCounter')
@@ -88,7 +91,7 @@ class CounterControllerTest extends \PHPUnit_Framework_TestCase
             ->method('setActiveCounter')
             ->with($counter);
 
-        $request = new Request([], ['id' => $counter->id]);
+        $request = new Request([], [], [], [], [], [], '{"id": "10"}');
 
         $response = $this->controller->setActiveCounter($request);
         $content = $response->getContent();
