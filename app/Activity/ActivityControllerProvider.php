@@ -50,7 +50,7 @@ class ActivityControllerProvider implements ControllerProviderInterface
 
         $controllers->get('/passholders/{uitpasNumber}/activities', 'activity_controller:search');
 
-        $controllers->get('/counter/active/activities', 'activity_controller:search');
+        $controllers->get('/counters/active/activities', 'activity_controller:search');
 
         $controllers->post('/passholders/{uitpasNumber}/activities/checkins', 'checkin_controller:checkin');
 
