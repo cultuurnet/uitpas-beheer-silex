@@ -1642,6 +1642,34 @@
         ]
       }
     },
+    "/counters/active/activities": {
+      "get": {
+        "summary": "Returns all activities for the counter.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "getCounterActivities",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of activities for the counter.",
+            "schema": {
+              "$ref": "#/definitions/PagedActivityCollection"
+            }
+          },
+          "400": {
+            "description": "UiTPAS API error."
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "Activity",
+          "Counter"
+        ]
+      }
+    },
     "/help": {
       "get": {
         "summary": "Get the help text and permissions.",
