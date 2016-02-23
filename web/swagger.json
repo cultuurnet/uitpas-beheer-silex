@@ -1654,10 +1654,7 @@
           "200": {
             "description": "Returns a list of activities for the counter.",
             "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/Activity"
-              }
+              "$ref": "#/definitions/PagedActivityCollection"
             }
           },
           "400": {
