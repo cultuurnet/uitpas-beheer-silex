@@ -65,8 +65,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
      */
     public function requestsAndCorrespondingQuery()
     {
-        // No request parameters.
-        $items[] = [
+        $items['no request parameters, only uitpas number'] = [
             '0930000467512',
             [],
             (new SimpleQuery())
@@ -74,8 +73,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 ->withUiTPASNumber(new UiTPASNumber('0930000467512')),
         ];
 
-        // All possible request parameters.
-        $items[] = [
+        $items['all possible parameters'] = [
             '0930000467512',
             [
                 'date_type' => 'today',
@@ -90,7 +88,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 ->withUiTPASNumber(new UiTPASNumber('0930000467512')),
         ];
 
-        $items[] = [
+        $items['next 12 months'] = [
             '0930000208908',
             [
                 'date_type' => 'next_12_months',
@@ -106,13 +104,26 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
 
         ];
 
+        $items['without uitpas number'] = [
+            null,
+            [
+                'date_type' => 'next_12_months',
+            ],
+            (new SimpleQuery())
+                ->withDateType(DateType::NEXT_12_MONTHS())
+                ->withPagination(
+                    new Integer(1),
+                    new Integer(5)
+                ),
+        ];
+
         return $items;
     }
 
     /**
      * @test
      *
-     * @param string $uitpasNumber
+     * @param string|null $uitpasNumber
      * @param array $request
      * @param SimpleQuery $expectedQuery
      *
