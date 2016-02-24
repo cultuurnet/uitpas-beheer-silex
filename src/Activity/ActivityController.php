@@ -49,12 +49,16 @@ class ActivityController
      * @throws UnknownParameterException
      *   When an unknown parameter was provided.
      */
-    public function search(Request $request, $uitpasNumber)
+    public function search(Request $request, $uitpasNumber = null)
     {
-        $uitpasNumber = new UiTPASNumber($uitpasNumber);
+        $searchActivities = clone $this->queryBuilder;
 
-        $searchActivities = $this->queryBuilder
-            ->withUiTPASNumber($uitpasNumber);
+        if ($uitpasNumber) {
+            $uitpasNumber = new UiTPASNumber($uitpasNumber);
+
+            $searchActivities = $this->queryBuilder
+                ->withUiTPASNumber($uitpasNumber);
+        }
 
         foreach ($request->query->all() as $parameter => $value) {
             switch ($parameter) {
@@ -100,7 +104,10 @@ class ActivityController
         // Parameters that reference placeholders in the route pattern will substitute them in the
         // path or host. Extra params are added as query string to the URL.
         $pageUrlParameters = $request->query;
-        $pageUrlParameters->set('uitpasNumber', $uitpasNumber->toNative());
+
+        if ($uitpasNumber) {
+            $pageUrlParameters->set('uitpasNumber', $uitpasNumber->toNative());
+        }
 
         $pageUrlGenerator = new PageUrlGenerator(
             $pageUrlParameters,
