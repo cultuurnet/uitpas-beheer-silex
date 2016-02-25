@@ -63,32 +63,13 @@ $app['uitid_auth_service'] = $app->share(
     )
 );
 
-$app['culturefeed_oauth_client'] = $app->share(
-    $app->extend(
-        'culturefeed_oauth_client',
-        function (CultureFeed_DefaultOAuthClient $oauthClient, \Silex\Application $app) {
-            // Replace the default, custom-made HTTP client of culturefeed
-            // with Guzzle.
-            $guzzleClient = new \Guzzle\Http\Client();
-            $httpClient = new \CultuurNet\CulturefeedHttpGuzzle\HttpClient(
-                $guzzleClient
-            );
-            $httpClient->setTimeout(10);
-
-            $oauthClient->setHttpClient($httpClient);
-
-            /** @var \Psr\Log\LoggerInterface $logger */
-            $logger = $app['third_party_api_logger_factory']('culturefeed');
-
-            $logPlugin = new \Guzzle\Plugin\Log\LogPlugin(
-                new \Guzzle\Log\PsrLogAdapter($logger),
-                \Guzzle\Log\MessageFormatter::DEBUG_FORMAT
-            );
-
-            $guzzleClient->addSubscriber($logPlugin);
-
-            return $oauthClient;
-        }
+/**
+ * Enable loggin on the guzzle client
+ */
+$app['httpclient_guzzle']->addSubscriber(
+    new \Guzzle\Plugin\Log\LogPlugin(
+        new \Guzzle\Log\PsrLogAdapter($app['third_party_api_logger_factory']('culturefeed')),
+        \Guzzle\Log\MessageFormatter::DEBUG_FORMAT
     )
 );
 

@@ -18,6 +18,8 @@ feedback:
   from: noreply@uitid.be
   to: info@uitpas.be
   subject: "UiTPAS balie beheer feedback."
+httpclient:
+  timeout: 30
 bootstrap:
   logging: false
 roles:

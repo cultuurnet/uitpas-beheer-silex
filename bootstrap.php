@@ -223,6 +223,36 @@ if (isset($app['config']['swiftmailer.options'])) {
 $app->register(new \CultuurNet\UiTPASBeheer\School\SchoolServiceProvider());
 
 /**
+ * Replace the default, custom-made HTTP client of culturefeed with Guzzle.
+ */
+$app['httpclient_guzzle'] = $app->share(
+    function () {
+        return new \Guzzle\Http\Client();
+    }
+);
+
+$app['culturefeed_oauth_client'] = $app->share(
+    $app->extend(
+        'culturefeed_oauth_client',
+        function (CultureFeed_DefaultOAuthClient $oauthClient, \Silex\Application $app) {
+            $httpClient = new \CultuurNet\CulturefeedHttpGuzzle\HttpClient(
+                $app['httpclient_guzzle']
+            );
+            if (isset($app['config']['httpclient']) && isset($app['config']['httpclient']['timeout'])) {
+                $httpClientTimeOut = $app['config']['httpclient']['timeout'];
+            } else {
+                $httpClientTimeOut = 30;
+            }
+            $httpClient->setTimeout($httpClientTimeOut);
+
+            $oauthClient->setHttpClient($httpClient);
+
+            return $oauthClient;
+        }
+    )
+);
+
+/**
  * Load additional bootstrap files.
  */
 foreach ($app['config']['bootstrap'] as $identifier => $enabled) {
