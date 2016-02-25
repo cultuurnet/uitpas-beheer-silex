@@ -66,10 +66,22 @@ $app['uitid_auth_service'] = $app->share(
 /**
  * Enable loggin on the guzzle client
  */
-$app['httpclient_guzzle']->addSubscriber(
-    new \Guzzle\Plugin\Log\LogPlugin(
-        new \Guzzle\Log\PsrLogAdapter($app['third_party_api_logger_factory']('culturefeed')),
-        \Guzzle\Log\MessageFormatter::DEBUG_FORMAT
+$app['httpclient_guzzle'] = $app->share(
+    $app->extend(
+        'httpclient_guzzle',
+        function (\Guzzle\Http\Client $service, \Silex\Application $app) {
+            /** @var \Psr\Log\LoggerInterface $logger */
+            $logger = $app['third_party_api_logger_factory']('culturefeed');
+
+            $logPlugin = new \Guzzle\Plugin\Log\LogPlugin(
+                new \Guzzle\Log\PsrLogAdapter($logger),
+                \Guzzle\Log\MessageFormatter::DEBUG_FORMAT
+            );
+
+            $service->addSubscriber($logPlugin);
+
+            return $service;
+        }
     )
 );
 
