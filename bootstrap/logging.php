@@ -7,9 +7,13 @@
 
 $app['third_party_api_log'] = $app->share(
     function () {
-        return new \Monolog\Handler\StreamHandler(
+        $handler = new \Monolog\Handler\StreamHandler(
             __DIR__ . '/../log/third_party_api.log'
         );
+
+        $handler->setLevel(\Monolog\Logger::DEBUG);
+
+        return $handler;
     }
 );
 
@@ -17,8 +21,7 @@ $app['third_party_api_logger_factory'] = $app->protect(
     function ($name) use ($app) {
         $logger = new Monolog\Logger($name);
         $logger->pushHandler(
-            $app['third_party_api_log'],
-            \Monolog\Logger::DEBUG
+            $app['third_party_api_log']
         );
 
         return $logger;
