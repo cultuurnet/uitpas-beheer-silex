@@ -67,11 +67,11 @@ $app['uitid_auth_service'] = $app->share(
 );
 
 /**
- * Enable loggin on the guzzle client
+ * Enable logging on the guzzle client of Culturefeed.
  */
-$app['httpclient_guzzle'] = $app->share(
+$app['culturefeed_http_client_guzzle'] = $app->share(
     $app->extend(
-        'httpclient_guzzle',
+        'culturefeed_http_client_guzzle',
         function (\Guzzle\Http\Client $service, \Silex\Application $app) {
             /** @var \Psr\Log\LoggerInterface $logger */
             $logger = $app['third_party_api_logger_factory']('culturefeed');
