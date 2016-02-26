@@ -7,9 +7,13 @@
 
 $app['third_party_api_log'] = $app->share(
     function () {
-        return new \Monolog\Handler\StreamHandler(
+        $handler = new \Monolog\Handler\StreamHandler(
             __DIR__ . '/../log/third_party_api.log'
         );
+
+        $handler->setLevel(\Monolog\Logger::DEBUG);
+
+        return $handler;
     }
 );
 
@@ -17,8 +21,7 @@ $app['third_party_api_logger_factory'] = $app->protect(
     function ($name) use ($app) {
         $logger = new Monolog\Logger($name);
         $logger->pushHandler(
-            $app['third_party_api_log'],
-            \Monolog\Logger::DEBUG
+            $app['third_party_api_log']
         );
 
         return $logger;
@@ -63,20 +66,13 @@ $app['uitid_auth_service'] = $app->share(
     )
 );
 
-$app['culturefeed_oauth_client'] = $app->share(
+/**
+ * Enable logging on the guzzle client of Culturefeed.
+ */
+$app['culturefeed_http_client_guzzle'] = $app->share(
     $app->extend(
-        'culturefeed_oauth_client',
-        function (CultureFeed_DefaultOAuthClient $oauthClient, \Silex\Application $app) {
-            // Replace the default, custom-made HTTP client of culturefeed
-            // with Guzzle.
-            $guzzleClient = new \Guzzle\Http\Client();
-            $httpClient = new \CultuurNet\CulturefeedHttpGuzzle\HttpClient(
-                $guzzleClient
-            );
-            $httpClient->setTimeout(10);
-
-            $oauthClient->setHttpClient($httpClient);
-
+        'culturefeed_http_client_guzzle',
+        function (\Guzzle\Http\Client $service, \Silex\Application $app) {
             /** @var \Psr\Log\LoggerInterface $logger */
             $logger = $app['third_party_api_logger_factory']('culturefeed');
 
@@ -85,9 +81,9 @@ $app['culturefeed_oauth_client'] = $app->share(
                 \Guzzle\Log\MessageFormatter::DEBUG_FORMAT
             );
 
-            $guzzleClient->addSubscriber($logPlugin);
+            $service->addSubscriber($logPlugin);
 
-            return $oauthClient;
+            return $service;
         }
     )
 );

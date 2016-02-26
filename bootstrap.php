@@ -80,6 +80,11 @@ $app->register(
 );
 
 /**
+ * Guzzle replacements for CultureFeed Services
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\CulturefeedGuzzleServiceProvider());
+
+/**
  * Url generator.
  */
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
