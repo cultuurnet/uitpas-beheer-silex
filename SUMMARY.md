@@ -21,7 +21,7 @@
    * [Definition of Done](docs/development-proces/definition_of_done.md)
    * [Unit tests](docs/unit-tests.md)
    * [Coding standards](docs/development-process/coding-standards.md)
-   * [Continuous Integration](docs/docs/continuous_integration.md)
    * Swagger documentation
+   * [Continuous Integration](docs/docs/continuous_integration.md)
    * Peer review
 
