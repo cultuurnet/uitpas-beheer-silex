@@ -1,7 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
-* Intended Audience
+* [Intended Audience](docs/intended-audience.md)
 * [Language](language.md)
 * [Architecture](docs/architecture.md)
    * [Layers](docs/layered_architecture.md)
