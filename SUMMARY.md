@@ -3,7 +3,6 @@
 * [Introduction](README.md)
 * [Architecture](docs/architecture.md)
    * [Layers](docs/layered_architecture.md)
-       * [Controllers](docs/architecture/layers/controllers.md)
        * Value objects
        * Infrastructure
        * Business
