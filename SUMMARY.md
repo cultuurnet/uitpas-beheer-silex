@@ -21,5 +21,5 @@
    * [Definition of Done](docs/development-proces/definition_of_done.md)
    * [Unit tests](docs/unit_tests.md)
    * Peer review
-   * Continuous Integration
+   * [Continuous Integration](docs/docs/continuous_integration.md)
 
