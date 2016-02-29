@@ -20,4 +20,5 @@
    * [Definition of Done](docs/development-proces/definition_of_done.md)
    * Unit tests
    * Peer review
+* Language
 
