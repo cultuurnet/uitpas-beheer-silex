@@ -22,5 +22,5 @@
    * [Unit tests](docs/unit-tests.md)
    * Peer review
    * [Continuous Integration](docs/docs/continuous_integration.md)
-   * Coding standards
+   * [Coding standards](docs/development-process/coding-standards.md)
 
