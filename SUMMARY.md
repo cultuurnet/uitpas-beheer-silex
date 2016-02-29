@@ -8,7 +8,7 @@
        * [Infrastructure](docs/docs/architecture/layers/infrastructure.md)
    * [Filesystem layout](docs/filesystem-layout.md)
        * vendor
-       * src
+       * [src](docs/filesystem-layout/src.md)
        * [test](docs/filesystem-layout/test.md)
        * app
        * bootstrap.php
