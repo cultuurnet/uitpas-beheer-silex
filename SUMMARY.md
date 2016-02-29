@@ -4,6 +4,7 @@
 * [Introduction](docs/readme.md)
 * [Layered architecture](docs/layered_architecture.md)
    * Controllers
+   * Services
 * [Filesystem layout](docs/filesystem-layout.md)
    * vendor
    * src
