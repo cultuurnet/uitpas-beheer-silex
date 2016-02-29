@@ -4,7 +4,6 @@
 * [Architecture](docs/architecture.md)
    * [Layers](docs/layered_architecture.md)
        * [Controllers](docs/architecture/layers/controllers.md)
-       * Services
        * Value objects
        * Infrastructure
        * Business
