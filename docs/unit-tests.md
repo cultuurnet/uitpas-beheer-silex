@@ -2,6 +2,12 @@
 
 Unit tests are written with the [PHPUnit](https://phpunit.de/) framework.
 
+You can run all tests with:
+
+```
+./vendor/bin/phing unit-tests
+```
+
 ## Location
 
 Tests are placed in the [test](../docs/filesystem-layout/test.md) directory, within additional subdirectories conform [PSR-4](http://www.php-fig.org/psr/psr-4/).
