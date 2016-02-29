@@ -3,11 +3,11 @@
 * [Introduction](README.md)
 * [Architecture](docs/architecture.md)
    * [Layers](docs/layered_architecture.md)
-       * Business
        * [Controllers](docs/architecture/layers/controllers.md)
        * Services
        * Value objects
        * Infrastructure
+   * Business
    * [Filesystem layout](docs/filesystem-layout.md)
        * vendor
        * src
