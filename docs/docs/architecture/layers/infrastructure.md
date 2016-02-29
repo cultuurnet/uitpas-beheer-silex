@@ -10,10 +10,19 @@ At the moment, the application offers RESTful web services. RESTful web services
 
 Controllers translate a HTTP request, to a call to a Business service. If the HTTP request contains a body with JSON encoded data, the controller often uses a deserializer to construct a typed object from the data contained in the body.
 
+Examples:
+
+* [UiTPAS\UiTPASController](https://github.com/cultuurnet/uitpas-beheer-silex/blob/master/src/UiTPAS/UiTPASController.php)
+* [UiTPAS\Registration\RegistrationJsonDeserializer](https://github.com/cultuurnet/uitpas-beheer-silex/blob/master/src/UiTPAS/Registration/RegistrationJsonDeserializer.php)
+
+
 ## Business service implementations
 
-Implementations of interfaces defined in the business layer, that require external systems.
-
-Some examples of components in this category:
+Implementations of interfaces defined in the business layer that require external systems, among which:
 * all implementations relying on external web services like the UiTPAS API, UiTID API or Search API;
 * concrete implementations that store data on the file system.
+
+Examples:
+
+* [UiTPAS\UiTPASService](https://github.com/cultuurnet/uitpas-beheer-silex/blob/master/src/UiTPAS/UiTPASService.php)
+* [Help\FileStorage](https://github.com/cultuurnet/uitpas-beheer-silex/blob/master/src/Help/FileStorage.php)
