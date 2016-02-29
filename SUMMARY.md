@@ -4,7 +4,7 @@
 * [Intended Audience](docs/intended-audience.md)
 * [Language](docs/language.md)
 * [Architecture](docs/architecture.md)
-   * [Layers](docs/architecture/layered_architecture.md)
+   * [Layers](docs/architecture/layered-architecture.md)
        * [Domain](docs/architecture/layers/domain.md)
        * [Infrastructure](docs/architecture/layers/infrastructure.md)
    * [File system layout](docs/architecture/filesystem-layout.md)
