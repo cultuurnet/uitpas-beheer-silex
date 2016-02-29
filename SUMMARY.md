@@ -20,8 +20,8 @@
 * [Development process](docs/development_process.md)
    * [Definition of Done](docs/development-proces/definition_of_done.md)
    * [Unit tests](docs/unit-tests.md)
+   * Swagger documentation
    * Peer review
    * [Continuous Integration](docs/docs/continuous_integration.md)
    * [Coding standards](docs/development-process/coding-standards.md)
-   * Swagger documentation
 
