@@ -19,7 +19,7 @@
        * [log](docs/architecture/filesystem-layout/log.md)
        * [miscellaneous](docs/architecture/filesystem-layout/miscellaneous.md)
 * [Development process](docs/development_process.md)
-   * [Definition of Done](docs/development-process/definition_of_done.md)
+   * [Definition of Done](docs/development-process/definition-of-done.md)
    * [Unit tests](docs/development-process/unit-tests.md)
    * [Coding standards](docs/development-process/coding-standards.md)
    * [Swagger documentation](docs/development-process/swagger-documentation.md)
