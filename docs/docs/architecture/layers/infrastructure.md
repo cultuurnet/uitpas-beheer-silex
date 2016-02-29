@@ -24,5 +24,5 @@ Implementations of interfaces defined in the business layer that require externa
 
 Examples:
 
-* [UiTPAS\UiTPASService](https://github.com/cultuurnet/uitpas-beheer-silex/blob/master/src/UiTPAS/UiTPASService.php)
 * [Help\FileStorage](https://github.com/cultuurnet/uitpas-beheer-silex/blob/master/src/Help/FileStorage.php)
+* [UiTPAS\UiTPASService](https://github.com/cultuurnet/uitpas-beheer-silex/blob/master/src/UiTPAS/UiTPASService.php)
