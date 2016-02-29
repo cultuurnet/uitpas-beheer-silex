@@ -1,6 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
+* Intended Audience
 * [Language](language.md)
 * [Architecture](docs/architecture.md)
    * [Layers](docs/layered_architecture.md)
@@ -24,5 +25,4 @@
    * [Swagger documentation](docs/development-process/swagger-documentation.md)
    * [Continuous Integration](docs/docs/continuous_integration.md)
    * Peer review
-* Intended Audience
 
