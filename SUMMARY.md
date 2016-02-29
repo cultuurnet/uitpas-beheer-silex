@@ -6,8 +6,8 @@
        * [Controllers](docs/architecture/layers/controllers.md)
        * Services
        * Value objects
+       * Business
        * Infrastructure
-   * Business
    * [Filesystem layout](docs/filesystem-layout.md)
        * vendor
        * src
