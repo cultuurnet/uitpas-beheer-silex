@@ -2,11 +2,11 @@
 
 * [Introduction](README.md)
 * [Architecture](docs/architecture.md)
-    *  [Layers](docs/layered_architecture.md)
-       * Controllers
+   * [Layers](docs/layered_architecture.md)
+       * [Controllers](docs/architecture/layers/controllers.md)
        * Services
        * Value objects
-    *  [Filesystem layout](docs/filesystem-layout.md)
+   * [Filesystem layout](docs/filesystem-layout.md)
        * vendor
        * src
        * test
