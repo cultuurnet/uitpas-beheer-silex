@@ -8,7 +8,7 @@
        * [Domain](docs/docs/architecture/layers/domain.md)
        * [Infrastructure](docs/docs/architecture/layers/infrastructure.md)
    * [Filesystem layout](docs/filesystem-layout.md)
-       * vendor
+       * [vendor](docs/filesystem-layout/vendor.md)
        * [src](docs/filesystem-layout/src.md)
        * [test](docs/filesystem-layout/test.md)
        * [app](docs/filesystem-layout/app.md)
