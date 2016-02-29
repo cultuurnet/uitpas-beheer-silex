@@ -5,7 +5,6 @@
 * [Layered architecture](docs/layered_architecture.md)
 * [Filesystem layout](docs/filesystem-layout.md)
    * vendor
-   * The app directory, bootstrap.php and the bootstrap directory
    * src
    * test
    * bootstrap.php
