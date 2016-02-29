@@ -14,7 +14,7 @@
        * bootstrap.php
        * bootstrap
        * [web](docs/filesystem-layout/web.md)
-       * var
+       * [var](docs/filesystem-layout/var.md)
        * log
        * miscellaneous
 * [Development proces](docs/development_proces.md)
