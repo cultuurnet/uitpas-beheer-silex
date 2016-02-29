@@ -2,5 +2,5 @@
 
 * [Introduction](README.md)
 * [Structure](docs/structure.md)
-* Layered architecture
+* [Layered architecture](docs/layered_architecture.md)
 
