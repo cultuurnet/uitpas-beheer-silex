@@ -22,4 +22,4 @@ There are a lot of business needs, and how they are technically accomplished may
 Examples:
 
 * [Help\StorageInterface](https://github.com/cultuurnet/uitpas-beheer-silex/blob/master/src/Help/StorageInterface.php)
-* [Activity\ActivityServiceInterface](https://github.com/cultuurnet/uitpas-beheer-silex/blob/master/src/Activity/ActivityServiceInterface.php)
+* [UiTPAS\UiTPASServiceInterface](https://github.com/cultuurnet/uitpas-beheer-silex/blob/master/src/UiTPAS/UiTPASServiceInterface.php)
