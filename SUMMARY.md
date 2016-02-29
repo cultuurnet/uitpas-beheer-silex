@@ -11,7 +11,7 @@
        * [src](docs/filesystem-layout/src.md)
        * [test](docs/filesystem-layout/test.md)
        * [app](docs/filesystem-layout/app.md)
-       * bootstrap.php
+       * [bootstrap.php](docs/filesystem-layout/bootstrap-php.md)
        * [bootstrap](docs/bootstrap.md)
        * [web](docs/filesystem-layout/web.md)
        * [var](docs/filesystem-layout/var.md)
