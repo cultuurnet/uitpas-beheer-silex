@@ -3,7 +3,6 @@
 * [Introduction](README.md)
 * [Architecture](docs/architecture.md)
    * [Layers](docs/layered_architecture.md)
-       * Value objects
        * Infrastructure
        * Business
    * [Filesystem layout](docs/filesystem-layout.md)
