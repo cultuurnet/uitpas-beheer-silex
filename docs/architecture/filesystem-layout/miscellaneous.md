@@ -1,3 +1,3 @@
 # miscellaneous
 
-Besides the files and directories mentioned in the previous sections, there are some other files in the root of the project. We won't go into detail here on each of them. They contain configuration for command line tools (like Phing, PHPUnit and PHP_CodeSniffer) and hosted services (like Travis CI, Coveralls, and the tool generating this documentation, GitBook) that support the [development process](../development-process.md).
+Besides the files and directories mentioned in the previous sections, there are some other files in the root of the project. We won't go into detail here on each of them. They contain configuration for command line tools (like Phing, PHPUnit and PHP_CodeSniffer) and hosted services (like Travis CI, Coveralls, and the tool generating this documentation, GitBook) that support the [development process](../development_process.md).
