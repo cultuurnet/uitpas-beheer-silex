@@ -14,7 +14,7 @@
        * [app](docs/architecture/filesystem-layout/app.md)
        * [bootstrap.php](docs/architecture/filesystem-layout/bootstrap-php.md)
        * [bootstrap](docs/architecture/filesystem-layout/bootstrap.md)
-       * [web](docs/filesystem-layout/web.md)
+       * [web](docs/architecture/filesystem-layout/web.md)
        * [var](docs/filesystem-layout/var.md)
        * [log](docs/architecture/filesystem-layout/log.md)
        * [miscellaneous](docs/architecture/filesystem-layout/miscellaneous.md)
