@@ -5,7 +5,7 @@ The application follows a layered architecture, comparable to the different laye
 * infrastructure
 * business
 
-Components of one layer must only depend on components of a more inbound layer. Any direct communication from outside with the application, or from the application with outside systems, always happens at the outer layer. Databases, a file system, external web services, ... are considered to be outside of the application.
+Components of one layer must only depend on components of a more inbound layer. Any direct communication from outside with the application, or from the application with outside systems, always happens through the outer layer. Databases, a file system, external web services, ... are considered to be outside of the application.
 
 Currently, the separation in layers is not reflected in the PHP namespace & file system layout.
 
