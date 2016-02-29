@@ -4,7 +4,7 @@
 * [Architecture](docs/architecture.md)
    * [Layers](docs/layered_architecture.md)
        * [Infrastructure](docs/docs/architecture/layers/infrastructure.md)
-       * [Business](docs/docs/architecture/layers/business.md)
+       * [Domain](docs/docs/architecture/layers/domain.md)
    * [Filesystem layout](docs/filesystem-layout.md)
        * vendor
        * src
