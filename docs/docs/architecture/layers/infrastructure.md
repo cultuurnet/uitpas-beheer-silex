@@ -14,4 +14,4 @@ Controllers translate a HTTP request, to a call to a Business service. If the HT
 
 Implementations of interfaces defined in the business layer, that require external systems.
 
-All components that require communication with external web services like the UiTPAS API, UiTID API or Search API belong in this category.
+All components relying on external web services like the UiTPAS API, UiTID API or Search API belong in this category.
