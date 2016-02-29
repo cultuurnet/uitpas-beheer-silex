@@ -5,6 +5,7 @@
 * [Layered architecture](docs/layered_architecture.md)
    * Controllers
    * Services
+   * Value objects
 * [Filesystem layout](docs/filesystem-layout.md)
    * vendor
    * src
