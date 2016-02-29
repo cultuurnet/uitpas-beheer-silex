@@ -7,9 +7,9 @@
    * vendor
    * src
    * test
+   * app
    * bootstrap.php
    * bootstrap
-   * app
    * web
    * var
    * log
