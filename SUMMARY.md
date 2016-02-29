@@ -1,6 +1,6 @@
 # Summary
 
-* [Introduction](docs/readme.md)
+* [Introduction](README.md)
 * [Layered architecture](docs/layered_architecture.md)
    * Controllers
    * Services
