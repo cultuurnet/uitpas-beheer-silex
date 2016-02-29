@@ -12,7 +12,7 @@
        * [test](docs/filesystem-layout/test.md)
        * [app](docs/filesystem-layout/app.md)
        * bootstrap.php
-       * bootstrap
+       * [bootstrap](docs/bootstrap.md)
        * [web](docs/filesystem-layout/web.md)
        * [var](docs/filesystem-layout/var.md)
        * log
