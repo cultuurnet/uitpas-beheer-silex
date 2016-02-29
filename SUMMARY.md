@@ -1,7 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
-   * [Layers](docs/layered_architecture.md)
+* [Layers](docs/layered_architecture.md)
        * Controllers
        * Services
        * Value objects
