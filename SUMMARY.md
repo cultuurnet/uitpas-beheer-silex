@@ -24,5 +24,5 @@
    * [Coding standards](docs/development-process/coding-standards.md)
    * [Swagger documentation](docs/development-process/swagger-documentation.md)
    * [Continuous Integration](docs/docs/continuous_integration.md)
-   * Peer review
+   * [Peer review](docs/development-process.md/peer-review.md)
 
