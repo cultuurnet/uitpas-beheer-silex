@@ -4,7 +4,7 @@
 * [Introduction](docs/readme.md)
 * [Layered architecture](docs/layered_architecture.md)
 * [Filesystem layout](docs/filesystem-layout.md)
-   * The vendor directory
+   * vendor
    * The src & test directories
    * The app directory, bootstrap.php and the bootstrap directory
 * [Development proces](docs/development_proces.md)
