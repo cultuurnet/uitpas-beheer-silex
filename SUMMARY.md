@@ -2,7 +2,7 @@
 
 * [Introduction](README.md)
 * [Intended Audience](docs/intended-audience.md)
-* [Language](language.md)
+* [Language](docs/language.md)
 * [Architecture](docs/architecture.md)
    * [Layers](docs/layered_architecture.md)
        * [Domain](docs/docs/architecture/layers/domain.md)
