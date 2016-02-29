@@ -13,7 +13,7 @@
        * [app](docs/filesystem-layout/app.md)
        * bootstrap.php
        * bootstrap
-       * web
+       * [web](docs/filesystem-layout/web.md)
        * var
        * log
        * miscellaneous
