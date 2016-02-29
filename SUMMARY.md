@@ -1,7 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
-* Language
+* [Language](language.md)
 * [Architecture](docs/architecture.md)
    * [Layers](docs/layered_architecture.md)
        * [Domain](docs/docs/architecture/layers/domain.md)
