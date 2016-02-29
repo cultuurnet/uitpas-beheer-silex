@@ -3,8 +3,8 @@
 * [Introduction](README.md)
 * [Architecture](docs/architecture.md)
    * [Layers](docs/layered_architecture.md)
-       * [Infrastructure](docs/docs/architecture/layers/infrastructure.md)
        * [Domain](docs/docs/architecture/layers/domain.md)
+   * [Infrastructure](docs/docs/architecture/layers/infrastructure.md)
    * [Filesystem layout](docs/filesystem-layout.md)
        * vendor
        * src
