@@ -6,6 +6,7 @@
        * [Controllers](docs/architecture/layers/controllers.md)
        * Services
        * Value objects
+       * Infrastructure
    * [Filesystem layout](docs/filesystem-layout.md)
        * vendor
        * src
