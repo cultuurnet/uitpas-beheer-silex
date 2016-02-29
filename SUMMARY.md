@@ -6,7 +6,7 @@
 * [Architecture](docs/architecture.md)
    * [Layers](docs/layered_architecture.md)
        * [Domain](docs/architecture/layers/domain.md)
-       * [Infrastructure](docs/docs/architecture/layers/infrastructure.md)
+       * [Infrastructure](docs/architecture/layers/infrastructure.md)
    * [Filesystem layout](docs/filesystem-layout.md)
        * [vendor](docs/filesystem-layout/vendor.md)
        * [src](docs/filesystem-layout/src.md)
