@@ -1,3 +1,3 @@
-# Business
+# Domain
 
-In the business layer, 
+In the domain layer, 
