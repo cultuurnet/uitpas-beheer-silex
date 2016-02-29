@@ -1,6 +1,7 @@
 # Summary
 
 * [Introduction](README.md)
+* Language
 * [Architecture](docs/architecture.md)
    * [Layers](docs/layered_architecture.md)
        * [Domain](docs/docs/architecture/layers/domain.md)
@@ -20,5 +21,4 @@
    * [Definition of Done](docs/development-proces/definition_of_done.md)
    * Unit tests
    * Peer review
-* Language
 
