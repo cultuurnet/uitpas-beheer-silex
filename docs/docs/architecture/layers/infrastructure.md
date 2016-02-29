@@ -1,4 +1,4 @@
-# The Infrastructure layer
+# The infrastructure layer
 
 The infrastructure layer sits at the outside border of the application. All communication between external systems and the application, happen through the infrastructure layer. We can further divide the components from the infrastructure layer in 2 categories, namely UI, and Business service implementations.
 
