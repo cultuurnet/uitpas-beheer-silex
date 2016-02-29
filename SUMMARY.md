@@ -3,7 +3,7 @@
 * [Introduction](README.md)
 * [Architecture](docs/architecture.md)
    * [Layers](docs/layered_architecture.md)
-       * Infrastructure
+       * [Infrastructure](docs/docs/architecture/layers/infrastructure.md)
        * Business
    * [Filesystem layout](docs/filesystem-layout.md)
        * vendor
