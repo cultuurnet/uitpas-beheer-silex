@@ -13,7 +13,7 @@
        * [test](docs/architecture/filesystem-layout/test.md)
        * [app](docs/architecture/filesystem-layout/app.md)
        * [bootstrap.php](docs/architecture/filesystem-layout/bootstrap-php.md)
-       * [bootstrap](docs/bootstrap.md)
+       * [bootstrap](docs/architecture/filesystem-layout/bootstrap.md)
        * [web](docs/filesystem-layout/web.md)
        * [var](docs/filesystem-layout/var.md)
        * [log](docs/architecture/filesystem-layout/log.md)
