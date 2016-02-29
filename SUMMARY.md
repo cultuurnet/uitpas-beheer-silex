@@ -1,6 +1,6 @@
 # Summary
 
 * [Introduction](README.md)
-* [Structure](docs/structure.md)
+* [Filesystem layout](docs/filesystem-layout.md)
 * [Layered architecture](docs/layered_architecture.md)
 
