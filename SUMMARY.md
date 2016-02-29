@@ -10,7 +10,7 @@
        * vendor
        * [src](docs/filesystem-layout/src.md)
        * [test](docs/filesystem-layout/test.md)
-       * app
+       * [app](docs/filesystem-layout/app.md)
        * bootstrap.php
        * bootstrap
        * web
