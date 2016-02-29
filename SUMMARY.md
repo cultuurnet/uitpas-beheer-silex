@@ -9,7 +9,7 @@
    * [Filesystem layout](docs/filesystem-layout.md)
        * vendor
        * src
-       * test
+       * [test](filesystem-layout/test.md)
        * app
        * bootstrap.php
        * bootstrap
