@@ -1,6 +1,6 @@
 # Language
 
-English is used as much as possible throughout the application.
+English is used as much as possible throughout the application code.
 
 There are a few exceptions to this rule:
 
