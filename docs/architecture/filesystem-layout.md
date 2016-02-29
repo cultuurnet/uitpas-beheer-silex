@@ -1,3 +1,3 @@
-# Filesystem layout
+# File system layout
 
 
