@@ -3,7 +3,6 @@
 * [Introduction](README.md)
 * [Intended Audience](docs/intended-audience.md)
 * [Language](docs/language.md)
-* File system layout
 * [Architecture](docs/architecture.md)
    * [Layers](docs/architecture/layered-architecture.md)
        * [Domain](docs/architecture/layers/domain.md)
