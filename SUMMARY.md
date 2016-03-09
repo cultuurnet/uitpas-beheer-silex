@@ -17,7 +17,6 @@
        * [web](docs/architecture/filesystem-layout/web.md)
        * [var](docs/architecture/filesystem-layout/var.md)
        * [log](docs/architecture/filesystem-layout/log.md)
-       * [miscellaneous](docs/architecture/filesystem-layout/miscellaneous.md)
 * [Development process](docs/development_process.md)
    * [Definition of Done](docs/development-process/definition-of-done.md)
    * [Unit tests](docs/development-process/unit-tests.md)
