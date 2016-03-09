@@ -59,14 +59,29 @@ bootstrap:
 ```
 The default [directory for the log](../architecture/filesystem-layout/log.md) files is `/log`.
 
-## 
-
+## Feedback information
+ To set where the feedback messages should be sent to.
 ```yaml
-
+feedback:
+  from: foo@bar.com
+  to: foo@bar.com
+  subject: "UiTPAS balie beheer feedback."
 ```
 
-## 
+## Mailcatcher
 
 ```yaml
+swiftmailer.options:
+  # This connects to a mailserver at port 1025
+  # This is not the standard SMTP port, but the default port of Mailcatcher,
+  # a great tool for debugging mail. Check it out! http://mailcatcher.me/
+  host: 127.0.0.1
+  port: 1025
+```
 
+## Export
+
+```yaml
+export:
+  limit_per_api_request: 50
 ```
