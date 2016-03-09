@@ -3,6 +3,7 @@
 * [Introduction](README.md)
 * [Intended Audience](docs/intended-audience.md)
 * [Language](docs/language.md)
+* File system layout
 * [Architecture](docs/architecture.md)
    * [Layers](docs/architecture/layered-architecture.md)
        * [Domain](docs/architecture/layers/domain.md)
@@ -25,5 +26,4 @@
    * [Swagger documentation](docs/development-process/swagger-documentation.md)
    * [Continuous Integration](docs/development-process/continuous-integration.md)
    * [Peer review](docs/development-process/peer-review.md)
-* File system layout
 
