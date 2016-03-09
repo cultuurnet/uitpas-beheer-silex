@@ -57,7 +57,7 @@ search:
 bootstrap:
   logging: false|true
 ```
-The default [directory](../architecture/filesystem-layout/log.md) for the log files is `/log`.
+The default [directory for the log](../architecture/filesystem-layout/log.md) files is `/log`.
 
 ## 
 
