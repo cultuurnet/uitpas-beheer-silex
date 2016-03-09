@@ -2,8 +2,8 @@
 
 The domain layer is the heart of the application. Components in the domain layer can be further divided into these categories:
 
-* Concrete classes modeling business concepts and rules
-* Interfaces defining needed business functionality, but without a concrete implementation
+* Concrete classes that model business concepts and rules
+* Interfaces that define needed business functionality, without a concrete implementation
  
 ## Concrete classes modeling business concepts and rules
 
