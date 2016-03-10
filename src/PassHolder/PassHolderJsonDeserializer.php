@@ -37,18 +37,25 @@ class PassHolderJsonDeserializer extends JSONDeserializer
      */
     protected $privacyPreferencesJsonDeserializer;
 
+    /**
+     * @var DeserializerInterface
+     */
+    protected $schoolJsonDeserializer;
+
     public function __construct(
         DeserializerInterface $nameJsonDeserializer,
         DeserializerInterface $addressJsonDeserializer,
         DeserializerInterface $birthInformationJsonDeserializer,
         DeserializerInterface $contactInformationJsonDeserializer,
-        DeserializerInterface $privacyPreferencesJsonDeserializer
+        DeserializerInterface $privacyPreferencesJsonDeserializer,
+        DeserializerInterface $schoolJsonDeserializer
     ) {
         $this->nameJsonDeserializer = $nameJsonDeserializer;
         $this->addressJsonDeserializer = $addressJsonDeserializer;
         $this->birthInformationJsonDeserializer = $birthInformationJsonDeserializer;
         $this->contactInformationJsonDeserializer = $contactInformationJsonDeserializer;
         $this->privacyPreferencesJsonDeserializer = $privacyPreferencesJsonDeserializer;
+        $this->schoolJsonDeserializer = $schoolJsonDeserializer;
     }
 
     /**
@@ -146,6 +153,24 @@ class PassHolderJsonDeserializer extends JSONDeserializer
                 );
             } catch (MissingPropertyException $e) {
                 throw MissingPropertyException::fromMissingChildPropertyException('privacy', $e);
+            }
+        }
+
+        if (!empty($data->picture)) {
+            $passHolder = $passHolder->withPicture(
+                new StringLiteral($data->picture)
+            );
+        }
+
+        if (isset($data->school)) {
+            try {
+                $passHolder = $passHolder->withSchool(
+                    $this->schoolJsonDeserializer->deserialize(
+                        new StringLiteral(json_encode($data->school))
+                    )
+                );
+            } catch (MissingPropertyException $e) {
+                throw MissingPropertyException::fromMissingChildPropertyException('school', $e);
             }
         }
 

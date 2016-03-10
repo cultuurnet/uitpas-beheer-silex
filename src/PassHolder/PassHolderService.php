@@ -16,6 +16,7 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumberCollection;
 use ValueObjects\Identity\UUID;
 use ValueObjects\Number\Integer;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class PassHolderService extends CounterAwareUitpasService implements PassHolderServiceInterface
 {
@@ -138,6 +139,30 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
                 $cfPassHolder,
                 $this->getCounterConsumerKey()
             );
+
+        $picture = $passHolder->getPicture();
+
+        if ($picture) {
+            $passHolderId = $this->getByUitpasNumber($uitpasNumber)->getUid();
+
+            $this->uploadPicture($passHolderId, $picture);
+        }
+    }
+
+    /**
+     * @param StringLiteral $passHolderUUID
+     * @param StringLiteral $picture
+     */
+    private function uploadPicture(
+        StringLiteral $passHolderUUID,
+        StringLiteral $picture
+    ) {
+        $this->getUitpasService()
+            ->uploadPicture(
+                $passHolderUUID->toNative(),
+                base64_decode($picture->toNative()),
+                $this->getCounterConsumerKey()
+            );
     }
 
     /**
@@ -221,6 +246,12 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
 
         $UUID = UUID::fromNative($UUIDString);
 
+        $picture = $passHolder->getPicture();
+
+        if ($picture) {
+            $this->uploadPicture($UUID, $picture);
+        }
+
         return $UUID;
     }
 
@@ -262,9 +293,7 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
             ->getTimestamp();
 
         if ($passHolder->getGender()) {
-            $cfPassHolder->gender = $this->getCfPassholderGenderForUpdate(
-                $passHolder->getGender()
-            );
+            $cfPassHolder->gender = $passHolder->getGender()->toNative();
         }
 
         $address = $passHolder->getAddress();
@@ -321,31 +350,18 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
                 ->toNative();
         }
 
+        $school = $passHolder->getSchool();
+        if ($school) {
+            $cfPassHolder->schoolConsumerKey = $school->getId()->toNative();
+        }
+
         $cfPassHolder->toPostDataKeepEmptySecondName();
         $cfPassHolder->toPostDataKeepEmptyEmail();
         $cfPassHolder->toPostDataKeepEmptyMoreInfo();
         $cfPassHolder->toPostDataKeepEmptyTelephone();
         $cfPassHolder->toPostDataKeepEmptyGSM();
+        $cfPassHolder->toPostDataKeepEmptySchoolConsumerKey();
 
         return $cfPassHolder;
-    }
-
-    /**
-     * Get the right gender string value for updating a pass holder.
-     *
-     * Normally the gender is indicated by 'FEMALE' and 'MALE', when updating the
-     * passholder though the values 'F' and 'M' need to be used.
-     *
-     * @param Gender $gender
-     *
-     * @return string
-     */
-    private function getCfPassholderGenderForUpdate(Gender $gender)
-    {
-        if ($gender->is(Gender::FEMALE())) {
-            return 'F';
-        }
-
-        return 'M';
     }
 }

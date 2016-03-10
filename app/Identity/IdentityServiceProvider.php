@@ -20,6 +20,16 @@ class IdentityServiceProvider implements ServiceProviderInterface
                 );
             }
         );
+
+        $app['identity_service'] = $app->extend(
+            'identity_service',
+            function (IdentityServiceInterface $identityService, Application $app) {
+                return new PassHolderSchoolInfoDecoratedIdentityService(
+                    $identityService,
+                    $app['school_service']
+                );
+            }
+        );
     }
 
     /**

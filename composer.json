@@ -5,16 +5,12 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/2dotstwice/symfony2-coding-standard"
-    },
-    {
-      "type": "vcs",
       "url": "https://github.com/2dotstwice/silex-cors-provider"
     }
   ],
   "require": {
     "cultuurnet/silex-uitid-provider": "dev-master",
-    "cultuurnet/culturefeed-php": "dev-feature/UBR as 1.5.2",
+    "cultuurnet/culturefeed-php": "~1.6.2",
     "cultuurnet/search": "~1.2",
     "cultuurnet/calendar-summary": "~1.0",
     "cultuurnet/deserializer": "1.x-dev",
@@ -48,7 +44,7 @@
     "2dotstwice/collection": "~1.0"
   },
   "require-dev": {
-    "escapestudios/symfony2-coding-standard": "dev-master as 2.0",
+    "escapestudios/symfony2-coding-standard": "~2.0",
     "phpunit/phpunit": "~4.3",
     "squizlabs/php_codesniffer": "~2.2",
     "phing/phing": "~2.10",

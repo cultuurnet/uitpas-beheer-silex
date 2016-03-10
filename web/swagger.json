@@ -185,6 +185,34 @@
         ]
       }
     },
+    "/schools": {
+      "get": {
+        "summary": "Get a list of schools related to the active counter.",
+        "description": "Authentication is required.",
+        "operationId": "listSchools",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A list of schools related to the active counter.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/School"
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated."
+          }
+        },
+        "tags": [
+          "School"
+        ]
+      }
+    },
     "/identities/{identificationNumber}": {
       "get": {
         "summary": "Find an identity by identification number. An identity is a combination of an UiTPAS and its owner (an individual or a group).",
@@ -1614,6 +1642,34 @@
         ]
       }
     },
+    "/counters/active/activities": {
+      "get": {
+        "summary": "Returns all activities for the counter.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "getCounterActivities",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of activities for the counter.",
+            "schema": {
+              "$ref": "#/definitions/PagedActivityCollection"
+            }
+          },
+          "400": {
+            "description": "UiTPAS API error."
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "Activity",
+          "Counter"
+        ]
+      }
+    },
     "/help": {
       "get": {
         "summary": "Get the help text and permissions.",
@@ -1942,6 +1998,10 @@
     {
       "name": "Membership",
       "description": "Operations related to memberships."
+    },
+    {
+      "name": "School",
+      "description": "Operations related to schools."
     }
   ],
   "definitions": {
@@ -2565,6 +2625,9 @@
           "type": "string",
           "example": "Dit maakt niet uit."
         },
+        "school": {
+          "$ref": "#/definitions/School"
+        },
         "kansenStatuten": {
           "type": "array",
           "items": {
@@ -2864,6 +2927,9 @@
         },
         "remarks": {
           "$ref": "#/definitions/PassholderRemarks"
+        },
+        "school": {
+          "$ref": "#/definitions/School"
         }
       },
       "required": [
@@ -3855,6 +3921,21 @@
       },
       "required": [
         "associationId"
+      ]
+    },
+    "School": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "De Appeltuin"
+        },
+        "id": {
+          "$ref": "#/definitions/Uid"
+        }
+      },
+      "required": [
+        "name",
+        "id"
       ]
     }
   }

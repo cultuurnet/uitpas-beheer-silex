@@ -80,6 +80,11 @@ $app->register(
 );
 
 /**
+ * Guzzle replacements for CultureFeed Services
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\CulturefeedGuzzleServiceProvider());
+
+/**
  * Url generator.
  */
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
@@ -219,6 +224,8 @@ $app['swiftmailer.use_spool'] = false;
 if (isset($app['config']['swiftmailer.options'])) {
     $app['swiftmailer.options'] = $app['config']['swiftmailer.options'];
 }
+
+$app->register(new \CultuurNet\UiTPASBeheer\School\SchoolServiceProvider());
 
 /**
  * Load additional bootstrap files.

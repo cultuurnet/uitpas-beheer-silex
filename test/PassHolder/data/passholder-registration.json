@@ -26,7 +26,12 @@
       "email": true,
       "sms": false
     },
-    "remarks": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus."
+    "remarks": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.",
+    "picture": "R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=",
+    "school": {
+      "id": "920f8d53-abd0-40f1-a151-960098197785",
+      "name": "University of Life"
+    }
   },
   "voucherNumber": "i-am-voucher",
   "kansenStatuut": {

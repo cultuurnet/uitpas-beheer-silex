@@ -135,4 +135,6 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\Feedback\FeedbackControllerProvide
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\CardSystem\CardSystemControllerProvider());
 
+$app->mount('/', new \CultuurNet\UiTPASBeheer\School\SchoolControllerProvider());
+
 $app->run();

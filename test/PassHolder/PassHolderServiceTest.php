@@ -119,12 +119,9 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
 
     public function updatePassHolderData()
     {
-        // Genders are a special case. Normally the gender is indicated by
-        // 'FEMALE' and 'MALE', when updating a passholder though the values
-        // 'F' and 'M' are expected to be used.
         return [
-            [Gender::FEMALE(), 'F'],
-            [Gender::MALE(), 'M'],
+            [Gender::FEMALE(), 'FEMALE'],
+            [Gender::MALE(), 'MALE'],
         ];
     }
 
@@ -164,10 +161,34 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassHolder->smsPreference = 'NOTIFICATION_SMS';
         $cfPassHolder->emailPreference = 'ALL_MAILS';
         $cfPassHolder->moreInfo = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.';
+        $cfPassHolder->schoolConsumerKey = '920f8d53-abd0-40f1-a151-960098197785';
 
         $this->uitpas->expects($this->once())
             ->method('updatePassholder')
             ->with($cfPassHolder, $this->counterConsumerKey);
+
+        $passHolderUid = '86979a22-3e33-413d-a115-c5b05414e7c5';
+
+        $cfPassHolderRequestedToGetUid = clone $cfPassHolder;
+        $cfPassHolderRequestedToGetUid->uitIdUser = new \CultureFeed_Uitpas_Passholder_UitIdUser();
+        $cfPassHolderRequestedToGetUid->uitIdUser->id = $passHolderUid;
+        $cfPassHolderRequestedToGetUid->gender = $gender->toNative();
+
+        $this->uitpas->expects($this->once())
+            ->method('getPassholderByUitpasNumber')
+            ->with(
+                $uitpasNumberValue,
+                $this->counterConsumerKey->toNative()
+            )
+            ->willReturn($cfPassHolderRequestedToGetUid);
+
+        $this->uitpas->expects($this->once())
+            ->method('uploadPicture')
+            ->with(
+                $passHolderUid,
+                file_get_contents(__DIR__ . '/data/picture.gif'),
+                $this->counterConsumerKey->toNative()
+            );
 
         $this->service->update($uitpasNumber, $passHolder);
     }
@@ -183,6 +204,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->toPostDataKeepEmptyMoreInfo();
         $cfPassholder->toPostDataKeepEmptyTelephone();
         $cfPassholder->toPostDataKeepEmptyGSM();
+        $cfPassholder->toPostDataKeepEmptySchoolConsumerKey();
 
         return $cfPassholder;
     }
@@ -296,7 +318,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->street = 'Rue Perdue 101 /0003';
         $cfPassholder->placeOfBirth = 'Casablanca';
         $cfPassholder->secondName = 'Zoni';
-        $cfPassholder->gender = 'F';
+        $cfPassholder->gender = 'FEMALE';
         $cfPassholder->inszNumber = '93051822361';
         $cfPassholder->nationality = 'Maroc';
         $cfPassholder->email = 'zyrani_.hotmail.com@mailinator.com';
@@ -305,23 +327,38 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->smsPreference = 'NOTIFICATION_SMS';
         $cfPassholder->emailPreference = 'ALL_MAILS';
         $cfPassholder->moreInfo = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.';
+        $cfPassholder->schoolConsumerKey = '920f8d53-abd0-40f1-a151-960098197785';
 
         $this->uitpas->expects($this->once())
             ->method('getPassholderByUitpasNumber')
-            ->with($uitpasNumberValue)
+            ->with(
+                $uitpasNumberValue,
+                $this->counterConsumerKey
+            )
             ->willThrowException(new \CultureFeed_Exception('Not found.', 404));
+        $expectedUUID = new UUID('de305d54-75b4-431b-adb2-eb6b9e546014');
 
         $this->uitpas->expects($this->once())
             ->method('createPassholder')
-            ->with($cfPassholder)
-            ->willReturn('de305d54-75b4-431b-adb2-eb6b9e546014');
+            ->with(
+                $cfPassholder,
+                $this->counterConsumerKey->toNative()
+            )
+            ->willReturn($expectedUUID->toNative());
+
+        $binaryPicture = file_get_contents(__DIR__ . '/data/picture.gif');
+        $this->uitpas->expects($this->once())
+            ->method('uploadPicture')
+            ->with(
+                $expectedUUID->toNative(),
+                $binaryPicture,
+                $this->counterConsumerKey->toNative()
+            );
 
         $newPassholderUUID = $this->service->register(
             $uitpasNumber,
             $passholder
         );
-
-        $expectedUUID = new UUID('de305d54-75b4-431b-adb2-eb6b9e546014');
 
         $this->assertEquals($expectedUUID, $newPassholderUUID);
     }
@@ -354,6 +391,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->gsm = '0499748596';
         $cfPassholder->smsPreference = 'NOTIFICATION_SMS';
         $cfPassholder->emailPreference = 'ALL_MAILS';
+        $cfPassholder->schoolConsumerKey = '920f8d53-abd0-40f1-a151-960098197785';
 
         $this->uitpas->expects($this->once())
             ->method('getPassholderByUitpasNumber')
@@ -395,7 +433,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->street = 'Rue Perdue 101 /0003';
         $cfPassholder->placeOfBirth = 'Casablanca';
         $cfPassholder->secondName = 'Zoni';
-        $cfPassholder->gender = 'F';
+        $cfPassholder->gender = 'FEMALE';
         $cfPassholder->inszNumber = '93051822361';
         $cfPassholder->nationality = 'Maroc';
         $cfPassholder->email = 'zyrani_.hotmail.com@mailinator.com';
@@ -407,6 +445,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->kansenStatuutEndDate = '11855890800';
         $cfPassholder->voucherNumber = 'i-am-a-voucher';
         $cfPassholder->moreInfo = 'This is a kansenstatuut remark, please don\'t read me';
+        $cfPassholder->schoolConsumerKey = '920f8d53-abd0-40f1-a151-960098197785';
 
         $this->uitpas->expects($this->once())
             ->method('getPassholderByUitpasNumber')
@@ -446,7 +485,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->street = 'Rue Perdue 101 /0003';
         $cfPassholder->placeOfBirth = 'Casablanca';
         $cfPassholder->secondName = 'Zoni';
-        $cfPassholder->gender = 'F';
+        $cfPassholder->gender = 'FEMALE';
         $cfPassholder->inszNumber = '93051822361';
         $cfPassholder->nationality = 'Maroc';
         $cfPassholder->email = 'zyrani_.hotmail.com@mailinator.com';

@@ -5,8 +5,8 @@ namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
 use ValueObjects\Enum\Enum;
 
 /**
- * @method static MALE
- * @method static FEMALE
+ * @method static Gender MALE
+ * @method static Gender FEMALE
  */
 final class Gender extends Enum
 {

@@ -2,8 +2,10 @@
 
 namespace CultuurNet\UiTPASBeheer\Counter;
 
+use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use ValueObjects\StringLiteral\StringLiteral;
 
 class CounterController
 {
@@ -13,11 +15,19 @@ class CounterController
     protected $service;
 
     /**
+     * @var CounterIDJsonDeserializer
+     */
+    protected $counterIDJsonDeserializer;
+
+    /**
      * @param CounterServiceInterface $service
      */
-    public function __construct(CounterServiceInterface $service)
-    {
+    public function __construct(
+        CounterServiceInterface $service,
+        CounterIDJsonDeserializer $counterIDJsonDeserializer
+    ) {
         $this->service = $service;
+        $this->counterIDJsonDeserializer = $counterIDJsonDeserializer;
     }
 
     /**
@@ -38,7 +48,9 @@ class CounterController
      */
     public function setActiveCounter(Request $request)
     {
-        $id = $request->request->get('id');
+        $id = $this->counterIDJsonDeserializer->deserialize(
+            new StringLiteral($request->getContent())
+        );
         $counter = $this->service->getCounter($id);
 
         $this->service->setActiveCounter($counter);

@@ -3,7 +3,6 @@
 namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
 use ValueObjects\DateTime\Date;
 
 class RegistrationTest extends \PHPUnit_Framework_TestCase
