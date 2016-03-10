@@ -11,8 +11,9 @@ roles:
   janedoe:
     - ROLE_HELP_EDIT
 ```
+ In the example, `johndoe`and `janedoe` are uitid usernames.
 
-The following roles are available:
+ The following roles are available:
 
 - ROLE_HELP_EDIT: edit the help text
 
