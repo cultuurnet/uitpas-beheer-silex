@@ -25,4 +25,5 @@
    * [Swagger documentation](docs/development-process/swagger-documentation.md)
    * [Continuous Integration](docs/development-process/continuous-integration.md)
    * [Peer review](docs/development-process/peer-review.md)
+   * Git workflow
 
