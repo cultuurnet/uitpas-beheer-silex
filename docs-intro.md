@@ -7,7 +7,7 @@ UiTPAS Balie backend application.
 
 We wrote this manual for web developers with good knowledge of:
 
-* Modern PHP web application development in general,
+* Modern [PHP](http://php.net) web application development in general,
 * [Composer](https://getcomposer.org), a PHP dependency manager,
 * [Silex](http://silex.sensiolabs.org), a PHP micro-framework based on the Symfony2 Components,
 * [Git](https://git-scm.com), a distributed version control system,

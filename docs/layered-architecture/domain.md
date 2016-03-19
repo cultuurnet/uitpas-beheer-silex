@@ -17,7 +17,7 @@ Examples:
 
 ## Interfaces
 
-There are a lot of business needs.How these are technically accomplished may depend on things outside of the application (like a particular database, the file system or external web services). The needs are captured by means of interfaces in the domain layer. Concrete implementations however belong in the infrastructure layer.
+There are a lot of business needs. How these are technically accomplished may depend on things outside of the application (like a particular database, the file system or external web services). The needs are captured by means of interfaces in the domain layer. Concrete implementations however belong in the infrastructure layer.
 
 Examples:
 
