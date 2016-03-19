@@ -16,6 +16,8 @@
    * [var](docs/filesystem-layout/var.md)
    * [log](docs/filesystem-layout/log.md)
    * [docs](docs/filesystem-layout/docs.md)
+   * [config.dist.yml](docs/filesystem-layout/config-dist-yml.md)
+   * [config.yml](docs/filesystem-layout/config-yml.md)
 * [Development process](docs/development-process.md)
    * [Configuration](docs/development-process/configuration.md)
    * [Definition of Done](docs/development-process/definition-of-done.md)

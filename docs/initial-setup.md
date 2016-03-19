@@ -25,4 +25,4 @@ Steps:
 * Configure your web server to rewrite all requests that do not match with an existing file,
   to index.php. If you are using Apache, the .htaccess file already takes care 
   of this.
-* Copy config.dist.yml to config.yml and adapt to your needs.
+* Copy [`config.dist.yml`](./filesystem-layout/config-dist-yml.md) to [`config.yml`](./filesystem-layout/config-yml.md) and adapt to your needs.
