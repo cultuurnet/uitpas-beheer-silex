@@ -10,7 +10,7 @@ You can run all tests with:
 
 ## Location
 
-Tests are placed in the [test](../docs/filesystem-layout/test.md) directory, within additional subdirectories conform [PSR-4](http://www.php-fig.org/psr/psr-4/).
+Tests are placed in the [test](../filesystem-layout/test.md) directory, within additional subdirectories conform [PSR-4](http://www.php-fig.org/psr/psr-4/).
 
 ## Naming conventions
  Tests are named after the class they are testing, with the suffix **Test**.

@@ -15,6 +15,7 @@
    * [web](docs/filesystem-layout/web.md)
    * [var](docs/filesystem-layout/var.md)
    * [log](docs/filesystem-layout/log.md)
+   * [docs](docs/filesystem-layout/docs.md)
 * [Development process](docs/development-process.md)
    * [Configuration](docs/development-process/configuration.md)
    * [Definition of Done](docs/development-process/definition-of-done.md)

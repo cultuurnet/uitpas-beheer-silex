@@ -9,6 +9,7 @@
 * [web](filesystem-layout/web.md)
 * [var](filesystem-layout/var.md)
 * [log](filesystem-layout/log.md)
+* [docs](filesystem-layout/docs.md)
 
 ## Files
 * [bootstrap.php](filesystem-layout/bootstrap-php.md)
