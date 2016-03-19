@@ -1,4 +1,4 @@
-# Web
+# web
 
 The `web` directory contains publicly accessible resources. It should be set as the document root when configuring a virtual host on your webserver.
 

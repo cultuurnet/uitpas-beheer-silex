@@ -1,4 +1,4 @@
-# Vendor
+# vendor
 
 The `vendor` directory contains the application's dependencies, which were installed with [Composer](https://getcomposer.org).
 

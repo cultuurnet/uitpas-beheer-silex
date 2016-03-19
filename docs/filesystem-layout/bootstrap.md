@@ -1,4 +1,4 @@
-# Bootstrap
+# bootstrap
 
 The `bootstrap` directory contains additional PHP files that can be loaded before the application runs. These files can be used to override or extend existing services. Some cases that might be in reach:
 

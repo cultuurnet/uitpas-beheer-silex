@@ -1,4 +1,4 @@
-# Log
+# log
 
 The `log` directory is used for storing log files. A log file is written here when the logging setting in the `config.yml` or `config.dist.yml` file is set to `true`
 
