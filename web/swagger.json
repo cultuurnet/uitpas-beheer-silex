@@ -2564,7 +2564,8 @@
       "enum": [
         "MALE",
         "FEMALE"
-      ]
+      ],
+      "properties": {}
     },
     "CardSystem": {
       "properties": {
@@ -2808,7 +2809,8 @@
     "Timestamp": {
       "type": "integer",
       "example": 1483225199,
-      "description": "Unix time stamp"
+      "description": "Unix time stamp",
+      "properties": {}
     },
     "Membership": {
       "properties": {
