@@ -1,6 +1,5 @@
 # Summary
 
-* [Introduction](README.md)
 * [Intended Audience](docs/intended-audience.md)
 * [Language](docs/language.md)
 * [Architecture](docs/architecture.md)
