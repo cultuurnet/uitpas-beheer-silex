@@ -1,6 +1,6 @@
 # Summary
 
-* [Intended Audience](docs/intended-audience.md)
+* [Initial Setup](docs/initial-setup.md)
 * [Language](docs/language.md)
 * [Architecture](docs/architecture.md)
    * [Layers](docs/architecture/layered-architecture.md)
