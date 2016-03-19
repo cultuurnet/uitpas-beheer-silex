@@ -3,6 +3,9 @@
 
 ![Swagger Validator](http://online.swagger.io/validator/?url=https://raw.githubusercontent.com/cultuurnet/uitpas-beheer-silex/master/web/swagger.json)
 
+Read the [documentation for developers](https://cultuurnet.gitbooks.io/uitpas-beheer-silex/content/) 
+to get started.
+
 # Git hooks
 
 For development purposes, we advice you to install the included git hooks with the following command:
