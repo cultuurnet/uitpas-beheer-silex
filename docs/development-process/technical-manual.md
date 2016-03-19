@@ -3,7 +3,7 @@
 The manual that you are currently reading, has been made with the help of [GitBook](https://help.gitbook.com/).
 
 The GitBook Editor app, unfortunately did not behave quite well at the time of 
-writing. Therefore we recommend that you use a decent MarkDown Editor[^1] or IDE[^2] instead.
+writing. Therefore we recommend that you use a decent Markdown Editor[^1] or IDE[^2] instead.
 
 Install the [GitBook CLI](https://github.com/GitbookIO/gitbook-cli) and preview the results of your edits with ``gitbook serve``.
 
