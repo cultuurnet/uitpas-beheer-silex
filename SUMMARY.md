@@ -19,6 +19,7 @@
    * [config.dist.yml](docs/filesystem-layout/config-dist-yml.md)
    * [config.yml](docs/filesystem-layout/config-yml.md)
 * [Development process](docs/development-process.md)
+   * [Git workflow](docs/development-process/git-workflow.md)
    * [Definition of Done](docs/development-process/definition-of-done.md)
    * [Unit tests](docs/development-process/unit-tests.md)
    * [Coding standards](docs/development-process/coding-standards.md)
@@ -26,5 +27,4 @@
    * [Technical manual](docs/development-process/technical-manual.md)
    * [Continuous Integration](docs/development-process/continuous-integration.md)
    * [Peer review](docs/development-process/peer-review.md)
-   * [Git workflow](docs/development-process/git_workflow.md)
 

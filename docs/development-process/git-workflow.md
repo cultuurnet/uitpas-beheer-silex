@@ -1,5 +1,8 @@
 # Git workflow
 
+If you follow the agreed git branching model, smooth [peer reviews](./peer-review.md)
+and painless deployments are guaranteed.
+
 ## Permanent branches
 ### `master`
 * This branch is used on the production environment, and is released periodically.
@@ -24,10 +27,13 @@ Examples are:
   feature/UBR-330
 ```
 
+Only when the [Definition of Done](./definition-of-done.md) is entirely met, code is merged from the
+feature branch to the master branch.
+
 ### Hotfix branches
  An issue might require a hotfix that needs to be brought to production as soon as possible. All hotfix branches should be branched from the `hotfix/hotfix` branch.
 
-The naming for the feature branches is:
+The naming for the hotfix branches is:
  ```
     hotfix/{Jira issue-number}
  ```
