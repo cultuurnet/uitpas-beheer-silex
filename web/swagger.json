@@ -3636,7 +3636,7 @@
     },
     "PassholderRemarks": {
       "type": "string",
-      "description": "Additionl information about the passholder. Kansenstatuut related info should go here.",
+      "description": "Additional information about the passholder. Kansenstatuut related info should go here.",
       "properties": {}
     },
     "CheckInDevice": {
