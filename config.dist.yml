@@ -1,29 +1,70 @@
+# Cross-origin resource sharing related settings.
 cors:
-  origins: []
-debug: true
+  # Allowed origins. Add one entry for each domain allowed to access the application.
+  # Always include the protocol (http or https) and if not default for the
+  # protocol, also the port number!
+  origins:
+    - http://localhost:9999
+# Toggle Silex' global debug mode.
+#debug: true
+debug: false
+# UiTID related settings.
 uitid:
+  # UiTID consumer key and secret.
   consumer:
     key: ***
     secret: ***
+  # Base URL of the UiTID API.
+  #base_url: https://acc.uitid.be/uitid/rest/
   base_url: http://www.uitid.be/uitid/rest/
+# UiT Search API related settings.
 search:
+  # Base URL of the UiT Search API.
+  #base_url: https://acc.uitid.be/uitid/rest/searchv2
   base_url: http://www.uitid.be/uitid/rest/searchv2
+# Mail related settings.
 swiftmailer.options:
   # This connects to a mailserver at port 1025
   # This is not the standard SMTP port, but the default port of Mailcatcher,
   # a great tool for debugging mail. Check it out! http://mailcatcher.me/
   host: 127.0.0.1
   port: 1025
+# Feedback form related settings.
 feedback:
+  # Sender address. Make sure this address is allowed to send mail from the server
+  # the application is running on. Sender Policy Framework or other anti-spam
+  # systems might block the e-mail otherwise.
   from: noreply@uitid.be
+  # Addressee of the e-mail.
   to: info@uitpas.be
+  # Subject line of the e-mail.
   subject: "UiTPAS balie beheer feedback."
+# Settings related to the HTTP client used to connect with Search API and UiTID.
 httpclient:
+  # HTTP connect & response timeout.
   timeout: 30
+# Activate additional bootstrap files. Each key below suffixed with .php
+# corresponds to a file in the bootstrap directory. Value 'false' means do not
+# load it, true' means load it!
 bootstrap:
+  # Toggle logging of UiT Search and UiTID API requests, into log files in the
+  # log directory.
+  #logging: true
   logging: false
+
+# Pairs of UiTID user names and a list of roles granted.
+#
+# The following roles are currently in use by the application:
+# - ROLE_HELP_EDIT: Edit the contents of the Help section of the application.
+#
+# In the example below, johndoe and janedoe are UiTID user names.
 roles:
-  Default2d2:
-  - ROLE_HELP_EDIT
+  johndoe:
+    - ROLE_HELP_EDIT
+  janedoe:
+    - ROLE_HELP_EDIT
+
+# Export related settings.
 export:
+  # How many items to retrieve per single UiTID API request.
   limit_per_api_request: 50
