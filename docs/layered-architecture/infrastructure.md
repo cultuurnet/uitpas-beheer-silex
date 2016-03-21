@@ -19,8 +19,9 @@ Examples:
 ## Business service implementations
 
 Implementations of interfaces defined in the business layer that require external systems, among which:
-* all implementations relying on external web services like the UiTPAS API, UiTID API or Search API;
-* concrete implementations that store data on the file system.
+
+* All implementations relying on external web services like the UiTPAS API, UiTID API or Search API;
+* Concrete implementations that store data on the file system.
 
 Examples:
 

@@ -1,25 +1,30 @@
 # Summary
 
-* [Introduction](README.md)
-* [Language](language.md)
-* [Architecture](docs/architecture.md)
-   * [Layers](docs/layered_architecture.md)
-       * [Domain](docs/docs/architecture/layers/domain.md)
-       * [Infrastructure](docs/docs/architecture/layers/infrastructure.md)
-   * [Filesystem layout](docs/filesystem-layout.md)
-       * vendor
-       * src
-       * test
-       * app
-       * bootstrap.php
-       * bootstrap
-       * web
-       * var
-       * log
-       * miscellaneous
-* [Development proces](docs/development_proces.md)
-   * [Definition of Done](docs/development-proces/definition_of_done.md)
-   * [Unit tests](docs/unit_tests.md)
-   * Peer review
-   * [Continuous Integration](docs/docs/continuous_integration.md)
+* [Initial Setup](docs/initial-setup.md)
+* [Language](docs/language.md)
+* [Layered architecture](docs/layered-architecture.md)
+   * [Infrastructure](docs/layered-architecture/infrastructure.md)
+   * [Domain](docs/layered-architecture/domain.md)
+* [File system layout](docs/filesystem-layout.md)
+   * [vendor](docs/filesystem-layout/vendor.md)
+   * [src](docs/filesystem-layout/src.md)
+   * [test](docs/filesystem-layout/test.md)
+   * [app](docs/filesystem-layout/app.md)
+   * [bootstrap.php](docs/filesystem-layout/bootstrap-php.md)
+   * [bootstrap](docs/filesystem-layout/bootstrap.md)
+   * [web](docs/filesystem-layout/web.md)
+   * [var](docs/filesystem-layout/var.md)
+   * [log](docs/filesystem-layout/log.md)
+   * [docs](docs/filesystem-layout/docs.md)
+   * [config.dist.yml](docs/filesystem-layout/config-dist-yml.md)
+   * [config.yml](docs/filesystem-layout/config-yml.md)
+* [Development process](docs/development-process.md)
+   * [Git workflow](docs/development-process/git-workflow.md)
+   * [Definition of Done](docs/development-process/definition-of-done.md)
+   * [Unit tests](docs/development-process/unit-tests.md)
+   * [Coding standards](docs/development-process/coding-standards.md)
+   * [Swagger documentation](docs/development-process/swagger-documentation.md)
+   * [Technical manual](docs/development-process/technical-manual.md)
+   * [Continuous Integration](docs/development-process/continuous-integration.md)
+   * [Peer review](docs/development-process/peer-review.md)
 

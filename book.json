@@ -1,3 +1,5 @@
 {
-    
+  "structure": {
+    "readme": "docs-intro.md"
+  }
 }
