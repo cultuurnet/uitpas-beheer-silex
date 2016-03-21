@@ -2564,7 +2564,8 @@
       "enum": [
         "MALE",
         "FEMALE"
-      ]
+      ],
+      "properties": {}
     },
     "CardSystem": {
       "properties": {
@@ -2808,7 +2809,8 @@
     "Timestamp": {
       "type": "integer",
       "example": 1483225199,
-      "description": "Unix time stamp"
+      "description": "Unix time stamp",
+      "properties": {}
     },
     "Membership": {
       "properties": {
@@ -3014,7 +3016,8 @@
     "Uid": {
       "type": "string",
       "example": "e1e2b335-e756-4e72-bb0f-3d163a583b35",
-      "format": "uuid"
+      "format": "uuid",
+      "properties": {}
     },
     "PassHolderName": {
       "properties": {
@@ -3160,7 +3163,8 @@
     },
     "City": {
       "type": "string",
-      "example": "Leuven"
+      "example": "Leuven",
+      "properties": {}
     },
     "postObjectWithCounterId": {
       "properties": {
@@ -3234,7 +3238,8 @@
     },
     "ActivityId": {
       "type": "string",
-      "example": "34475f7a-d1d5-481d-b205-9537ae0f9e73"
+      "example": "34475f7a-d1d5-481d-b205-9537ae0f9e73",
+      "properties": {}
     },
     "BasicActivity": {
       "properties": {
@@ -3405,7 +3410,8 @@
     },
     "VoucherNumber": {
       "type": "string",
-      "description": "An optional voucher number to redeem."
+      "description": "An optional voucher number to redeem.",
+      "properties": {}
     },
     "VoucherType": {
       "properties": {
@@ -3524,11 +3530,13 @@
       "type": "integer",
       "format": "int32",
       "description": "Id of the tariff.",
-      "example": "10"
+      "example": "10",
+      "properties": {}
     },
     "PriceClass": {
       "type": "string",
-      "example": "Rang 1"
+      "example": "Rang 1",
+      "properties": {}
     },
     "TicketSale": {
       "type": "object",
@@ -3623,11 +3631,13 @@
     "Price": {
       "type": "number",
       "format": "float",
-      "example": 1.5
+      "example": 1.5,
+      "properties": {}
     },
     "PassholderRemarks": {
       "type": "string",
-      "description": "Addition information about the passholder. Kansenstatuut related info should go here."
+      "description": "Additional information about the passholder. Kansenstatuut related info should go here.",
+      "properties": {}
     },
     "CheckInDevice": {
       "type": "object",
