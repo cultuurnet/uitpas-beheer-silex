@@ -40,7 +40,7 @@ class Price implements \JsonSerializable
     public function __construct(
         Money $price,
         $kansenStatuut,
-        AgeRange $ageRange
+        $ageRange = null
     ) {
         $this->price = $price;
         $this->kansenStatuut = $kansenStatuut ? true : false;
@@ -72,7 +72,7 @@ class Price implements \JsonSerializable
     }
 
     /**
-     * @return AgeRange
+     * @return AgeRange|null
      */
     public function getAgeRange()
     {
@@ -102,8 +102,11 @@ class Price implements \JsonSerializable
         $jsonData = [
             'price' => $priceInCents / 100,
             'kansenStatuut' => $this->isKansenStatuut(),
-            'ageRange' => $this->ageRange,
         ];
+
+        if ($this->ageRange) {
+            $jsonData['ageRange'] = $this->ageRange;
+        }
 
         if ($this->voucherType) {
             $jsonData['voucherType'] = $this->voucherType;

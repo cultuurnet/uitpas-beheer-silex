@@ -89,12 +89,14 @@ class AgeRange implements \JsonSerializable
         /* @var Age|null $to */
         $to = $uitpasAgeRange->ageTo ? Age::fromNative($uitpasAgeRange->ageTo) : null;
 
-        $ageRange = new static(
-            $from,
-            $to
-        );
+        if (!empty($from) || !empty($to)) {
+            $ageRange = new static(
+              $from,
+              $to
+            );
 
-        return $ageRange;
+            return $ageRange;
+        }
 
     }
 }

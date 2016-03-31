@@ -67,6 +67,24 @@ class PriceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_can_extract_info_from_culturefeed_pricing_data_without_age()
+    {
+        $culturefeedPrice = new \CultureFeed_Uitpas_Passholder_UitpasPrice();
+        $culturefeedPrice->id = 'id&t';
+        $culturefeedPrice->price = 5.00;
+        $culturefeedPrice->kansenStatuut = true;
+
+        $ageRange = new \CultureFeed_Uitpas_Passholder_AgeRange();
+        $culturefeedPrice->ageRange = $ageRange;
+
+        $uitpasPrice = Price::fromCultureFeedUiTPASPrice($culturefeedPrice);
+
+        $this->assertNull($uitpasPrice->getAgeRange());
+    }
+
+    /**
+     * @test
+     */
     public function it_can_format_uitpas_pricing_so_it_can_be_serialized_as_json()
     {
         $price = new Money(new Integer(500), Currency::fromNative('EUR'));
@@ -94,6 +112,25 @@ class PriceTest extends \PHPUnit_Framework_TestCase
                 "from" => 5,
                 "to" => 10,
             ],
+        ];
+
+        $this->assertEquals($expectedJsonData, $jsonData);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_format_uitpas_pricing_without_age_so_it_can_be_serialized_as_json()
+    {
+        $price = new Money(new Integer(500), Currency::fromNative('EUR'));
+
+        $uitpasPrice = new Price($price, true);
+
+        $jsonData = json_encode($uitpasPrice);
+        $jsonData = json_decode($jsonData, true);
+        $expectedJsonData = [
+          "price" => 5,
+          "kansenStatuut" => true,
         ];
 
         $this->assertEquals($expectedJsonData, $jsonData);
