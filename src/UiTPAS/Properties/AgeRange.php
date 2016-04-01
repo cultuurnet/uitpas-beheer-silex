@@ -35,6 +35,11 @@ class AgeRange implements \JsonSerializable
      */
     private function guardValidRange(Age $from = null, Age $to = null)
     {
+        // one of the range limits can be unspecified but not both
+        if (is_null($from) && is_null($to)) {
+            throw new InvalidAgeRangeException();
+        };
+
         // make sure the range does not end before it starts
         if (!is_null($from) && !is_null($to)) {
             if ($from->toNative() >= $to->toNative()) {
