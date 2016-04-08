@@ -9,6 +9,7 @@ use CultureFeed_Uitpas_GroupPass;
 use JsonSerializable;
 use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
+use ValueObjects\DateTime\DateTime;
 
 class Group implements JsonSerializable
 {
@@ -23,15 +24,22 @@ class Group implements JsonSerializable
     private $availableTickets;
 
     /**
+     * @var DateTime
+     */
+    private $endDate;
+
+    /**
      * @param StringLiteral $name
      * @param Natural $availableTickets
      */
     public function __construct(
         StringLiteral $name,
-        Natural $availableTickets
+        Natural $availableTickets,
+        DateTime $endDate
     ) {
         $this->name = $name;
         $this->availableTickets = $availableTickets;
+        $this->endDate = $endDate;
     }
 
     /**
@@ -43,7 +51,8 @@ class Group implements JsonSerializable
     ) {
         return new self(
             new StringLiteral($groupPass->name),
-            new Natural($groupPass->availableTickets)
+            new Natural($groupPass->availableTickets),
+            DateTime::fromNativeDateTime(new \DateTime('@' . $groupPass->endDate))
         );
     }
 
@@ -55,6 +64,7 @@ class Group implements JsonSerializable
         return [
             'name' => $this->name->toNative(),
             'availableTickets' => $this->availableTickets->toNative(),
+            'endDate' => $this->endDate->toNativeDateTime()
         ];
     }
 }
