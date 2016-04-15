@@ -94,14 +94,14 @@ class AgeRange implements \JsonSerializable
         /* @var Age|null $to */
         $to = $uitpasAgeRange->ageTo ? Age::fromNative($uitpasAgeRange->ageTo) : null;
 
-        if (!empty($from) || !empty($to)) {
-            $ageRange = new static(
-              $from,
-              $to
-            );
-
-            return $ageRange;
+        if (empty($from) && empty($to)) {
+            throw new \InvalidArgumentException('The given CultureFeed_Uitpas_Passholder_AgeRange object should contain at least an ageFrom or ageTo value');
         }
+
+        return new static(
+          $from,
+          $to
+        );
 
     }
 }

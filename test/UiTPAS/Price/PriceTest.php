@@ -18,9 +18,11 @@ class PriceTest extends \PHPUnit_Framework_TestCase
     public function it_keeps_track_of_uitpas_pricing_info()
     {
         $price = new Money(new Integer(500), Currency::fromNative('EUR'));
-        $ageRange = new AgeRange(new Age(5), new Age(10));
 
-        $uitpasPrice = new Price($price, true, $ageRange);
+        $uitpasPrice = new Price($price, true);
+
+        $ageRange = new AgeRange(new Age(5), new Age(10));
+        $uitpasPrice = $uitpasPrice->withAgeRange($ageRange);
 
         // voucherInfo is optional
         $voucherType = new VoucherType(
@@ -88,9 +90,11 @@ class PriceTest extends \PHPUnit_Framework_TestCase
     public function it_can_format_uitpas_pricing_so_it_can_be_serialized_as_json()
     {
         $price = new Money(new Integer(500), Currency::fromNative('EUR'));
-        $ageRange = new AgeRange(new Age(5), new Age(10));
 
-        $uitpasPrice = new Price($price, true, $ageRange);
+        $uitpasPrice = new Price($price, true);
+
+        $ageRange = new AgeRange(new Age(5), new Age(10));
+        $uitpasPrice = $uitpasPrice->withAgeRange($ageRange);
 
         // voucherInfo is optional but we want to make sure it's formatted correctly
         $voucherType = new VoucherType(

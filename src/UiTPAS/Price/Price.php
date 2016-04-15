@@ -8,6 +8,7 @@ use ValueObjects\Money\Currency;
 use ValueObjects\Money\CurrencyCode;
 use ValueObjects\Money\Money;
 use ValueObjects\Number\Integer;
+use ValueObjects\Person\Age;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class Price implements \JsonSerializable
@@ -39,12 +40,10 @@ class Price implements \JsonSerializable
      */
     public function __construct(
         Money $price,
-        $kansenStatuut,
-        $ageRange = null
+        $kansenStatuut
     ) {
         $this->price = $price;
         $this->kansenStatuut = $kansenStatuut ? true : false;
-        $this->ageRange = $ageRange;
     }
 
     /**
@@ -93,6 +92,19 @@ class Price implements \JsonSerializable
     }
 
     /**
+     * @param AgeRange $ageRange
+     *
+     * @return Price
+     */
+    public function withAgeRange(AgeRange $ageRange)
+    {
+        $offer = clone $this;
+        $offer->ageRange = $ageRange;
+
+        return $offer;
+    }
+
+    /**
      * @inheritDoc
      */
     public function jsonSerialize()
@@ -124,13 +136,20 @@ class Price implements \JsonSerializable
         // UiTPAS returns the price as a float, convert it to cents to use as money
         $priceInCents = Integer::fromNative($uitpasPrice->price * 100);
         $currency = new Currency(CurrencyCode::getByName('EUR'));
-        $ageRange = AgeRange::fromCultureFeedUitpasAgeRange($uitpasPrice->ageRange);
 
         $price = new static(
-            new Money($priceInCents, $currency),
-            $uitpasPrice->kansenStatuut,
-            $ageRange
+          new Money($priceInCents, $currency),
+          $uitpasPrice->kansenStatuut
         );
+
+        // Add age range if it was given.
+        $uitpasAgeRange = $uitpasPrice->ageRange;
+        $from = $uitpasAgeRange->ageFrom ? Age::fromNative($uitpasAgeRange->ageFrom) : null;
+        $to = $uitpasAgeRange->ageTo ? Age::fromNative($uitpasAgeRange->ageTo) : null;
+        if (!empty($from) || !empty($to)) {
+            $ageRange = AgeRange::fromCultureFeedUitpasAgeRange($uitpasPrice->ageRange);
+            $price = $price->withAgeRange($ageRange);
+        }
 
         if ($uitpasPrice->voucherType) {
             $voucherType = new VoucherType(

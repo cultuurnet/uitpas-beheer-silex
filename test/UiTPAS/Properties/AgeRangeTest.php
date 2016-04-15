@@ -62,4 +62,16 @@ class AgeRangeTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expectedJsonData, $ageRange->jsonSerialize());
     }
+
+    /**
+     * @tests
+     */
+    public function it_requires_at_least_one_age_limiter_to_create_a_range()
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+
+        $cultureFeedUitpasAgeRange = new \CultureFeed_Uitpas_Passholder_AgeRange();
+        AgeRange::fromCultureFeedUitpasAgeRange($cultureFeedUitpasAgeRange);
+
+    }
 }
