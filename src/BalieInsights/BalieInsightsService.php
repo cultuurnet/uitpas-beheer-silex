@@ -29,30 +29,35 @@ class BalieInsightsService implements BalieInsightsServiceInterface
     /**
      * @inheritdoc
      */
-    public function getCardSales(ParameterBag $query) {
+    public function getCardSales(ParameterBag $query)
+    {
         return $this->request('GET', 'cardsales', $query);
     }
 
-    public function getExchanges(ParameterBag $query) {
+    public function getExchanges(ParameterBag $query)
+    {
         return $this->request('GET', 'exchanges', $query);
     }
 
-    public function getMias(ParameterBag $query) {
+    public function getMias(ParameterBag $query)
+    {
         return $this->request('GET', 'mias', $query);
     }
 
-    public function getCheckins(ParameterBag $query) {
+    public function getCheckins(ParameterBag $query)
+    {
         return $this->request('GET', 'checkins', $query);
     }
 
     /**
      * Send and handle a request.
      */
-    private function request($method, $uri, ParameterBag $query = null) {
+    private function request($method, $uri, ParameterBag $query = null)
+    {
 
         try {
-            $query_params = $query ? $query->all() : [];
-            $response = $this->guzzleClient->createRequest($method, $uri, [], null, ['query' => $query_params])->send()->getBody();
+            $queryParams = $query ? $query->all() : [];
+            $response = $this->guzzleClient->createRequest($method, $uri, [], null, ['query' => $queryParams])->send()->getBody();
         } catch (BadResponseException $e) {
             $response = $e->getResponse()->getBody();
         }

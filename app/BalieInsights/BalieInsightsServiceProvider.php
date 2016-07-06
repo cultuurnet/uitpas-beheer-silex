@@ -21,19 +21,19 @@ class BalieInsightsServiceProvider implements ServiceProviderInterface
      */
     public function register(Application $app)
     {
-      $app['balie_insights_guzzle'] = $app->share(
-        function (\Silex\Application $app) {
-          return new \Guzzle\Http\Client($app['config']['balie_insights']['base_url']);
-        }
-      );
+        $app['balie_insights_guzzle'] = $app->share(
+            function (\Silex\Application $app) {
+                return new \Guzzle\Http\Client($app['config']['balie_insights']['base_url']);
+            }
+        );
 
-      $app['balie_insights_service'] = $app->share(
-        function (Application $app) {
-          return new BalieInsightsService(
-            $app['balie_insights_guzzle']
-          );
-        }
-      );
+        $app['balie_insights_service'] = $app->share(
+            function (Application $app) {
+                return new BalieInsightsService(
+                    $app['balie_insights_guzzle']
+                );
+            }
+        );
     }
 
     /**

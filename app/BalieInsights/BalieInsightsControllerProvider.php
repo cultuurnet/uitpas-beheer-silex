@@ -14,13 +14,13 @@ class BalieInsightsControllerProvider implements ControllerProviderInterface
 {
   public function connect(Application $app)
   {
-    $app['balie_insights_controller'] = $app->share(
-      function (Application $app) {
-        return new BalieInsightsController(
-          $app['balie_insights_service']
-        );
-      }
-    );
+      $app['balie_insights_controller'] = $app->share(
+          function (Application $app) {
+              return new BalieInsightsController(
+                $app['balie_insights_service']
+              );
+          }
+      );
 
     /* @var ControllerCollection $controllers */
     $controllers = $app['controllers_factory'];
