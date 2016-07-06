@@ -9,12 +9,11 @@ class AgeRangeTest extends \PHPUnit_Framework_TestCase
     /**
      * @tests
      */
-    public function it_does_not_require_a_limiter_to_create_a_range()
+    public function it_requires_at_least_one_limiter_to_create_a_range()
     {
-        $range = new AgeRange(null, null);
+        $this->setExpectedException(InvalidAgeRangeException::class);
 
-        $this->assertNull($range->getFrom());
-        $this->assertNull($range->getTo());
+        new AgeRange(null, null);
     }
 
     /**
@@ -62,5 +61,17 @@ class AgeRangeTest extends \PHPUnit_Framework_TestCase
         $ageRange = new AgeRange(new Age(5), new Age(10));
 
         $this->assertEquals($expectedJsonData, $ageRange->jsonSerialize());
+    }
+
+    /**
+     * @tests
+     */
+    public function it_requires_at_least_one_age_limiter_to_create_a_range()
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+
+        $cultureFeedUitpasAgeRange = new \CultureFeed_Uitpas_Passholder_AgeRange();
+        AgeRange::fromCultureFeedUitpasAgeRange($cultureFeedUitpasAgeRange);
+
     }
 }
