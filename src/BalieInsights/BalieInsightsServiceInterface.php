@@ -1,6 +1,7 @@
 <?php
 /**
  * @file
+ * Interface for services that provide balie insights requests.
  */
 
 namespace CultuurNet\UiTPASBeheer\BalieInsights;

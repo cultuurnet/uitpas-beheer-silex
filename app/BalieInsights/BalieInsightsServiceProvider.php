@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Provides services for balie insights.
+ */
 
 namespace CultuurNet\UiTPASBeheer\BalieInsights;
 

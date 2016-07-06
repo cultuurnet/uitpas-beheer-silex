@@ -1,6 +1,7 @@
 <?php
 /**
  * @file
+ * Controller for balie insights.
  */
 
 namespace CultuurNet\UiTPASBeheer\BalieInsights;
