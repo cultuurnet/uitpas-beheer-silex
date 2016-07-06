@@ -23,11 +23,13 @@ class CouponService extends CounterAwareUitpasService implements CouponServiceIn
     /**
      * @inheritDoc
      */
-    public function getCouponsForPassholder(UiTPASNumber $uitpasNumber)
+    public function getCouponsForPassholder(UiTPASNumber $uitpasNumber, $max = NULL, $start = NULL)
     {
         $couponsResultSet = $this->getUitpasService()->getCouponsForPassholder(
             $uitpasNumber->toNative(),
-            $this->getCounterConsumerKey()
+            $this->getCounterConsumerKey(),
+            $max,
+            $start
         );
 
         $coupons = array_map(

@@ -23,6 +23,7 @@ class CouponController
     */
     public function getCouponsForPassholder($uitpasNumber)
     {
+        $max = 50; // Decision: constant in controller, or given by angular via querystring.
         $coupons = $this->couponService->getCouponsForPassholder(new UiTPASNumber($uitpasNumber));
 
         $serializedCoupons = array_map(
