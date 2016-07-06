@@ -3,6 +3,7 @@
 namespace CultuurNet\UiTPASBeheer\Coupon;
 
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use Symfony\Component\HttpFoundation\Request;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class CouponControllerTest extends \PHPUnit_Framework_TestCase
@@ -43,7 +44,7 @@ class CouponControllerTest extends \PHPUnit_Framework_TestCase
             ->with($uitpasNumber)
             ->willReturn($coupons);
 
-        $response = $this->controller->getCouponsForPassholder($uitpasNumber->toNative());
+        $response = $this->controller->getCouponsForPassholder(new Request(), $uitpasNumber->toNative());
         $content = $response->getContent();
 
         $this->assertJsonStringEqualsJsonFile(

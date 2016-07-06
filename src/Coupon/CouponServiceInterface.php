@@ -15,5 +15,5 @@ interface CouponServiceInterface
      * @param integer $start
      * @return Coupon[]
      */
-    public function getCouponsForPassholder(UiTPASNumber $uitpasNumber, $max = NULL, $start = NULL);
+    public function getCouponsForPassholder(UiTPASNumber $uitpasNumber, $max = null, $start = null);
 }
