@@ -228,6 +228,11 @@ if (isset($app['config']['swiftmailer.options'])) {
 $app->register(new \CultuurNet\UiTPASBeheer\School\SchoolServiceProvider());
 
 /**
+ * Balie insights services.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\BalieInsights\BalieInsightsServiceProvider());
+
+/**
  * Load additional bootstrap files.
  */
 foreach ($app['config']['bootstrap'] as $identifier => $enabled) {

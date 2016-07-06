@@ -22,6 +22,10 @@ search:
   # Base URL of the UiT Search API.
   #base_url: https://acc.uitid.be/uitid/rest/searchv2
   base_url: http://www.uitid.be/uitid/rest/searchv2
+# Balie insights related settings
+balie_insights:
+  # Base URL for the balie insights API.
+  base_url: http://test-balieinsights.uitdatabank.be/api/
 # Mail related settings.
 swiftmailer.options:
   # This connects to a mailserver at port 1025
