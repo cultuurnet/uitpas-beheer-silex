@@ -1,0 +1,271 @@
+{
+
+  "totalusers": 4,
+  "periods": [
+    {
+      "date": "01-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "02-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "03-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "04-07-2016",
+      "count": 2,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "05-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "06-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "07-07-2016",
+      "count": 1,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "08-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "09-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "10-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "11-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "12-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "13-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "14-07-2016",
+      "count": 1,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "15-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    }
+  ],
+  "per_day": null,
+  "profiles": {
+    "gender": [
+      {
+        "title": "Vrouw",
+        "count": 75
+      },
+      {
+        "title": "Man",
+        "count": 25
+      },
+      {
+        "title": "Onbekend",
+        "count": 0
+      }
+    ]
+  },
+  "per_age": [
+    {
+      "AgeRange": "0-12",
+      "count": "0"
+    },
+    {
+      "AgeRange": "13-18",
+      "count": "0"
+    },
+    {
+      "AgeRange": "19-26",
+      "count": "0"
+    },
+    {
+      "AgeRange": "27-34",
+      "count": "25"
+    },
+    {
+      "AgeRange": "35-44",
+      "count": "25"
+    },
+    {
+      "AgeRange": "45-54",
+      "count": "0"
+    },
+    {
+      "AgeRange": "55-65",
+      "count": "50"
+    },
+    {
+      "AgeRange": "64-110",
+      "count": "0"
+    },
+    {
+      "AgeRange": "unknow",
+      "count": "0"
+    }
+  ],
+  "per_province": [
+    {
+      "Province": "Antwerpen",
+      "count": 0
+    },
+    {
+      "Province": "Limburg",
+      "count": 0
+    },
+    {
+      "Province": "Oost-Vlaanderen",
+      "count": 100
+    },
+    {
+      "Province": "Vlaams-Brabant",
+      "count": 0
+    },
+    {
+      "Province": "West-Vlaanderen",
+      "count": 0
+    },
+    {
+      "Province": "Brussel (19 gemeenten)",
+      "count": 0
+    },
+    {
+      "Province": "Andere",
+      "count": 0
+    }
+  ],
+  "per_age_allBallie": [
+    {
+      "AgeRange": "0-12",
+      "count": "30"
+    },
+    {
+      "AgeRange": "13-18",
+      "count": "9"
+    },
+    {
+      "AgeRange": "19-26",
+      "count": "7"
+    },
+    {
+      "AgeRange": "27-34",
+      "count": "18"
+    },
+    {
+      "AgeRange": "35-44",
+      "count": "16"
+    },
+    {
+      "AgeRange": "45-54",
+      "count": "2"
+    },
+    {
+      "AgeRange": "55-65",
+      "count": "9"
+    },
+    {
+      "AgeRange": "64-110",
+      "count": "8"
+    },
+    {
+      "AgeRange": "unknow",
+      "count": "0"
+    }
+  ],
+  "per_province_allBallie": [
+    {
+      "Province": "Antwerpen",
+      "count": 0
+    },
+    {
+      "Province": "Limburg",
+      "count": 0
+    },
+    {
+      "Province": "Oost-Vlaanderen",
+      "count": 100
+    },
+    {
+      "Province": "Vlaams-Brabant",
+      "count": 0
+    },
+    {
+      "Province": "West-Vlaanderen",
+      "count": 0
+    },
+    {
+      "Province": "Brussel (19 gemeenten)",
+      "count": 0
+    },
+    {
+      "Province": "Andere",
+      "count": 0
+    }
+  ],
+  "profiles_allBallie": {
+    "gender": [
+      {
+        "title": "Vrouw",
+        "count": 49
+      },
+      {
+        "title": "Man",
+        "count": 49
+      },
+      {
+        "title": "Onbekend",
+        "count": 1
+      }
+    ]
+  },
+  "totalusers2": 0,
+  "per_day2": null,
+  "profiles2": null,
+  "per_age2": null,
+  "per_province2": null
+
+}
