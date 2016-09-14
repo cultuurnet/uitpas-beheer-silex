@@ -97,7 +97,7 @@ class BalieInsightsServiceTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->service->getCardSales($query);
 
-        $this->assertEquals('exception body', $actual);
+        $this->assertEquals('exception body', $actual->getContent());
 
     }
 
@@ -130,7 +130,7 @@ class BalieInsightsServiceTest extends \PHPUnit_Framework_TestCase
 
         $actual = $this->service->{$method}($query);
 
-        $this->assertEquals('body', $actual);
+        $this->assertEquals('body', $actual->getContent());
 
     }
 }

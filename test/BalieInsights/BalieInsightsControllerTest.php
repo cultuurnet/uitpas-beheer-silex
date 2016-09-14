@@ -4,6 +4,7 @@ namespace CultuurNet\UiTPASBeheer\BalieInsights;
 
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class BalieInsightsControllerTest extends \PHPUnit_Framework_TestCase
 {
@@ -81,13 +82,14 @@ class BalieInsightsControllerTest extends \PHPUnit_Framework_TestCase
         );
 
         $cardSalesJson = file_get_contents(__DIR__ . '/' . $jsonFile);
+        $jsonResponse = new Response($cardSalesJson);
 
         $this->balieInsightsService->expects($this->once())
           ->method($method)
           ->with(
               $request->query
           )
-          ->willReturn($cardSalesJson);
+          ->willReturn($jsonResponse);
 
         $response = $this->controller->{$method}($request);
 

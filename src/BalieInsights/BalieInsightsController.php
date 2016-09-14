@@ -26,10 +26,7 @@ class BalieInsightsController
      */
     public function getCardSales(Request $request)
     {
-        $response = new JsonResponse();
-        $response->setContent($this->balieInsightsService->getCardSales($request->query));
-
-        return $response;
+        return $this->balieInsightsService->getCardSales($request->query);
     }
 
     /**
@@ -37,10 +34,7 @@ class BalieInsightsController
      */
     public function getExchanges(Request $request)
     {
-        $response = new JsonResponse();
-        $response->setContent($this->balieInsightsService->getExchanges($request->query));
-
-        return $response;
+        return $this->balieInsightsService->getExchanges($request->query);
     }
 
     /**
@@ -48,10 +42,7 @@ class BalieInsightsController
      */
     public function getMias(Request $request)
     {
-        $response = new JsonResponse();
-        $response->setContent($this->balieInsightsService->getMias($request->query));
-
-        return $response;
+        return $this->balieInsightsService->getMias($request->query);
     }
 
     /**
@@ -59,9 +50,6 @@ class BalieInsightsController
      */
     public function getCheckins(Request $request)
     {
-        $response = new JsonResponse();
-        $response->setContent($this->balieInsightsService->getCheckins($request->query));
-
-        return $response;
+        return $this->balieInsightsService->getCheckins($request->query);
     }
 }

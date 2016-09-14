@@ -9,6 +9,7 @@ namespace CultuurNet\UiTPASBeheer\BalieInsights;
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Exception\BadResponseException;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Response;
 
 class BalieInsightsService implements BalieInsightsServiceInterface
 {
@@ -57,11 +58,14 @@ class BalieInsightsService implements BalieInsightsServiceInterface
 
         try {
             $queryParams = $query ? $query->all() : [];
-            $response = $this->guzzleClient->createRequest($method, $uri, [], null, ['query' => $queryParams])->send()->getBody();
+            $response = $this->guzzleClient->createRequest($method, $uri, [], null, ['query' => $queryParams])->send();
         } catch (BadResponseException $e) {
-            $response = $e->getResponse()->getBody();
+            $response = $e->getResponse();
         }
 
-        return $response;
+        $silexResponse = new Response($response->getBody()->__toString(), $response->getStatusCode(), $response->getHeaders()->toArray());
+        $silexResponse->headers->remove('Transfer-Encoding');
+
+        return $silexResponse;
     }
 }
