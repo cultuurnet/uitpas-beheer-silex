@@ -175,11 +175,12 @@ class UiTPASControllerTest extends \PHPUnit_Framework_TestCase
                     CurrencyCode::fromNative('EUR')
                 )
             ),
-            false,
+            false
+        ))->withAgeRange(
             new AgeRange(
                 new Age(18)
             )
-        ))->withVoucherType(
+        )->withVoucherType(
             new VoucherType(
                 new StringLiteral('Bevraging vrijetijdsactiviteiten'),
                 new StringLiteral('200')
