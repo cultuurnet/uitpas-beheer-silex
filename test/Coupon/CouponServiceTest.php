@@ -68,4 +68,19 @@ class CouponServiceTest extends \PHPUnit_Framework_TestCase
         $actual = $this->couponService->getCouponsForPassholder($this->uitpasNumber);
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * @test
+     */
+    public function it_handles_coupon_paging()
+    {
+        $resultSet = new \CultureFeed_ResultSet(0, []);
+
+        $this->uitpas->expects($this->once())
+            ->method('getCouponsForPassholder')
+            ->with($this->uitpasNumber, $this->counterConsumerKey, 10, 20)
+            ->willReturn($resultSet);
+
+        $this->couponService->getCouponsForPassholder($this->uitpasNumber, 10, 20);
+    }
 }

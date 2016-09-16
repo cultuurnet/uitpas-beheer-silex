@@ -1780,6 +1780,22 @@
             "description": "The uitpas number of the passholder.",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "max",
+            "in": "query",
+            "description": "The maximum number of results.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "start",
+            "in": "query",
+            "description": "The row to start with.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "responses": {

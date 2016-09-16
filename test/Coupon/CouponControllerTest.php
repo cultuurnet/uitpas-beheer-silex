@@ -52,4 +52,23 @@ class CouponControllerTest extends \PHPUnit_Framework_TestCase
             $content
         );
     }
+
+    /**
+     * @test
+     */
+    public function it_handles_coupon_paging()
+    {
+        $uitpasNumber = new UiTPASNumber('0930000125607');
+
+        $this->service->expects($this->once())
+            ->method('getCouponsForPassholder')
+            ->with($uitpasNumber, 50, 10)
+            ->willReturn([]);
+
+        $request = new Request();
+        $request->query->set('max', 50);
+        $request->query->set('start', 10);
+
+        $this->controller->getCouponsForPassholder($request, $uitpasNumber->toNative());
+    }
 }
