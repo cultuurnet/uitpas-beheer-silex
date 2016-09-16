@@ -35,6 +35,11 @@ class AgeRange implements \JsonSerializable
      */
     private function guardValidRange(Age $from = null, Age $to = null)
     {
+        // one of the range limits can be unspecified but not both
+        if (is_null($from) && is_null($to)) {
+            throw new InvalidAgeRangeException();
+        };
+
         // make sure the range does not end before it starts
         if (!is_null($from) && !is_null($to)) {
             if ($from->toNative() >= $to->toNative()) {
@@ -89,12 +94,14 @@ class AgeRange implements \JsonSerializable
         /* @var Age|null $to */
         $to = $uitpasAgeRange->ageTo ? Age::fromNative($uitpasAgeRange->ageTo) : null;
 
-        $ageRange = new static(
-            $from,
-            $to
-        );
+        if (empty($from) && empty($to)) {
+            throw new \InvalidArgumentException('The given CultureFeed_Uitpas_Passholder_AgeRange object should contain at least an ageFrom or ageTo value');
+        }
 
-        return $ageRange;
+        return new static(
+          $from,
+          $to
+        );
 
     }
 }
