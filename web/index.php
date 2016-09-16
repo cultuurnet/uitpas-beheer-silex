@@ -137,4 +137,9 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\CardSystem\CardSystemControllerPro
 
 $app->mount('/', new \CultuurNet\UiTPASBeheer\School\SchoolControllerProvider());
 
+/**
+ * API callbacks for Balie insights.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\BalieInsights\BalieInsightsControllerProvider());
+
 $app->run();

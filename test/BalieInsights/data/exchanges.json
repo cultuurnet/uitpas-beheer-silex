@@ -1,0 +1,282 @@
+{
+
+  "active_users": 0,
+  "new_users": 0,
+  "transactions": 0,
+  "total_popular": 0,
+  "total_ruilen": 0,
+  "frequence": null,
+  "per_day": null,
+  "top_exchanges": [ ],
+  "periods": [
+    {
+      "date": "01-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "02-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "03-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "04-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "05-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "06-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "07-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "08-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "09-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "10-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "11-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "12-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "13-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "14-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "15-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    }
+  ],
+  "active_users2": 0,
+  "new_users2": 0,
+  "transactions2": 0,
+  "total_popular2": 0,
+  "frequence2": null,
+  "per_day2": null,
+  "top_exchanges2": null,
+  "profiles": {
+    "gender": [
+      {
+        "title": "Vrouw",
+        "count": 0
+      },
+      {
+        "title": "Man",
+        "count": 0
+      },
+      {
+        "title": "Onbekend",
+        "count": 0
+      }
+    ]
+  },
+  "profiles_allBallie": {
+    "gender": [
+      {
+        "title": "Vrouw",
+        "count": 57
+      },
+      {
+        "title": "Man",
+        "count": 36
+      },
+      {
+        "title": "Onbekend",
+        "count": 6
+      }
+    ]
+  },
+  "per_age": [
+    {
+      "AgeRange": "0-12",
+      "count": "0"
+    },
+    {
+      "AgeRange": "13-18",
+      "count": "0"
+    },
+    {
+      "AgeRange": "19-26",
+      "count": "0"
+    },
+    {
+      "AgeRange": "27-34",
+      "count": "0"
+    },
+    {
+      "AgeRange": "35-44",
+      "count": "0"
+    },
+    {
+      "AgeRange": "45-54",
+      "count": "0"
+    },
+    {
+      "AgeRange": "55-65",
+      "count": "0"
+    },
+    {
+      "AgeRange": "64-110",
+      "count": "0"
+    },
+    {
+      "AgeRange": "unknow",
+      "count": "0"
+    }
+  ],
+  "per_age_allBallie": [
+    {
+      "AgeRange": "0-12",
+      "count": "12"
+    },
+    {
+      "AgeRange": "13-18",
+      "count": "4"
+    },
+    {
+      "AgeRange": "19-26",
+      "count": "3"
+    },
+    {
+      "AgeRange": "27-34",
+      "count": "8"
+    },
+    {
+      "AgeRange": "35-44",
+      "count": "11"
+    },
+    {
+      "AgeRange": "45-54",
+      "count": "14"
+    },
+    {
+      "AgeRange": "55-65",
+      "count": "20"
+    },
+    {
+      "AgeRange": "64-110",
+      "count": "25"
+    },
+    {
+      "AgeRange": "unknow",
+      "count": "0"
+    }
+  ],
+  "per_province": [
+    {
+      "Province": "Antwerpen",
+      "count": 0
+    },
+    {
+      "Province": "Limburg",
+      "count": 0
+    },
+    {
+      "Province": "Oost-Vlaanderen",
+      "count": 0
+    },
+    {
+      "Province": "Vlaams-Brabant",
+      "count": 0
+    },
+    {
+      "Province": "West-Vlaanderen",
+      "count": 0
+    },
+    {
+      "Province": "Brussel (19 gemeenten)",
+      "count": 0
+    },
+    {
+      "Province": "Andere",
+      "count": 0
+    }
+  ],
+  "per_province_allBallie": [
+    {
+      "Province": "Antwerpen",
+      "count": 0
+    },
+    {
+      "Province": "Limburg",
+      "count": 0
+    },
+    {
+      "Province": "Oost-Vlaanderen",
+      "count": 99
+    },
+    {
+      "Province": "Vlaams-Brabant",
+      "count": 0
+    },
+    {
+      "Province": "West-Vlaanderen",
+      "count": 0
+    },
+    {
+      "Province": "Brussel (19 gemeenten)",
+      "count": 0
+    },
+    {
+      "Province": "Andere",
+      "count": 0
+    }
+  ],
+  "profiles2": null,
+  "per_age2": null,
+  "per_province2": null
+
+}

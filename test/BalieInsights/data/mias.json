@@ -1,0 +1,288 @@
+{
+
+  "active_mias": 0,
+  "saving_mias": 0,
+  "exchanging_mias": 0,
+  "nrTicketsLowTarif": 1,
+  "per_day": null,
+  "top_popularTickets": [
+    {
+      "title": "Alex Agnew // Unfinished Business",
+      "count": "1"
+    }
+  ],
+  "top_popularActivities": [ ],
+  "top_popularExchangeAdvantages": [ ],
+  "periods": [
+    {
+      "date": "01-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "02-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "03-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "04-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "05-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "06-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "07-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "08-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "09-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "10-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "11-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "12-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "13-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "14-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    },
+    {
+      "date": "15-07-2016",
+      "count": 0,
+      "date2": null,
+      "count2": 0
+    }
+  ],
+  "profiles": {
+    "gender": [
+      {
+        "title": "Vrouw",
+        "count": 0
+      },
+      {
+        "title": "Man",
+        "count": 0
+      },
+      {
+        "title": "Onbekend",
+        "count": 0
+      }
+    ]
+  },
+  "profiles_allBallie": {
+    "gender": [
+      {
+        "title": "Vrouw",
+        "count": 52
+      },
+      {
+        "title": "Man",
+        "count": 45
+      },
+      {
+        "title": "Onbekend",
+        "count": 2
+      }
+    ]
+  },
+  "per_age": [
+    {
+      "AgeRange": "0-12",
+      "count": "0"
+    },
+    {
+      "AgeRange": "13-18",
+      "count": "0"
+    },
+    {
+      "AgeRange": "19-26",
+      "count": "0"
+    },
+    {
+      "AgeRange": "27-34",
+      "count": "0"
+    },
+    {
+      "AgeRange": "35-44",
+      "count": "0"
+    },
+    {
+      "AgeRange": "45-54",
+      "count": "0"
+    },
+    {
+      "AgeRange": "55-65",
+      "count": "0"
+    },
+    {
+      "AgeRange": "64-110",
+      "count": "0"
+    },
+    {
+      "AgeRange": "unknow",
+      "count": "0"
+    }
+  ],
+  "per_age_allBallie": [
+    {
+      "AgeRange": "0-12",
+      "count": "44"
+    },
+    {
+      "AgeRange": "13-18",
+      "count": "11"
+    },
+    {
+      "AgeRange": "19-26",
+      "count": "3"
+    },
+    {
+      "AgeRange": "27-34",
+      "count": "6"
+    },
+    {
+      "AgeRange": "35-44",
+      "count": "15"
+    },
+    {
+      "AgeRange": "45-54",
+      "count": "8"
+    },
+    {
+      "AgeRange": "55-65",
+      "count": "5"
+    },
+    {
+      "AgeRange": "64-110",
+      "count": "5"
+    },
+    {
+      "AgeRange": "unknow",
+      "count": "0"
+    }
+  ],
+  "per_province": [
+    {
+      "Province": "Antwerpen",
+      "count": 0
+    },
+    {
+      "Province": "Limburg",
+      "count": 0
+    },
+    {
+      "Province": "Oost-Vlaanderen",
+      "count": 0
+    },
+    {
+      "Province": "Vlaams-Brabant",
+      "count": 0
+    },
+    {
+      "Province": "West-Vlaanderen",
+      "count": 0
+    },
+    {
+      "Province": "Brussel (19 gemeenten)",
+      "count": 0
+    },
+    {
+      "Province": "Andere",
+      "count": 0
+    }
+  ],
+  "per_province_allBallie": [
+    {
+      "Province": "Antwerpen",
+      "count": 0
+    },
+    {
+      "Province": "Limburg",
+      "count": 0
+    },
+    {
+      "Province": "Oost-Vlaanderen",
+      "count": 100
+    },
+    {
+      "Province": "Vlaams-Brabant",
+      "count": 0
+    },
+    {
+      "Province": "West-Vlaanderen",
+      "count": 0
+    },
+    {
+      "Province": "Brussel (19 gemeenten)",
+      "count": 0
+    },
+    {
+      "Province": "Andere",
+      "count": 0
+    }
+  ],
+  "active_mias2": 0,
+  "saving_mias2": 0,
+  "exchanging_mias2": 0,
+  "nrTicketsLowTarif2": 0,
+  "per_day2": null,
+  "top_popularTickets2": null,
+  "top_popularActivities2": null,
+  "top_popularExchangeAdvantages2": null,
+  "profiles2": null,
+  "per_age2": null,
+  "per_province2": null
+
+}
