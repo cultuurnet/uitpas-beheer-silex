@@ -4,6 +4,7 @@ namespace CultuurNet\UiTPASBeheer\Coupon;
 
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 class CouponController
 {
@@ -18,12 +19,13 @@ class CouponController
     }
 
     /**
-    * @param $uitpasNumber
-    * @return JsonResponse
-    */
-    public function getCouponsForPassholder($uitpasNumber)
+     * @param Request $request
+     * @param string $uitpasNumber
+     * @return JsonResponse
+     */
+    public function getCouponsForPassholder(Request $request, $uitpasNumber)
     {
-        $coupons = $this->couponService->getCouponsForPassholder(new UiTPASNumber($uitpasNumber));
+        $coupons = $this->couponService->getCouponsForPassholder(new UiTPASNumber($uitpasNumber), $request->query->get('max'), $request->query->get('start'));
 
         $serializedCoupons = array_map(
             function (Coupon $coupon) {
