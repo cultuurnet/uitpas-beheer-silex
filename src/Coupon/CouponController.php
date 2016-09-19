@@ -19,9 +19,10 @@ class CouponController
     }
 
     /**
-    * @param $uitpasNumber
-    * @return JsonResponse
-    */
+     * @param Request $request
+     * @param string $uitpasNumber
+     * @return JsonResponse
+     */
     public function getCouponsForPassholder(Request $request, $uitpasNumber)
     {
         $coupons = $this->couponService->getCouponsForPassholder(new UiTPASNumber($uitpasNumber), $request->query->get('max'), $request->query->get('start'));
