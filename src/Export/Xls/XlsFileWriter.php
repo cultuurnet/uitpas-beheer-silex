@@ -7,26 +7,6 @@ use ValueObjects\StringLiteral\StringLiteral;
 
 class XlsFileWriter implements FileWriterInterface
 {
-    const XML_HEADER = '<?xml version="1.0" encoding="%s" ?>';
-
-    const WORKBOOK_START = '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
-        xmlns:x="urn:schemas-microsoft-com:office:excel"
-        xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
-        xmlns:html="http://www.w3.org/TR/REC-html40">';
-
-    const WORKBOOK_END = '</Workbook>';
-
-    const WORKSHEET_START = '<Worksheet ss:Name="%s"><Table>';
-
-    const WORKSHEET_END = '</Table></Worksheet>';
-
-    const ROW_START = '<Row>';
-
-    const ROW_END = '</Row>';
-
-    const CELL_START = '<Cell><Data ss:Type="String">';
-
-    const CELL_END = '</Data></Cell>';
 
     /**
      * @var XlsFileName
@@ -44,21 +24,39 @@ class XlsFileWriter implements FileWriterInterface
     public $worksheetTitle;
 
     /**
+     * @var PHP_Excell
+     */
+    public $excel;
+
+    /**
+     * @var StringLiteral
+     */
+    public $exportType;
+
+    /**
+     * @var int
+     */
+    private $currentRow = 1;
+
+    /**
      * @param XlsFileName $fileName
      *   Even though we're writing xlsx (xml) data, Excel is only able to open
      *   it with a .xls extension.
      *
      * @param StringLiteral $encoding
      * @param StringLiteral $worksheetTitle
+     * @param StringLiteral $exportType
      */
     public function __construct(
         XlsFileName $fileName,
         StringLiteral $encoding = null,
-        StringLiteral $worksheetTitle = null
+        StringLiteral $worksheetTitle = null,
+        StringLiteral $exportType = null
     ) {
         $this->fileName = $fileName;
         $this->encoding = is_null($encoding) ? new StringLiteral('UTF-8') : $encoding;
         $this->worksheetTitle = is_null($worksheetTitle) ? new StringLiteral('Sheet1') : $worksheetTitle;
+        $this->exportType = is_null($exportType) ? new StringLiteral('Excel5') : $exportType;
     }
 
     /**
@@ -82,26 +80,22 @@ class XlsFileWriter implements FileWriterInterface
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function open()
     {
-        // XML header with encoding.
-        $output[] = sprintf(self::XML_HEADER, $this->encoding);
+        $this->excel = new \PHPExcel();
+        $this->excel->getActiveSheet()->setTitle($this->worksheetTitle->toNative());
+        return '';
+    }
 
-        // Open workbook tag.
-        $output[] = self::WORKBOOK_START;
+    public function close()
+    {
 
-        // Open worksheet tag.
-        $output[] = sprintf(
-            self::WORKSHEET_START,
-            htmlentities(
-                $this->worksheetTitle->toNative()
-            )
-        );
-
-        return implode('', $output);
+        ob_start();
+        $writer = \PHPExcel_IOFactory::createWriter($this->excel, $this->exportType);
+        $writer->save('php://output');
+        $content = ob_get_contents();
+        ob_end_clean();
+        return $content;
     }
 
     /**
@@ -109,52 +103,11 @@ class XlsFileWriter implements FileWriterInterface
      */
     public function write(array $data)
     {
-        $output[] = self::ROW_START;
-
-        foreach ($data as $value) {
-            $output[] = $this->writeCell($value);
+        foreach ($data as $column => $data) {
+            $this->excel->getActiveSheet()->setCellValueByColumnAndRow($column, $this->currentRow, $data);
         }
 
-        $output[] = self::ROW_END;
+        $this->currentRow++;
 
-        return implode('', $output);
-    }
-
-    /**
-     * @param string $value
-     * @return string
-     */
-    private function writeCell($value)
-    {
-        $value = (string) $value;
-
-        $value = str_replace(
-            '&#039;',
-            '&apos;',
-            htmlspecialchars(
-                $value,
-                ENT_QUOTES
-            )
-        );
-
-        $output[] = self::CELL_START;
-        $output[] = $value;
-        $output[] = self::CELL_END;
-
-        return implode('', $output);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function close()
-    {
-        // Close worksheet tag.
-        $output[] = self::WORKSHEET_END;
-
-        // Close workbook tag.
-        $output[] = self::WORKBOOK_END;
-
-        return implode('', $output);
     }
 }

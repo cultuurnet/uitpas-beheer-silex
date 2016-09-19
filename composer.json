@@ -41,7 +41,8 @@
     "swiftmailer/swiftmailer": "~5.3",
     "cultuurnet/clock": "~0.1",
     "cultuurnet/hydra": "~0.1",
-    "2dotstwice/collection": "~1.0"
+    "2dotstwice/collection": "~1.0",
+    "phpoffice/phpexcel": "^1.8"
   },
   "require-dev": {
     "escapestudios/symfony2-coding-standard": "~2.0",

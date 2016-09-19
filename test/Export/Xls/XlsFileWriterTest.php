@@ -30,12 +30,10 @@ class XlsFileWriterTest extends \PHPUnit_Framework_TestCase
     {
         $this->fileName = new XlsFileName('foo.xls');
         $this->encoding = new StringLiteral('UTF-8');
-        $this->worksheetTitle = new StringLiteral('MyWorksheet');
 
         $this->writer = new XlsFileWriter(
             $this->fileName,
-            $this->encoding,
-            $this->worksheetTitle
+            $this->encoding
         );
     }
 
@@ -83,16 +81,20 @@ class XlsFileWriterTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $fileData[] = $this->writer->open();
+        $this->writer->open();
         foreach ($rows as $row) {
-            $fileData[] = $this->writer->write($row);
+            $this->writer->write($row);
         }
-        $fileData[] = $this->writer->close();
 
-        $fileContents = implode('', $fileData);
+        $tempFileName = tempnam(sys_get_temp_dir(), '.xls');
+        $handle = fopen($tempFileName, "w");
+        fwrite($handle, $this->writer->close());
+        fclose($handle);
 
-        $expected = file_get_contents(__DIR__ . '/../data/export.xls');
+        $reader = \PHPExcel_IOFactory::createReader('Excel5');
+        $excel = $reader->load($tempFileName);
+        $excelData = $excel->getActiveSheet()->toArray();
 
-        $this->assertEquals($expected, $fileContents);
+        $this->assertEquals($rows, $excelData);
     }
 }
