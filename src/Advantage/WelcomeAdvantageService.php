@@ -55,9 +55,11 @@ class WelcomeAdvantageService extends CounterAwareUitpasService implements Advan
 
     /**
      * @param UiTPASNumber $uitpasNumber
+     * @param int $max
+     * @param int $start
      * @return WelcomeAdvantage[]
      */
-    public function getExchangeable(UiTPASNumber $uitpasNumber)
+    public function getExchangeable(UiTPASNumber $uitpasNumber, $max = null, $start = null)
     {
         $advantages = array();
 
@@ -76,6 +78,14 @@ class WelcomeAdvantageService extends CounterAwareUitpasService implements Advan
         $options->cashingPeriodBegin = $options->cashingPeriodEnd = $currentTimestamp;
 
         $options->cashedIn = false;
+
+        if (!empty($max)) {
+            $options->max = $max;
+        }
+
+        if (!empty($start)) {
+            $options->start = $start;
+        }
 
         $results = $this->getUitpasService()->getWelcomeAdvantagesForPassholder($options);
 
