@@ -85,6 +85,8 @@ final class BirthInformation implements \JsonSerializable
     {
         $dateTime = new \DateTime();
         $dateTime->setTimestamp($cfPassHolder->dateOfBirth);
+        $dateTime->setTimezone(new \DateTimeZone('Europe/Brussels'));
+
         $date = Date::fromNativeDateTime($dateTime);
 
         $birthInformation = new self($date);
