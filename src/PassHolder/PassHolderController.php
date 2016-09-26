@@ -234,7 +234,7 @@ class PassHolderController
                 }
 
                 $gender = $passHolder->getGender();
-                $genderNl = new HumanReadableGender($gender, Language::NL());
+                $genderNl = $gender ? new HumanReadableGender($gender, Language::NL()) : '';
 
                 print $this->exportFileWriter->write(
                     [
