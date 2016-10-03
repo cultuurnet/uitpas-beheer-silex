@@ -172,6 +172,43 @@ class WelcomeAdvantageServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_can_handle_paged_welcome_advantages_for_a_user()
+    {
+        $uitpasNumber = new UiTPASNumber('0930000125607');
+
+        $expectedOptions = new \CultureFeed_Uitpas_Passholder_Query_WelcomeAdvantagesOptions();
+        $expectedOptions->balieConsumerKey = $this->counterConsumerKey->toNative();
+        $expectedOptions->cashInBalieConsumerKey = $this->counterConsumerKey->toNative();
+
+        // The property 'uitpas_number' is defined in the CultureFeed-PHP library, so there's no way for us to fix this
+        // coding standards issue.
+        // @codingStandardsIgnoreStart
+        $expectedOptions->uitpas_number = $uitpasNumber->toNative();
+        // @codingStandardsIgnoreEnd
+
+        $expectedOptions->cashingPeriodBegin = $this->currentTime;
+        $expectedOptions->cashingPeriodEnd = $this->currentTime;
+        $expectedOptions->cashedIn = false;
+        $expectedOptions->max = 50;
+        $expectedOptions->start = 10;
+
+        $cfAdvantages = new \CultureFeed_Uitpas_Passholder_WelcomeAdvantageResultSet(
+            0,
+            []
+        );
+
+        $this->uitpas->expects($this->once())
+            ->method('getWelcomeAdvantagesForPassholder')
+            ->with($expectedOptions)
+            ->willReturn($cfAdvantages);
+
+        $this->service->getExchangeable($uitpasNumber, 50, 10);
+
+    }
+
+    /**
+     * @test
+     */
     public function it_can_exchange_a_welcome_advantage_for_a_user()
     {
         $uitpasNumber = new UiTPASNumber('0930000125607');

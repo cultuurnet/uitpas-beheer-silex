@@ -16,9 +16,11 @@ interface AdvantageServiceInterface
 
     /**
      * @param UiTPASNumber $uitpasNumber
+     * @param int $max
+     * @param int $start
      * @return Advantage[]
      */
-    public function getExchangeable(UiTPASNumber $uitpasNumber);
+    public function getExchangeable(UiTPASNumber $uitpasNumber, $max = null, $start = null);
 
     /**
      * @param UiTPASNumber $uitpasNumber

@@ -132,10 +132,11 @@ class AdvantageController
 
         $advantages = array();
         try {
+            // All advantages should be shown. API has paging, so set a high number.
             foreach ($this->advantageServices as $advantageService) {
                 $advantages = array_merge(
                     $advantages,
-                    $advantageService->getExchangeable($uitpasNumber)
+                    $advantageService->getExchangeable($uitpasNumber, 999999)
                 );
             }
         } catch (\CultureFeed_Exception $exception) {

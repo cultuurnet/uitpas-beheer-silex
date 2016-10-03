@@ -52,9 +52,11 @@ class PointsPromotionAdvantageService extends CounterAwareUitpasService implemen
 
     /**
      * @param UiTPASNumber $uitpasNumber
+     * @param int $max
+     * @param int $start
      * @return PointsPromotionAdvantage[]
      */
-    public function getExchangeable(UiTPASNumber $uitpasNumber)
+    public function getExchangeable(UiTPASNumber $uitpasNumber, $max = null, $start = null)
     {
         $advantages = array();
 
@@ -68,6 +70,14 @@ class PointsPromotionAdvantageService extends CounterAwareUitpasService implemen
 
         $options->filterOnUserPoints = true;
         $options->unexpired = true;
+
+        if (!empty($max)) {
+            $options->max = $max;
+        }
+
+        if (!empty($start)) {
+            $options->start = $start;
+        }
 
         $results = $this->getUitpasService()->getPromotionPoints($options);
 

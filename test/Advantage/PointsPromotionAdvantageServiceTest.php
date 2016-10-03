@@ -173,6 +173,37 @@ class PointsPromotionAdvantageServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_can_handle_paged_points_promotions_for_a_user()
+    {
+        $uitpasNumber = new UiTPASNumber('0930000125607');
+
+        $expectedOptions = new \CultureFeed_Uitpas_Passholder_Query_SearchPromotionPointsOptions();
+        $expectedOptions->balieConsumerKey = $this->counterConsumerKey->toNative();
+        $expectedOptions->uitpasNumber = $uitpasNumber->toNative();
+        $expectedOptions->unexpired = true;
+        $expectedOptions->max = 50;
+        $expectedOptions->start = 10;
+        $expectedOptions->filterOnUserPoints = true;
+        $expectedOptions->cashingPeriodBegin = $this->currentTime;
+        $expectedOptions->cashingPeriodEnd = $this->currentTime;
+
+        $cfAdvantages = new \CultureFeed_Uitpas_Passholder_PointsPromotionResultSet(
+            0,
+            []
+        );
+
+        $this->uitpas->expects($this->once())
+            ->method('getPromotionPoints')
+            ->with($expectedOptions)
+            ->willReturn($cfAdvantages);
+
+        $this->service->getExchangeable($uitpasNumber, 50, 10);
+
+    }
+
+    /**
+     * @test
+     */
     public function it_can_exchange_a_points_promotion_for_a_user()
     {
         $uitpasNumber = new UiTPASNumber('0930000125607');
