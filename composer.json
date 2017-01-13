@@ -19,7 +19,6 @@
     "doctrine/dbal": ">=2.2.0,<2.4.0-dev",
     "jdesrosiers/silex-cors-provider": "~0.1.5",
     "nicolopignatelli/valueobjects": "~3.0",
-    "plasmaconduit/luhn":  "~0.1",
     "silex/silex": "~1.1",
     "symfony/browser-kit": "~2.3",
     "symfony/console": "~2.3",
@@ -41,7 +40,8 @@
     "swiftmailer/swiftmailer": "~5.3",
     "cultuurnet/clock": "~0.1",
     "cultuurnet/hydra": "~0.1",
-    "2dotstwice/collection": "~1.0"
+    "2dotstwice/collection": "~1.0",
+    "paybreak/luhn": "^0.2.0"
   },
   "require-dev": {
     "escapestudios/symfony2-coding-standard": "~2.0",

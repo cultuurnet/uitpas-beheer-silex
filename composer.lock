@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0caa9a15fe7da127e8a3a18d289c9ad9",
-    "content-hash": "194d1950451941da025a501586742f9f",
+    "hash": "0ab665eda05ebdb6245e8f20803cf6f0",
+    "content-hash": "d94456eeb51df9aff2a868f76fd27f6a",
     "packages": [
         {
             "name": "2dotstwice/collection",
@@ -1163,6 +1163,7 @@
                 "rest",
                 "web service"
             ],
+            "abandoned": "guzzlehttp/guzzle",
             "time": "2015-03-18 18:23:50"
         },
         {
@@ -1507,6 +1508,7 @@
                 "Value Object",
                 "money"
             ],
+            "abandoned": "moneyphp/money",
             "time": "2016-01-16 22:03:46"
         },
         {
@@ -1688,6 +1690,44 @@
             "time": "2016-02-06 03:52:05"
         },
         {
+            "name": "paybreak/luhn",
+            "version": "0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PayBreak/luhn.git",
+                "reference": "985fce43609269d14f5ea05ac768dad0815282c0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PayBreak/luhn/zipball/985fce43609269d14f5ea05ac768dad0815282c0",
+                "reference": "985fce43609269d14f5ea05ac768dad0815282c0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PayBreak\\Luhn\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Luhn algorithm implementation",
+            "homepage": "https://github.com/paybreak/luhn",
+            "keywords": [
+                "luhn"
+            ],
+            "time": "2016-11-25 10:51:47"
+        },
+        {
             "name": "pimple/pimple",
             "version": "v1.1.1",
             "source": {
@@ -1732,123 +1772,6 @@
                 "dependency injection"
             ],
             "time": "2013-11-22 08:30:29"
-        },
-        {
-            "name": "plasmaconduit/either",
-            "version": "0.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JosephMoniz/php-either.git",
-                "reference": "8cf8f82f4486bc9c17372f535a41db110fcb4772"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/JosephMoniz/php-either/zipball/8cf8f82f4486bc9c17372f535a41db110fcb4772",
-                "reference": "8cf8f82f4486bc9c17372f535a41db110fcb4772",
-                "shasum": ""
-            },
-            "require": {
-                "plasmaconduit/map": "0.1.*",
-                "plasmaconduit/option": "0.2.*"
-            },
-            "require-dev": {
-                "phpspec/phpspec2": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "time": "2013-07-13 18:27:16"
-        },
-        {
-            "name": "plasmaconduit/luhn",
-            "version": "v0.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JosephMoniz/php-luhn.git",
-                "reference": "5f3420f4e9b49a4fd8a434c164b9f2fb8d2fcc62"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/JosephMoniz/php-luhn/zipball/5f3420f4e9b49a4fd8a434c164b9f2fb8d2fcc62",
-                "reference": "5f3420f4e9b49a4fd8a434c164b9f2fb8d2fcc62",
-                "shasum": ""
-            },
-            "require": {
-                "plasmaconduit/map": "0.1.*"
-            },
-            "require-dev": {
-                "phpspec/phpspec2": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "time": "2013-02-13 05:50:12"
-        },
-        {
-            "name": "plasmaconduit/map",
-            "version": "0.1.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JosephMoniz/php-map.git",
-                "reference": "e8f5aa43009b7addac7343e1ff0ce96032211680"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/JosephMoniz/php-map/zipball/e8f5aa43009b7addac7343e1ff0ce96032211680",
-                "reference": "e8f5aa43009b7addac7343e1ff0ce96032211680",
-                "shasum": ""
-            },
-            "require": {
-                "plasmaconduit/option": "0.2.*"
-            },
-            "require-dev": {
-                "phpspec/phpspec2": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "time": "2013-07-13 17:54:31"
-        },
-        {
-            "name": "plasmaconduit/option",
-            "version": "0.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JosephMoniz/php-option.git",
-                "reference": "c40d9bd6b5dcf8bf3edb99294858ad4f123703de"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/JosephMoniz/php-option/zipball/c40d9bd6b5dcf8bf3edb99294858ad4f123703de",
-                "reference": "c40d9bd6b5dcf8bf3edb99294858ad4f123703de",
-                "shasum": ""
-            },
-            "require": {
-                "plasmaconduit/either": "0.2.*"
-            },
-            "require-dev": {
-                "phpspec/phpspec2": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "time": "2013-07-13 18:18:56"
         },
         {
             "name": "psr/log",
@@ -2947,6 +2870,7 @@
             ],
             "description": "Symfony Locale Component",
             "homepage": "https://symfony.com",
+            "abandoned": "symfony/intl",
             "time": "2016-01-03 15:33:41"
         },
         {
@@ -4347,12 +4271,12 @@
             "version": "2.9.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/escapestudios/Symfony2-coding-standard.git",
+                "url": "https://github.com/djoos/Symfony2-coding-standard.git",
                 "reference": "c91624f1bf4a5fbf6bf7c796c541f15d3763bc94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/escapestudios/Symfony2-coding-standard/zipball/c91624f1bf4a5fbf6bf7c796c541f15d3763bc94",
+                "url": "https://api.github.com/repos/djoos/Symfony2-coding-standard/zipball/c91624f1bf4a5fbf6bf7c796c541f15d3763bc94",
                 "reference": "c91624f1bf4a5fbf6bf7c796c541f15d3763bc94",
                 "shasum": ""
             },
@@ -5568,7 +5492,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "cultuurnet/silex-uitid-provider": 20,
-        "cultuurnet/deserializer": 20
+        "cultuurnet/deserializer": 20,
+        "doctrine/dbal": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
