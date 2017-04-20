@@ -61,15 +61,12 @@ class BirthInformationTest extends \PHPUnit_Framework_TestCase
     public function it_can_extract_properties_from_a_culturefeed_passholder()
     {
         $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
-        $cfPassHolder->dateOfBirth = 208742400;
+        $cfPassHolder->dateOfBirth = 232668000;
         $cfPassHolder->placeOfBirth = 'Casablanca';
 
         $birthInfo = BirthInformation::fromCultureFeedPassHolder($cfPassHolder);
 
-        $date = Date::fromNativeDateTime(
-            \DateTime::createFromFormat('U', $cfPassHolder->dateOfBirth)
-        );
-        $this->assertTrue($birthInfo->getDate()->sameValueAs($date));
+        $this->assertEquals($birthInfo->getDate()->toNativeDateTime()->format('Y-m-d'), '1977-05-17');
 
         $this->assertEquals(
             $cfPassHolder->placeOfBirth,
