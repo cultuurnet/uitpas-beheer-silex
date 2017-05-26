@@ -90,7 +90,7 @@ class AdvantageController
         // Welcome advantages should be forced to exchanged after exchanging.
         // Sometimes the server returns an old cashedIn value.
         if ($exchanged && $advantage instanceof WelcomeAdvantage) {
-          $advantage = $advantage->withExchangeable($exchanged);
+            $advantage = $advantage->withExchangeable($exchanged);
         }
 
         return JsonResponse::create()

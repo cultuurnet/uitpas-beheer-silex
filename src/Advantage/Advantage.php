@@ -272,14 +272,14 @@ abstract class Advantage implements \JsonSerializable
         return $c;
     }
 
-  /**
-   * @param bool $exchangeable
-   * @return Advantage
-   */
-  public function withExchangeable($exchangeable)
-  {
-    $c = clone $this;
-    $c->exchangeable = $exchangeable;
-    return $c;
-  }
+    /**
+     * @param bool $exchangeable
+     * @return Advantage
+     */
+    public function withExchangeable($exchangeable)
+    {
+        $c = clone $this;
+        $c->exchangeable = $exchangeable;
+        return $c;
+    }
 }
