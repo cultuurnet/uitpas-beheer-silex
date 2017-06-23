@@ -207,7 +207,7 @@ class AdvantageControllerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider advantageDataProvider
+     * @dataProvider exchangeAdvantageDataProvider
      *
      * @param Advantage $advantage
      * @param string $advantageFile
@@ -332,5 +332,34 @@ class AdvantageControllerTest extends \PHPUnit_Framework_TestCase
                 'pointsPromotionAdvantageService',
             ],
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function exchangeAdvantageDataProvider()
+    {
+        return [
+            [
+                new WelcomeAdvantage(
+                    new StringLiteral('10'),
+                    new StringLiteral('Some title'),
+                    true
+                ),
+                'Advantage/data/welcomeAdvantageNotExchangeable.json',
+                'welcomeAdvantageService',
+            ],
+            [
+                new PointsPromotionAdvantage(
+                    new StringLiteral('10'),
+                    new StringLiteral('Some title'),
+                    new Integer(5),
+                    true
+                ),
+                'Advantage/data/pointsPromotionAdvantage.json',
+                'pointsPromotionAdvantageService',
+            ],
+        ];
+
     }
 }

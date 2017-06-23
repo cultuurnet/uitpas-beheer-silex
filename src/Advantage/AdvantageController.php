@@ -66,13 +66,15 @@ class AdvantageController
     /**
      * @param UiTPASNumber $uitpasNumber
      * @param AdvantageIdentifier $advantageIdentifier
+     * @param bool $exchanged
+     *   Was there an exchange action for this advantage?
      * @return JsonResponse
      * @throws InternalErrorException
      *   When no advantage service was found for the advantage identifier's type.
      * @throws AdvantageNotFoundException
      *   When no advantage was found for the specified advantage identifier.
      */
-    protected function getAdvantageJsonResponse(UiTPASNumber $uitpasNumber, AdvantageIdentifier $advantageIdentifier)
+    protected function getAdvantageJsonResponse(UiTPASNumber $uitpasNumber, AdvantageIdentifier $advantageIdentifier, $exchanged = false)
     {
         $service = $this->getAdvantageServiceForType($advantageIdentifier->getType());
 
@@ -83,6 +85,12 @@ class AdvantageController
 
         if (is_null($advantage)) {
             throw new AdvantageNotFoundException($advantageIdentifier);
+        }
+
+        // Welcome advantages should be forced to exchanged after exchanging.
+        // Sometimes the server returns an old cashedIn value.
+        if ($exchanged && $advantage instanceof WelcomeAdvantage) {
+            $advantage = $advantage->withExchangeable(false);
         }
 
         return JsonResponse::create()
@@ -188,6 +196,6 @@ class AdvantageController
             throw CompleteResponseException::fromCultureFeedException($exception);
         }
 
-        return $this->getAdvantageJsonResponse($uitpasNumber, $advantageIdentifier);
+        return $this->getAdvantageJsonResponse($uitpasNumber, $advantageIdentifier, true);
     }
 }
