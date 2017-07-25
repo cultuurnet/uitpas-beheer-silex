@@ -82,11 +82,14 @@ class DataValidationClient implements DataValidationClientInterface
             ];
 
             $response = $this->guzzleClient->createRequest($method, $uri, $headers, $body, $options)->send();
+
+            // @codeCoverageIgnoreStart
             if (!$cacheKey) {
                 return $response;
             } else {
                 $this->responseCache[$cacheKey] = $response;
             }
+            // @codeCoverageIgnoreEnd
         }
 
         return $this->responseCache[$cacheKey];

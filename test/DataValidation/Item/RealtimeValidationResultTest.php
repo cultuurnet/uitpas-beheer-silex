@@ -63,5 +63,10 @@ class RealtimeValidationResultTest extends AbstractDataValidationClientTest
             $this->reason,
             $this->realtimeValidationResult->getReason()
         );
+
+        $this->assertEquals(
+            true,
+            $this->realtimeValidationResult->isOK()
+        );
     }
 }
