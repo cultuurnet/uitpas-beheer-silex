@@ -78,7 +78,7 @@ class WelcomeAdvantageTest extends \PHPUnit_Framework_TestCase
             $validForCounters[$i] = $counter;
         }
 
-        $endDate = '2015-12-04';
+        $endDate = strtotime('2015-12-04');
 
         $cfAdvantage->counters = $validForCounters;
         $cfAdvantage->cashingPeriodEnd = $endDate;

@@ -2,12 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\Advantage;
 
-use CultuurNet\UiTPASBeheer\Properties\City;
 use CultuurNet\UiTPASBeheer\Properties\CityCollection;
 use ValueObjects\DateTime\Date;
-use ValueObjects\DateTime\Month;
-use ValueObjects\DateTime\MonthDay;
-use ValueObjects\DateTime\Year;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -67,7 +63,7 @@ class WelcomeAdvantage extends Advantage
         }
 
         if (!empty($welcomeAdvantage->cashingPeriodEnd)) {
-            $dateTime = \DateTime::createFromFormat('Y-m-d', $welcomeAdvantage->cashingPeriodEnd);
+            $dateTime = \DateTime::createFromFormat('U', $welcomeAdvantage->cashingPeriodEnd);
             $date = Date::fromNativeDateTime($dateTime);
 
             $advantage = $advantage->withEndDate($date);
