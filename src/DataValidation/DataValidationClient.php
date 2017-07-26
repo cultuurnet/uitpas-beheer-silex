@@ -2,7 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\DataValidation;
 
-use CultuurNet\UiTPASBeheer\DataValidation\Result\GetRealtimeValidationResult;
+use CultuurNet\UiTPASBeheer\DataValidation\Item\EmailValidationResult;
+use CultuurNet\UiTPASBeheer\DataValidation\Result\GetEmailValidationResult;
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\EntityBodyInterface;
 use Guzzle\Http\Message\RequestInterface;
@@ -98,8 +99,8 @@ class DataValidationClient implements DataValidationClientInterface
     /**
      * {@inheritdoc}
      */
-    public function realtimeValidateEmail($email)
+    public function validateEmail($email)
     {
-        return GetRealtimeValidationResult::parseToResult($this->request(RequestInterface::GET, 'realtime/', new ParameterBag(['email' => $email])));
+        return GetEmailValidationResult::parseToResult($this->request(RequestInterface::GET, 'realtime/', new ParameterBag(['email' => $email])));
     }
 }

@@ -3,10 +3,10 @@
 namespace CultuurNet\UiTPASBeheer\DataValidation\Item;
 
 /**
- * Class RealtimeValidationResult
- * Contains the real-time validation result.
+ * Class EmailValidationResult
+ * Contains the real-time email validation result.
  */
-class RealtimeValidationResult
+class EmailValidationResult implements \JsonSerializable
 {
     const REALTIME_VALIDATION_RESULT_STATUS_OK = 'ok';
     const REALTIME_VALIDATION_RESULT_STATUS_ERROR = 'error';
@@ -50,7 +50,7 @@ class RealtimeValidationResult
 
     /**
      * @param string $status
-     * @return RealtimeValidationResult
+     * @return EmailValidationResult
      */
     public function setStatus($status)
     {
@@ -68,7 +68,7 @@ class RealtimeValidationResult
 
     /**
      * @param string $grade
-     * @return RealtimeValidationResult
+     * @return EmailValidationResult
      */
     public function setGrade($grade)
     {
@@ -86,11 +86,25 @@ class RealtimeValidationResult
 
     /**
      * @param string $reason
-     * @return RealtimeValidationResult
+     * @return EmailValidationResult
      */
     public function setReason($reason)
     {
         $this->reason = $reason;
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    function jsonSerialize()
+    {
+        // Expose all properties
+        $json = [];
+        foreach ($this as $key => $value) {
+            $json[$key] = $value;
+        }
+
+        return $json;
     }
 }

@@ -244,6 +244,11 @@ $app->register(
 );
 
 /**
+ * Validator service
+ */
+$app->register(new Silex\Provider\ValidatorServiceProvider());
+
+/**
  * Load additional bootstrap files.
  */
 foreach ($app['config']['bootstrap'] as $identifier => $enabled) {

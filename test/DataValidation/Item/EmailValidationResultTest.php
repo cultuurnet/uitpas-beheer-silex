@@ -3,9 +3,9 @@
 namespace CultuurNet\ProjectAanvraag\Insightly\Item;
 
 use CultuurNet\UiTPASBeheer\DataValidation\AbstractDataValidationClientTest;
-use CultuurNet\UiTPASBeheer\DataValidation\Item\RealtimeValidationResult;
+use CultuurNet\UiTPASBeheer\DataValidation\Item\EmailValidationResult;
 
-class RealtimeValidationResultTest extends AbstractDataValidationClientTest
+class EmailValidationResultTest extends AbstractDataValidationClientTest
 {
     /**
      * @var string
@@ -23,7 +23,7 @@ class RealtimeValidationResultTest extends AbstractDataValidationClientTest
     protected $reason;
 
     /**
-     * @var RealtimeValidationResult
+     * @var EmailValidationResult
      */
     protected $realtimeValidationResult;
 
@@ -36,7 +36,7 @@ class RealtimeValidationResultTest extends AbstractDataValidationClientTest
         $this->grade = 'F';
         $this->reason = null;
 
-        $realtimeValidationResult = new RealtimeValidationResult();
+        $realtimeValidationResult = new EmailValidationResult();
         $realtimeValidationResult->setStatus($this->status);
         $realtimeValidationResult->setGrade($this->grade);
         $realtimeValidationResult->setReason($this->reason);

@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\DataValidation;
 
-use CultuurNet\UiTPASBeheer\DataValidation\Item\RealtimeValidationResult;
+use CultuurNet\UiTPASBeheer\DataValidation\Item\EmailValidationResult;
 
 /**
  * Defines the data validation client.
@@ -13,7 +13,7 @@ interface DataValidationClientInterface
      * Real-time validate a given email address.
      *
      * @param $email
-     * @return RealtimeValidationResult
+     * @return EmailValidationResult
      */
-    public function realtimeValidateEmail($email);
+    public function validateEmail($email);
 }

@@ -141,4 +141,9 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\School\SchoolControllerProvider())
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\BalieInsights\BalieInsightsControllerProvider());
 
+/**
+ * API callbacks for data validation.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\DataValidation\DataValidationControllerProvider());
+
 $app->run();
