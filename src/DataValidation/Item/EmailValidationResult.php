@@ -97,7 +97,7 @@ class EmailValidationResult implements \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         // Expose all properties
         $json = [];
