@@ -1,7 +1,6 @@
 <?php
 
 use Silex\Application;
-use Symfony\Component\HttpFoundation\Request;
 
 /* @var Application $app */
 $app = require_once __DIR__ . '/../bootstrap.php';
@@ -141,5 +140,10 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\School\SchoolControllerProvider())
  * API callbacks for Balie insights.
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\BalieInsights\BalieInsightsControllerProvider());
+
+/**
+ * API callbacks for data validation.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\DataValidation\DataValidationControllerProvider());
 
 $app->run();

@@ -233,6 +233,22 @@ $app->register(new \CultuurNet\UiTPASBeheer\School\SchoolServiceProvider());
 $app->register(new \CultuurNet\UiTPASBeheer\BalieInsights\BalieInsightsServiceProvider());
 
 /**
+ * Datavalidation service.
+ */
+$app->register(
+    new \CultuurNet\UiTPASBeheer\DataValidation\DataValidationServiceProvider(),
+    [
+        'data_validation.base_url' => $app['config']['data_validation']['base_url'],
+        'data_validation.api_key' => $app['config']['data_validation']['api_key'],
+    ]
+);
+
+/**
+ * Validator service
+ */
+$app->register(new Silex\Provider\ValidatorServiceProvider());
+
+/**
  * Load additional bootstrap files.
  */
 foreach ($app['config']['bootstrap'] as $identifier => $enabled) {
