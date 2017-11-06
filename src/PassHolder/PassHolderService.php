@@ -7,6 +7,7 @@ use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Identity\Identity;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
+use CultuurNet\UiTPASBeheer\School\SchoolConsumerKey;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedResultSet;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\QueryBuilderInterface;
 use CultuurNet\UiTPASBeheer\UiTPAS\Filter\UiTPASSpecificationFilter;
@@ -209,7 +210,8 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         UiTPASNumber $uitpasNumber,
         Passholder $passHolder,
         VoucherNumber $voucherNumber = null,
-        KansenStatuut $kansenStatuut = null
+        KansenStatuut $kansenStatuut = null,
+        SchoolConsumerKey $schoolConsumerKey = null
     ) {
         $existingPassHolder = $this->getByUitpasNumber($uitpasNumber);
 
@@ -237,6 +239,11 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
                     ->getTimestamp();
                 $cfPassHolder->moreInfo = (string) $kansenStatuut->getRemarks();
             }
+        }
+
+        // schoolConsumerKey
+        if (!is_null($schoolConsumerKey)) {
+            $cfPassHolder->schoolConsumerKey = $schoolConsumerKey->toNative();
         }
 
         $UUIDString = $this->getUitpasService()->createPassholder(
