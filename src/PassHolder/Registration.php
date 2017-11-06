@@ -4,6 +4,7 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use CultuurNet\UiTPASBeheer\School\SchoolConsumerKey;
 
 final class Registration
 {
@@ -26,6 +27,11 @@ final class Registration
      * @var UiTPASNumber
      */
     protected $uitpasNumber;
+
+    /**
+     * @var SchoolConsumerKey
+     */
+    protected $schoolConsumerKey;
 
     /**
      * Registration constructor.
@@ -61,6 +67,14 @@ final class Registration
     }
 
     /**
+     * @return SchoolConsumerKey|null
+     */
+    public function getSchoolConsumerKey()
+    {
+      return $this->schoolConsumerKey;
+    }
+
+    /**
      * @param VoucherNumber $voucherNumber
      * @return Registration
      */
@@ -76,6 +90,15 @@ final class Registration
     public function withKansenstatuut(KansenStatuut $kansenStatuut)
     {
         return $this->with('kansenStatuut', $kansenStatuut);
+    }
+
+    /**
+     * @param SchoolConsumerKey $schoolConsumerKey
+     * @return Registration
+     */
+    public function withSchoolConsumerKey(SchoolConsumerKey $schoolConsumerKey)
+    {
+      return $this->with('schoolConsumerKey', $schoolConsumerKey);
     }
 
     /**
