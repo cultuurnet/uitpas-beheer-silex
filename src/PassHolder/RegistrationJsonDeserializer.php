@@ -23,8 +23,7 @@ class RegistrationJsonDeserializer extends JSONDeserializer
     public function __construct(
         DeserializerInterface $passHolderJsonDeserializer,
         DeserializerInterface $kansenStatuutJsonDeserializer
-    )
-    {
+    ) {
         $this->passHolderJsonDeserializer = $passHolderJsonDeserializer;
         $this->kansenStatuutJsonDeserializer = $kansenStatuutJsonDeserializer;
     }
@@ -48,8 +47,7 @@ class RegistrationJsonDeserializer extends JSONDeserializer
                 new StringLiteral(json_encode($data->passHolder))
             );
             $registration = new Registration($passHolder);
-        }
-        catch (MissingPropertyException $e) {
+        } catch (MissingPropertyException $e) {
             throw MissingPropertyException::fromMissingChildPropertyException('passHolder', $e);
         }
 
@@ -66,8 +64,7 @@ class RegistrationJsonDeserializer extends JSONDeserializer
                     new StringLiteral(json_encode($data->kansenStatuut))
                 );
                 $registration = $registration->withKansenstatuut($kansenStatuut);
-            }
-            catch (MissingPropertyException $e) {
+            } catch (MissingPropertyException $e) {
                 throw MissingPropertyException::fromMissingChildPropertyException('kansenStatuut', $e);
             }
         }

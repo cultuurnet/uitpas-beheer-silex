@@ -71,7 +71,7 @@ final class Registration
      */
     public function getSchoolConsumerKey()
     {
-      return $this->schoolConsumerKey;
+        return $this->schoolConsumerKey;
     }
 
     /**
@@ -98,7 +98,7 @@ final class Registration
      */
     public function withSchoolConsumerKey(SchoolConsumerKey $schoolConsumerKey)
     {
-      return $this->with('schoolConsumerKey', $schoolConsumerKey);
+        return $this->with('schoolConsumerKey', $schoolConsumerKey);
     }
 
     /**
