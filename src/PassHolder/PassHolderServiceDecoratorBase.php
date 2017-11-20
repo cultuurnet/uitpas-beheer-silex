@@ -7,7 +7,9 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\QueryBuilderInterface;
+use CultuurNet\UiTPASBeheer\School\School;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
+use CultuurNet\UiTPASBeheer\School\SchoolConsumerKey;
 
 abstract class PassHolderServiceDecoratorBase implements PassHolderServiceInterface
 {
@@ -54,13 +56,15 @@ abstract class PassHolderServiceDecoratorBase implements PassHolderServiceInterf
         UiTPASNumber $uitpasNumber,
         PassHolder $passHolder,
         VoucherNumber $voucherNumber = null,
-        KansenStatuut $kansenStatuut = null
+        KansenStatuut $kansenStatuut = null,
+        SchoolConsumerKey $schoolConsumerKey = null
     ) {
         return $this->decoratee->register(
             $uitpasNumber,
             $passHolder,
             $voucherNumber,
-            $kansenStatuut
+            $kansenStatuut,
+            $schoolConsumerKey
         );
     }
 }

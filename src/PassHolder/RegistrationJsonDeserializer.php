@@ -5,6 +5,7 @@ namespace CultuurNet\UiTPASBeheer\PassHolder;
 use CultuurNet\Deserializer\DeserializerInterface;
 use CultuurNet\Deserializer\JSONDeserializer;
 use CultuurNet\UiTPASBeheer\Exception\MissingPropertyException;
+use CultuurNet\UiTPASBeheer\School\SchoolConsumerKey;
 use ValueObjects\StringLiteral\StringLiteral;
 
 class RegistrationJsonDeserializer extends JSONDeserializer
@@ -66,6 +67,12 @@ class RegistrationJsonDeserializer extends JSONDeserializer
             } catch (MissingPropertyException $e) {
                 throw MissingPropertyException::fromMissingChildPropertyException('kansenStatuut', $e);
             }
+        }
+
+        // Optional school consumer key.
+        if (!empty($data->schoolConsumerKey)) {
+            $schoolConsumerKey = new SchoolConsumerKey($data->schoolConsumerKey);
+            $registration = $registration->withSchoolConsumerKey($schoolConsumerKey);
         }
 
         return $registration;

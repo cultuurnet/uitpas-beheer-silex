@@ -458,12 +458,14 @@ class PassHolderController
             new StringLiteral($request->getContent())
         );
 
+
         try {
             $this->passHolderService->register(
                 $uitpasNumber,
                 $registration->getPassHolder(),
                 $registration->getVoucherNumber(),
-                $registration->getKansenStatuut()
+                $registration->getKansenStatuut(),
+                $registration->getSchoolConsumerKey()
             );
         } catch (\CultureFeed_Exception $exception) {
             throw CompleteResponseException::fromCultureFeedException($exception);
@@ -477,6 +479,7 @@ class PassHolderController
             ->setPrivate();
 
         return $response;
+
     }
 
     /**
