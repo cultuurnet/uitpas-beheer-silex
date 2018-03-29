@@ -912,7 +912,7 @@
             "in": "query",
             "description": "How the items should be sorted.",
             "required": false,
-            "type": "string",
+            "type": "string"
           }
         ],
         "responses": {
