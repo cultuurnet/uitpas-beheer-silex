@@ -78,6 +78,12 @@ class ActivityController
                     );
                     break;
 
+                case 'sort':
+                    if (!empty($value)) {
+                        $searchActivities = $searchActivities->withSort($value);
+                    }
+                    break;
+
                 case 'page':
                 case 'limit':
                     // These are valid but we ignore them for now, we need them
