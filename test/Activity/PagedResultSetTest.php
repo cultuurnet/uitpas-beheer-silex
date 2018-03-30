@@ -17,7 +17,8 @@ class PagedResultSetTest extends \PHPUnit_Framework_TestCase
 
         $activities[] = new Activity(
             new StringLiteral('activity-1'),
-            new StringLiteral('Activity 1'),
+            new StringLiteral('Activity title 1'),
+            new StringLiteral('Activity description 1'),
             new CheckinConstraint(
                 false,
                 DateTime::fromNativeDateTime(new \DateTime()),

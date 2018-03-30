@@ -29,6 +29,7 @@ class IsFreeTest extends \PHPUnit_Framework_TestCase
         $this->activity = new Activity(
             new StringLiteral('123'),
             new StringLiteral('Test activity'),
+            new StringLiteral('Test activity description'),
             new CheckinConstraint(
                 false,
                 DateTime::fromNativeDateTime(new \DateTime('@0')),

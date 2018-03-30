@@ -43,6 +43,7 @@ class CheckInDeviceControllerTest extends \PHPUnit_Framework_TestCase
         $activity1 = new Activity(
             new StringLiteral('123'),
             new StringLiteral('Activity 123'),
+            new StringLiteral('Activity description 123'),
             new CheckinConstraint(
                 true,
                 DateTime::now(),
@@ -54,6 +55,7 @@ class CheckInDeviceControllerTest extends \PHPUnit_Framework_TestCase
         $activity2 = new Activity(
             new StringLiteral('456'),
             new StringLiteral('Activity 456'),
+            new StringLiteral('Activity description 456'),
             new CheckinConstraint(
                 true,
                 DateTime::now(),

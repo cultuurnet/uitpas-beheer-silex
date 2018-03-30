@@ -194,6 +194,10 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
             new Integer(1)
         );
 
+        $activity1->setWhen(
+            new StringLiteral('test event 1 date')
+        );
+
         $activities[] = $activity1;
 
         $activity2 = new Activity(
@@ -202,6 +206,10 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
             new StringLiteral('test event 2 description'),
             $checkinConstraint,
             new Integer(1)
+        );
+
+        $activity2->setWhen(
+            new StringLiteral('test event 2 date')
         );
 
         $activities[] = $activity2;
