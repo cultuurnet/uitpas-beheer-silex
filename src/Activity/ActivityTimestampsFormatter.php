@@ -35,7 +35,7 @@ class ActivityTimestampsFormatter
         $timestamps_count = count($timestamps);
 
         if ($timestamps_count == 1) {
-            $timestamp = $timestamps->current();
+            $timestamp = $timestamps[0];
             return $this->formatSingleTimestamp($timestamp);
         } else {
             return $this->formatMultipleTimestamps($timestamps, $timestamps_count);
