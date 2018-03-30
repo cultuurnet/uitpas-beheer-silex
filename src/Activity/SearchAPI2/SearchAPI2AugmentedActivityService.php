@@ -6,16 +6,11 @@
 namespace CultuurNet\UiTPASBeheer\Activity\SearchAPI2;
 
 use CultuurNet\CalendarSummary\CalendarFormatterInterface;
-use CultuurNet\CalendarSummary\FormatterException;
-use CultuurNet\Search\Parameter\BooleanParameter;
-use CultuurNet\Search\Parameter\Group;
-use CultuurNet\Search\Parameter\Query;
 use CultuurNet\Search\ServiceInterface;
 use CultuurNet\UiTPASBeheer\Activity\Activity;
 use CultuurNet\UiTPASBeheer\Activity\ActivityServiceInterface;
 use CultuurNet\UiTPASBeheer\Activity\PagedResultSet;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
-use ValueObjects\StringLiteral\StringLiteral;
 use CultuurNet\UiTPASBeheer\Activity\Cdbid;
 
 /**
@@ -67,21 +62,11 @@ class SearchAPI2AugmentedActivityService implements ActivityServiceInterface
     {
         $resultSet = $this->activityService->search($query);
 
-        $originalActivities = $resultSet->getResults();
-        $augmentedActivities = array_map(
-            function (Activity $activity) {
-                try {
-                    return $this->augmentActivity($activity);
-                } catch (\Exception $e) {
-                    return $activity;
-                }
-            },
-            $originalActivities
-        );
+        $activities = $resultSet->getResults();
 
         $augmentedResultSet = new PagedResultSet(
             $resultSet->getTotal(),
-            $augmentedActivities
+            $activities
         );
 
         return $augmentedResultSet;
@@ -96,73 +81,7 @@ class SearchAPI2AugmentedActivityService implements ActivityServiceInterface
     {
         $activity = $this->activityService->get($uitpasNumber, $eventCdbid);
 
-        try {
-            $augmentedActivity = $this->augmentActivity($activity);
-        } catch (\Exception $e) {
-            $augmentedActivity = $activity;
-        }
-
-        return $augmentedActivity;
+        return $activity;
     }
 
-    /**
-     * @param Activity $activity
-     * @return Activity
-     */
-    private function augmentActivity(Activity $activity)
-    {
-        $cdbEvent = $this->getCdbEvent($activity);
-
-        $details = $cdbEvent->getDetails()->getDetailByLanguage('nl');
-        $description = new StringLiteral(
-            trim((string) $details->getShortDescription())
-        );
-
-        $augmentedActivity = $activity->withDescription($description);
-
-        $calendar = $cdbEvent->getCalendar();
-
-        try {
-            $when = new StringLiteral(
-                (string) $this->calendarFormatter->format($calendar, 'md')
-            );
-
-            $augmentedActivity = $augmentedActivity->withWhen($when);
-        } catch (FormatterException $e) {
-            // Format not supported for the calendar type, for example for a
-            // CultureFeed_Cdb_Data_Calendar_TimestampList.
-        }
-
-        return $augmentedActivity;
-    }
-
-    /**
-     * @param Activity $activity
-     *
-     * @return \CultureFeed_Cdb_Item_Event
-     */
-    private function getCdbEvent(Activity $activity)
-    {
-        $parameters = [
-            new BooleanParameter('past', true),
-            new BooleanParameter('unavailable', true),
-            new Group(),
-            new Query('cdbid:"' . $activity->getId()->toNative() . '"'),
-        ];
-
-        $result = $this->searchService->search($parameters);
-
-        if (1 !== $result->getCurrentCount()) {
-            throw new \RuntimeException(
-                'Expected exactly 1 event to be returned, received ' . $result->getCurrentCount() . ' results'
-            );
-        }
-
-        $items = $result->getItems();
-
-        /* @var \CultuurNet\Search\ActivityStatsExtendedEntity $event */
-        $event = reset($items);
-
-        return $event->getEntity();
-    }
 }

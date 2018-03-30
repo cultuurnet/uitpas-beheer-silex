@@ -2,8 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity;
 
-use CultureFeed_Uitpas_Event_CultureEvent;
-use CultureFeed_Cdb_Item_Event;
 use CultuurNet\UiTPASBeheer\Activity\SalesInformation\SalesInformation;
 use CultuurNet\UiTPASBeheer\Activity\Specifications\IsFree;
 use ValueObjects\Number\Integer;
@@ -55,41 +53,22 @@ class Activity implements \JsonSerializable
     /**
      * @param StringLiteral $id
      * @param StringLiteral $title
+     * @param StringLiteral $description
      * @param CheckinConstraint $checkinConstraint
-     * @param \ValueObjects\Number\Integer $points
+     * @param Integer $points
      */
     public function __construct(
         StringLiteral $id,
         StringLiteral $title,
+        StringLiteral $description,
         CheckinConstraint $checkinConstraint,
         Integer $points
     ) {
         $this->id = $id;
         $this->title = $title;
+        $this->description = $description;
         $this->checkinConstraint = $checkinConstraint;
         $this->points = $points;
-    }
-
-    /**
-     * @param StringLiteral $description
-     * @return Activity
-     */
-    public function withDescription(StringLiteral $description)
-    {
-        $c = clone $this;
-        $c->description = $description;
-        return $c;
-    }
-
-    /**
-     * @param StringLiteral $when
-     * @return Activity
-     */
-    public function withWhen(StringLiteral $when)
-    {
-        $c = clone $this;
-        $c->when = $when;
-        return $c;
     }
 
     /**
@@ -109,6 +88,14 @@ class Activity implements \JsonSerializable
     public function getWhen()
     {
         return $this->when;
+    }
+
+    /**
+     * @param StringLiteral $when
+     */
+    public function setWhen(StringLiteral $when)
+    {
+        $this->when = $when;
     }
 
     /**
@@ -196,9 +183,21 @@ class Activity implements \JsonSerializable
         $activity = new Activity(
             StringLiteral::fromNative((string) $event->cdbid),
             StringLiteral::fromNative((string) $event->title),
+            StringLiteral::fromNative((string) $event->description),
             CheckinConstraint::fromCultureFeedUitpasEvent($event),
             Integer::fromNative((int) $event->numberOfPoints)
         );
+
+        // Format calendar timestamps to formatted when value.
+        if (!empty($event->calendar->timestamps)) {
+            $formatter = new ActivityTimestampsFormatter();
+
+            $when = new StringLiteral(
+                (string) $formatter->format($event->calendar->timestamps)
+            );
+
+            $activity->setWhen($when);
+        }
 
         $salesInformation = SalesInformation::fromCultureFeedUitpasEvent($event);
         $activity = $activity->withSalesInformation($salesInformation);
