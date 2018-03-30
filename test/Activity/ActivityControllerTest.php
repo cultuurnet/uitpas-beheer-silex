@@ -189,24 +189,22 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
         $activity1 = new Activity(
             new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
             new StringLiteral('test event 1'),
+            new StringLiteral('test event 1 description'),
             $checkinConstraint,
             new Integer(1)
         );
 
-        $activities[] = $activity1
-            ->withDescription(new StringLiteral('test event 1 description'))
-            ->withWhen(new StringLiteral('test event 1 date'));
+        $activities[] = $activity1;
 
         $activity2 = new Activity(
             new StringLiteral('ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj'),
             new StringLiteral('test event 2'),
+            new StringLiteral('test event 2 description'),
             $checkinConstraint,
             new Integer(1)
         );
 
-        $activities[] = $activity2
-            ->withDescription(new StringLiteral('test event 2 description'))
-            ->withWhen(new StringLiteral('test event 2 date'));
+        $activities[] = $activity2;
 
         $this->service
             ->expects($this->once())
