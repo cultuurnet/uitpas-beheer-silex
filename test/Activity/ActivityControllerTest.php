@@ -79,6 +79,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 'date_type' => 'today',
                 'limit' => 10,
                 'query' => 'foo',
+                'sort' => '',
                 'page' => 2,
             ],
             (new SimpleQuery())
@@ -94,6 +95,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 'date_type' => 'next_12_months',
                 'limit' => 20,
                 'query' => 'bar',
+                'sort' => '',
                 'page' => 3,
             ],
             (new SimpleQuery())
