@@ -66,11 +66,9 @@ class ActivityController
             switch ($parameter) {
                 case 'date_type':
                     try {
-                        if ($value !== 'choose_date') {
-                            $searchActivities = $searchActivities->withDateType(
-                                DateType::fromNative($value)
-                            );
-                        }
+                        $searchActivities = $searchActivities->withDateType(
+                            DateType::fromNative($value)
+                        );
                     } catch (\InvalidArgumentException $e) {
                         throw new DateTypeInvalidException($value);
                     };
@@ -103,7 +101,11 @@ class ActivityController
         // Possibly add date range parameters.
         $startDate = $request->query->getInt('startDate');
         $endDate = $request->query->getInt('endDate');
-        $searchActivities = $this->formatAndAddDateRangeParameters($searchActivities, $startDate, $endDate);
+
+        $searchActivities = $searchActivities->withDateRange(
+            new Integer($startDate),
+            new Integer($endDate)
+        );
 
         // Handle both page and limit parameters together.
         $page = $request->query->getInt('page', 1);
@@ -142,48 +144,4 @@ class ActivityController
           ->setPrivate();
     }
 
-    /**
-     * Helper function to add date range parameters in the correct format.
-     * We also provide defaults for a missing start/end date.
-     *
-     * @param QueryInterface $searchActivities
-     * @param int $startDate
-     * @param int $endDate
-     * @return QueryInterface|static
-     */
-    private function formatAndAddDateRangeParameters(QueryInterface $searchActivities, $startDate, $endDate)
-    {
-        if ($startDate || $endDate) {
-
-            $startDateTime = new \DateTime();
-            $endDateTime = new \DateTime();
-
-            if ($startDate) {
-                $startDateTime->setTimestamp($startDate);
-            }
-            else {
-                $startDateTime->modify('-10 years');
-            }
-
-            if ($endDate) {
-                $endDateTime->setTimestamp($endDate);
-            }
-            else {
-                $endDateTime->modify('+10 years');
-            }
-
-            $startDateTime->setTime(0, 0, 0);
-            $startDate = $startDateTime->format(\DateTime::W3C);
-
-            $endDateTime->setTime(23, 59, 59);
-            $endDate = $endDateTime->format(\DateTime::W3C);
-
-            $searchActivities = $searchActivities->withDateRange(
-                new StringLiteral($startDate),
-                new StringLiteral($endDate)
-            );
-        }
-
-        return $searchActivities;
-    }
 }

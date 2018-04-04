@@ -124,12 +124,12 @@ class SimpleQuery implements QueryInterface
     }
 
     /**
-     * @param StringLiteral $startDate
-     * @param StringLiteral $endDate
+     * @param Integer $startDate
+     * @param Integer $endDate
      *
      * @return static
      */
-    public function withDateRange(StringLiteral $startDate, StringLiteral $endDate)
+    public function withDateRange(Integer $startDate, Integer $endDate)
     {
         $c = clone $this;
 

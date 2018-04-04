@@ -31,10 +31,14 @@ class Query extends SimpleQuery implements SearchOptionsBuilderInterface
         $options = new CultureFeed_Uitpas_Event_Query_SearchEventsOptions();
 
         if ($this->dateType) {
-            if ($this->dateType->is(DateType::PAST())) {
+            if ($this->dateType->is(DateType::PAST)) {
                 $options->datetype = null;
                 $options->endDate = $this->getPastEndDate()->getTimestamp();
                 $options->startDate = $this->getPastStartDate()->getTimeStamp();
+            } elseif ($this->dateType->is(DateType::CHOOSE_DATE)) {
+                $options->datetype = null;
+                $options->startDate = $this->getDateRangeStartDate($this->startDate->toNative());
+                $options->endDate = $this->getDateRangeEndDate($this->endDate->toNative());
             } else {
                 $options->datetype = str_replace('_', '', $this->dateType->toNative());
                 $options->endDate = null;
@@ -56,14 +60,6 @@ class Query extends SimpleQuery implements SearchOptionsBuilderInterface
 
         if ($this->uitpasNumber) {
             $options->uitpasNumber = $this->uitpasNumber->toNative();
-        }
-
-        if ($this->startDate) {
-            $options->startDate = $this->startDate->toNative();
-        }
-
-        if ($this->endDate) {
-            $options->endDate = $this->endDate->toNative();
         }
 
         return $options;
@@ -112,5 +108,47 @@ class Query extends SimpleQuery implements SearchOptionsBuilderInterface
     private function calculateStart(Integer $limit, Integer $page)
     {
         return new Integer($limit->toNative() * ($page->toNative() - 1));
+    }
+
+    /**
+     * @param int $timestamp
+     *
+     * @return string
+     */
+    private function getDateRangeStartDate($timestamp)
+    {
+        $startDateTime = new \DateTime();
+
+        if ($timestamp) {
+            $startDateTime->setTimestamp($timestamp);
+        }
+        else {
+            $startDateTime->modify('-10 years');
+        }
+
+        $startDateTime->setTime(0, 0, 0);
+
+        return $startDateTime->format(\DateTime::W3C);
+    }
+
+    /**
+     * @param int $timestamp
+     *
+     * @return string
+     */
+    private function getDateRangeEndDate($timestamp)
+    {
+        $endDateTime = new \DateTime();
+
+        if ($timestamp) {
+            $endDateTime->setTimestamp($timestamp);
+        }
+        else {
+            $endDateTime->modify('+10 years');
+        }
+
+        $endDateTime->setTime(23, 59, 59);
+
+        return $endDateTime->format(\DateTime::W3C);
     }
 }
