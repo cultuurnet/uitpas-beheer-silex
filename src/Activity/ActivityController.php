@@ -10,6 +10,7 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use ValueObjects\DateTime\DateTime;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -154,8 +155,28 @@ class ActivityController
     {
         if ($startDate || $endDate) {
 
-            $startDate = $startDate ? date("Y-m-d\TH:i:s\Z", $startDate) : date("Y-m-d\TH:i:s\Z", strtotime('-10 years'));
-            $endDate = $endDate ? date("Y-m-d\TH:i:s\Z", $endDate) : date("Y-m-d\TH:i:s\Z", strtotime('+10 years'));
+            $startDateTime = new \DateTime();
+            $endDateTime = new \DateTime();
+
+            if ($startDate) {
+                $startDateTime->setTimestamp($startDate);
+            }
+            else {
+                $startDateTime->modify('-10 years');
+            }
+
+            if ($endDate) {
+                $endDateTime->setTimestamp($endDate);
+            }
+            else {
+                $endDateTime->modify('+10 years');
+            }
+
+            $startDateTime->setTime(0, 0, 0);
+            $startDate = $startDateTime->format(\DateTime::W3C);
+
+            $endDateTime->setTime(23, 59, 59);
+            $endDate = $endDateTime->format(\DateTime::W3C);
 
             $searchActivities = $searchActivities->withDateRange(
                 new StringLiteral($startDate),
