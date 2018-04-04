@@ -121,8 +121,7 @@ class Query extends SimpleQuery implements SearchOptionsBuilderInterface
 
         if ($timestamp) {
             $startDateTime->setTimestamp($timestamp);
-        }
-        else {
+        } else {
             $startDateTime->modify('-10 years');
         }
 
@@ -142,8 +141,7 @@ class Query extends SimpleQuery implements SearchOptionsBuilderInterface
 
         if ($timestamp) {
             $endDateTime->setTimestamp($timestamp);
-        }
-        else {
+        } else {
             $endDateTime->modify('+10 years');
         }
 

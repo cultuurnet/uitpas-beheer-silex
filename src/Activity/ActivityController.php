@@ -143,5 +143,4 @@ class ActivityController
         return JsonResponse::create($pagedCollection)
           ->setPrivate();
     }
-
 }
