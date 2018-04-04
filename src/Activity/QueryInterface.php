@@ -43,10 +43,18 @@ interface QueryInterface
     public function withSort($sort);
 
     /**
-     * @param \ValueObjects\Number\Integer $page
-     * @param \ValueObjects\Number\Integer $limit
+     * @param Integer $page
+     * @param Integer $limit
      *
      * @return static
      */
     public function withPagination(Integer $page, Integer $limit);
+
+    /**
+     * @param StringLiteral $startDate
+     * @param StringLiteral $endDate
+     *
+     * @return static
+     */
+    public function withDateRange(StringLiteral $startDate, StringLiteral $endDate);
 }

@@ -58,6 +58,14 @@ class Query extends SimpleQuery implements SearchOptionsBuilderInterface
             $options->uitpasNumber = $this->uitpasNumber->toNative();
         }
 
+        if ($this->startDate) {
+            $options->startDate = $this->startDate->toNative();
+        }
+
+        if ($this->endDate) {
+            $options->endDate = $this->endDate->toNative();
+        }
+
         return $options;
     }
 
