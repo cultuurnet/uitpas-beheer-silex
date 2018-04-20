@@ -42,6 +42,16 @@ class SimpleQuery implements QueryInterface
     protected $limit;
 
     /**
+     * @var StringLiteral
+     */
+    protected $startDate;
+
+    /**
+     * @var StringLiteral
+     */
+    protected $endDate;
+
+    /**
      * @param DateType $dateType
      *
      * @return static
@@ -98,8 +108,8 @@ class SimpleQuery implements QueryInterface
     }
 
     /**
-     * @param \ValueObjects\Number\Integer $page
-     * @param \ValueObjects\Number\Integer $limit
+     * @param Integer $page
+     * @param Integer $limit
      *
      * @return static
      */
@@ -109,6 +119,22 @@ class SimpleQuery implements QueryInterface
 
         $c->page = $page;
         $c->limit = $limit;
+
+        return $c;
+    }
+
+    /**
+     * @param Integer $startDate
+     * @param Integer $endDate
+     *
+     * @return static
+     */
+    public function withDateRange(Integer $startDate, Integer $endDate)
+    {
+        $c = clone $this;
+
+        $c->startDate = $startDate;
+        $c->endDate = $endDate;
 
         return $c;
     }

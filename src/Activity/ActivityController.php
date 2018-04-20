@@ -4,11 +4,13 @@ namespace CultuurNet\UiTPASBeheer\Activity;
 
 use CultuurNet\Hydra\PagedCollection;
 use CultuurNet\Hydra\Symfony\PageUrlGenerator;
+use CultuurNet\UiTPASBeheer\Activity\CultureFeedUiTPAS\Query;
 use CultuurNet\UiTPASBeheer\Exception\UnknownParameterException;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use ValueObjects\DateTime\DateTime;
 use ValueObjects\Number\Integer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -90,10 +92,27 @@ class ActivityController
                     // both in 1 method call.
                     break;
 
+                case 'startDate':
+                case 'endDate':
+                    // These are valid but we ignore them for now, we need them
+                    // both in 1 method call.
+                    break;
+
                 default:
                     throw new UnknownParameterException($parameter);
 
             }
+        }
+
+        // Possibly add date range parameters.
+        $startDate = $request->query->getInt('startDate');
+        $endDate = $request->query->getInt('endDate');
+
+        if ($startDate || $endDate) {
+            $searchActivities = $searchActivities->withDateRange(
+                new Integer($startDate),
+                new Integer($endDate)
+            );
         }
 
         // Handle both page and limit parameters together.

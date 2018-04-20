@@ -888,7 +888,8 @@
               "next_7_days",
               "next_30_days",
               "next_12_months",
-              "past"
+              "past",
+              "choose_date"
             ]
           },
           {
@@ -903,6 +904,22 @@
             "name": "limit",
             "in": "query",
             "description": "How many items should be listed per page. When omitted this defaults to 5.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Possible start date UNIX timestamp.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "Possible end date UNIX timestamp.",
             "required": false,
             "type": "integer",
             "format": "int32"

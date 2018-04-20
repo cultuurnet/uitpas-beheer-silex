@@ -18,4 +18,5 @@ class DateType extends Enum
     const NEXT_30_DAYS = 'next_30_days';
     const NEXT_12_MONTHS = 'next_12_months';
     const PAST = 'past';
+    const CHOOSE_DATE = 'choose_date';
 }

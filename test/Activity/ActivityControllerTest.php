@@ -121,6 +121,22 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 ),
         ];
 
+        $items['with date range'] = [
+            null,
+            [
+                'date_type' => 'choose_date',
+                'startDate' => 2,
+                'endDate' => 5,
+            ],
+            (new SimpleQuery())
+                ->withDateType(DateType::CHOOSE_DATE())
+                ->withDateRange(new Integer(2), new Integer(5))
+                ->withPagination(
+                    new Integer(1),
+                    new Integer(5)
+                ),
+        ];
+
         return $items;
     }
 
