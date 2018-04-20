@@ -906,6 +906,13 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "How the items should be sorted.",
+            "required": false,
+            "type": "string"
           }
         ],
         "responses": {

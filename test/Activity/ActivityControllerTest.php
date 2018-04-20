@@ -79,13 +79,15 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 'date_type' => 'today',
                 'limit' => 10,
                 'query' => 'foo',
+                'sort' => 'permanent desc,availableto asc',
                 'page' => 2,
             ],
             (new SimpleQuery())
                 ->withDateType(DateType::TODAY())
                 ->withPagination(new Integer(2), new Integer(10))
                 ->withQuery(new StringLiteral('foo'))
-                ->withUiTPASNumber(new UiTPASNumber('0930000467512')),
+                ->withUiTPASNumber(new UiTPASNumber('0930000467512'))
+                ->withSort('permanent desc,availableto asc'),
         ];
 
         $items['next 12 months'] = [
@@ -94,13 +96,15 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 'date_type' => 'next_12_months',
                 'limit' => 20,
                 'query' => 'bar',
+                'sort' => 'permanent desc,availableto asc',
                 'page' => 3,
             ],
             (new SimpleQuery())
                 ->withDateType(DateType::NEXT_12_MONTHS())
                 ->withPagination(new Integer(3), new Integer(20))
                 ->withQuery(new StringLiteral('bar'))
-                ->withUiTPASNumber(new UiTPASNumber('0930000208908')),
+                ->withUiTPASNumber(new UiTPASNumber('0930000208908'))
+                ->withSort('permanent desc,availableto asc'),
 
         ];
 
