@@ -71,7 +71,6 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
             (new SimpleQuery())
                 ->withPagination(new Integer(1), new Integer(5))
                 ->withUiTPASNumber(new UiTPASNumber('0930000467512'))
-                ->withDateRange(new Integer(0), new Integer(0)),
         ];
 
         $items['all possible parameters'] = [
@@ -88,7 +87,6 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 ->withPagination(new Integer(2), new Integer(10))
                 ->withQuery(new StringLiteral('foo'))
                 ->withUiTPASNumber(new UiTPASNumber('0930000467512'))
-                ->withDateRange(new Integer(0), new Integer(0))
                 ->withSort('permanent desc,availableto asc'),
         ];
 
@@ -106,7 +104,6 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 ->withPagination(new Integer(3), new Integer(20))
                 ->withQuery(new StringLiteral('bar'))
                 ->withUiTPASNumber(new UiTPASNumber('0930000208908'))
-                ->withDateRange(new Integer(0), new Integer(0))
                 ->withSort('permanent desc,availableto asc'),
 
         ];
@@ -122,8 +119,23 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                     new Integer(1),
                     new Integer(5)
                 )
-                ->withDateRange(new Integer(0), new Integer(0)),
         ];
+
+      $items['with date range'] = [
+        null,
+        [
+          'date_type' => 'choose_date',
+          'startDate' => 2,
+          'endDate' => 5
+        ],
+        (new SimpleQuery())
+          ->withDateType(DateType::CHOOSE_DATE())
+          ->withPagination(
+            new Integer(1),
+            new Integer(5)
+          )
+          ->withDateRange(new Integer(2), new Integer(5)),
+      ];
 
         return $items;
     }
