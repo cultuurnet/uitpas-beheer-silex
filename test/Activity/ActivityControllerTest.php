@@ -129,7 +129,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 'endDate' => 5,
             ],
             (new SimpleQuery())
-                ->withDateType(DateType::NEXT_12_MONTHS())
+                ->withDateType(DateType::CHOOSE_DATE())
                 ->withDateRange(new Integer(2), new Integer(5))
                 ->withPagination(
                     new Integer(1),
