@@ -63,6 +63,7 @@ class CheckinControllerTest extends \PHPUnit_Framework_TestCase
         $updatedActivity = new Activity(
             new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
             new StringLiteral('test event 1'),
+            new StringLiteral('test description 1'),
             $checkinConstraint,
             new Integer(1)
         );

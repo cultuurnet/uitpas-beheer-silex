@@ -106,6 +106,7 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->activity = new Activity(
             $this->id,
             $this->title,
+            $this->description,
             $this->checkinConstraint,
             $this->points
         );
@@ -113,9 +114,9 @@ class ActivityTest extends \PHPUnit_Framework_TestCase
         $this->salesInformation = $this->getSampleInformationWithTariffs();
 
         $this->activity = $this->activity
-            ->withWhen($this->when)
-            ->withDescription($this->description)
             ->withSalesInformation($this->salesInformation);
+
+        $this->activity->setWhen($this->when);
     }
 
     /**
