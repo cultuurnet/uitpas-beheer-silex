@@ -80,6 +80,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 'date_type' => 'today',
                 'limit' => 10,
                 'query' => 'foo',
+                'sort' => 'permanent desc,availableto asc',
                 'page' => 2,
             ],
             (new SimpleQuery())
@@ -87,7 +88,8 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 ->withPagination(new Integer(2), new Integer(10))
                 ->withQuery(new StringLiteral('foo'))
                 ->withUiTPASNumber(new UiTPASNumber('0930000467512'))
-                ->withDateRange(new Integer(0), new Integer(0)),
+                ->withDateRange(new Integer(0), new Integer(0))
+                ->withSort('permanent desc,availableto asc')
         ];
 
         $items['next 12 months'] = [
@@ -96,6 +98,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 'date_type' => 'next_12_months',
                 'limit' => 20,
                 'query' => 'bar',
+                'sort' => 'permanent desc,availableto asc',
                 'page' => 3,
             ],
             (new SimpleQuery())
@@ -103,7 +106,8 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 ->withPagination(new Integer(3), new Integer(20))
                 ->withQuery(new StringLiteral('bar'))
                 ->withUiTPASNumber(new UiTPASNumber('0930000208908'))
-                ->withDateRange(new Integer(0), new Integer(0)),
+                ->withDateRange(new Integer(0), new Integer(0))
+                ->withSort('permanent desc,availableto asc')
 
         ];
 
@@ -193,24 +197,30 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
         $activity1 = new Activity(
             new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
             new StringLiteral('test event 1'),
+            new StringLiteral('test event 1 description'),
             $checkinConstraint,
             new Integer(1)
         );
 
-        $activities[] = $activity1
-            ->withDescription(new StringLiteral('test event 1 description'))
-            ->withWhen(new StringLiteral('test event 1 date'));
+        $activity1->setWhen(
+            new StringLiteral('test event 1 date')
+        );
+
+        $activities[] = $activity1;
 
         $activity2 = new Activity(
             new StringLiteral('ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj'),
             new StringLiteral('test event 2'),
+            new StringLiteral('test event 2 description'),
             $checkinConstraint,
             new Integer(1)
         );
 
-        $activities[] = $activity2
-            ->withDescription(new StringLiteral('test event 2 description'))
-            ->withWhen(new StringLiteral('test event 2 date'));
+        $activity2->setWhen(
+            new StringLiteral('test event 2 date')
+        );
+
+        $activities[] = $activity2;
 
         $this->service
             ->expects($this->once())

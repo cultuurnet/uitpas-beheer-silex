@@ -62,6 +62,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $eventA = new CultureFeed_Uitpas_Event_CultureEvent();
         $eventA->cdbid = 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee';
         $eventA->title = 'test event 1';
+        $eventA->description = 'test event description 1';
         $eventA->checkinAllowed = false;
         $eventA->checkinStartDate = 1441098000;
         $eventA->checkinEndDate = 1456848000;
@@ -73,6 +74,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $eventB = new CultureFeed_Uitpas_Event_CultureEvent();
         $eventB->cdbid = 'ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj';
         $eventB->title = 'test event 2';
+        $eventB->description = 'test event description 2';
         $eventB->checkinAllowed = false;
         $eventB->checkinStartDate = 1441098000;
         $eventB->checkinEndDate = 1456848000;
@@ -138,12 +140,14 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
                 (new Activity(
                     new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
                     new StringLiteral('test event 1'),
+                    new StringLiteral('test event description 1'),
                     $checkinConstraint,
                     new Integer(1)
                 ))->withSalesInformation($salesInformation),
                 (new Activity(
                     new StringLiteral('ffffffff-gggg-hhhh-iiii-jjjjjjjjjjjj'),
                     new StringLiteral('test event 2'),
+                    new StringLiteral('test event description 2'),
                     $checkinConstraint,
                     new Integer(1)
                 ))->withSalesInformation($salesInformation),
@@ -185,6 +189,7 @@ class ActivityServiceTest extends \PHPUnit_Framework_TestCase
         $expectedActivity = (new Activity(
             new StringLiteral('aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'),
             new StringLiteral('test event 1'),
+            new StringLiteral('test event description 1'),
             $checkinConstraint,
             new Integer(1)
         ))->withSalesInformation(

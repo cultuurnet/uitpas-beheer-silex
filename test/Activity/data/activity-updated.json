@@ -8,5 +8,6 @@
     "reason": "INVALID_DATE_TIME"
   },
   "points": 1,
-  "free": true
+  "free": true,
+  "description": "test description 1"
 }
