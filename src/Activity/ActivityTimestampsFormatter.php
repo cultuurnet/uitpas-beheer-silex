@@ -31,7 +31,8 @@ class ActivityTimestampsFormatter
         );
     }
 
-    public function format(array $timestamps) {
+    public function format(array $timestamps)
+    {
         $totalTimestamps = count($timestamps);
 
         if ($totalTimestamps == 1) {
