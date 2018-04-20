@@ -89,7 +89,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 ->withQuery(new StringLiteral('foo'))
                 ->withUiTPASNumber(new UiTPASNumber('0930000467512'))
                 ->withDateRange(new Integer(0), new Integer(0))
-                ->withSort('permanent desc,availableto asc')
+                ->withSort('permanent desc,availableto asc'),
         ];
 
         $items['next 12 months'] = [
@@ -107,7 +107,7 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 ->withQuery(new StringLiteral('bar'))
                 ->withUiTPASNumber(new UiTPASNumber('0930000208908'))
                 ->withDateRange(new Integer(0), new Integer(0))
-                ->withSort('permanent desc,availableto asc')
+                ->withSort('permanent desc,availableto asc'),
 
         ];
 
