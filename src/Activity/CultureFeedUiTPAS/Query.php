@@ -37,8 +37,14 @@ class Query extends SimpleQuery implements SearchOptionsBuilderInterface
                 $options->startDate = $this->getPastStartDate()->getTimeStamp();
             } elseif ($this->dateType->is(DateType::CHOOSE_DATE)) {
                 $options->datetype = null;
-                $options->startDate = $this->getDateRangeStartDate($this->startDate->toNative());
-                $options->endDate = $this->getDateRangeEndDate($this->endDate->toNative());
+                if ($this->startDate) {
+                  $options->startDate = $this->getDateRangeStartDate($this->startDate->toNative());
+                }
+
+                if ($this->endDate) {
+                  $options->endDate = $this->getDateRangeEndDate($this->endDate->toNative());
+                }
+
             } else {
                 $options->datetype = str_replace('_', '', $this->dateType->toNative());
                 $options->endDate = null;
