@@ -32,13 +32,13 @@ class ActivityTimestampsFormatter
     }
 
     public function format(array $timestamps) {
-        $timestamps_count = count($timestamps);
+        $totalTimestamps = count($timestamps);
 
-        if ($timestamps_count == 1) {
+        if ($totalTimestamps == 1) {
             $timestamp = $timestamps[0];
             return $this->formatSingleTimestamp($timestamp);
         } else {
-            return $this->formatMultipleTimestamps($timestamps, $timestamps_count);
+            return $this->formatMultipleTimestamps($timestamps, $totalTimestamps);
         }
     }
 
@@ -53,13 +53,13 @@ class ActivityTimestampsFormatter
         return $output;
     }
 
-    public function formatMultipleTimestamps($timestamps, $timestamps_count)
+    public function formatMultipleTimestamps($timestamps, $totalTimestamps)
     {
         $output = '';
 
         /** @var \CultureFeed_Uitpas_Calendar_Timestamp $timestamp */
         foreach ($timestamps as $i => $timestamp) {
-            if ($i == 0 || $i == $timestamps_count-1) {
+            if ($i == 0 || $i == $totalTimestamps-1) {
                 $date = $timestamp->date;
                 $intlDate =$this->fmt->format($date);
 
@@ -72,7 +72,7 @@ class ActivityTimestampsFormatter
                     $output .= PHP_EOL . 'tot ';
                 }
             }
-            if ($i == $timestamps_count-1) {
+            if ($i == $totalTimestamps-1) {
                 if ($firstDate == $intlDate) {
                     $intlDateDay = $this->fmtDay->format($date);
                     $output = $intlDateDay . ' ' . $intlDate;
