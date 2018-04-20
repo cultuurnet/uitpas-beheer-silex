@@ -109,10 +109,10 @@ class ActivityController
         $endDate = $request->query->getInt('endDate');
 
         if ($startDate || $endDate) {
-          $searchActivities = $searchActivities->withDateRange(
-            new Integer($startDate),
-            new Integer($endDate)
-          );
+            $searchActivities = $searchActivities->withDateRange(
+                new Integer($startDate),
+                new Integer($endDate)
+            );
         }
 
         // Handle both page and limit parameters together.
