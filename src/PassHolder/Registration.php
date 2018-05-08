@@ -90,6 +90,30 @@ final class Registration
     }
 
     /**
+     * @return bool
+     */
+    public function hasLegalTermsPaper(): bool
+    {
+        return $this->legalTermsPaper;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasLegalTermsDigital(): bool
+    {
+        return $this->legalTermsDigital;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasParentalConsent(): bool
+    {
+        return $this->parentalConsent;
+    }
+
+    /**
      * @param VoucherNumber $voucherNumber
      * @return Registration
      */

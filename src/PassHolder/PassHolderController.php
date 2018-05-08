@@ -465,7 +465,10 @@ class PassHolderController
                 $registration->getPassHolder(),
                 $registration->getVoucherNumber(),
                 $registration->getKansenStatuut(),
-                $registration->getSchoolConsumerKey()
+                $registration->getSchoolConsumerKey(),
+                $registration->hasLegalTermsPaper(),
+                $registration->hasLegalTermsDigital(),
+                $registration->hasParentalConsent()
             );
         } catch (\CultureFeed_Exception $exception) {
             throw CompleteResponseException::fromCultureFeedException($exception);

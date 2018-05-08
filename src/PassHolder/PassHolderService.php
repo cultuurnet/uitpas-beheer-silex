@@ -211,7 +211,10 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         Passholder $passHolder,
         VoucherNumber $voucherNumber = null,
         KansenStatuut $kansenStatuut = null,
-        SchoolConsumerKey $schoolConsumerKey = null
+        SchoolConsumerKey $schoolConsumerKey = null,
+        $legalTermsPaper = false,
+        $legalTermsDigital = false,
+        $parentalConsent = false
     ) {
         $existingPassHolder = $this->getByUitpasNumber($uitpasNumber);
 
