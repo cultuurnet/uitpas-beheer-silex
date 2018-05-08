@@ -75,6 +75,17 @@ class RegistrationJsonDeserializer extends JSONDeserializer
             $registration = $registration->withSchoolConsumerKey($schoolConsumerKey);
         }
 
+        // Terms info.
+        if (!empty($data->legalTermsPaper)) {
+            $registration = $registration->withLegalTermsPaper($data->legalTermsPaper);
+        }
+        if (!empty($data->legalTermsDigital)) {
+            $registration = $registration->withLegalTermsDigital($data->legalTermsDigital);
+        }
+        if (!empty($data->parentalConsent)) {
+            $registration = $registration->withParentalConsent($data->parentalConsent);
+        }
+
         return $registration;
     }
 }
