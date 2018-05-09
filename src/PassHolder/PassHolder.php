@@ -452,6 +452,10 @@ final class PassHolder implements \JsonSerializable
             $data['school'] = $this->school;
         }
 
+        if (!is_null($this->optInPreferences)) {
+            $data['optInPreferences'] = $this->optInPreferences;
+        }
+
         return $data;
     }
 

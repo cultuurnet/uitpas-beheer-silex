@@ -2686,6 +2686,9 @@
           "items": {
             "$ref": "#/definitions/CardSystem"
           }
+        },
+        "optInPreferences": {
+          "$ref": "#/definitions/OptInPreferences"
         }
       },
       "required": [
@@ -3986,6 +3989,30 @@
         "name",
         "id"
       ]
+    },
+    "OptInPreferences": {
+      "properties": {
+        "optInServiceMails": {
+          "type": "boolean",
+          "example": true
+        },
+        "optInMilestoneMails": {
+          "type": "boolean",
+          "example": true
+        },
+        "optInInfoMails": {
+          "type": "boolean",
+          "example": true
+        },
+        "optInSms": {
+          "type": "boolean",
+          "example": true
+        },
+        "optInPost": {
+          "type": "boolean",
+          "example": true
+        }
+      }
     }
   }
 }
