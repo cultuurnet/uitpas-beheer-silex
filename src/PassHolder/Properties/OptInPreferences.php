@@ -6,26 +6,36 @@ namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
 final class OptInPreferences implements \JsonSerializable
 {
     /**
+     * True if the passholder has opted in to receive service mails (only used for registration).
+     *
      * @var bool
      */
     protected $optInServiceMails;
 
     /**
+     * True if the passholder has opted in to receive milestone mails (only used for registration).
+     *
      * @var bool
      */
     protected $optInMilestoneMails;
 
     /**
+     * True if the passholder has opted in to receive info mails (only used for registration).
+     *
      * @var bool
      */
     protected $optInInfoMails;
 
     /**
+     * True if the passholder has opted in to receive SMS messages (only used for registration).
+     *
      * @var bool
      */
     protected $optInSms;
 
     /**
+     * True if the passholder has opted in to receive info via post (only used for registration).
+     *
      * @var bool
      */
     protected $optInPost;
