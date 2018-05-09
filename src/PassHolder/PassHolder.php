@@ -10,6 +10,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformation;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\INSZNumber;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\OptInPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
@@ -101,6 +102,11 @@ final class PassHolder implements \JsonSerializable
      * @var School|null
      */
     protected $school;
+
+    /**
+     * @var OptInPreferences
+     */
+    protected $optInPreferences;
 
     /**
      * @param Name $name
@@ -351,6 +357,23 @@ final class PassHolder implements \JsonSerializable
     public function withRemarks(Remarks $remarks)
     {
         return $this->with('remarks', $remarks);
+    }
+
+    /**
+     * @param OptInPreferences $preferences
+     * @return PassHolder
+     */
+    public function withOptInPreferences(OptInPreferences $preferences)
+    {
+        return $this->with('optInPreferences', $preferences);
+    }
+
+    /**
+     * @return optInPreferences|null
+     */
+    public function getOptInPreferences()
+    {
+        return $this->optInPreferences;
     }
 
     /**

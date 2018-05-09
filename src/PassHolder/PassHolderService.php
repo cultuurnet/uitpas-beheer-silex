@@ -244,10 +244,15 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
             }
         }
 
-        // schoolConsumerKey
+        // School consumer key.
         if (!is_null($schoolConsumerKey)) {
             $cfPassHolder->schoolConsumerKey = $schoolConsumerKey->toNative();
         }
+
+        // Terms info.
+        $cfPassHolder->legalTermsPaper = $legalTermsPaper;
+        $cfPassHolder->legalTermsDigital = $legalTermsDigital;
+        $cfPassHolder->parentalConsent = $parentalConsent;
 
         $UUIDString = $this->getUitpasService()->createPassholder(
             $cfPassHolder,
@@ -363,6 +368,16 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         $school = $passHolder->getSchool();
         if ($school) {
             $cfPassHolder->schoolConsumerKey = $school->getId()->toNative();
+        }
+
+        $optInPreferences = $passHolder->getOptInPreferences();
+
+        if ($optInPreferences) {
+            $cfPassHolder->optInServiceMails = $optInPreferences->hasOptInServiceMails();
+            $cfPassHolder->optInMilestoneMails = $optInPreferences->hasOptInMilestoneMails();
+            $cfPassHolder->optInInfoMails = $optInPreferences->hasOptInInfoMails();
+            $cfPassHolder->optInSms = $optInPreferences->hasOptInSms();
+            $cfPassHolder->optInPost = $optInPreferences->hasOptInPost();
         }
 
         $cfPassHolder->toPostDataKeepEmptySecondName();

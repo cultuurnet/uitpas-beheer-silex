@@ -57,14 +57,20 @@ abstract class PassHolderServiceDecoratorBase implements PassHolderServiceInterf
         PassHolder $passHolder,
         VoucherNumber $voucherNumber = null,
         KansenStatuut $kansenStatuut = null,
-        SchoolConsumerKey $schoolConsumerKey = null
+        SchoolConsumerKey $schoolConsumerKey = null,
+        $legalTermsPaper = false,
+        $legalTermsDigital = false,
+        $parentalConsent = false
     ) {
         return $this->decoratee->register(
             $uitpasNumber,
             $passHolder,
             $voucherNumber,
             $kansenStatuut,
-            $schoolConsumerKey
+            $schoolConsumerKey,
+            $legalTermsPaper,
+            $legalTermsDigital,
+            $parentalConsent
         );
     }
 }

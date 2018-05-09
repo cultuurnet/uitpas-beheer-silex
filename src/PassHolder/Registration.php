@@ -92,7 +92,7 @@ final class Registration
     /**
      * @return bool
      */
-    public function hasLegalTermsPaper(): bool
+    public function hasLegalTermsPaper()
     {
         return $this->legalTermsPaper;
     }
@@ -100,7 +100,7 @@ final class Registration
     /**
      * @return bool
      */
-    public function hasLegalTermsDigital(): bool
+    public function hasLegalTermsDigital()
     {
         return $this->legalTermsDigital;
     }
@@ -108,7 +108,7 @@ final class Registration
     /**
      * @return bool
      */
-    public function hasParentalConsent(): bool
+    public function hasParentalConsent()
     {
         return $this->parentalConsent;
     }
