@@ -121,23 +121,19 @@ final class OptInPreferences implements \JsonSerializable
     }
 
     /**
-     * TODO
-     * @param \CultureFeed_Uitpas_Passholder $cfPassHolder
-     * @return self
      *
-    public static function fromCultureFeedPassHolder(\CultureFeed_Uitpas_Passholder $cfPassHolder)
+     * @param \CultureFeed_Uitpas_Passholder_OptInPreferences $optInPreferences
+     * @return self
+     */
+    public static function fromCultureFeedOptInPreferences(\CultureFeed_Uitpas_Passholder_OptInPreferences $optInPreferences)
     {
-        $email = PrivacyPreferenceEmail::NO();
-        if (!empty($cfPassHolder->emailPreference)) {
-            $email = PrivacyPreferenceEmail::get($cfPassHolder->emailPreference);
-        }
+        $optInServiceMails = $optInPreferences->optInServiceMails;
+        $optInMilestoneMails = $optInPreferences->optInMilestoneMails;
+        $optInInfoMails = $optInPreferences->optInInfoMails;
+        $optInSms = $optInPreferences->optInSms;
+        $optInPost = $optInPreferences->optInPost;
 
-        $sms = PrivacyPreferenceSMS::NO();
-        if (!empty($cfPassHolder->smsPreference)) {
-            $sms = PrivacyPreferenceSMS::get($cfPassHolder->smsPreference);
-        }
-
-        return new self($email, $sms);
+        return new self($optInServiceMails, $optInMilestoneMails, $optInInfoMails, $optInSms, $optInPost);
     }
-     * */
+
 }

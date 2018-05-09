@@ -552,6 +552,12 @@ final class PassHolder implements \JsonSerializable
             $passHolder = $passHolder->withSchool($school);
         }
 
+        if (!empty($cfPassHolder->uitIdUser->optInPreferences)) {
+            $passHolder = $passHolder->withOptInPreferences(
+                OptInPreferences::fromCultureFeedOptInPreferences($cfPassHolder->uitIdUser->optInPreferences)
+            );
+        }
+
         return $passHolder;
     }
 
