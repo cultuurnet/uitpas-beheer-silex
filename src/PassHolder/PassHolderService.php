@@ -7,6 +7,7 @@ use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Identity\Identity;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\OptInPreferences;
 use CultuurNet\UiTPASBeheer\School\SchoolConsumerKey;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedResultSet;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\QueryBuilderInterface;
@@ -131,6 +132,9 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         UiTPASNumber $uitpasNumber,
         PassHolder $passHolder
     ) {
+        $existingPassHolder = $this->getByUitpasNumber($uitpasNumber);
+
+        // Update regular data
         $cfPassHolder = $this->createCultureFeedPassholder($passHolder);
         $cfPassHolder->uitpasNumber = $uitpasNumber->toNative();
 
@@ -141,13 +145,38 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
                 $this->getCounterConsumerKey()
             );
 
+        // Update opt-in preferences.
+        $this->updateOptInPreferences($existingPassHolder->getUid(), $passHolder->getOptInPreferences(), $this->getCounterConsumerKey());
+
+        // Upload picture.
         $picture = $passHolder->getPicture();
 
         if ($picture) {
-            $passHolderId = $this->getByUitpasNumber($uitpasNumber)->getUid();
+            $passHolderId = $existingPassHolder->getUid();
 
             $this->uploadPicture($passHolderId, $picture);
         }
+    }
+
+    /**
+     * @param StringLiteral $passHolderUUID
+     * @param OptInPreferences $optInPreferences
+     */
+    private function updateOptInPreferences(
+        StringLiteral $passHolderUUID,
+        OptInPreferences $optInPreferences,
+        $consumer_key_counter = NULL
+    ) {
+
+        $cfOptInPreferences = $this->createCultureFeedOptInPreferences($optInPreferences);
+
+        $this
+            ->getUitpasService()
+            ->updatePassholderOptInPreferences(
+                $passHolderUUID,
+                $cfOptInPreferences,
+                $consumer_key_counter
+            );
     }
 
     /**
@@ -388,5 +417,22 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         $cfPassHolder->toPostDataKeepEmptySchoolConsumerKey();
 
         return $cfPassHolder;
+    }
+
+    /**
+     * @param OptInPreferences $optInPreferences
+     *
+     * @return \CultureFeed_Uitpas_Passholder_OptInPreferences
+     */
+    private function createCultureFeedOptInPreferences(OptInPreferences $optInPreferences) {
+        $cfOptInPreferences = new \CultureFeed_Uitpas_Passholder_OptInPreferences();
+
+        $cfOptInPreferences->optInServiceMails = $optInPreferences->hasOptInServiceMails();
+        $cfOptInPreferences->optInMilestoneMails = $optInPreferences->hasOptInMilestoneMails();
+        $cfOptInPreferences->optInInfoMails = $optInPreferences->hasOptInInfoMails();
+        $cfOptInPreferences->optInSms = $optInPreferences->hasOptInSms();
+        $cfOptInPreferences->optInPost = $optInPreferences->hasOptInPost();
+
+        return $cfOptInPreferences;
     }
 }

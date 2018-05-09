@@ -181,11 +181,11 @@ class PassHolderJsonDeserializer extends JSONDeserializer
             }
         }
 
-        if (isset($data->optIn)) {
+        if (isset($data->optInPreferences)) {
             try {
                 $passHolder = $passHolder->withOptInPreferences(
                     $this->optInPreferencesJsonDeserializer->deserialize(
-                        new StringLiteral(json_encode($data->optIn))
+                        new StringLiteral(json_encode($data->optInPreferences))
                     )
                 );
             } catch (MissingPropertyException $e) {
