@@ -14,6 +14,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformation;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\INSZNumber;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\OptInPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;

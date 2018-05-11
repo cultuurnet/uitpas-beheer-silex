@@ -10,6 +10,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformation;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\INSZNumber;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\OptInPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
@@ -101,6 +102,11 @@ final class PassHolder implements \JsonSerializable
      * @var School|null
      */
     protected $school;
+
+    /**
+     * @var OptInPreferences
+     */
+    protected $optInPreferences;
 
     /**
      * @param Name $name
@@ -354,6 +360,23 @@ final class PassHolder implements \JsonSerializable
     }
 
     /**
+     * @param OptInPreferences $preferences
+     * @return PassHolder
+     */
+    public function withOptInPreferences(OptInPreferences $preferences)
+    {
+        return $this->with('optInPreferences', $preferences);
+    }
+
+    /**
+     * @return optInPreferences|null
+     */
+    public function getOptInPreferences()
+    {
+        return $this->optInPreferences;
+    }
+
+    /**
      * @param string $property
      * @param mixed $value
      * @return PassHolder
@@ -427,6 +450,10 @@ final class PassHolder implements \JsonSerializable
 
         if (!is_null($this->school)) {
             $data['school'] = $this->school;
+        }
+
+        if (!is_null($this->optInPreferences)) {
+            $data['optInPreferences'] = $this->optInPreferences;
         }
 
         return $data;
@@ -527,6 +554,12 @@ final class PassHolder implements \JsonSerializable
                 new StringLiteral($cfPassHolder->schoolConsumerKey)
             );
             $passHolder = $passHolder->withSchool($school);
+        }
+
+        if (!empty($cfPassHolder->uitIdUser->optInPreferences)) {
+            $passHolder = $passHolder->withOptInPreferences(
+                OptInPreferences::fromCultureFeedOptInPreferences($cfPassHolder->uitIdUser->optInPreferences)
+            );
         }
 
         return $passHolder;

@@ -34,6 +34,21 @@ final class Registration
     protected $schoolConsumerKey;
 
     /**
+     * @var bool
+     */
+    protected $legalTermsPaper = false;
+
+    /**
+     * @var bool
+     */
+    protected $legalTermsDigital = false;
+
+    /**
+     * @var bool
+     */
+    protected $parentalConsent = false;
+
+    /**
      * Registration constructor.
      * @param PassHolder $passHolder
      */
@@ -75,6 +90,30 @@ final class Registration
     }
 
     /**
+     * @return bool
+     */
+    public function hasLegalTermsPaper()
+    {
+        return $this->legalTermsPaper;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasLegalTermsDigital()
+    {
+        return $this->legalTermsDigital;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasParentalConsent()
+    {
+        return $this->parentalConsent;
+    }
+
+    /**
      * @param VoucherNumber $voucherNumber
      * @return Registration
      */
@@ -99,6 +138,33 @@ final class Registration
     public function withSchoolConsumerKey(SchoolConsumerKey $schoolConsumerKey)
     {
         return $this->with('schoolConsumerKey', $schoolConsumerKey);
+    }
+
+    /**
+     * @param bool $legalTermsPaper
+     * @return Registration
+     */
+    public function withLegalTermsPaper($legalTermsPaper)
+    {
+        return $this->with('legalTermsPaper', $legalTermsPaper);
+    }
+
+    /**
+     * @param bool $legalTermsDigital
+     * @return Registration
+     */
+    public function withLegalTermsDigital($legalTermsDigital)
+    {
+        return $this->with('legalTermsDigital', $legalTermsDigital);
+    }
+
+    /**
+     * @param bool $parentalConsent
+     * @return Registration
+     */
+    public function withParentalConsent($parentalConsent)
+    {
+        return $this->with('parentalConsent', $parentalConsent);
     }
 
     /**

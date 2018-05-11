@@ -42,13 +42,19 @@ class PassHolderJsonDeserializer extends JSONDeserializer
      */
     protected $schoolJsonDeserializer;
 
+    /**
+     * @var DeserializerInterface
+     */
+    protected $optInPreferencesJsonDeserializer;
+
     public function __construct(
         DeserializerInterface $nameJsonDeserializer,
         DeserializerInterface $addressJsonDeserializer,
         DeserializerInterface $birthInformationJsonDeserializer,
         DeserializerInterface $contactInformationJsonDeserializer,
         DeserializerInterface $privacyPreferencesJsonDeserializer,
-        DeserializerInterface $schoolJsonDeserializer
+        DeserializerInterface $schoolJsonDeserializer,
+        DeserializerInterface $optInPreferencesJsonDeserializer
     ) {
         $this->nameJsonDeserializer = $nameJsonDeserializer;
         $this->addressJsonDeserializer = $addressJsonDeserializer;
@@ -56,6 +62,7 @@ class PassHolderJsonDeserializer extends JSONDeserializer
         $this->contactInformationJsonDeserializer = $contactInformationJsonDeserializer;
         $this->privacyPreferencesJsonDeserializer = $privacyPreferencesJsonDeserializer;
         $this->schoolJsonDeserializer = $schoolJsonDeserializer;
+        $this->optInPreferencesJsonDeserializer = $optInPreferencesJsonDeserializer;
     }
 
     /**
@@ -171,6 +178,18 @@ class PassHolderJsonDeserializer extends JSONDeserializer
                 );
             } catch (MissingPropertyException $e) {
                 throw MissingPropertyException::fromMissingChildPropertyException('school', $e);
+            }
+        }
+
+        if (isset($data->optInPreferences)) {
+            try {
+                $passHolder = $passHolder->withOptInPreferences(
+                    $this->optInPreferencesJsonDeserializer->deserialize(
+                        new StringLiteral(json_encode($data->optInPreferences))
+                    )
+                );
+            } catch (MissingPropertyException $e) {
+                throw MissingPropertyException::fromMissingChildPropertyException('optIn', $e);
             }
         }
 

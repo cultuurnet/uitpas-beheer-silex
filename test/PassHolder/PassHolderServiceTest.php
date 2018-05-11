@@ -9,6 +9,7 @@ use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\Identity\Identity;
 use CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuut;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\OptInPreferences;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\PagedResultSet;
 use CultuurNet\UiTPASBeheer\PassHolder\Search\Query;
@@ -139,6 +140,7 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $uitpasNumber = new UiTPASNumber($uitpasNumberValue);
 
         $passHolder = $this->getCompletePassHolder($gender);
+        $passHolder = $passHolder->withOptInPreferences(new OptInPreferences(true, false, true, false, true));
 
         // Picture and points can not be updated with this call,
         // so they should not be set.
@@ -162,6 +164,19 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassHolder->emailPreference = 'ALL_MAILS';
         $cfPassHolder->moreInfo = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.';
         $cfPassHolder->schoolConsumerKey = '920f8d53-abd0-40f1-a151-960098197785';
+        $cfPassHolder->optInPost = true;
+        $cfPassHolder->optInSms = false;
+        $cfPassHolder->optInMilestoneMails = false;
+        $cfPassHolder->optInInfoMails = true;
+        $cfPassHolder->optInServiceMails = true;
+
+        $cfOptInPreferences = new \CultureFeed_Uitpas_Passholder_OptInPreferences();
+
+        $cfOptInPreferences->optInServiceMails = true;
+        $cfOptInPreferences->optInMilestoneMails = false;
+        $cfOptInPreferences->optInInfoMails = true;
+        $cfOptInPreferences->optInSms = false;
+        $cfOptInPreferences->optInPost = true;
 
         $this->uitpas->expects($this->once())
             ->method('updatePassholder')
@@ -172,6 +187,13 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassHolderRequestedToGetUid = clone $cfPassHolder;
         $cfPassHolderRequestedToGetUid->uitIdUser = new \CultureFeed_Uitpas_Passholder_UitIdUser();
         $cfPassHolderRequestedToGetUid->uitIdUser->id = $passHolderUid;
+        $cfPassHolderRequestedToGetUid->uitIdUser->optInPreferences = new \CultureFeed_Uitpas_Passholder_OptInPreferences();
+        $cfPassHolderRequestedToGetUid->uitIdUser->optInPreferences->optInServiceMails = true;
+        $cfPassHolderRequestedToGetUid->uitIdUser->optInPreferences->optInMilestoneMails = false;
+        $cfPassHolderRequestedToGetUid->uitIdUser->optInPreferences->optInInfoMails = true;
+        $cfPassHolderRequestedToGetUid->uitIdUser->optInPreferences->optInSms = false;
+        $cfPassHolderRequestedToGetUid->uitIdUser->optInPreferences->optInPost = true;
+
         $cfPassHolderRequestedToGetUid->gender = $gender->toNative();
 
         $this->uitpas->expects($this->once())
@@ -181,6 +203,14 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
                 $this->counterConsumerKey->toNative()
             )
             ->willReturn($cfPassHolderRequestedToGetUid);
+
+        $this->uitpas->expects($this->once())
+          ->method('updatePassholderOptInPreferences')
+          ->with(
+              $passHolderUid,
+              $cfOptInPreferences,
+              $this->counterConsumerKey->toNative()
+          );
 
         $this->uitpas->expects($this->once())
             ->method('uploadPicture')

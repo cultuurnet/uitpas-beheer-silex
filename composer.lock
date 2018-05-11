@@ -308,12 +308,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "03fb4df3de81d89abff9499c509cb7493fe110e8"
+                "reference": "46c1b034da36c889e7851e7d9c7b15f69b21dfdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/03fb4df3de81d89abff9499c509cb7493fe110e8",
-                "reference": "03fb4df3de81d89abff9499c509cb7493fe110e8",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/46c1b034da36c889e7851e7d9c7b15f69b21dfdb",
+                "reference": "46c1b034da36c889e7851e7d9c7b15f69b21dfdb",
                 "shasum": ""
             },
             "require": {
@@ -368,7 +368,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2018-04-20T12:06:52+00:00"
+            "time": "2018-05-11T12:30:57+00:00"
         },
         {
             "name": "cultuurnet/deserializer",

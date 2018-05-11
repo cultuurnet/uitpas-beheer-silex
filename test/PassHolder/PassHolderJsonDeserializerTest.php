@@ -8,6 +8,7 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\AddressJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\NameJsonDeserializer;
+use CultuurNet\UiTPASBeheer\PassHolder\Properties\OptInPreferencesJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferencesJsonDeserializer;
 use CultuurNet\UiTPASBeheer\School\SchoolJsonDeserializer;
 use ValueObjects\StringLiteral\StringLiteral;
@@ -29,7 +30,8 @@ class PassHolderJsonDeserializerTest extends \PHPUnit_Framework_TestCase
             new BirthInformationJsonDeserializer(),
             new ContactInformationJsonDeserializer(),
             new PrivacyPreferencesJsonDeserializer(),
-            new SchoolJsonDeserializer()
+            new SchoolJsonDeserializer(),
+            new OptInPreferencesJsonDeserializer()
         );
     }
 
@@ -270,7 +272,8 @@ class PassHolderJsonDeserializerTest extends \PHPUnit_Framework_TestCase
             new BirthInformationJsonDeserializer(),
             $contactInformationJsonDeserializer,
             new PrivacyPreferencesJsonDeserializer(),
-            new SchoolJsonDeserializer()
+            new SchoolJsonDeserializer(),
+            new OptInPreferencesJsonDeserializer()
         );
 
         $contactInformationJsonDeserializer->expects($this->once())
