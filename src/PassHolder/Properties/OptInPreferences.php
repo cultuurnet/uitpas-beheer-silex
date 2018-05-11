@@ -2,7 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer\PassHolder\Properties;
 
-
 final class OptInPreferences implements \JsonSerializable
 {
     /**
@@ -135,5 +134,4 @@ final class OptInPreferences implements \JsonSerializable
 
         return new self($optInServiceMails, $optInMilestoneMails, $optInInfoMails, $optInSms, $optInPost);
     }
-
 }

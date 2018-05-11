@@ -165,7 +165,7 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
     private function updateOptInPreferences(
         StringLiteral $passHolderUUID,
         OptInPreferences $optInPreferences,
-        $consumer_key_counter = NULL
+        $consumerKeyCounter = null
     ) {
 
         $cfOptInPreferences = $this->createCultureFeedOptInPreferences($optInPreferences);
@@ -175,7 +175,7 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
             ->updatePassholderOptInPreferences(
                 $passHolderUUID,
                 $cfOptInPreferences,
-                $consumer_key_counter
+                $consumerKeyCounter
             );
     }
 
@@ -424,7 +424,8 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
      *
      * @return \CultureFeed_Uitpas_Passholder_OptInPreferences
      */
-    private function createCultureFeedOptInPreferences(OptInPreferences $optInPreferences) {
+    private function createCultureFeedOptInPreferences(OptInPreferences $optInPreferences)
+    {
         $cfOptInPreferences = new \CultureFeed_Uitpas_Passholder_OptInPreferences();
 
         $cfOptInPreferences->optInServiceMails = $optInPreferences->hasOptInServiceMails();

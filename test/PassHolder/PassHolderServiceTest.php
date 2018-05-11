@@ -207,9 +207,9 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $this->uitpas->expects($this->once())
           ->method('updatePassholderOptInPreferences')
           ->with(
-            $passHolderUid,
-            $cfOptInPreferences,
-            $this->counterConsumerKey->toNative()
+              $passHolderUid,
+              $cfOptInPreferences,
+              $this->counterConsumerKey->toNative()
           );
 
         $this->uitpas->expects($this->once())
