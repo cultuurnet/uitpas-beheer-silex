@@ -39,7 +39,7 @@ $app['cultuurnet_search'] = $app->share(
 
             $logPlugin = new \Guzzle\Plugin\Log\LogPlugin(
                 new \Guzzle\Log\PsrLogAdapter($logger),
-                \Guzzle\Log\MessageFormatter::DEBUG_FORMAT
+                MESSAGE_FORMAT
             );
 
             $service->addSubscriber($logPlugin);
