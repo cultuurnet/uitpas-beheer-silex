@@ -5,6 +5,8 @@
 
 /** @var \Silex\Application $app */
 
+const MESSAGE_FORMAT = ">>>>>>>>\n{request}\n<<<<<<<<\n{response}\nTime: {total_time}s\n--------\n{curl_stderr}";
+
 $app['third_party_api_log'] = $app->share(
     function () {
         $handler = new \Monolog\Handler\StreamHandler(
@@ -37,7 +39,7 @@ $app['cultuurnet_search'] = $app->share(
 
             $logPlugin = new \Guzzle\Plugin\Log\LogPlugin(
                 new \Guzzle\Log\PsrLogAdapter($logger),
-                \Guzzle\Log\MessageFormatter::DEBUG_FORMAT
+                MESSAGE_FORMAT
             );
 
             $service->addSubscriber($logPlugin);
@@ -56,7 +58,7 @@ $app['uitid_auth_service'] = $app->share(
 
             $logPlugin = new \Guzzle\Plugin\Log\LogPlugin(
                 new \Guzzle\Log\PsrLogAdapter($logger),
-                \Guzzle\Log\MessageFormatter::DEBUG_FORMAT
+                MESSAGE_FORMAT
             );
 
             $service->addSubscriber($logPlugin);
@@ -78,7 +80,7 @@ $app['culturefeed_http_client_guzzle'] = $app->share(
 
             $logPlugin = new \Guzzle\Plugin\Log\LogPlugin(
                 new \Guzzle\Log\PsrLogAdapter($logger),
-                \Guzzle\Log\MessageFormatter::DEBUG_FORMAT
+                MESSAGE_FORMAT
             );
 
             $service->addSubscriber($logPlugin);
@@ -97,7 +99,7 @@ $app['expense_report_api'] = $app->share(
 
             $logPlugin = new \Guzzle\Plugin\Log\LogPlugin(
                 new \Guzzle\Log\PsrLogAdapter($logger),
-                \Guzzle\Log\MessageFormatter::DEBUG_FORMAT
+                MESSAGE_FORMAT
             );
 
             $service->addSubscriber($logPlugin);
@@ -116,7 +118,7 @@ $app['datavalidation_guzzle_client'] = $app->share(
 
             $logPlugin = new \Guzzle\Plugin\Log\LogPlugin(
                 new \Guzzle\Log\PsrLogAdapter($logger),
-                \Guzzle\Log\MessageFormatter::DEBUG_FORMAT
+                MESSAGE_FORMAT
             );
 
             $service->addSubscriber($logPlugin);
