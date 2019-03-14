@@ -14,6 +14,8 @@ class JsonErrorResponse extends JsonResponse
      */
     public function __construct(ResponseException $exception)
     {
+        $previous = $exception->getPrevious();
+
         $data = [
             'type' => 'error',
             'exception' => get_class($exception),
@@ -27,6 +29,10 @@ class JsonErrorResponse extends JsonResponse
 
         if ($exception instanceof ContextualExceptionInterface && !is_null($exception->getContext())) {
             $data['context'] = $exception->getContext();
+        }
+
+        if ($previous instanceof \CultureFeed_Exception) {
+          $data['user_friendly_message'] = $previous->getUserFriendlyMessage();
         }
 
         parent::__construct($data, $exception->getStatusCode(), $exception->getHeaders());
