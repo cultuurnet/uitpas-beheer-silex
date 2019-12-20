@@ -20,6 +20,7 @@ use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTimeWithTimeZone;
 use ValueObjects\DateTime\Month;
 use ValueObjects\DateTime\MonthDay;
+use ValueObjects\DateTime\TimeZone;
 use ValueObjects\DateTime\Year;
 use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
@@ -146,7 +147,7 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
         $this->group = new Group(
             new StringLiteral('vereniging'),
             new Natural(10),
-            new DateTimeWithTimeZone('2019','12', '06', '8', '0', '0', 'Europe/London')
+            new DateTimeWithTimeZone(new \DateTime('2019-12-01'), new TimeZone('Europe/London'))
         );
 
         $this->uitpasNumber = new UiTPASNumber('1000000035419');
