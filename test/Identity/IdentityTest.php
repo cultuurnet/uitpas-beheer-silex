@@ -306,6 +306,7 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
         $cfGroupPass = new \CultureFeed_Uitpas_GroupPass();
         $cfGroupPass->name = 'vereniging';
         $cfGroupPass->availableTickets = 10;
+        $cfGroupPass->endDate = 1575187200;
 
         $cfIdentity = new \CultureFeed_Uitpas_Identity();
         $cfIdentity->card = $cfPassHolderCard;
