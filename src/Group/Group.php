@@ -7,6 +7,7 @@ namespace CultuurNet\UiTPASBeheer\Group;
 
 use CultureFeed_Uitpas_GroupPass;
 use JsonSerializable;
+use ValueObjects\Number\Integer;
 use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
 use ValueObjects\DateTime\DateTimeWithTimeZone;
@@ -24,19 +25,21 @@ class Group implements JsonSerializable
     private $availableTickets;
 
     /**
-     * @var DateTimeWithTimeZone
+     * End date timestamp.
+     *
+     * @var Integer
      */
     private $endDate;
 
     /**
      * @param StringLiteral $name
      * @param Natural $availableTickets
-     * @param DateTimeWithTimeZone $endDate
+     * @param Integer $endDate
      */
     public function __construct(
         StringLiteral $name,
         Natural $availableTickets,
-        DateTimeWithTimeZone $endDate
+        Integer $endDate
     ) {
         $this->name = $name;
         $this->availableTickets = $availableTickets;
@@ -51,14 +54,10 @@ class Group implements JsonSerializable
         CultureFeed_Uitpas_GroupPass $groupPass
     ) {
 
-        $date = \DateTime::createFromFormat('U',$groupPass->endDate);
-        $date->setTimezone(new \DateTimeZone('Europe/London'));
-        $date = DateTimeWithTimeZone::fromNativeDateTime($date);
-
         return new self(
             new StringLiteral($groupPass->name),
             new Natural($groupPass->availableTickets),
-            $date
+            new Integer($groupPass->endDate)
         );
     }
 
@@ -70,7 +69,7 @@ class Group implements JsonSerializable
         return [
             'name' => $this->name->toNative(),
             'availableTickets' => $this->availableTickets->toNative(),
-            'endDate' => $this->endDate->toNativeDateTime(),
+            'endDate' => $this->endDate->toNative(),
         ];
     }
 }

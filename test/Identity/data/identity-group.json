@@ -11,6 +11,7 @@
   },
   "group": {
     "name": "vereniging",
-    "availableTickets": 10
+    "availableTickets": 10,
+    "endDate": 1575187200
   }
 }
