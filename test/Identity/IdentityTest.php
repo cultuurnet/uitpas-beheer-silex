@@ -17,6 +17,7 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
 use ValueObjects\DateTime\Date;
+use ValueObjects\DateTime\DateTime;
 use ValueObjects\DateTime\DateTimeWithTimeZone;
 use ValueObjects\DateTime\Month;
 use ValueObjects\DateTime\MonthDay;
@@ -147,7 +148,7 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
         $this->group = new Group(
             new StringLiteral('vereniging'),
             new Natural(10),
-            new DateTimeWithTimeZone(new \DateTime('2019-12-01'), new TimeZone('Europe/London'))
+            new DateTimeWithTimeZone(new DateTime(Date::fromNativeDateTime(new \DateTime('2019-12-01'))), new TimeZone(new StringLiteral('Europe/London')))
         );
 
         $this->uitpasNumber = new UiTPASNumber('1000000035419');
