@@ -90,6 +90,21 @@ class ActivityControllerTest extends \PHPUnit_Framework_TestCase
                 ->withSort('permanent desc,availableto asc'),
         ];
 
+        $items['all possible parameters but date type'] = [
+            '0930000467512',
+            [
+                'limit' => 10,
+                'query' => 'foo',
+                'sort' => 'permanent desc,availableto asc',
+                'page' => 2,
+            ],
+            (new SimpleQuery())
+                ->withPagination(new Integer(2), new Integer(10))
+                ->withQuery(new StringLiteral('foo'))
+                ->withUiTPASNumber(new UiTPASNumber('0930000467512'))
+                ->withSort('permanent desc,availableto asc'),
+        ];
+
         $items['next 12 months'] = [
             '0930000208908',
             [
