@@ -65,13 +65,16 @@ class ActivityController
         foreach ($request->query->all() as $parameter => $value) {
             switch ($parameter) {
                 case 'date_type':
-                    try {
-                        $searchActivities = $searchActivities->withDateType(
-                            DateType::fromNative($value)
-                        );
-                    } catch (\InvalidArgumentException $e) {
-                        throw new DateTypeInvalidException($value);
-                    };
+                    // Ignore parameter if left empty.
+                    if (!empty($value)) {
+                        try {
+                            $searchActivities = $searchActivities->withDateType(
+                                DateType::fromNative($value)
+                            );
+                        } catch (\InvalidArgumentException $e) {
+                            throw new DateTypeInvalidException($value);
+                        };
+                    }
                     break;
 
                 case 'query':

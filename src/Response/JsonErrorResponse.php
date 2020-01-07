@@ -32,7 +32,7 @@ class JsonErrorResponse extends JsonResponse
         }
 
         if ($previous instanceof \CultureFeed_Exception) {
-          $data['user_friendly_message'] = $previous->getUserFriendlyMessage();
+            $data['user_friendly_message'] = $previous->getUserFriendlyMessage();
         }
 
         parent::__construct($data, $exception->getStatusCode(), $exception->getHeaders());
