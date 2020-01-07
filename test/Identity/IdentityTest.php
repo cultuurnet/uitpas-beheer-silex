@@ -17,9 +17,13 @@ use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASNumber;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASStatus;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASType;
 use ValueObjects\DateTime\Date;
+use ValueObjects\DateTime\DateTime;
+use ValueObjects\DateTime\DateTimeWithTimeZone;
 use ValueObjects\DateTime\Month;
 use ValueObjects\DateTime\MonthDay;
+use ValueObjects\DateTime\TimeZone;
 use ValueObjects\DateTime\Year;
+use ValueObjects\Number\Integer;
 use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -144,7 +148,8 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
 
         $this->group = new Group(
             new StringLiteral('vereniging'),
-            new Natural(10)
+            new Natural(10),
+            new Integer(1575187200)
         );
 
         $this->uitpasNumber = new UiTPASNumber('1000000035419');
@@ -302,6 +307,7 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
         $cfGroupPass = new \CultureFeed_Uitpas_GroupPass();
         $cfGroupPass->name = 'vereniging';
         $cfGroupPass->availableTickets = 10;
+        $cfGroupPass->endDate = 1575187200;
 
         $cfIdentity = new \CultureFeed_Uitpas_Identity();
         $cfIdentity->card = $cfPassHolderCard;
