@@ -34,7 +34,7 @@ final class Address implements \JsonSerializable
     public function __construct(
         StringLiteral $postalCode,
         StringLiteral $city,
-        StringLiteral $foreignCity
+        StringLiteral $foreignCity = NULL
     ) {
         $this->postalCode = $postalCode;
         $this->city = $city;
@@ -106,7 +106,10 @@ final class Address implements \JsonSerializable
 
         $data['postalCode'] = $this->postalCode->toNative();
         $data['city'] = $this->city->toNative();
-        $data['foreignCity'] = $this->foreignCity->toNative();
+
+        if (!is_null($this->foreignCity)) {
+          $data['foreignCity'] = $this->foreignCity->toNative();
+        }
 
         return $data;
     }
