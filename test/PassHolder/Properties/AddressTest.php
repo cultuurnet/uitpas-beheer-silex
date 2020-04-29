@@ -60,14 +60,14 @@ class AddressTest extends \PHPUnit_Framework_TestCase
      */
     public function it_encodes_all_data_with_foreign_city_to_json()
     {
-      $address = (new Address(
-        $this->postalCode,
-        new StringLiteral('Buitenland')
-      ))->withStreet($this->street)
-      ->withforeignCity(new StringLiteral('Parijs'));
+        $address = (new Address(
+            $this->postalCode,
+            new StringLiteral('Buitenland')
+        ))->withStreet($this->street)
+        ->withforeignCity(new StringLiteral('Parijs'));
 
-      $json = json_encode($address);
-      $this->assertJsonEquals($json, 'PassHolder/data/properties/address-complete-foreign.json');
+        $json = json_encode($address);
+        $this->assertJsonEquals($json, 'PassHolder/data/properties/address-complete-foreign.json');
     }
 
     /**
@@ -122,40 +122,40 @@ class AddressTest extends \PHPUnit_Framework_TestCase
    */
   public function it_can_extract_properties_including_foreign_city_from_a_culturefeed_passholder()
   {
-    $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
-    $cfPassHolder->postalCode = '1090';
-    $cfPassHolder->city = 'Buitenland';
-    $cfPassHolder->street = 'Rue Ferd 123 /0001';
-    $cfPassHolder->foreignCity = 'Parijs';
+      $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
+      $cfPassHolder->postalCode = '1090';
+      $cfPassHolder->city = 'Buitenland';
+      $cfPassHolder->street = 'Rue Ferd 123 /0001';
+      $cfPassHolder->foreignCity = 'Parijs';
 
-    $address = Address::fromCultureFeedPassHolder($cfPassHolder);
+      $address = Address::fromCultureFeedPassHolder($cfPassHolder);
 
-    $this->assertEquals(
-      $cfPassHolder->postalCode,
-      $address
-        ->getPostalCode()
-        ->toNative()
-    );
+      $this->assertEquals(
+          $cfPassHolder->postalCode,
+          $address
+              ->getPostalCode()
+              ->toNative()
+      );
 
-    $this->assertEquals(
-      $cfPassHolder->city,
-      $address
-        ->getCity()
-        ->toNative()
-    );
+      $this->assertEquals(
+          $cfPassHolder->city,
+          $address
+              ->getCity()
+              ->toNative()
+      );
 
-    $this->assertEquals(
-      $cfPassHolder->street,
-      $address
-        ->getStreet()
-        ->toNative()
-    );
+      $this->assertEquals(
+          $cfPassHolder->street,
+          $address
+              ->getStreet()
+              ->toNative()
+      );
 
-    $this->assertEquals(
-      $cfPassHolder->foreignCity,
-      $address
-        ->getForeignCity()
-        ->toNative()
-    );
+      $this->assertEquals(
+          $cfPassHolder->foreignCity,
+          $address
+              ->getForeignCity()
+              ->toNative()
+      );
   }
 }

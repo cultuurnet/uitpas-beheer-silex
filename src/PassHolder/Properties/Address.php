@@ -60,9 +60,9 @@ final class Address implements \JsonSerializable
      */
     public function withforeignCity(StringLiteral $foreignCity)
     {
-      $c = clone $this;
-      $c->foreignCity = $foreignCity;
-      return $c;
+        $c = clone $this;
+        $c->foreignCity = $foreignCity;
+        return $c;
     }
 
     /**
@@ -70,7 +70,7 @@ final class Address implements \JsonSerializable
      */
     public function getForeignCity()
     {
-      return $this->foreignCity;
+        return $this->foreignCity;
     }
 
     /**
@@ -116,7 +116,7 @@ final class Address implements \JsonSerializable
         $data['city'] = $this->city->toNative();
 
         if (!is_null($this->foreignCity)) {
-          $data['foreignCity'] = $this->foreignCity->toNative();
+            $data['foreignCity'] = $this->foreignCity->toNative();
         }
 
         return $data;
@@ -134,9 +134,9 @@ final class Address implements \JsonSerializable
         $address = new self($postalCode, $city);
 
         if (!empty($cfPassHolder->foreignCity)) {
-          $address = $address->withforeignCity(
-            new StringLiteral($cfPassHolder->foreignCity)
-          );
+            $address = $address->withforeignCity(
+                new StringLiteral($cfPassHolder->foreignCity)
+            );
         }
 
         if (!empty($cfPassHolder->street)) {
