@@ -29,16 +29,13 @@ final class Address implements \JsonSerializable
     /**
      * @param StringLiteral $postalCode
      * @param StringLiteral $city
-     * @param StringLiteral $foreignCity
      */
     public function __construct(
         StringLiteral $postalCode,
-        StringLiteral $city,
-        StringLiteral $foreignCity = NULL
+        StringLiteral $city
     ) {
         $this->postalCode = $postalCode;
         $this->city = $city;
-        $this->foreignCity = $foreignCity;
     }
 
     /**
@@ -58,7 +55,18 @@ final class Address implements \JsonSerializable
     }
 
     /**
-     * @return StringLiteral
+     * @param StringLiteral $foreignCity
+     * @return Address
+     */
+    public function withforeignCity(StringLiteral $foreignCity)
+    {
+      $c = clone $this;
+      $c->foreignCity = $foreignCity;
+      return $c;
+    }
+
+    /**
+     * @return StringLiteral|null
      */
     public function getForeignCity()
     {
@@ -122,9 +130,14 @@ final class Address implements \JsonSerializable
     {
         $postalCode = new StringLiteral($cfPassHolder->postalCode);
         $city = new StringLiteral($cfPassHolder->city);
-        $foreignCity = new StringLiteral($cfPassHolder->foreignCity);
 
-        $address = new self($postalCode, $city, $foreignCity);
+        $address = new self($postalCode, $city);
+
+        if (!empty($cfPassHolder->foreignCity)) {
+          $address = $address->withforeignCity(
+            new StringLiteral($cfPassHolder->foreignCity)
+          );
+        }
 
         if (!empty($cfPassHolder->street)) {
             $address = $address->withStreet(
