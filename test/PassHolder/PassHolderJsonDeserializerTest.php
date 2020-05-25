@@ -9,7 +9,6 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\BirthInformationJsonDeserializ
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\ContactInformationJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\NameJsonDeserializer;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\OptInPreferencesJsonDeserializer;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferencesJsonDeserializer;
 use CultuurNet\UiTPASBeheer\School\SchoolJsonDeserializer;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -29,7 +28,6 @@ class PassHolderJsonDeserializerTest extends \PHPUnit_Framework_TestCase
             new AddressJsonDeserializer(),
             new BirthInformationJsonDeserializer(),
             new ContactInformationJsonDeserializer(),
-            new PrivacyPreferencesJsonDeserializer(),
             new SchoolJsonDeserializer(),
             new OptInPreferencesJsonDeserializer()
         );
@@ -222,46 +220,6 @@ class PassHolderJsonDeserializerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_refuses_to_deserialize_when_privacy_preference_email_is_missing()
-    {
-        $json = $this->getFullPassholderSample();
-        unset($json->privacy->email);
-
-        $this->setExpectedException(
-            MissingPropertyException::class,
-            'Missing property "privacy->email".'
-        );
-
-        $this->deserializer->deserialize(
-            new StringLiteral(
-                json_encode($json)
-            )
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function it_refuses_to_deserialize_when_privacy_preference_sms_is_missing()
-    {
-        $json = $this->getFullPassholderSample();
-        unset($json->privacy->sms);
-
-        $this->setExpectedException(
-            MissingPropertyException::class,
-            'Missing property "privacy->sms".'
-        );
-
-        $this->deserializer->deserialize(
-            new StringLiteral(
-                json_encode($json)
-            )
-        );
-    }
-
-    /**
-     * @test
-     */
     public function it_refuses_to_deserialize_when_the_contact_information_deserializer_refuses()
     {
         $contactInformationJsonDeserializer = $this->getMock(DeserializerInterface::class);
@@ -271,7 +229,6 @@ class PassHolderJsonDeserializerTest extends \PHPUnit_Framework_TestCase
             new AddressJsonDeserializer(),
             new BirthInformationJsonDeserializer(),
             $contactInformationJsonDeserializer,
-            new PrivacyPreferencesJsonDeserializer(),
             new SchoolJsonDeserializer(),
             new OptInPreferencesJsonDeserializer()
         );

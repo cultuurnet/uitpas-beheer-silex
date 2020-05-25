@@ -42,10 +42,6 @@
       }
     }
   ],
-  "privacy": {
-    "email": true,
-    "sms": false
-  },
   "points": 20,
   "uitpassen": [
     {

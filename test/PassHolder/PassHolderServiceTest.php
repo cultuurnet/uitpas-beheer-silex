@@ -160,8 +160,6 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassHolder->email = 'zyrani_.hotmail.com@mailinator.com';
         $cfPassHolder->telephone = '0488694231';
         $cfPassHolder->gsm = '0499748596';
-        $cfPassHolder->smsPreference = 'NOTIFICATION_SMS';
-        $cfPassHolder->emailPreference = 'ALL_MAILS';
         $cfPassHolder->moreInfo = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.';
         $cfPassHolder->schoolConsumerKey = '920f8d53-abd0-40f1-a151-960098197785';
         $cfPassHolder->optInPost = true;
@@ -354,8 +352,6 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->email = 'zyrani_.hotmail.com@mailinator.com';
         $cfPassholder->telephone = '0488694231';
         $cfPassholder->gsm = '0499748596';
-        $cfPassholder->smsPreference = 'NOTIFICATION_SMS';
-        $cfPassholder->emailPreference = 'ALL_MAILS';
         $cfPassholder->moreInfo = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.';
         $cfPassholder->schoolConsumerKey = '920f8d53-abd0-40f1-a151-960098197785';
 
@@ -469,8 +465,6 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->email = 'zyrani_.hotmail.com@mailinator.com';
         $cfPassholder->telephone = '0488694231';
         $cfPassholder->gsm = '0499748596';
-        $cfPassholder->smsPreference = 'NOTIFICATION_SMS';
-        $cfPassholder->emailPreference = 'ALL_MAILS';
         $cfPassholder->kansenStatuut = true;
         $cfPassholder->kansenStatuutEndDate = '11855890800';
         $cfPassholder->voucherNumber = 'i-am-a-voucher';

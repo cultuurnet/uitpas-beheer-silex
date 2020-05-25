@@ -375,17 +375,6 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
             }
         }
 
-        $privacyPreferences = $passHolder->getPrivacyPreferences();
-
-        if ($privacyPreferences) {
-            $cfPassHolder->emailPreference = $privacyPreferences
-                ->getEmailPreference()
-                ->toNative();
-            $cfPassHolder->smsPreference = $privacyPreferences
-                ->getSMSPreference()
-                ->toNative();
-        }
-
         if ($passHolder->getINSZNumber()) {
             $cfPassHolder->inszNumber = $passHolder
                 ->getINSZNumber()

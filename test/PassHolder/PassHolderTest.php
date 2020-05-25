@@ -52,8 +52,6 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $this->cfPassHolderFull->email = 'zyrani_.hotmail.com@mailinator.com';
         $this->cfPassHolderFull->telephone = '0488694231';
         $this->cfPassHolderFull->gsm = '0499748596';
-        $this->cfPassHolderFull->smsPreference = 'NO_SMS';
-        $this->cfPassHolderFull->emailPreference = 'ALL_MAILS';
         $this->cfPassHolderFull->moreInfo = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.';
 
         $cardSystem10 = new \CultureFeed_Uitpas_CardSystem(
@@ -131,14 +129,12 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $expectedAddress = Address::fromCultureFeedPassHolder($this->cfPassHolderFull);
         $expectedBirthInformation = BirthInformation::fromCultureFeedPassHolder($this->cfPassHolderFull);
         $expectedContactInformation = ContactInformation::fromCultureFeedPassHolder($this->cfPassHolderFull);
-        $expectedPrivacyPreferences = PrivacyPreferences::fromCultureFeedPassHolder($this->cfPassHolderFull);
         $expectedCardSystems = CardSystemCollection::fromCultureFeedPassHolderCardSystemSpecific($this->cfPassHolderFull->cardSystemSpecific);
 
         $this->assertTrue($passHolder->getName()->sameValueAs($expectedName));
         $this->assertTrue($passHolder->getAddress()->sameValueAs($expectedAddress));
         $this->assertTrue($passHolder->getBirthInformation()->sameValueAs($expectedBirthInformation));
         $this->assertTrue($passHolder->getContactInformation()->sameValueAs($expectedContactInformation));
-        $this->assertTrue($passHolder->getPrivacyPreferences()->sameValueAs($expectedPrivacyPreferences));
         $this->assertEquals($expectedCardSystems, $passHolder->getCardSystems());
 
         $this->assertEquals(2, $passHolder->getKansenStatuten()->length());
@@ -176,17 +172,6 @@ class PassHolderTest extends \PHPUnit_Framework_TestCase
         $passHolder = PassHolder::fromCultureFeedPassHolder($this->cfPassHolderMinimal);
 
         $this->assertEquals(0, $passHolder->getPoints()->toNative());
-
-        $this->assertTrue(
-            $passHolder
-                ->getPrivacyPreferences()
-                ->sameValueAs(
-                    new PrivacyPreferences(
-                        PrivacyPreferenceEmail::NOTIFICATION(),
-                        PrivacyPreferenceSMS::NOTIFICATION()
-                    )
-                )
-        );
 
         $this->assertNull($passHolder->getINSZNumber());
         $this->assertNull($passHolder->getGender());
