@@ -346,6 +346,10 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
             $cfPassHolder->street = $address->getStreet()->toNative();
         }
 
+        if ($address->getForeignCity()) {
+            $cfPassHolder->foreignCity = $address->getForeignCity()->toNative();
+        }
+
         $cfPassHolder->city = $address->getCity()->toNative();
         $cfPassHolder->postalCode = $address->getPostalCode()->toNative();
 
