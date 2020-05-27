@@ -74,11 +74,6 @@ trait PassHolderDataTrait
                 )->withMobileNumber(
                     new StringLiteral('0499748596')
                 )
-        )->withPrivacyPreferences(
-            new PrivacyPreferences(
-                PrivacyPreferenceEmail::ALL(),
-                PrivacyPreferenceSMS::NOTIFICATION()
-            )
         )
         ->withRemarks(
             new Remarks(
@@ -228,11 +223,6 @@ trait PassHolderDataTrait
                 )
         )->withKansenStatuten(
             $kansenStatuten
-        )->withPrivacyPreferences(
-            new PrivacyPreferences(
-                PrivacyPreferenceEmail::ALL(),
-                PrivacyPreferenceSMS::NOTIFICATION()
-            )
         )->withPoints(
             new Integer(20)
         )->withUiTPASCollection(

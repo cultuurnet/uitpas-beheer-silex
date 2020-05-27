@@ -346,6 +346,10 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
             $cfPassHolder->street = $address->getStreet()->toNative();
         }
 
+        if ($address->getForeignCity()) {
+            $cfPassHolder->foreignCity = $address->getForeignCity()->toNative();
+        }
+
         $cfPassHolder->city = $address->getCity()->toNative();
         $cfPassHolder->postalCode = $address->getPostalCode()->toNative();
 
@@ -369,17 +373,6 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
                     ->getEmail()
                     ->toNative();
             }
-        }
-
-        $privacyPreferences = $passHolder->getPrivacyPreferences();
-
-        if ($privacyPreferences) {
-            $cfPassHolder->emailPreference = $privacyPreferences
-                ->getEmailPreference()
-                ->toNative();
-            $cfPassHolder->smsPreference = $privacyPreferences
-                ->getSMSPreference()
-                ->toNative();
         }
 
         if ($passHolder->getINSZNumber()) {

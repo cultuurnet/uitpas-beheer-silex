@@ -10,9 +10,5 @@
   "birth": {
     "date": "1976-09-13"
   },
-  "points": 0,
-  "privacy": {
-    "email": false,
-    "sms": false
-  }
+  "points": 0
 }

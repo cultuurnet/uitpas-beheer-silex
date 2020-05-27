@@ -36,6 +36,12 @@ class AddressJsonDeserializer extends JSONDeserializer
             );
         }
 
+        if (isset($data->foreignCity)) {
+            $address = $address->withforeignCity(
+                new StringLiteral((string) $data->foreignCity)
+            );
+        }
+
         return $address;
     }
 }

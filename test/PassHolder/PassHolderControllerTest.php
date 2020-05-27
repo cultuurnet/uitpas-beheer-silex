@@ -121,7 +121,6 @@ class PassHolderControllerTest extends \PHPUnit_Framework_TestCase
             new AddressJsonDeserializer(),
             new BirthInformationJsonDeserializer(),
             new ContactInformationJsonDeserializer(),
-            new PrivacyPreferencesJsonDeserializer(),
             new SchoolJsonDeserializer(),
             new OptInPreferencesJsonDeserializer()
         );

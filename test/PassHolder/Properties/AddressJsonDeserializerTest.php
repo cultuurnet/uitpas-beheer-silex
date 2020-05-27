@@ -35,6 +35,26 @@ class AddressJsonDeserializerTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($expected->sameValueAs($actual));
     }
 
+  /**
+   * @test
+   */
+    public function it_can_deserialize_a_complete_address_foreign_json_object()
+    {
+        $expected = (new Address(
+            new StringLiteral('1090'),
+            new StringLiteral('Buitenland')
+        ))->withStreet(
+            new StringLiteral('Rue Ferd 123 /0001')
+        )->withforeignCity(
+            new StringLiteral('Parijs')
+        );
+
+        $json = file_get_contents(__DIR__ . '/../data/properties/address-complete-foreign.json');
+        $actual = $this->deserializer->deserialize(new StringLiteral($json));
+
+        $this->assertTrue($expected->sameValueAs($actual));
+    }
+
     /**
      * @test
      */

@@ -35,11 +35,6 @@ class PassHolderJsonDeserializer extends JSONDeserializer
     /**
      * @var DeserializerInterface
      */
-    protected $privacyPreferencesJsonDeserializer;
-
-    /**
-     * @var DeserializerInterface
-     */
     protected $schoolJsonDeserializer;
 
     /**
@@ -52,7 +47,6 @@ class PassHolderJsonDeserializer extends JSONDeserializer
         DeserializerInterface $addressJsonDeserializer,
         DeserializerInterface $birthInformationJsonDeserializer,
         DeserializerInterface $contactInformationJsonDeserializer,
-        DeserializerInterface $privacyPreferencesJsonDeserializer,
         DeserializerInterface $schoolJsonDeserializer,
         DeserializerInterface $optInPreferencesJsonDeserializer
     ) {
@@ -60,7 +54,6 @@ class PassHolderJsonDeserializer extends JSONDeserializer
         $this->addressJsonDeserializer = $addressJsonDeserializer;
         $this->birthInformationJsonDeserializer = $birthInformationJsonDeserializer;
         $this->contactInformationJsonDeserializer = $contactInformationJsonDeserializer;
-        $this->privacyPreferencesJsonDeserializer = $privacyPreferencesJsonDeserializer;
         $this->schoolJsonDeserializer = $schoolJsonDeserializer;
         $this->optInPreferencesJsonDeserializer = $optInPreferencesJsonDeserializer;
     }
@@ -148,18 +141,6 @@ class PassHolderJsonDeserializer extends JSONDeserializer
                 );
             } catch (MissingPropertyException $e) {
                 throw MissingPropertyException::fromMissingChildPropertyException('contact', $e);
-            }
-        }
-
-        if (isset($data->privacy)) {
-            try {
-                $passHolder = $passHolder->withPrivacyPreferences(
-                    $this->privacyPreferencesJsonDeserializer->deserialize(
-                        new StringLiteral(json_encode($data->privacy))
-                    )
-                );
-            } catch (MissingPropertyException $e) {
-                throw MissingPropertyException::fromMissingChildPropertyException('privacy', $e);
             }
         }
 

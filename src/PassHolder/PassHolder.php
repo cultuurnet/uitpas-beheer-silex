@@ -11,9 +11,6 @@ use CultuurNet\UiTPASBeheer\PassHolder\Properties\Gender;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\INSZNumber;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Name;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\OptInPreferences;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceEmail;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferences;
-use CultuurNet\UiTPASBeheer\PassHolder\Properties\PrivacyPreferenceSMS;
 use CultuurNet\UiTPASBeheer\PassHolder\Properties\Remarks;
 use CultuurNet\UiTPASBeheer\School\School;
 use CultuurNet\UiTPASBeheer\UiTPAS\UiTPASCollection;
@@ -79,11 +76,6 @@ final class PassHolder implements \JsonSerializable
     protected $kansenStatuten;
 
     /**
-     * @var PrivacyPreferences
-     */
-    protected $privacyPreferences;
-
-    /**
      * @var \ValueObjects\Number\Integer
      */
     protected $points;
@@ -123,11 +115,6 @@ final class PassHolder implements \JsonSerializable
         $this->birthInformation = $birthInformation;
 
         $this->points = new Integer(0);
-
-        $this->privacyPreferences = new PrivacyPreferences(
-            PrivacyPreferenceEmail::NOTIFICATION(),
-            PrivacyPreferenceSMS::NOTIFICATION()
-        );
     }
 
     /**
@@ -282,23 +269,6 @@ final class PassHolder implements \JsonSerializable
     }
 
     /**
-     * @param PrivacyPreferences $preferences
-     * @return PassHolder
-     */
-    public function withPrivacyPreferences(PrivacyPreferences $preferences)
-    {
-        return $this->with('privacyPreferences', $preferences);
-    }
-
-    /**
-     * @return PrivacyPreferences|null
-     */
-    public function getPrivacyPreferences()
-    {
-        return $this->privacyPreferences;
-    }
-
-    /**
      * @param \ValueObjects\Number\Integer $points
      * @return PassHolder
      */
@@ -428,10 +398,6 @@ final class PassHolder implements \JsonSerializable
             $data['kansenStatuten'] = array_values($this->kansenStatuten->jsonSerialize());
         }
 
-        if (!is_null($this->privacyPreferences)) {
-            $data['privacy'] = $this->privacyPreferences;
-        }
-
         if (!is_null($this->points)) {
             $data['points'] = $this->points->toNative();
         }
@@ -544,10 +510,6 @@ final class PassHolder implements \JsonSerializable
         if (!empty($cfPassHolder->moreInfo)) {
             $passHolder = $passHolder->withRemarks(new Remarks($cfPassHolder->moreInfo));
         }
-
-        $passHolder = $passHolder->withPrivacyPreferences(
-            PrivacyPreferences::fromCultureFeedPassHolder($cfPassHolder)
-        );
 
         if (!empty($cfPassHolder->schoolConsumerKey)) {
             $school = new School(
