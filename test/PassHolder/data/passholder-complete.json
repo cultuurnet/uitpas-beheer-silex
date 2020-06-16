@@ -42,6 +42,13 @@
       }
     }
   ],
+  "optInPreferences": {
+    "serviceMails": true,
+    "milestoneMails": true,
+    "infoMails": true,
+    "sms": true,
+    "post": true
+  },
   "points": 20,
   "uitpassen": [
     {
