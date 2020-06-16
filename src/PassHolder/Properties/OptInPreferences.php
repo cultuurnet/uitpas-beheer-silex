@@ -111,11 +111,11 @@ final class OptInPreferences implements \JsonSerializable
     public function jsonSerialize()
     {
         return [
-            'optInServiceMails' => $this->hasOptInServiceMails(),
-            'optInMilestoneMails' => $this->hasOptInMilestoneMails(),
-            'optInInfoMails' => $this->hasOptInInfoMails(),
-            'optInPost' => $this->hasOptInPost(),
-            'optInSms' => $this->hasOptInSms(),
+            'serviceMails' => $this->hasOptInServiceMails(),
+            'milestoneMails' => $this->hasOptInMilestoneMails(),
+            'infoMails' => $this->hasOptInInfoMails(),
+            'post' => $this->hasOptInPost(),
+            'sms' => $this->hasOptInSms(),
         ];
     }
 
