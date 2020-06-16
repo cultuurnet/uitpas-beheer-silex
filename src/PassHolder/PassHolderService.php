@@ -283,12 +283,16 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
         $cfPassHolder->legalTermsDigital = $legalTermsDigital;
         $cfPassHolder->parentalConsent = $parentalConsent;
 
+        // Create Passholder.
         $UUIDString = $this->getUitpasService()->createPassholder(
             $cfPassHolder,
             $this->getCounterConsumerKey()
         );
 
         $UUID = UUID::fromNative($UUIDString);
+
+        // Set opt-in preferences (not processed by register endpoint).
+        $this->updateOptInPreferences($UUID, $passHolder->getOptInPreferences(), $this->getCounterConsumerKey());
 
         $picture = $passHolder->getPicture();
 
