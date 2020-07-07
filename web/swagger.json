@@ -364,7 +364,8 @@
               "LOSS_THEFT",
               "REMOVAL",
               "LOSS_KANSENSTATUUT",
-              "OBTAIN_KANSENSTATUUT"
+              "OBTAIN_KANSENSTATUUT",
+              "DEFECT"
             ]
           },
           {
