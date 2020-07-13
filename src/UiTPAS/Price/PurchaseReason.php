@@ -12,6 +12,7 @@ use ValueObjects\Enum\Enum;
  * @method static OBTAIN_KANSENSTATUUT
  * @method static CARD_UPGRADE
  * @method static EXTRA_CARD
+ * @method static DEFECT
  */
 class PurchaseReason extends Enum
 {
@@ -22,4 +23,5 @@ class PurchaseReason extends Enum
     const OBTAIN_KANSENSTATUUT = 'OBTAIN_KANSENSTATUUT';
     const CARD_UPGRADE = 'CARD_UPGRADE';
     const EXTRA_CARD = 'EXTRA_CARD';
+    const DEFECT = 'DEFECT';
 }
