@@ -33,5 +33,12 @@
   "kansenStatuut": {
     "endDate": "2345-09-13",
     "remarks": "I am remarkable"
+  },
+  "optInPreferences": {
+    "serviceMails": true,
+    "milestoneMails": true,
+    "infoMails": true,
+    "sms": true,
+    "post": true
   }
 }

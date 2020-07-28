@@ -152,6 +152,14 @@ trait PassHolderDataTrait
                 )
             );
 
+        $optInPreferences = new OptInPreferences(
+            true,
+            true,
+            true,
+            true,
+            true
+        );
+
         $uitpasCollection = (new UiTPASCollection())
             ->with(
                 new UiTPAS(
@@ -223,6 +231,8 @@ trait PassHolderDataTrait
                 )
         )->withKansenStatuten(
             $kansenStatuten
+        )->withOptInPreferences(
+            $optInPreferences
         )->withPoints(
             new Integer(20)
         )->withUiTPASCollection(

@@ -354,6 +354,11 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->gsm = '0499748596';
         $cfPassholder->moreInfo = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed haec omittamus; Ecce aliud simile dissimile. Aliter homines, aliter philosophos loqui putas oportere? Cum ageremus, inquit, vitae beatum et eundem supremum diem, scribebamus haec. Propter nos enim illam, non propter eam nosmet ipsos diligimus.';
         $cfPassholder->schoolConsumerKey = '920f8d53-abd0-40f1-a151-960098197785';
+        $cfPassholder->optInServiceMails = true;
+        $cfPassholder->optInMilestoneMails = true;
+        $cfPassholder->optInInfoMails = true;
+        $cfPassholder->optInSms = true;
+        $cfPassholder->optInPost = true;
 
         $this->uitpas->expects($this->once())
             ->method('getPassholderByUitpasNumber')
@@ -470,6 +475,11 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $cfPassholder->voucherNumber = 'i-am-a-voucher';
         $cfPassholder->moreInfo = 'This is a kansenstatuut remark, please don\'t read me';
         $cfPassholder->schoolConsumerKey = '920f8d53-abd0-40f1-a151-960098197785';
+        $cfPassholder->optInServiceMails = true;
+        $cfPassholder->optInMilestoneMails = true;
+        $cfPassholder->optInInfoMails = true;
+        $cfPassholder->optInSms = true;
+        $cfPassholder->optInPost = true;
 
         $this->uitpas->expects($this->once())
             ->method('getPassholderByUitpasNumber')

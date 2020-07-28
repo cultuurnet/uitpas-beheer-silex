@@ -13,23 +13,23 @@ class OptInPreferencesJsonDeserializer extends JSONDeserializer
         $data = parent::deserialize($data);
 
         if (!isset($data->serviceMails)) {
-            throw new MissingPropertyException('optInServiceMails');
+            throw new MissingPropertyException('serviceMails');
         }
 
         if (!isset($data->milestoneMails)) {
-            throw new MissingPropertyException('optInMilestoneMails');
+            throw new MissingPropertyException('milestoneMails');
         }
 
         if (!isset($data->infoMails)) {
-            throw new MissingPropertyException('optInInfoMails');
+            throw new MissingPropertyException('infoMails');
         }
 
         if (!isset($data->sms)) {
-            throw new MissingPropertyException('optInSms');
+            throw new MissingPropertyException('sms');
         }
 
         if (!isset($data->post)) {
-            throw new MissingPropertyException('optInPost');
+            throw new MissingPropertyException('post');
         }
 
         // Even though there are 3 possible preference (all, notifications, none), the front-end application only has
