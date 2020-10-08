@@ -1494,6 +1494,34 @@
         ]
       }
     },
+    "/counters/active/expense-reports/periods": {
+      "get": {
+        "summary": "Lists pre-determined periods to generate expense reports for.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "getExpenseReportsPeriods",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of periods to use as start- and end dates when generating expense reports.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DateRange"
+              }
+            }
+          },
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          }
+        },
+        "tags": [
+          "Expense report",
+          "Counter"
+        ]
+      }
+    },
     "/counters/active/expense-reports/{expenseReportId}": {
       "get": {
         "summary": "Returns the status, and optionally the download uri, of the expense report.",
