@@ -33,7 +33,7 @@ class ExpenseReportServiceTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        date_default_timezone_set('UTC');
+        date_default_timezone_set('Europe/Brussels');
         $this->uitpasService = $this->getMock(\CultureFeed_Uitpas::class);
         $this->counterConsumerKey = new CounterConsumerKey('abc123');
         $this->urlGenerator = $this->getMock(UrlGeneratorInterface::class);
@@ -52,11 +52,11 @@ class ExpenseReportServiceTest extends \PHPUnit_Framework_TestCase
     {
         $from = \DateTime::createFromFormat(
             \DateTime::RFC3339,
-            '2015-01-01T00:00:00+0000'
+            '2015-01-01T00:00:00+0100'
         );
         $to = \DateTime::createFromFormat(
             \DateTime::RFC3339,
-            '2016-05-12T00:00:00+0000'
+            '2016-05-12T00:00:00+0200'
         );
 
         $dateRange = new DateRange(
