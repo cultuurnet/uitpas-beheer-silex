@@ -37,7 +37,6 @@ class ExpenseReportServiceTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        date_default_timezone_set('Europe/Brussels');
         $this->uitpasService = $this->getMock(\CultureFeed_Uitpas::class);
         $this->counterConsumerKey = new CounterConsumerKey('abc123');
         $this->urlGenerator = $this->getMock(UrlGeneratorInterface::class);

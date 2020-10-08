@@ -43,6 +43,8 @@ class ExpenseReportService extends CounterAwareUitpasService implements ExpenseR
 
     public function getPeriods()
     {
+        date_default_timezone_set('Europe/Brussels');
+
         $cfPeriods = $this->getUitpasService()->getFinancialOverviewReportPeriods(
             $this->getCounterConsumerKey()
         );
