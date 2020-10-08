@@ -2,11 +2,14 @@
 
 namespace CultuurNet\UiTPASBeheer\ExpenseReport;
 
+use CultureFeed_Uitpas_Calendar_Period;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\ExpenseReport\Properties\ExpenseReportId;
 use CultuurNet\UiTPASBeheer\Properties\DateRange;
+use DateTime;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use ValueObjects\DateTime\Date;
 use ValueObjects\Web\Url;
 
 class ExpenseReportService extends CounterAwareUitpasService implements ExpenseReportServiceInterface
@@ -36,6 +39,27 @@ class ExpenseReportService extends CounterAwareUitpasService implements ExpenseR
             $counterConsumerKey
         );
         $this->urlGenerator = $urlGenerator;
+    }
+
+    public function getPeriods()
+    {
+        $cfPeriods = $this->getUitpasService()->getFinancialOverviewReportPeriods(
+            $this->getCounterConsumerKey()
+        );
+
+        return array_map(
+            function (CultureFeed_Uitpas_Calendar_Period $cfPeriod) {
+                return new DateRange(
+                    Date::fromNativeDateTime(
+                        (new DateTime())->setTimestamp($cfPeriod->datefrom)
+                    ),
+                    Date::fromNativeDateTime(
+                        (new DateTime())->setTimestamp($cfPeriod->dateto)
+                    )
+                );
+            },
+            $cfPeriods
+        );
     }
 
     /**

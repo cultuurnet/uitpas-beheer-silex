@@ -8,6 +8,11 @@ use CultuurNet\UiTPASBeheer\Properties\DateRange;
 interface ExpenseReportServiceInterface
 {
     /**
+     * @return DateRange[]
+     */
+    public function getPeriods();
+
+    /**
      * @param DateRange $dateRange
      * @return ExpenseReportInfo
      */
