@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "93adb6c025cdb50ef8adda123fc1ba46",
+    "content-hash": "13891f914b67bca88c06962cb9fcd253",
     "packages": [
         {
             "name": "2dotstwice/collection",
@@ -305,16 +305,16 @@
         },
         {
             "name": "cultuurnet/culturefeed-php",
-            "version": "dev-feature/UPS-3236",
+            "version": "1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/culturefeed-php.git",
-                "reference": "3b8c6aeede5cacb2c359e15ddfe2f8d2b26a8d74"
+                "reference": "be1c7651b1f7cf41da0ca3fbdb4a798c3b7b7387"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/3b8c6aeede5cacb2c359e15ddfe2f8d2b26a8d74",
-                "reference": "3b8c6aeede5cacb2c359e15ddfe2f8d2b26a8d74",
+                "url": "https://api.github.com/repos/cultuurnet/culturefeed-php/zipball/be1c7651b1f7cf41da0ca3fbdb4a798c3b7b7387",
+                "reference": "be1c7651b1f7cf41da0ca3fbdb4a798c3b7b7387",
                 "shasum": ""
             },
             "require": {
@@ -348,7 +348,7 @@
                 }
             ],
             "description": "Culturefeed PHP library",
-            "time": "2020-10-07T13:31:02+00:00"
+            "time": "2020-10-09T11:56:35+00:00"
         },
         {
             "name": "cultuurnet/deserializer",
@@ -4782,6 +4782,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2015-09-15T10:49:45+00:00"
         },
         {
@@ -5475,18 +5476,10 @@
             "time": "2016-01-03T15:35:16+00:00"
         }
     ],
-    "aliases": [
-        {
-            "alias": "1.11",
-            "alias_normalized": "1.11.0.0",
-            "version": "dev-feature/UPS-3236",
-            "package": "cultuurnet/culturefeed-php"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
         "cultuurnet/silex-uitid-provider": 20,
-        "cultuurnet/culturefeed-php": 20,
         "cultuurnet/deserializer": 20,
         "doctrine/dbal": 20
     },
