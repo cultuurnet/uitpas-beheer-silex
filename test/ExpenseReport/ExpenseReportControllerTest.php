@@ -49,6 +49,51 @@ class ExpenseReportControllerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_responds_a_list_of_periods()
+    {
+        $givenPeriods = [
+            new DateRange(
+                new Date(new Year(2020), Month::APRIL(), new MonthDay(1)),
+                new Date(new Year(2020), Month::JUNE(), new MonthDay(30))
+            ),
+            new DateRange(
+                new Date(new Year(2020), Month::JANUARY(), new MonthDay(1)),
+                new Date(new Year(2020), Month::MARCH(), new MonthDay(31))
+            ),
+            new DateRange(
+                new Date(new Year(2019), Month::OCTOBER(), new MonthDay(1)),
+                new Date(new Year(2019), Month::DECEMBER(), new MonthDay(31))
+            ),
+        ];
+
+        $this->service->expects($this->once())
+            ->method('getPeriods')
+            ->willReturn($givenPeriods);
+
+        $expectedJson = [
+            [
+                'from' => '2020-04-01',
+                'to' => '2020-06-30',
+            ],
+            [
+                'from' => '2020-01-01',
+                'to' => '2020-03-31',
+            ],
+            [
+                'from' => '2019-10-01',
+                'to' => '2019-12-31',
+            ],
+        ];
+
+        $response = $this->controller->getPeriods();
+        $actualJson = json_decode($response->getContent(), true);
+
+        $this->assertEquals($expectedJson, $actualJson);
+    }
+
+    /**
+     * @test
+     */
     public function it_responds_info_when_generating()
     {
         $dateRangeJson = file_get_contents(__DIR__ . '/../Properties/data/date-range.json');

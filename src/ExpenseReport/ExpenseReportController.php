@@ -42,6 +42,18 @@ class ExpenseReportController
     }
 
     /**
+     * @return JsonResponse
+     */
+    public function getPeriods()
+    {
+        $periods = $this->service->getPeriods();
+
+        return (new JsonResponse())
+            ->setData($periods)
+            ->setPrivate();
+    }
+
+    /**
      * @param Request $request
      * @return JsonResponse
      */
@@ -67,7 +79,7 @@ class ExpenseReportController
     public function getStatus($expenseReportId)
     {
         $expenseReportId = new ExpenseReportId($expenseReportId);
-        
+
         $status = $this->service->getStatus($expenseReportId);
 
         return (new JsonResponse())

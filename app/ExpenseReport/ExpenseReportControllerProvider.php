@@ -28,6 +28,8 @@ class ExpenseReportControllerProvider implements ControllerProviderInterface
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
+        $controllers->get('/counters/active/expense-reports/periods', 'expense_report_controller:getPeriods');
+
         $controllers->post('/counters/active/expense-reports', 'expense_report_controller:generate');
 
         // Needs to be registered before the status url, otherwise it's never matched.
