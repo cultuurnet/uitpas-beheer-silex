@@ -232,6 +232,17 @@ class IdentityTest extends \PHPUnit_Framework_TestCase
     {
         $json = json_encode($this->identity);
         $this->assertJsonEquals($json, 'Identity/data/identity-minimum.json');
+
+        $groupWithoutEndDate = new Group(
+            new StringLiteral('vereniging'),
+            new Natural(10)
+        );
+
+        $identityWithGroupWithoutEndDate = (new Identity($this->localStockUitpas))
+            ->withGroup($groupWithoutEndDate);
+
+        $json = json_encode($identityWithGroupWithoutEndDate);
+        $this->assertJsonEquals($json, 'Identity/data/identity-minimum-group.json');
     }
 
     /**
