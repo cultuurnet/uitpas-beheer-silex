@@ -1,7 +1,4 @@
 <?php
-/**
- * @file
- */
 
 namespace CultuurNet\UiTPASBeheer\Group;
 
@@ -10,7 +7,6 @@ use JsonSerializable;
 use ValueObjects\Number\Integer;
 use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
-use ValueObjects\DateTime\DateTimeWithTimeZone;
 
 class Group implements JsonSerializable
 {
@@ -31,11 +27,6 @@ class Group implements JsonSerializable
      */
     private $endDate;
 
-    /**
-     * @param StringLiteral $name
-     * @param Natural $availableTickets
-     * @param Integer $endDate
-     */
     public function __construct(
         StringLiteral $name,
         Natural $availableTickets,
