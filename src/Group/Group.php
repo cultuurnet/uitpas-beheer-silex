@@ -27,7 +27,7 @@ class Group implements JsonSerializable
     /**
      * End date timestamp.
      *
-     * @var Integer
+     * @var Integer|null
      */
     private $endDate;
 
@@ -39,7 +39,7 @@ class Group implements JsonSerializable
     public function __construct(
         StringLiteral $name,
         Natural $availableTickets,
-        Integer $endDate
+        Integer $endDate = null
     ) {
         $this->name = $name;
         $this->availableTickets = $availableTickets;
@@ -53,11 +53,12 @@ class Group implements JsonSerializable
     public static function fromCultureFeedGroupPass(
         CultureFeed_Uitpas_GroupPass $groupPass
     ) {
+        $endDate = $groupPass->endDate ? new Integer($groupPass->endDate) : null;
 
         return new self(
             new StringLiteral($groupPass->name),
             new Natural($groupPass->availableTickets),
-            new Integer($groupPass->endDate)
+            $endDate
         );
     }
 
@@ -69,7 +70,7 @@ class Group implements JsonSerializable
         return [
             'name' => $this->name->toNative(),
             'availableTickets' => $this->availableTickets->toNative(),
-            'endDate' => $this->endDate->toNative(),
+            'endDate' => $this->endDate ? $this->endDate->toNative() : null,
         ];
     }
 }
