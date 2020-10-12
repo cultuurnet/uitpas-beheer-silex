@@ -58,10 +58,12 @@ class Group implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        return array_filter([
-            'name' => $this->name->toNative(),
-            'availableTickets' => $this->availableTickets->toNative(),
-            'endDate' => $this->endDate ? $this->endDate->toNative() : null,
-        ]);
+        return array_filter(
+            [
+                'name' => $this->name->toNative(),
+                'availableTickets' => $this->availableTickets->toNative(),
+                'endDate' => $this->endDate ? $this->endDate->toNative() : null,
+            ]
+        );
     }
 }
