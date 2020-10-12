@@ -1,7 +1,4 @@
 <?php
-/**
- * @file
- */
 
 namespace CultuurNet\UiTPASBeheer\Group;
 
@@ -10,7 +7,6 @@ use JsonSerializable;
 use ValueObjects\Number\Integer;
 use ValueObjects\Number\Natural;
 use ValueObjects\StringLiteral\StringLiteral;
-use ValueObjects\DateTime\DateTimeWithTimeZone;
 
 class Group implements JsonSerializable
 {
@@ -27,19 +23,14 @@ class Group implements JsonSerializable
     /**
      * End date timestamp.
      *
-     * @var Integer
+     * @var Integer|null
      */
     private $endDate;
 
-    /**
-     * @param StringLiteral $name
-     * @param Natural $availableTickets
-     * @param Integer $endDate
-     */
     public function __construct(
         StringLiteral $name,
         Natural $availableTickets,
-        Integer $endDate
+        Integer $endDate = null
     ) {
         $this->name = $name;
         $this->availableTickets = $availableTickets;
@@ -53,11 +44,12 @@ class Group implements JsonSerializable
     public static function fromCultureFeedGroupPass(
         CultureFeed_Uitpas_GroupPass $groupPass
     ) {
+        $endDate = $groupPass->endDate ? new Integer($groupPass->endDate) : null;
 
         return new self(
             new StringLiteral($groupPass->name),
             new Natural($groupPass->availableTickets),
-            new Integer($groupPass->endDate)
+            $endDate
         );
     }
 
@@ -66,10 +58,12 @@ class Group implements JsonSerializable
      */
     public function jsonSerialize()
     {
-        return [
-            'name' => $this->name->toNative(),
-            'availableTickets' => $this->availableTickets->toNative(),
-            'endDate' => $this->endDate->toNative(),
-        ];
+        return array_filter(
+            [
+                'name' => $this->name->toNative(),
+                'availableTickets' => $this->availableTickets->toNative(),
+                'endDate' => $this->endDate ? $this->endDate->toNative() : null,
+            ]
+        );
     }
 }

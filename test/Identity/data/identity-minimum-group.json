@@ -1,0 +1,16 @@
+{
+  "uitPas": {
+    "number": "1000000035419",
+    "kansenStatuut": true,
+    "status": "LOCAL_STOCK",
+    "type": "CARD",
+    "cardSystem": {
+      "id": "999",
+      "name": "UiTPAS Regio Aalst"
+    }
+  },
+  "group": {
+    "name": "vereniging",
+    "availableTickets": 10
+  }
+}
