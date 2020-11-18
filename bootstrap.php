@@ -160,6 +160,11 @@ $app->register(new \CultuurNet\UiTPASBeheer\Legacy\LegacyServiceProvider());
 $app->register(new \CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutServiceProvider());
 
 /**
+ * UiTPAS CheckIn Code service.
+ */
+$app->register(new \CultuurNet\UiTPASBeheer\CheckInCode\CheckInCodeServiceProvider());
+
+/**
  * UiTPAS CheckIn Device service.
  */
 $app->register(new \CultuurNet\UiTPASBeheer\CheckInDevice\CheckInDeviceServiceProvider());
