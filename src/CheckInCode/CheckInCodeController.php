@@ -9,11 +9,11 @@ use ValueObjects\StringLiteral\StringLiteral;
 final class CheckInCodeController
 {
     /**
-     * @var CheckInCodeService
+     * @var CheckInCodeServiceInterface
      */
     private $service;
 
-    public function __construct(CheckInCodeService $service)
+    public function __construct(CheckInCodeServiceInterface $service)
     {
         $this->service = $service;
     }

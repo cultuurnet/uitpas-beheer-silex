@@ -22,7 +22,7 @@ final class CheckInCodeServiceTest extends \PHPUnit_Framework_TestCase
     protected $counterConsumerKey;
 
     /**
-     * @var UiTPASV1ApiCheckInCodeService
+     * @var CheckInCodeService
      */
     protected $service;
 
@@ -35,7 +35,7 @@ final class CheckInCodeServiceTest extends \PHPUnit_Framework_TestCase
     {
         $this->counterConsumerKey = new CounterConsumerKey('123546578');
 
-        $this->service = new UiTPASV1ApiCheckInCodeService(
+        $this->service = new CheckInCodeService(
             $this->counterConsumerKey,
             'http://foo.bar/test/',
             new ConsumerCredentials(
