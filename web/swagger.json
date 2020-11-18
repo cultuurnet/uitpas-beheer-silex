@@ -1456,7 +1456,7 @@
     "/checkincodes/{activityId}": {
       "get": {
         "summary": "Returns a QR checkin code for the given activity id. Can be a PDF or ZIP.",
-        "description": "Authentication and an active counter are required. Use the `Accept` header with either `application/pdf` or `application/x-zip-compressed` to get either a PDF or a ZIP. Defaults to PDF. (Note: You will always get `application/json` if the response is not 200.)",
+        "description": "Authentication and an active counter are required.",
         "operationId": "getActivityCheckInCode",
         "produces": [
           "application/pdf",
@@ -1470,6 +1470,13 @@
             "description": "The unique ID of the activity.",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "zipped",
+            "in": "query",
+            "description": "Whether to zip the PDF or not. Defaults to false if not provided.",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "responses": {
