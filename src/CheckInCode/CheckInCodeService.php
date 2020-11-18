@@ -61,11 +61,11 @@ final class CheckInCodeService extends OAuthProtectedService implements CheckInC
 
             switch ($cfResponse->getCode()) {
                 case 'CHECKINCODE_NO_FUTURE_CHECKIN_PERIODS':
-                    throw new NoFurtherCheckInPeriodsException();
+                    throw new NoFurtherCheckInPeriods();
                     break;
 
                 case 'UNKNOWN_EVENT_CDBID':
-                    throw new UnknownActivityException();
+                    throw new UnknownActivity();
                     break;
 
                 default:
