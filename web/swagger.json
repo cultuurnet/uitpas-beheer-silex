@@ -1453,6 +1453,38 @@
         ]
       }
     },
+    "/checkincodes/{activityId}": {
+      "get": {
+        "summary": "Returns a QR checkin code for the given activity id. Can be a PDF or ZIP.",
+        "description": "Authentication and an active counter are required. Use the `Accept` header with either `application/pdf` or `application/x-zip-compressed` to get either a PDF or a ZIP. Defaults to PDF. (Note: You will always get `application/json` if the response is not 200.)",
+        "operationId": "getActivityCheckInCode",
+        "produces": [
+          "application/pdf",
+          "application/x-zip-compressed",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "path",
+            "description": "The unique ID of the activity.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          },
+          "404": {
+            "description": "There are no future checkin periods for the given activity, and thus no checkin code."
+          }
+        },
+        "tags": [
+          "CheckIn codes"
+        ]
+      }
+    },
     "/counters/active/expense-reports": {
       "post": {
         "summary": "Create a new expense report for the given date range and the active counter.",
@@ -2027,6 +2059,10 @@
     {
       "name": "CheckIn devices",
       "description": "Operations related to CheckIn Devices."
+    },
+    {
+      "name": "CheckIn codes",
+      "description": "Operations related to CheckIn codes."
     },
     {
       "name": "Expense report",
