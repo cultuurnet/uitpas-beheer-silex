@@ -9,7 +9,7 @@ use ValueObjects\StringLiteral\StringLiteral;
 final class CheckInCodeControllerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var CheckInCodeServiceInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var CheckInCodeService|\PHPUnit_Framework_MockObject_MockObject
      */
     private $service;
 
@@ -20,7 +20,7 @@ final class CheckInCodeControllerTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->service = $this->getMock(CheckInCodeServiceInterface::class);
+        $this->service = $this->getMock(CheckInCodeService::class);
         $this->controller = new CheckInCodeController($this->service);
     }
 

@@ -19,7 +19,7 @@ final class CheckInCodeServiceProvider implements ServiceProviderInterface
                 /* @var TokenCredentials|null $tokenCredentials */
                 $tokenCredentials = $app['culturefeed_token_credentials'];
 
-                return new CheckInCodeService(
+                return new UiTPASV1ApiCheckInCodeService(
                     $app['counter_consumer_key'],
                     $app['culturefeed.endpoint'],
                     $consumerCredentials,
