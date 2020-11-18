@@ -53,7 +53,26 @@ class CheckInCodeService extends OAuthProtectedService implements CheckInCodeSer
             ]
         );
 
-        $response = $request->send();
+        try {
+            $response = $request->send();
+        } catch (ClientErrorResponseException $e) {
+            $response = $e->getResponse();
+            $cfResponse = \CultureFeed_Response::createFromResponseBody($response->getBody(true));
+
+            switch ($cfResponse->getCode()) {
+                case 'CHECKINCODE_NO_FUTURE_CHECKIN_PERIODS':
+                    throw new NoFurtherCheckInPeriodsException();
+                    break;
+
+                case 'UNKNOWN_EVENT_CDBID':
+                    throw new UnknownActivityException();
+                    break;
+
+                default:
+                    throw $e;
+                    break;
+            }
+        }
 
         $contentType = $response->getHeader('Content-Type');
         $contentDisposition = $response->getHeader('Content-Disposition');
