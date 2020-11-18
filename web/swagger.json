@@ -1463,6 +1463,15 @@
           "application/x-zip-compressed",
           "application/json"
         ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "path",
+            "description": "The unique ID of the activity.",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "403": {
             "description": "The user is not authenticated or does not have an active counter."
