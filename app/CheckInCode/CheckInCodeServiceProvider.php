@@ -9,9 +9,6 @@ use Silex\ServiceProviderInterface;
 
 class CheckInCodeServiceProvider implements ServiceProviderInterface
 {
-    /**
-     * @param Application $app
-     */
     public function register(Application $app)
     {
         $app['checkin_code_service'] = $app->share(
@@ -32,9 +29,6 @@ class CheckInCodeServiceProvider implements ServiceProviderInterface
         );
     }
 
-    /**
-     * @param Application $app
-     */
     public function boot(Application $app)
     {
     }
