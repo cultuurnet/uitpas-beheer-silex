@@ -7,7 +7,7 @@ use CultuurNet\Auth\TokenCredentials;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
-class CheckInCodeServiceProvider implements ServiceProviderInterface
+final class CheckInCodeServiceProvider implements ServiceProviderInterface
 {
     public function register(Application $app)
     {

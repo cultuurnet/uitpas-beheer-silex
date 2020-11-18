@@ -9,7 +9,7 @@ use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class CheckInCodeService extends OAuthProtectedService implements CheckInCodeServiceInterface
+final class CheckInCodeService extends OAuthProtectedService implements CheckInCodeServiceInterface
 {
     /**
      * @var CounterConsumerKey

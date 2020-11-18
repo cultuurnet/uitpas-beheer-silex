@@ -14,7 +14,7 @@ use Guzzle\Http\Message\Response;
 use Guzzle\Plugin\Mock\MockPlugin;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class CheckInCodeServiceTest extends \PHPUnit_Framework_TestCase
+final class CheckInCodeServiceTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var CounterConsumerKey

@@ -6,7 +6,7 @@ use Guzzle\Http\EntityBody;
 use Symfony\Component\HttpFoundation\Request;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class CheckInCodeControllerTest extends \PHPUnit_Framework_TestCase
+final class CheckInCodeControllerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var CheckInCodeServiceInterface|\PHPUnit_Framework_MockObject_MockObject

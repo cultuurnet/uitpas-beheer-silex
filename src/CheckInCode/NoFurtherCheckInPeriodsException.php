@@ -4,7 +4,7 @@ namespace CultuurNet\UiTPASBeheer\CheckInCode;
 
 use CultuurNet\UiTPASBeheer\Exception\ResponseException;
 
-class NoFurtherCheckInPeriodsException extends ResponseException
+final class NoFurtherCheckInPeriodsException extends ResponseException
 {
     /**
      * @param int $code

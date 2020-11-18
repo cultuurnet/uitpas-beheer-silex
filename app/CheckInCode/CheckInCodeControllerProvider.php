@@ -6,7 +6,7 @@ use Silex\Application;
 use Silex\ControllerCollection;
 use Silex\ControllerProviderInterface;
 
-class CheckInCodeControllerProvider implements ControllerProviderInterface
+final class CheckInCodeControllerProvider implements ControllerProviderInterface
 {
     /**
      * @param Application $app

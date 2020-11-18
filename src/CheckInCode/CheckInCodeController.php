@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use ValueObjects\StringLiteral\StringLiteral;
 
-class CheckInCodeController
+final class CheckInCodeController
 {
     /**
      * @var CheckInCodeServiceInterface
