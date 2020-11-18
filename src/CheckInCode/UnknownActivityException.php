@@ -4,7 +4,7 @@ namespace CultuurNet\UiTPASBeheer\CheckInCode;
 
 use CultuurNet\UiTPASBeheer\Exception\ResponseException;
 
-final class UnknownActivity extends ResponseException
+final class UnknownActivityException extends ResponseException
 {
     /**
      * @param int $code

@@ -163,7 +163,7 @@ final class CheckInCodeServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->mockPlugin->addResponse($mockResponse);
 
-        $this->setExpectedException(NoFurtherCheckInPeriods::class);
+        $this->setExpectedException(NoFurtherCheckInPeriodsException::class);
 
         $this->service->download($id, false);
     }
@@ -183,7 +183,7 @@ final class CheckInCodeServiceTest extends \PHPUnit_Framework_TestCase
 
         $this->mockPlugin->addResponse($mockResponse);
 
-        $this->setExpectedException(UnknownActivity::class);
+        $this->setExpectedException(UnknownActivityException::class);
 
         $this->service->download($id, false);
     }
