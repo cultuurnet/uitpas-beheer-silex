@@ -90,6 +90,11 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\Membership\MembershipControllerPro
 $app->mount('/', new \CultuurNet\UiTPASBeheer\KansenStatuut\KansenStatuutControllerProvider());
 
 /**
+ * API callbacks for CheckIn Codes.
+ */
+$app->mount('/', new \CultuurNet\UiTPASBeheer\CheckInCode\CheckInCodeControllerProvider());
+
+/**
  * API callbacks for CheckIn Devices.
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\CheckInDevice\CheckInDeviceControllerProvider());

@@ -1,0 +1,41 @@
+<?php
+
+namespace CultuurNet\UiTPASBeheer\CheckInCode;
+
+use CultuurNet\Auth\ConsumerCredentials;
+use CultuurNet\Auth\TokenCredentials;
+use Silex\Application;
+use Silex\ServiceProviderInterface;
+
+class CheckInCodeServiceProvider implements ServiceProviderInterface
+{
+    /**
+     * @param Application $app
+     */
+    public function register(Application $app)
+    {
+        $app['checkin_code_service'] = $app->share(
+            function (Application $app) {
+                /* @var ConsumerCredentials $consumerCredentials */
+                $consumerCredentials = $app['culturefeed_consumer_credentials'];
+
+                /* @var TokenCredentials|null $tokenCredentials */
+                $tokenCredentials = $app['culturefeed_token_credentials'];
+
+                return new CheckInCodeService(
+                    $app['counter_consumer_key'],
+                    $app['culturefeed.endpoint'],
+                    $consumerCredentials,
+                    $tokenCredentials
+                );
+            }
+        );
+    }
+
+    /**
+     * @param Application $app
+     */
+    public function boot(Application $app)
+    {
+    }
+}
