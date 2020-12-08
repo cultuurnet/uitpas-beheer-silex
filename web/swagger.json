@@ -1453,13 +1453,12 @@
         ]
       }
     },
-    "/checkincodes/{activityId}": {
+    "/checkincodes/{activityId}/{fileName}.zip": {
       "get": {
-        "summary": "Returns a QR checkin code for the given activity id. Can be a PDF or ZIP.",
+        "summary": "Returns a QR checkin code for the given activity id as a zip file with the given file name.",
         "description": "Authentication and an active counter are required.",
-        "operationId": "getActivityCheckInCode",
+        "operationId": "getActivityCheckInCodeAsZip",
         "produces": [
-          "application/pdf",
           "application/x-zip-compressed",
           "application/json"
         ],
@@ -1472,11 +1471,49 @@
             "type": "string"
           },
           {
-            "name": "zipped",
-            "in": "query",
-            "description": "Whether to zip the PDF or not. Defaults to false if not provided.",
-            "required": false,
-            "type": "boolean"
+            "name": "fileName",
+            "in": "path",
+            "description": "Filename to save the QR code as.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "The user is not authenticated or does not have an active counter."
+          },
+          "404": {
+            "description": "There are no future checkin periods for the given activity, and thus no checkin code."
+          }
+        },
+        "tags": [
+          "CheckIn codes"
+        ]
+      }
+    },
+    "/checkincodes/{activityId}/{fileName}.pdf": {
+      "get": {
+        "summary": "Returns a QR checkin code for the given activity id as a pdf file with the given file name.",
+        "description": "Authentication and an active counter are required.",
+        "operationId": "getActivityCheckInCodeAsPdf",
+        "produces": [
+          "application/pdf",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "path",
+            "description": "The unique ID of the activity.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fileName",
+            "in": "path",
+            "description": "Filename to save the QR code as.",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
