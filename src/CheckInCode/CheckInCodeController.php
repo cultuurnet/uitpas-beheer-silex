@@ -20,18 +20,39 @@ final class CheckInCodeController
 
     /**
      * @param string $activityId
-     * @param Request $request
+     * @param string $fileName
      * @return StreamedResponse
      */
-    public function download($activityId, Request $request)
+    public function downloadPdf($activityId, $fileName)
     {
-        $zipped = (bool) $request->get('zipped', false);
-
         $activityId = new StringLiteral($activityId);
-        $download = $this->service->download($activityId, $zipped);
+        $download = $this->service->download($activityId, false);
+        return $this->convertDownloadToStreamedResponse($download, $fileName . '.pdf');
+    }
 
+    /**
+     * @param string $activityId
+     * @param string $fileName
+     * @return StreamedResponse
+     */
+    public function downloadZip($activityId, $fileName)
+    {
+        $activityId = new StringLiteral($activityId);
+        $download = $this->service->download($activityId, true);
+        return $this->convertDownloadToStreamedResponse($download, $fileName . '.zip');
+    }
+
+    /**
+     * @param CheckInCodeDownload $download
+     * @param string $fileName
+     * @return StreamedResponse
+     */
+    private function convertDownloadToStreamedResponse(CheckInCodeDownload $download, $fileName)
+    {
         $headers = $download->getHeaders();
         $stream = $download->getStream();
+
+        $headers['Content-Disposition'] = 'attachment; filename="' . $fileName . '"';
 
         $streamCallback = function () use ($stream) {
             $stream->rewind();
