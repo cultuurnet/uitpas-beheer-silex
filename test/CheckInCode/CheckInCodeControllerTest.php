@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\CheckInCode;
 
+use CultuurNet\UiTPASBeheer\Http\ContentDispositionHeader;
 use Guzzle\Http\EntityBody;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -41,7 +42,7 @@ final class CheckInCodeControllerTest extends \PHPUnit_Framework_TestCase
                 fopen($filePath, 'r')
             ),
             new StringLiteral($contentType),
-            new StringLiteral($originalContentDisposition)
+            new ContentDispositionHeader($originalContentDisposition)
         );
 
         $this->service->expects($this->once())
@@ -90,7 +91,7 @@ final class CheckInCodeControllerTest extends \PHPUnit_Framework_TestCase
                 fopen($filePath, 'r')
             ),
             new StringLiteral($contentType),
-            new StringLiteral($originalContentDisposition)
+            new ContentDispositionHeader($originalContentDisposition)
         );
 
         $this->service->expects($this->once())

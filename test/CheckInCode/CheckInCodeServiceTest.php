@@ -7,6 +7,7 @@ use CultuurNet\Auth\Guzzle\DefaultHttpClientFactory;
 use CultuurNet\Auth\TokenCredentials;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\ExpenseReport\Properties\ExpenseReportId;
+use CultuurNet\UiTPASBeheer\Http\ContentDispositionHeader;
 use Guzzle\Http\EntityBody;
 use Guzzle\Http\Message\MessageInterface;
 use Guzzle\Http\Message\RequestInterface;
@@ -78,7 +79,7 @@ final class CheckInCodeServiceTest extends \PHPUnit_Framework_TestCase
         $expected = new CheckInCodeDownload(
             $responseBody,
             new StringLiteral('application/x-zip-compressed'),
-            new StringLiteral($contentDispositionHeader)
+            new ContentDispositionHeader($contentDispositionHeader)
         );
 
         $actual = $this->service->download($id, true);
@@ -124,7 +125,7 @@ final class CheckInCodeServiceTest extends \PHPUnit_Framework_TestCase
         $expected = new CheckInCodeDownload(
             $responseBody,
             new StringLiteral('application/pdf'),
-            new StringLiteral($contentDispositionHeader)
+            new ContentDispositionHeader($contentDispositionHeader)
         );
 
         $actual = $this->service->download($id, false);

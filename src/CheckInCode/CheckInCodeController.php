@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\CheckInCode;
 
+use CultuurNet\UiTPASBeheer\Http\ContentDispositionHeader;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use ValueObjects\StringLiteral\StringLiteral;
@@ -49,10 +50,12 @@ final class CheckInCodeController
      */
     private function convertDownloadToStreamedResponse(CheckInCodeDownload $download, $fileName)
     {
+        $download = $download->withContentDispositionHeader(
+            ContentDispositionHeader::fromFileName($fileName)
+        );
+
         $headers = $download->getHeaders();
         $stream = $download->getStream();
-
-        $headers['Content-Disposition'] = 'attachment; filename="' . $fileName . '"';
 
         $streamCallback = function () use ($stream) {
             $stream->rewind();

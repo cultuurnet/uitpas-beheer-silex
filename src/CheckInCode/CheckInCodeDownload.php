@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\CheckInCode;
 
+use CultuurNet\UiTPASBeheer\Http\ContentDispositionHeader;
 use Guzzle\Stream\StreamInterface;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -18,19 +19,19 @@ final class CheckInCodeDownload
     private $contentTypeHeader;
 
     /**
-     * @var StringLiteral
+     * @var ContentDispositionHeader
      */
     private $contentDispositionHeader;
 
     /**
      * @param StreamInterface $stream
      * @param StringLiteral $contentTypeHeader
-     * @param StringLiteral $contentDispositionHeader
+     * @param ContentDispositionHeader $contentDispositionHeader
      */
     public function __construct(
         StreamInterface $stream,
         StringLiteral $contentTypeHeader,
-        StringLiteral $contentDispositionHeader
+        ContentDispositionHeader $contentDispositionHeader
     ) {
         $this->stream = $stream;
         $this->contentTypeHeader = $contentTypeHeader;
@@ -43,6 +44,17 @@ final class CheckInCodeDownload
     public function getStream()
     {
         return $this->stream;
+    }
+
+    /**
+     * @param ContentDispositionHeader $contentDispositionHeader
+     * @return self
+     */
+    public function withContentDispositionHeader(ContentDispositionHeader $contentDispositionHeader)
+    {
+        $c = clone $this;
+        $c->contentDispositionHeader = $contentDispositionHeader;
+        return $c;
     }
 
     /**
