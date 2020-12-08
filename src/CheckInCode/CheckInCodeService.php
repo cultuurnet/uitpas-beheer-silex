@@ -6,6 +6,7 @@ use CultuurNet\Auth\ConsumerCredentials;
 use CultuurNet\Auth\Guzzle\OAuthProtectedService;
 use CultuurNet\Auth\TokenCredentials;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
+use CultuurNet\UiTPASBeheer\Http\ContentDispositionHeader;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use ValueObjects\StringLiteral\StringLiteral;
 
@@ -82,7 +83,7 @@ final class CheckInCodeService extends OAuthProtectedService implements CheckInC
         return new CheckInCodeDownload(
             $contentStream,
             new StringLiteral((string) $contentType),
-            new StringLiteral((string) $contentDisposition)
+            new ContentDispositionHeader((string) $contentDisposition)
         );
     }
 }

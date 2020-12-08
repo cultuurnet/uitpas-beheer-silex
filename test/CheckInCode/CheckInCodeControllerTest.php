@@ -2,8 +2,8 @@
 
 namespace CultuurNet\UiTPASBeheer\CheckInCode;
 
+use CultuurNet\UiTPASBeheer\Http\ContentDispositionHeader;
 use Guzzle\Http\EntityBody;
-use Symfony\Component\HttpFoundation\Request;
 use ValueObjects\StringLiteral\StringLiteral;
 
 final class CheckInCodeControllerTest extends \PHPUnit_Framework_TestCase
@@ -30,19 +30,19 @@ final class CheckInCodeControllerTest extends \PHPUnit_Framework_TestCase
     public function it_responds_a_stream_when_downloading_as_zip()
     {
         $id = new StringLiteral('8a01e635-cbf2-4879-bdee-aea5f3066627');
-        $request = new Request(['zipped' => true]);
+        $fileName = 'qr-spaarcode-ancienne-belgique';
 
         $filePath = __DIR__ . '/data/UITPAS_QR_Ancienne_Belgique.zip';
 
         $contentType = 'application/x-zip-compressed';
-        $contentDisposition = 'attachment; filename="UITPAS_QR_Ancienne_Belgique.zip"';
+        $originalContentDisposition = 'attachment; filename="UITPAS_QR_Ancienne_Belgique.zip"';
 
         $download = new CheckInCodeDownload(
             EntityBody::factory(
                 fopen($filePath, 'r')
             ),
             new StringLiteral($contentType),
-            new StringLiteral($contentDisposition)
+            new ContentDispositionHeader($originalContentDisposition)
         );
 
         $this->service->expects($this->once())
@@ -50,7 +50,7 @@ final class CheckInCodeControllerTest extends \PHPUnit_Framework_TestCase
             ->with($id)
             ->willReturn($download);
 
-        $response = $this->controller->download($id->toNative(), $request);
+        $response = $this->controller->downloadZip($id->toNative(), $fileName);
 
         $this->assertEquals(
             $contentType,
@@ -58,7 +58,7 @@ final class CheckInCodeControllerTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            $contentDisposition,
+            'attachment; filename="qr-spaarcode-ancienne-belgique.zip"',
             $response->headers->get('Content-Disposition')
         );
 
@@ -79,19 +79,19 @@ final class CheckInCodeControllerTest extends \PHPUnit_Framework_TestCase
     public function it_responds_a_stream_when_downloading_as_pdf()
     {
         $id = new StringLiteral('8a01e635-cbf2-4879-bdee-aea5f3066627');
-        $request = new Request(['zipped' => false]);
+        $fileName = 'qr-spaarcode-ancienne-belgique';
 
         $filePath = __DIR__ . '/data/UITPAS_QR_Ancienne_Belgique.pdf';
 
         $contentType = 'application/pdf';
-        $contentDisposition = 'attachment; filename="UITPAS_QR_Ancienne_Belgique.pdf"';
+        $originalContentDisposition = 'attachment; filename="UITPAS_QR_Ancienne_Belgique.pdf"';
 
         $download = new CheckInCodeDownload(
             EntityBody::factory(
                 fopen($filePath, 'r')
             ),
             new StringLiteral($contentType),
-            new StringLiteral($contentDisposition)
+            new ContentDispositionHeader($originalContentDisposition)
         );
 
         $this->service->expects($this->once())
@@ -99,7 +99,7 @@ final class CheckInCodeControllerTest extends \PHPUnit_Framework_TestCase
             ->with($id)
             ->willReturn($download);
 
-        $response = $this->controller->download($id->toNative(), $request);
+        $response = $this->controller->downloadPdf($id->toNative(), $fileName);
 
         $this->assertEquals(
             $contentType,
@@ -107,7 +107,7 @@ final class CheckInCodeControllerTest extends \PHPUnit_Framework_TestCase
         );
 
         $this->assertEquals(
-            $contentDisposition,
+            'attachment; filename="qr-spaarcode-ancienne-belgique.pdf"',
             $response->headers->get('Content-Disposition')
         );
 

@@ -25,7 +25,8 @@ final class CheckInCodeControllerProvider implements ControllerProviderInterface
         /* @var ControllerCollection $controllers */
         $controllers = $app['controllers_factory'];
 
-        $controllers->get('/checkincodes/{activityId}', 'checkin_code_controller:download');
+        $controllers->get('/checkincodes/{activityId}/{fileName}.pdf', 'checkin_code_controller:downloadPdf');
+        $controllers->get('/checkincodes/{activityId}/{fileName}.zip', 'checkin_code_controller:downloadZip');
 
         return $controllers;
     }
