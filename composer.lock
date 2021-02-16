@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "69f8b59f4daee3abeb4ce63c76e1c752",
+    "content-hash": "670f4b4f42bb51d78fbfaf8e2c613eea",
     "packages": [
         {
             "name": "2dotstwice/collection",
@@ -130,52 +130,6 @@
             ],
             "description": "Authentication service for CultuurNet web services",
             "time": "2015-08-24T20:22:37+00:00"
-        },
-        {
-            "name": "cultuurnet/calendar-summary",
-            "version": "v1.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cultuurnet/calendar-summary.git",
-                "reference": "0b6f3eda84c52fcb3e7ef5397df6b9389feaaa4c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/calendar-summary/zipball/0b6f3eda84c52fcb3e7ef5397df6b9389feaaa4c",
-                "reference": "0b6f3eda84c52fcb3e7ef5397df6b9389feaaa4c",
-                "shasum": ""
-            },
-            "require": {
-                "cultuurnet/cdb": "~2.0",
-                "ext-intl": "*",
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "phing/phing": "~2.10",
-                "phpunit/phpunit": "~4.5",
-                "satooshi/php-coveralls": "~0.7",
-                "squizlabs/php_codesniffer": "~2.2"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev",
-                    "dev-develop": "1.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "CultuurNet\\CalendarSummary\\": [
-                        "src"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "description": "Library to convert a cdbXML input to a readable summary",
-            "time": "2016-02-16T08:18:15+00:00"
         },
         {
             "name": "cultuurnet/cdb",
