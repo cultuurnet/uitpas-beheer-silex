@@ -11,7 +11,6 @@
   "require": {
     "cultuurnet/silex-uitid-provider": "dev-master",
     "cultuurnet/culturefeed-php": "~1.12",
-    "cultuurnet/search": "~1.2",
     "cultuurnet/calendar-summary": "~1.0",
     "cultuurnet/deserializer": "dev-master",
     "cultuurnet/culturefeed-http-guzzle": "~0.1",
