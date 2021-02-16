@@ -20,7 +20,6 @@
     "symfony/process": "~2.3",
     "symfony/routing": "~2.6.9",
     "symfony/security": "~2.6",
-    "symfony/serializer": "~2.3",
     "symfony/translation": "~2.3",
     "symfony/validator": "~2.3",
     "symfony/monolog-bridge": "~2.3",
