@@ -2,7 +2,6 @@
 
 namespace CultuurNet\UiTPASBeheer;
 
-use CultuurNet\Search\Guzzle\Service as SearchService;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
@@ -24,15 +23,6 @@ class CultuurNetServiceProvider implements ServiceProviderInterface
                 /* @var \CultureFeed $culturefeed */
                 $culturefeed = $app['culturefeed'];
                 return $culturefeed->uitpas();
-            }
-        );
-
-        $app['cultuurnet_search'] = $app->share(
-            function (Application $app) {
-                return new SearchService(
-                    $app['cultuurnet.search.endpoint'],
-                    $app['culturefeed_consumer_credentials']
-                );
             }
         );
     }
