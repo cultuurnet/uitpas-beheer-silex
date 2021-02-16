@@ -26,7 +26,8 @@
     "cultuurnet/clock": "~0.1",
     "cultuurnet/hydra": "~0.1",
     "2dotstwice/collection": "~1.0",
-    "paybreak/luhn": "^0.2.0"
+    "paybreak/luhn": "^0.2.0",
+    "monolog/monolog": "^1.17.2"
   },
   "require-dev": {
     "escapestudios/symfony2-coding-standard": "~2.0",
