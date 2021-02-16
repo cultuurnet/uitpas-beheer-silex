@@ -1,5 +1,6 @@
 <?php
 
+use CultuurNet\UiTPASBeheer\GroupPass\GroupPassControllerProvider;
 use Silex\Application;
 
 /* @var Application $app */
@@ -150,5 +151,10 @@ $app->mount('/', new \CultuurNet\UiTPASBeheer\BalieInsights\BalieInsightsControl
  * API callbacks for data validation.
  */
 $app->mount('/', new \CultuurNet\UiTPASBeheer\DataValidation\DataValidationControllerProvider());
+
+/**
+ * API callbacks for group passes
+ */
+$app->mount('group-pass', new GroupPassControllerProvider());
 
 $app->run();
