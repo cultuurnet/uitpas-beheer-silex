@@ -2,12 +2,6 @@
   "name": "cultuurnet/uitpas-beheer-silex",
   "description": "A silex application that serves as an intermediate between the UiTPAS API and front end apps.",
   "license": "GPL-3.0",
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/2dotstwice/silex-cors-provider"
-    }
-  ],
   "require": {
     "cultuurnet/silex-uitid-provider": "dev-master",
     "cultuurnet/culturefeed-php": "~1.12",
