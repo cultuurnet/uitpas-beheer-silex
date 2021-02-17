@@ -16,7 +16,7 @@ $app->after($app['cors']);
  */
 $app['security.firewalls'] = [
     'public' => [
-        'pattern' => '^/group-pass'
+        'pattern' => '^/group-pass',
     ],
     'authentication' => [
         'pattern' => '^/culturefeed/oauth',
