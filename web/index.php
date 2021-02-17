@@ -14,21 +14,24 @@ $app->after($app['cors']);
 /**
  * Firewall.
  */
-$app['security.firewalls'] = array(
-    'authentication' => array(
+$app['security.firewalls'] = [
+    'public' => [
+        'pattern' => '^/group-pass'
+    ],
+    'authentication' => [
         'pattern' => '^/culturefeed/oauth',
-    ),
-    'cors-preflight' => array(
+    ],
+    'cors-preflight' => [
         'pattern' => $app['cors_preflight_request_matcher'],
-    ),
-    'secured' => array(
+    ],
+    'secured' => [
         'pattern' => '^.*$',
         'uitid' => [
             'roles' => isset($app['config']['roles']) ? $app['config']['roles'] : [],
         ],
         'users' => $app['uitid_firewall_user_provider'],
-    ),
-);
+    ],
+];
 
 /**
  * Register controllers as services.
