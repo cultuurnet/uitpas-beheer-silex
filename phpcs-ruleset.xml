@@ -42,5 +42,6 @@
 
         <exclude name="Zend.Debug.CodeAnalyzer" />
         <exclude name="Zend.NamingConventions.ValidVariableName.PrivateNoUnderscore" />
+        <exclude name="Zend.NamingConventions.ValidVariableName.ContainsNumbers" />
     </rule>
 </ruleset>
