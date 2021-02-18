@@ -1,5 +1,7 @@
 <?php
 
+use CultuurNet\UiTPASBeheer\Auth\AuthServiceProvider;
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 $app = new Silex\Application();
@@ -90,9 +92,14 @@ $app->register(new \CultuurNet\UiTPASBeheer\CulturefeedGuzzleServiceProvider());
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 
 /**
- * UiTID Authentication services.
+ * Authentication services
  */
-$app->register(new CultuurNet\UiTIDProvider\Auth\AuthServiceProvider());
+$app['auth0_enabled'] = isset($app['config']['auth0']['enable']) && $app['config']['auth0']['enable'] === true;
+if ($app['auth0_enabled']) {
+    $app->register(new AuthServiceProvider());
+} else {
+    $app->register(new CultuurNet\UiTIDProvider\Auth\AuthServiceProvider());
+}
 
 /**
  * UiTID User services.
