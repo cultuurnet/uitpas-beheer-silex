@@ -13,15 +13,17 @@ final class AuthControllerProvider implements ControllerProviderInterface
 {
     public function connect(Application $app): ControllerCollection
     {
-        $app['auth_controller'] = $app->share(function (Application $app) {
-            return new AuthController(
-                $app[Auth0::class],
-                $app['session'],
-                $app['uitid_user_session_service'],
-                $app[UiTIDv1TokenService::class],
-                $app['config']['auth0']['app_url']
-            );
-        });
+        $app['auth_controller'] = $app->share(
+            function (Application $app) {
+                return new AuthController(
+                    $app[Auth0::class],
+                    $app['session'],
+                    $app['uitid_user_session_service'],
+                    $app[UiTIDv1TokenService::class],
+                    $app['config']['auth0']['app_url']
+                );
+            }
+        );
 
         $controllers = $app['controllers_factory'];
 
