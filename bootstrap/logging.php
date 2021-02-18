@@ -30,24 +30,26 @@ $app['third_party_api_logger_factory'] = $app->protect(
     }
 );
 
-$app['uitid_auth_service'] = $app->share(
-    $app->extend(
-        'uitid_auth_service',
-        function (\CultuurNet\Auth\Guzzle\Service $service, \Silex\Application $app) {
-            /** @var \Psr\Log\LoggerInterface $logger */
-            $logger = $app['third_party_api_logger_factory']('cultuurnet_auth');
+if (!$app['auth0_enabled']) {
+    $app['uitid_auth_service'] = $app->share(
+        $app->extend(
+            'uitid_auth_service',
+            function (\CultuurNet\Auth\Guzzle\Service $service, \Silex\Application $app) {
+                /** @var \Psr\Log\LoggerInterface $logger */
+                $logger = $app['third_party_api_logger_factory']('cultuurnet_auth');
 
-            $logPlugin = new \Guzzle\Plugin\Log\LogPlugin(
-                new \Guzzle\Log\PsrLogAdapter($logger),
-                MESSAGE_FORMAT
-            );
+                $logPlugin = new \Guzzle\Plugin\Log\LogPlugin(
+                    new \Guzzle\Log\PsrLogAdapter($logger),
+                    MESSAGE_FORMAT
+                );
 
-            $service->addSubscriber($logPlugin);
+                $service->addSubscriber($logPlugin);
 
-            return $service;
-        }
-    )
-);
+                return $service;
+            }
+        )
+    );
+}
 
 /**
  * Enable logging on the guzzle client of Culturefeed.
