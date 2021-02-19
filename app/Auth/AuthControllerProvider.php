@@ -29,6 +29,7 @@ final class AuthControllerProvider implements ControllerProviderInterface
 
         $controllers->get('/connect', 'auth_controller:redirectToLoginService');
         $controllers->get('/authorize', 'auth_controller:storeTokenAndRedirectToFrontend');
+        $controllers->get('/token', 'auth_controller:getToken');
 
         return $controllers;
     }
