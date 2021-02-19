@@ -52,7 +52,7 @@ final class AuthController
 
     public function redirectToLoginService(): void
     {
-        // The Balie app is not mulitlingual, so locale can always be NL.
+        // The Balie app is not multilingual, so locale can always be NL.
         // The ui_type=minimal parameter is needed to show a simple login screen without social logins etc.
         // The prompt=login parameter is needed to always force the user to login again, even if the user is still
         // technically logged in on Auth0.
