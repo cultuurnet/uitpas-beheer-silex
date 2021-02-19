@@ -1,5 +1,6 @@
 <?php
 
+use CultuurNet\UiTPASBeheer\Auth\AuthControllerProvider;
 use CultuurNet\UiTPASBeheer\GroupPass\GroupPassControllerProvider;
 use Silex\Application;
 
@@ -46,7 +47,11 @@ $app->register(new \CultuurNet\UiTPASBeheer\JsonPostDataServiceProvider());
 /**
  * API callbacks for authentication.
  */
-$app->mount('culturefeed/oauth', new \CultuurNet\UiTIDProvider\Auth\AuthControllerProvider());
+if ($app['auth0_enabled']) {
+    $app->mount('culturefeed/oauth', new AuthControllerProvider());
+} else {
+    $app->mount('culturefeed/oauth', new \CultuurNet\UiTIDProvider\Auth\AuthControllerProvider());
+}
 
 /**
  * API callbacks for UiTID user data and methods.

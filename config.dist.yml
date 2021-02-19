@@ -17,6 +17,13 @@ uitid:
   # Base URL of the UiTID API.
   #base_url: https://acc.uitid.be/uitid/rest/
   base_url: http://www.uitid.be/uitid/rest/
+auth0:
+  enable: true
+  domain: publiq-acc.eu.auth0.com
+  client_id: ***
+  client_secret: ***
+  callback_url: https://balie.uitpas.dev/oauth/culturefeed/authorize
+  app_url: https://balie.uitpas.dev/app
 # UiT Search API related settings.
 search:
   # Base URL of the UiT Search API.
