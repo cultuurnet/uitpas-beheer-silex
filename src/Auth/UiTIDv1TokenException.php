@@ -19,7 +19,7 @@ final class UiTIDv1TokenException extends ResponseException
     public static function noPermission(): self
     {
         return new self(
-            'Could not exchange token with UiTID v1 because the oauth consumer has no permission to so.',
+            'Could not exchange token with UiTID v1 because the oauth consumer has no permission to do so.',
             403
         );
     }
