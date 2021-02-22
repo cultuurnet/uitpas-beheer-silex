@@ -44,6 +44,29 @@
         ]
       }
     },
+    "/culturefeed/oauth/token": {
+      "get": {
+        "summary": "Get the Auth0 access token for the current user.",
+        "operationId": "oauthGetAccessToken",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The Auth0 access token for the current user. Has the audience https://api.publiq.be and scope https://api.publiq.be/auth/uitpas_balie",
+            "schema": {
+              "$ref": "#/definitions/AccessToken"
+            }
+          },
+          "404": {
+            "description": "No access token found for the current user (which means the user is not logged in)."
+          }
+        },
+        "tags": [
+          "OAuth"
+        ]
+      }
+    },
     "/uitid/user": {
       "get": {
         "summary": "Retrieve all information about the current user.",
@@ -2154,6 +2177,14 @@
     }
   ],
   "definitions": {
+    "AccessToken": {
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik56SkJOamRGTkRkQ09FUkdNek00TlRKRlFVUXhOek0xTVRnMU5UYzFSalJHUWpsRk4wSkRRUSJ9.eyJpc3MiOiJodHRwczovL3B1YmxpcS1hY2MuZXUuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDk2ZmQ2YzEzLWVhYWItNGRkMS1iYjZhLTFjNDgzZDVlNDBjYyIsImF1ZCI6WyJodHRwczovL2FwaS5wdWJsaXEuYmUiLCJodHRwczovL3B1YmxpcS1hY2MuZXUuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTYxMzc0MzY1NCwiZXhwIjoxNjEzODMwMDU0LCJhenAiOiJrb3JXbGN3ZktsTWNjb0pHMXhtNzVoOENSRlNGWFR6aCIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgaHR0cHM6Ly9hcGkucHVibGlxLmJlL2F1dGgvdWl0cGFzX2JhbGllIn0.VjIu1rOeu-PXFTpuyWlHaVuT0qXb4A1hybh0KExoPx4iE32gEYy1ChiCCeXfqcDrm8SlQq0dvroMex5c2z4NxC-E-VZ_RzS0uowGRY6PTDwBtGYIG1-7l4Uc6b9Zx7HkiLCIDYB3U4FhhDNw7QrSOyKOd2LgOdpu9Ruv8jZv71qtybhDj-UP73iUfXoUoRdk5-9YlfkFYMEo26QwVLYfmvcPK76qs1JOhaAJU8SmySqwYy3DX7aVy87-wsGea8oHgpAG3jOV8n9I61QbOD0bxYnzLS5xtTGHrYB4REq7gNRjY2Vpf08IO7QNoxez25SbOnFgepokcG9rFY2aE87ASA"
+        }
+      }
+    },
     "User": {
       "properties": {
         "id": {

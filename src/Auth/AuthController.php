@@ -6,6 +6,7 @@ namespace CultuurNet\UiTPASBeheer\Auth;
 
 use Auth0\SDK\Auth0;
 use CultuurNet\UiTIDProvider\User\UserSessionService;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -79,5 +80,16 @@ final class AuthController
         $this->userSessionService->setMinimalUserInfo($uitIDv1Token);
 
         return new RedirectResponse($this->redirectUrlAfterLogin);
+    }
+
+    public function getToken(): JsonResponse
+    {
+        $accessToken = $this->session->get('auth0_access_token', null);
+
+        if ($accessToken === null) {
+            throw new AccessTokenNotFoundException();
+        }
+
+        return new JsonResponse(['token' => $accessToken]);
     }
 }
