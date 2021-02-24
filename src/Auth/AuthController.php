@@ -61,7 +61,10 @@ final class AuthController
     public function redirectToLoginService(): void
     {
         // Clear any persistent Auth0 data that lingers in some edge cases even if the user is considered to be logged
-        // out by the Balie app.
+        // out by the Balie app. For example, when a user with only a v2 id logs in they get an error because they need
+        // a v1 id to get the v1 token. The user is not logged in then according to the app, but they are according to
+        // the Auth0 SDK. So calling this in the logout functionality of our own app won't fix this either. The safest
+        // way is to call it right before redirecting to the Auth0 login.
         $this->auth0->logout();
 
         // The Auth0 SDK sets a Location header and then exits, so we do not need to return a Response object.
