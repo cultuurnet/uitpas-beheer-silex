@@ -33,6 +33,11 @@ final class AuthController
     private $uitIDv1TokenService;
 
     /**
+     * @var string[]
+     */
+    private $loginParameters;
+
+    /**
      * @var string
      */
     private $redirectUrlAfterLogin;
@@ -42,29 +47,21 @@ final class AuthController
         SessionInterface $session,
         UserSessionService $userSessionService,
         UiTIDv1TokenService $uitIDv1TokenService,
+        array $loginParameters,
         string $redirectUrlAfterLogin
     ) {
         $this->auth0 = $auth0;
         $this->session = $session;
         $this->userSessionService = $userSessionService;
         $this->uitIDv1TokenService = $uitIDv1TokenService;
+        $this->loginParameters = $loginParameters;
         $this->redirectUrlAfterLogin = $redirectUrlAfterLogin;
     }
 
     public function redirectToLoginService(): void
     {
-        // The Balie app is not multilingual, so locale can always be NL.
-        // The ui_type=minimal parameter is needed to show a simple login screen without social logins etc.
-        // The prompt=login parameter is needed to always force the user to login again, even if the user is still
-        // technically logged in on Auth0.
-        $params = [
-            'locale' => 'nl',
-            'ui_type' => 'minimal',
-            'prompt' => 'login',
-        ];
-
         // The Auth0 SDK sets a Location header and then exits, so we do not need to return a Response object.
-        $this->auth0->login(null, null, $params);
+        $this->auth0->login(null, null, $this->loginParameters);
     }
 
     public function storeTokenAndRedirectToFrontend(): RedirectResponse

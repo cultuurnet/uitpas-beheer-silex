@@ -20,6 +20,7 @@ final class AuthControllerProvider implements ControllerProviderInterface
                     $app['session'],
                     $app['uitid_user_session_service'],
                     $app[UiTIDv1TokenService::class],
+                    $app['config']['auth0']['login_parameters'],
                     $app['config']['auth0']['app_url']
                 );
             }

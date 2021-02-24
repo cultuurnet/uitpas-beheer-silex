@@ -24,6 +24,10 @@ auth0:
   client_secret: ***
   callback_url: https://balie.uitpas.dev/oauth/culturefeed/authorize
   app_url: https://balie.uitpas.dev/app
+  login_parameters:
+    locale: nl
+    referrer: uitpas
+    prompt: login
 # UiT Search API related settings.
 search:
   # Base URL of the UiT Search API.
