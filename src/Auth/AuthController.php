@@ -60,6 +60,10 @@ final class AuthController
 
     public function redirectToLoginService(): void
     {
+        // Clear any persistent Auth0 data that lingers in some edge cases even if the user is considered to be logged
+        // out by the Balie app.
+        $this->auth0->logout();
+
         // The Auth0 SDK sets a Location header and then exits, so we do not need to return a Response object.
         $this->auth0->login(null, null, $this->loginParameters);
     }
