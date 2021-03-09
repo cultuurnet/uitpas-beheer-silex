@@ -28,6 +28,7 @@ final class AuthServiceProvider implements ServiceProviderInterface
                                 'profile',
                                 'offline_access',
                                 'https://api.publiq.be/auth/uitpas_balie',
+                                'https://api.publiq.be/auth/uitpas_balie_insights',
                             ]
                         ),
                         'audience' => 'https://api.publiq.be',
