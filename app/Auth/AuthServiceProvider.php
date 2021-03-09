@@ -20,7 +20,17 @@ final class AuthServiceProvider implements ServiceProviderInterface
                         'client_id' => $app['config']['auth0']['client_id'],
                         'client_secret' => $app['config']['auth0']['client_secret'],
                         'redirect_uri' => $app['config']['auth0']['callback_url'],
-                        'scope' => 'openid email profile offline_access https://api.publiq.be/auth/uitpas_balie',
+                        'scope' => implode(
+                            ' ',
+                            [
+                                'openid',
+                                'email',
+                                'profile',
+                                'offline_access',
+                                'https://api.publiq.be/auth/uitpas_balie',
+                                'https://api.publiq.be/auth/uitpas_balie_insights',
+                            ]
+                        ),
                         'audience' => 'https://api.publiq.be',
                         'persist_id_token' => false,
                         'id_token_leeway' => 30,
