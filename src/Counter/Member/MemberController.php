@@ -65,12 +65,12 @@ class MemberController
             )
         );
 
-        $cfUser = $this->userService->getUserByEmail(
+        $this->memberService->add(
             $add->getEmailAddress()
         );
 
-        $this->memberService->add(
-            new Uid($cfUser->id)
+        $cfUser = $this->userService->getUserByEmail(
+            $add->getEmailAddress()
         );
 
         return (new JsonResponse())
