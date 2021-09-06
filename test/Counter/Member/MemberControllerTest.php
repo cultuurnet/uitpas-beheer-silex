@@ -102,6 +102,10 @@ class MemberControllerTest extends \PHPUnit_Framework_TestCase
         $json = '{"email": "foo@bar.com"}';
         $request = new Request([], [], [], [], [], [], $json);
 
+        $this->memberService->expects($this->once())
+            ->method('add')
+            ->with(new EmailAddress('foo@bar.com'));
+
         $cfUser = new User();
         $cfUser->id = 'd6ec5bbf-ff7c-4ae9-a7c1-f62df05c12fb';
         $cfUser->nick = 'foo.bar';
@@ -110,10 +114,6 @@ class MemberControllerTest extends \PHPUnit_Framework_TestCase
             ->method('getUserByEmail')
             ->with(new EmailAddress('foo@bar.com'))
             ->willReturn($cfUser);
-
-        $this->memberService->expects($this->once())
-            ->method('add')
-            ->with(new Uid('d6ec5bbf-ff7c-4ae9-a7c1-f62df05c12fb'));
 
         $response = $this->controller->add($request);
 
