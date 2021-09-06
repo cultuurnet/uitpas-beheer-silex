@@ -4,6 +4,7 @@ namespace CultuurNet\UiTPASBeheer\Counter\Member;
 
 use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use CultuurNet\UiTPASBeheer\User\UserNotFoundException;
+use ValueObjects\Web\EmailAddress;
 
 interface MemberServiceInterface
 {
@@ -12,13 +13,7 @@ interface MemberServiceInterface
      */
     public function all();
 
-    /**
-     * @param Uid $uid
-     *
-     * @throws UserNotFoundException
-     *   When no user was found for the given email address.
-     */
-    public function add(Uid $uid);
+    public function add(EmailAddress $emailAddress);
 
     /**
      * @param Uid $uid

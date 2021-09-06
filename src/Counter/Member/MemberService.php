@@ -6,7 +6,7 @@ use CultureFeed_OAuthClient;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\User\Properties\Uid;
-use CultuurNet\UiTPASBeheer\User\UserNotFoundException;
+use ValueObjects\Web\EmailAddress;
 
 class MemberService extends CounterAwareUitpasService implements MemberServiceInterface
 {
@@ -56,18 +56,14 @@ class MemberService extends CounterAwareUitpasService implements MemberServiceIn
         return $members;
     }
 
-    /**
-     * @param Uid $uid
-     *
-     * @throws UserNotFoundException
-     *   When no user was found for the given email address.
-     */
-    public function add(Uid $uid)
+    public function add(EmailAddress $emailAddress)
     {
-        $this->getUitpasService()->addMemberToCounter(
-            $uid->toNative(),
-            $this->getCounterConsumerKey()
-        );
+        $data = [
+            'email' => $emailAddress->toNative(),
+            'balieConsumerKey' => $this->getCounterConsumerKey(),
+        ];
+
+        $this->oauthClient->authenticatedPost('uitpas/balie/member', $data);
     }
 
     /**

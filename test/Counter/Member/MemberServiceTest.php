@@ -6,6 +6,7 @@ use CultureFeed_OAuthClient;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use ValueObjects\StringLiteral\StringLiteral;
+use ValueObjects\Web\EmailAddress;
 
 class MemberServiceTest extends \PHPUnit_Framework_TestCase
 {
@@ -86,13 +87,16 @@ class MemberServiceTest extends \PHPUnit_Framework_TestCase
      */
     public function it_can_add_a_new_member_to_the_active_counter()
     {
-        $uid = new Uid('d6ec5bbf-ff7c-4ae9-a7c1-f62df05c12fb');
+        $uid = new EmailAddress('foo@example.com');
 
-        $this->uitpas->expects($this->once())
-            ->method('addMemberToCounter')
+        $this->oauthClient->expects($this->once())
+            ->method('authenticatedPost')
             ->with(
-                $uid->toNative(),
-                $this->counterConsumerKey->toNative()
+                'uitpas/balie/member',
+                [
+                    'email' => 'foo@example.com',
+                    'balieConsumerKey' => $this->counterConsumerKey->toNative(),
+                ]
             );
 
         $this->service->add($uid);
