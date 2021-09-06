@@ -16,6 +16,7 @@ class MemberServiceProvider implements ServiceProviderInterface
             function (Application $app) {
                 return new MemberService(
                     $app['uitpas'],
+                    $app['culturefeed_oauth_client'],
                     $app['counter_consumer_key']
                 );
             }

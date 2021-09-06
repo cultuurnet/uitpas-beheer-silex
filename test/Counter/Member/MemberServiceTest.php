@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Counter\Member;
 
+use CultureFeed_OAuthClient;
 use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use ValueObjects\StringLiteral\StringLiteral;
@@ -12,6 +13,11 @@ class MemberServiceTest extends \PHPUnit_Framework_TestCase
      * @var \CultureFeed_Uitpas|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $uitpas;
+
+    /**
+     * @var CultureFeed_OAuthClient|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $oauthClient;
 
     /**
      * @var CounterConsumerKey
@@ -26,10 +32,12 @@ class MemberServiceTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->uitpas = $this->getMock(\CultureFeed_Uitpas::class);
+        $this->oauthClient = $this->getMock(CultureFeed_OAuthClient::class);
         $this->counterConsumerKey = new CounterConsumerKey('abc');
 
         $this->service = new MemberService(
             $this->uitpas,
+            $this->oauthClient,
             $this->counterConsumerKey
         );
     }

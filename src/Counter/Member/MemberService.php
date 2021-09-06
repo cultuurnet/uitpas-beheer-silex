@@ -2,12 +2,28 @@
 
 namespace CultuurNet\UiTPASBeheer\Counter\Member;
 
+use CultureFeed_OAuthClient;
 use CultuurNet\UiTPASBeheer\Counter\CounterAwareUitpasService;
+use CultuurNet\UiTPASBeheer\Counter\CounterConsumerKey;
 use CultuurNet\UiTPASBeheer\User\Properties\Uid;
 use CultuurNet\UiTPASBeheer\User\UserNotFoundException;
 
 class MemberService extends CounterAwareUitpasService implements MemberServiceInterface
 {
+    /**
+     * @var CultureFeed_OAuthClient
+     */
+    private $oauthClient;
+
+    public function __construct(
+        \CultureFeed_Uitpas $uitpasService,
+        CultureFeed_OAuthClient $oauthClient,
+        CounterConsumerKey $counterConsumerKey
+    ) {
+        parent::__construct($uitpasService, $counterConsumerKey);
+        $this->oauthClient = $oauthClient;
+    }
+
     /**
      * @return Member[]
      */
