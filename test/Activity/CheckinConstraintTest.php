@@ -113,8 +113,8 @@ class CheckinConstraintTest extends \PHPUnit_Framework_TestCase
         $event = new CultureFeed_Uitpas_Event_CultureEvent();
         $event->checkinAllowed = true;
 
-        // culturefeed-php converts the datetime in the XML to a timestamp using strtotime(), so we should do to copy
-        // the actual behavior.
+        // culturefeed-php converts the datetime in the XML to a timestamp using strtotime(), so we should do it too to
+        // copy the actual behavior.
         $event->checkinStartDate = strtotime('2021-10-31T23:00:00+01:00');
         $event->checkinEndDate = strtotime('2022-01-30T23:59:59+01:00');
 
