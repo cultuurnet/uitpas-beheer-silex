@@ -79,8 +79,14 @@ final class CheckinConstraint implements \JsonSerializable
     {
         $data = [
             'allowed' => $this->allowed,
-            'startDate' => $this->startDate->toNativeDateTime()->format(\DateTime::RFC3339),
-            'endDate' => $this->endDate->toNativeDateTime()->format(\DateTime::RFC3339),
+            'startDate' => $this->startDate
+                ->toNativeDateTime()
+                ->setTimezone(new \DateTimeZone('Europe/Brussels'))
+                ->format(\DateTime::RFC3339),
+            'endDate' => $this->endDate
+                ->toNativeDateTime()
+                ->setTimezone(new \DateTimeZone('Europe/Brussels'))
+                ->format(\DateTime::RFC3339),
         ];
 
         if (!is_null($this->reason)) {
