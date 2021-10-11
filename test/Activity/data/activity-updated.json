@@ -3,8 +3,8 @@
   "title": "test event 1",
   "checkinConstraint": {
     "allowed": false,
-    "startDate": "2015-09-01T09:00:00+00:00",
-    "endDate": "2016-03-01T16:00:00+00:00",
+    "startDate": "2015-09-01T11:00:00+02:00",
+    "endDate": "2016-03-01T17:00:00+01:00",
     "reason": "INVALID_DATE_TIME"
   },
   "points": 1,
