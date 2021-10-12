@@ -2,6 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\Activity;
 
+use CultureFeed_Uitpas_Event_CultureEvent;
 use CultuurNet\UiTPASBeheer\JsonAssertionTrait;
 use ValueObjects\DateTime\Date;
 use ValueObjects\DateTime\DateTime;
@@ -102,5 +103,32 @@ class CheckinConstraintTest extends \PHPUnit_Framework_TestCase
             json_encode($this->checkinConstraint),
             'Activity/data/checkin_constraint.json'
         );
+    }
+
+    /**
+     * @test
+     */
+    public function it_correctly_converts_checkinStartDate_and_checkinEndDate(): void
+    {
+        $event = new CultureFeed_Uitpas_Event_CultureEvent();
+        $event->checkinAllowed = true;
+
+        // culturefeed-php converts the datetime in the XML to a timestamp using strtotime(), so we should do it too to
+        // copy the actual behavior.
+        $event->checkinStartDate = strtotime('2021-10-31T23:00:00+01:00');
+        $event->checkinEndDate = strtotime('2022-01-30T23:59:59+01:00');
+
+        // After converting the datetime in the XML to a unix timestamp, then a ValueObjects\DateTime\DateTime object,
+        // then a native \DateTime object, and then finally a string in a JSON property, it should be the same as before
+        // in the XML.
+        $expected = [
+            'allowed' => true,
+            'startDate' => '2021-10-31T23:00:00+01:00',
+            'endDate' => '2022-01-30T23:59:59+01:00',
+        ];
+
+        $actual = CheckinConstraint::fromCultureFeedUitpasEvent($event)->jsonSerialize();
+
+        $this->assertEquals($expected, $actual);
     }
 }
