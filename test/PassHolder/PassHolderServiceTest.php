@@ -281,6 +281,49 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function it_uses_a_voucher_number_when_upgrading_a_passholder_to_a_new_cardsystem_without_a_new_uitpas()
+    {
+        $activeUiTPASNumber = new UiTPASNumber('0930000420206');
+        $newCardSystemId = new CardSystemId('1');
+
+        $passHolderId = 1;
+
+        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassHolder->uitIdUser = new \CultureFeed_Uitpas_Passholder_UitIdUser();
+        $cfPassHolder->uitIdUser->id = $passHolderId;
+        $cfPassHolder->city = 'Leuven';
+        $cfPassHolder->postalCode = '3000';
+
+        $expectedOptions = new \CultureFeed_Uitpas_Passholder_Query_RegisterInCardSystemOptions();
+        $expectedOptions->balieConsumerKey = $this->counterConsumerKey->toNative();
+        $expectedOptions->cardSystemId = $newCardSystemId->toNative();
+        $expectedOptions->voucherNumber = '0123456';
+
+        $this->uitpas->expects($this->once())
+            ->method('getPassholderByUitpasNumber')
+            ->with(
+                $activeUiTPASNumber->toNative(),
+                $this->counterConsumerKey
+            )
+            ->willReturn($cfPassHolder);
+
+        $this->uitpas->expects($this->once())
+            ->method('registerPassholderInCardSystem')
+            ->with(
+                $passHolderId,
+                $expectedOptions
+            );
+
+        $this->service->upgradeCardSystems(
+            $activeUiTPASNumber,
+            (CardSystemUpgrade::withoutNewUiTPAS($newCardSystemId))
+                ->withVoucherNumber(new VoucherNumber('0123456'))
+        );
+    }
+
+    /**
+     * @test
+     */
     public function it_upgrades_a_passholder_to_a_new_cardsystem_with_a_new_uitpas()
     {
         $activeUiTPASNumber = new UiTPASNumber('0930000420206');
@@ -323,6 +366,56 @@ class PassHolderServiceTest extends \PHPUnit_Framework_TestCase
         $this->service->upgradeCardSystems(
             $activeUiTPASNumber,
             CardSystemUpgrade::withNewUiTPAS($newUiTPASNumber, $kansenStatuut)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_uses_a_voucher_number_when_upgrading_a_passholder_to_a_new_cardsystem_with_a_new_uitpas()
+    {
+        $activeUiTPASNumber = new UiTPASNumber('0930000420206');
+        $newUiTPASNumber = new UiTPASNumber('0930000415800');
+
+        $passHolderId = 1;
+
+        $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
+        $cfPassHolder->uitIdUser = new \CultureFeed_Uitpas_Passholder_UitIdUser();
+        $cfPassHolder->uitIdUser->id = $passHolderId;
+        $cfPassHolder->city = 'Leuven';
+        $cfPassHolder->postalCode = '3000';
+
+        $expectedOptions = new \CultureFeed_Uitpas_Passholder_Query_RegisterInCardSystemOptions();
+        $expectedOptions->balieConsumerKey = $this->counterConsumerKey->toNative();
+        $expectedOptions->uitpasNumber = $newUiTPASNumber->toNative();
+        $expectedOptions->kansenStatuut = true;
+        $expectedOptions->kansenStatuutEndDate = '11855890800';
+        $expectedOptions->voucherNumber = '0123456';
+
+        $this->uitpas->expects($this->once())
+            ->method('getPassholderByUitpasNumber')
+            ->with(
+                $activeUiTPASNumber->toNative(),
+                $this->counterConsumerKey
+            )
+            ->willReturn($cfPassHolder);
+
+        $this->uitpas->expects($this->once())
+            ->method('registerPassholderInCardSystem')
+            ->with(
+                $passHolderId,
+                $expectedOptions
+            );
+
+        $kansenStatuutEndDate = Date::fromNativeDateTime(
+            new \DateTime('2345-09-13')
+        );
+        $kansenStatuut = new KansenStatuut($kansenStatuutEndDate);
+
+        $this->service->upgradeCardSystems(
+            $activeUiTPASNumber,
+            (CardSystemUpgrade::withNewUiTPAS($newUiTPASNumber, $kansenStatuut))
+                ->withVoucherNumber(new VoucherNumber('0123456'))
         );
     }
 
