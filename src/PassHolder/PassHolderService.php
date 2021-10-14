@@ -223,6 +223,11 @@ class PassHolderService extends CounterAwareUitpasService implements PassHolderS
             }
         }
 
+        $voucherNumber = $cardSystemUpgrade->getVoucherNumber();
+        if ($voucherNumber) {
+            $registration->voucherNumber = $voucherNumber->toNative();
+        }
+
         $passHolderId = $this->getByUitpasNumber($uitpasNumber)->getUid();
 
         $this->getUitpasService()->registerPassholderInCardSystem(
