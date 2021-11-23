@@ -95,7 +95,16 @@ final class AuthController
         // before.
         $this->userSessionService->setMinimalUserInfo($uitIDv1Token);
 
-        return new RedirectResponse($this->redirectUrlAfterLogin);
+        // Redirect either to the app URL in the config file, or the destination query parameter that was given in the
+        // login request and stored in the session in redirectToLoginService().
+        $destination = $this->redirectUrlAfterLogin;
+        $destinationInSession = $this->session->get('auth_destination', null);
+        if ($destinationInSession) {
+            $destination = $destinationInSession;
+            $this->session->remove('auth_destination');
+        }
+
+        return new RedirectResponse($destination);
     }
 
     public function getToken(): JsonResponse
