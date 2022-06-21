@@ -10,13 +10,13 @@ namespace 'uitpas-balie-api' do
     maintainer     = 'Infra publiq <infra@publiq.be>'
     license        = 'Apache-2.0'
     description    = 'Silex backend for Balie UiTPAS'
-    source         = 'https://github.com/cultuurnet/uitpas-beheer-angular'
+    source         = 'https://github.com/cultuurnet/uitpas-beheer-silex'
 
     FileUtils.mkdir_p('pkg')
     FileUtils.cp('config.dist.yml','config.yml')
 
     system("fpm -s dir -t deb -n #{artifact_name} -v #{version} -a all -p pkg \
-      -C dist -d 'php7.1-cli' \
+      -C dist \
       -x 'config.yml.dist' -x '.git*' -x pkg -x vendor -x lib -x Rakefile -x Gemfile -x Gemfile.lock \
       -x .bundle -x 'Jenkinsfile*' \
       --prefix /var/www/uitpas-balie-api \
