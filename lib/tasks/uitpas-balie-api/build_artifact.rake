@@ -16,7 +16,7 @@ namespace 'uitpas-balie-api' do
     FileUtils.cp('config.dist.yml','config.yml')
 
     system("fpm -s dir -t deb -n #{artifact_name} -v #{version} -a all -p pkg \
-      -x 'config.yml.dist' -x '.git*' -x pkg -x vendor -x lib -x Rakefile -x Gemfile -x Gemfile.lock \
+      -x 'config.dist.yml' -x '.git*' -x pkg -x vendor -x lib -x Rakefile -x Gemfile -x Gemfile.lock \
       -x .bundle -x 'Jenkinsfile*' \
       --prefix /var/www/uitpas-balie-api \
       --config-files /var/www/uitpas-balie-api/config.yml \
