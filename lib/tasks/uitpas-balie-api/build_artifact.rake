@@ -11,6 +11,7 @@ namespace 'uitpas-balie-api' do
     license        = 'Apache-2.0'
     description    = 'Silex backend for Balie UiTPAS'
     source         = 'https://github.com/cultuurnet/uitpas-beheer-silex'
+    build_url      = ENV['JOB_DISPLAY_URL'].nil? ? "" : ENV['JOB_DISPLAY_URL']
 
     FileUtils.mkdir_p('pkg')
     FileUtils.cp('config.dist.yml','config.yml')
@@ -25,6 +26,7 @@ namespace 'uitpas-balie-api' do
       --license '#{license}' -m '#{maintainer}' \
       --deb-field 'Pipeline-Version: #{calver_version}' \
       --deb-field 'Git-Ref: #{git_short_ref}' \
+      --deb-field 'Build-Url: #{build_url}' \
       ."
     ) or exit 1
   end
