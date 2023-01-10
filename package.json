@@ -4,7 +4,7 @@
   "description": "",
   "devDependencies": {
     "jsonlint": "^1.6.2",
-    "swagger-tools": "^0.9.9"
+    "swagger-tools": "^0.10.4"
   },
   "scripts": {
     "validate-swagger-lint": "jsonlint -q web/swagger.json",
