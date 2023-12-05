@@ -106,7 +106,7 @@ class CheckInDeviceService extends CounterAwareUitpasService implements CheckInD
         $searchOptions->startDate = $beginningOfToday->getTimestamp();
         $searchOptions->endDate = $in3Days->getTimestamp();
         $searchOptions->sort = 'permanent desc,availableto asc';
-        $searchOptions->max = 20;
+        $searchOptions->max = 100;
 
         $result = $this->getUitpasService()->searchEvents($searchOptions);
 
