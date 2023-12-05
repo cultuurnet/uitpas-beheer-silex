@@ -56,7 +56,7 @@ class CheckInDeviceServiceTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_retrieves_maximum_20_activities_occurring_today_and_the_following_3_days()
+    public function it_retrieves_maximum_100_activities_occurring_today_and_the_following_3_days()
     {
         $activity1 = new \CultureFeed_Uitpas_Event_CultureEvent();
         $activity1->cdbid = '123';
@@ -80,7 +80,7 @@ class CheckInDeviceServiceTest extends \PHPUnit_Framework_TestCase
         $expectedSearchOptions = new \CultureFeed_Uitpas_Event_Query_SearchEventsOptions();
         $expectedSearchOptions->balieConsumerKey = $this->counterConsumerKey;
         $expectedSearchOptions->sort = 'permanent desc,availableto asc';
-        $expectedSearchOptions->max = 20;
+        $expectedSearchOptions->max = 100;
         $expectedSearchOptions->startDate = DateTimeImmutable::createFromFormat(
             DateTime::ATOM,
             $expectedSearchStartDate
