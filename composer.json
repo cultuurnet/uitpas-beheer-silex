@@ -4,7 +4,7 @@
   "license": "GPL-3.0",
   "require": {
     "cultuurnet/silex-uitid-provider": "dev-master",
-    "cultuurnet/culturefeed-php": "~1.12",
+    "cultuurnet/culturefeed-php": "~1.14",
     "cultuurnet/deserializer": "dev-master",
     "cultuurnet/culturefeed-http-guzzle": "~0.1",
     "deralex/yaml-config-service-provider": "~1.0",
