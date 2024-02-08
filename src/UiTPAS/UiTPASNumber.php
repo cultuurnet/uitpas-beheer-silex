@@ -2,7 +2,7 @@
 
 namespace CultuurNet\UiTPASBeheer\UiTPAS;
 
-use PayBreak\Luhn\Luhn;
+use CultuurNet\UiTPASBeheer\ChecksumValidation\ChecksumValidator;
 use ValueObjects\StringLiteral\StringLiteral;
 
 /**
@@ -51,7 +51,7 @@ class UiTPASNumber extends StringLiteral
         }
 
         // Make sure the number is valid according to the Luhn algorithm.
-        if (!Luhn::validateNumber($value)) {
+        if (!ChecksumValidator::validateNumber($value)) {
             throw new UiTPASNumberInvalidException('The provided value does not have a valid check digit.');
         }
 
