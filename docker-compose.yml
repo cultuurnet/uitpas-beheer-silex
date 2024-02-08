@@ -1,0 +1,12 @@
+version: "3.5"
+
+services:
+
+  php:
+    build: docker/php
+    container_name: php.balie
+    volumes:
+      - .:/var/www/html:cached
+    working_dir: /var/www/html
+    ports:
+      - '9999:80'
