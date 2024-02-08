@@ -111,6 +111,7 @@ class MembershipControllerTest extends \PHPUnit_Framework_TestCase
         $cardSystem->kansenStatuutExpired = true;
         $cardSystem->kansenStatuutEndDate = 1441097191;
         $cardSystem->kansenStatuutInGracePeriod = false;
+        $cardSystem->kansenStatuutSuspendedUntil = 1441097191;
 
         $cfPassHolder = new \CultureFeed_Uitpas_Passholder();
         $cfPassHolder->memberships = array(
