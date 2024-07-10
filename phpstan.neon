@@ -1,0 +1,8 @@
+parameters:
+	level: 4
+	paths:
+		- app
+		- src
+		- test
+		- bootstrap.php
+		- web/index.php
