@@ -3,44 +3,42 @@ name: CI
 on: push
 
 jobs:
-    build:
-
+    tests:
         runs-on: ubuntu-latest
         strategy:
             matrix:
                 php-versions: ['7.1', '7.2', '7.3', '7.4']
-        name: PHP ${{ matrix.php-versions }}
+        name: Unit tests ${{ matrix.php-versions }}
         steps:
-            - uses: actions/checkout@v2
+            - name: 📤 Checkout project
+              uses: actions/checkout@v4
 
-            - name: Install PHP
+            - name: 🐘 Install PHP
               uses: shivammathur/setup-php@v2
               with:
                   php-version: ${{ matrix.php-versions }}
-                  extensions: intl
-                  tools: composer:v1
+                  ini-values: xdebug.mode=coverage
+                  extensions: bcmath, tidy
+                  tools: composer
 
-            - name: Check PHP Version
+            - name: ✌️ Check PHP Version
               run: php -v
 
-            - name: Validate composer.json and composer.lock
+            - name: 🛂 Validate composer.json and composer.lock
               run: composer validate
 
-            - name: Cache Composer packages
+            - name: 📩 Cache Composer packages
               id: composer-cache
-              uses: actions/cache@v2
+              uses: actions/cache@v3
               with:
                   path: vendor
-                  key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+                  key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}-v1
                   restore-keys: |
                       ${{ runner.os }}-php-
 
-            - name: Install composer dependencies
+            - name: 📦 Install dependencies
               if: steps.composer-cache.outputs.cache-hit != 'true'
               run: composer install --no-progress --no-suggest
 
-            - name: Install npm dependencies
-              run: npm install
-
-            - name: Run Phing
-              run: composer run-script phing
+            - name: ✅ Run tests
+              run: composer test
