@@ -40,3 +40,9 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.
 
 RUN pecl install xdebug-2.9.8 && docker-php-ext-enable xdebug
 COPY xdebug.ini $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini
+
+# Create a custom Apache configuration file to increase header size limits
+RUN echo "LimitRequestFieldSize 32768" > /etc/apache2/conf-available/custom-limits.conf
+
+# Enable the custom Apache configuration
+RUN a2enconf custom-limits
