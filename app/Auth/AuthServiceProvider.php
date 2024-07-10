@@ -16,12 +16,12 @@ final class AuthServiceProvider implements ServiceProviderInterface
             function (Application $app) {
                 if ($app['config']['keycloak']['enable']) {
                     return new Auth0(
-                        $this->getParamsKeycloak($app['config']['keycloak'])
+                        $this->getParams($app['config']['keycloak'])
                     );
                 }
 
                 return new Auth0(
-                    $this->getParamsKeycloak($app['config']['auth0'])
+                    $this->getParams($app['config']['auth0'])
                 );
             }
         );
@@ -41,7 +41,7 @@ final class AuthServiceProvider implements ServiceProviderInterface
 
     }
 
-    private function getParamsKeycloak(array $auth) : array
+    private function getParams(array $auth) : array
     {
         return [
             'domain' => $auth['domain'],
@@ -56,30 +56,6 @@ final class AuthServiceProvider implements ServiceProviderInterface
                 'offline_access',
             ],
             'audience' => ['https://api.publiq.be'],
-        ];
-    }
-
-    public function getParamsAuth0(array $auth) : array
-    {
-        return [
-            'domain' => $auth['domain'],
-            'client_id' => $auth['client_id'],
-            'client_secret' => $auth['client_secret'],
-            'redirect_uri' => $auth['callback_url'],
-            'scope' => implode(
-                ' ',
-                [
-                    'openid',
-                    'email',
-                    'profile',
-                    'offline_access',
-                    'https://api.publiq.be/auth/uitpas_balie',
-                    'https://api.publiq.be/auth/uitpas_balie_insights',
-                ]
-            ),
-            'audience' => 'https://api.publiq.be',
-            'persist_id_token' => false,
-            'id_token_leeway' => 30,
         ];
     }
 }
