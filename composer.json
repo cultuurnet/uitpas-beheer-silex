@@ -26,16 +26,18 @@
     "cultuurnet/hydra": "~0.1",
     "2dotstwice/collection": "~1.0",
     "monolog/monolog": "^1.17.2",
-    "auth0/auth0-php": "7.5.0"
+    "auth0/auth0-php": "^8.3",
+    "symfony/http-client": "^5.4",
+    "nyholm/psr7": "^1.8"
   },
   "require-dev": {
     "escapestudios/symfony2-coding-standard": "~2.0",
     "phpunit/phpunit": "~4.3",
     "squizlabs/php_codesniffer": "~2.2",
-    "phing/phing": "~2.10",
     "satooshi/php-coveralls": "~0.7",
     "guzzle/plugin-mock": "~3.9.2",
-    "mikey179/vfsstream": "~1.6.0"
+    "mikey179/vfsstream": "~1.6.0",
+    "phpstan/phpstan": "^1.11"
   },
   "autoload": {
     "psr-4": {
@@ -50,6 +52,12 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "scripts": {
-    "phing": "./vendor/bin/phing test"
+    "phpstan": "./vendor/bin/phpstan",
+    "test": "./vendor/bin/phpunit"
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
   }
 }
