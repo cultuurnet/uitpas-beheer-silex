@@ -26,9 +26,9 @@
     "cultuurnet/hydra": "~0.1",
     "2dotstwice/collection": "~1.0",
     "monolog/monolog": "^1.17.2",
-    "auth0/auth0-php": "^8.3",
     "symfony/http-client": "^5.4",
-    "nyholm/psr7": "^1.8"
+    "nyholm/psr7": "^1.8",
+    "auth0/auth0-php": "^8.3"
   },
   "require-dev": {
     "escapestudios/symfony2-coding-standard": "~2.0",
