@@ -43,7 +43,7 @@ jobs:
       - name: ✅ Run tests
         run: composer test
 
-  tests:
+  phing:
     runs-on: ubuntu-latest
     strategy:
       matrix:
