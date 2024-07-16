@@ -47,7 +47,7 @@ final class AuthServiceProvider implements ServiceProviderInterface
             'domain' => $auth['domain'],
             'clientId' => $auth['client_id'],
             'clientSecret' => $auth['client_secret'],
-            'cookieSecret' => $auth['cookieSecret'],
+            'cookieSecret' => $auth['cookie_secret'],
             'redirectUri' => $auth['callback_url'],
             'scope' => [
                 'openid',
