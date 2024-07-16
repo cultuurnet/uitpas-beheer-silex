@@ -50,6 +50,7 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "scripts": {
-    "phing": "./vendor/bin/phing test"
+    "phing": "./vendor/bin/phing test",
+    "test": "./vendor/bin/phpunit"
   }
 }
