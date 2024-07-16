@@ -48,7 +48,7 @@ jobs:
     strategy:
       matrix:
         php-versions: ['7.4']
-    name: Unit tests ${{ matrix.php-versions }}
+    name: Phing ${{ matrix.php-versions }}
     steps:
       - name: 📤 Checkout project
         uses: actions/checkout@v4
