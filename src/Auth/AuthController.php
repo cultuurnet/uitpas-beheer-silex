@@ -59,7 +59,7 @@ final class AuthController
         $this->redirectUrlAfterLogin = $redirectUrlAfterLogin;
     }
 
-    public function redirectToLoginService(Request $request): void
+    public function redirectToLoginService(Request $request): RedirectResponse
     {
         // Clear any persistent Auth0 data that lingers in some edge cases even if the user is considered to be logged
         // out by the Balie app. For example, when a user with only a v2 id logs in they get an error because they need
@@ -79,12 +79,13 @@ final class AuthController
             $this->session->set('auth_destination', $destination);
         }
 
-        // The Auth0 SDK sets a Location header and then exits, so we do not need to return a Response object.
-        $this->auth0->login(null, null, $this->loginParameters);
+        return new RedirectResponse($this->auth0->login(null, null, $this->loginParameters));
     }
 
     public function storeTokenAndRedirectToFrontend(): RedirectResponse
     {
+        $this->auth0->exchange();
+
         $accessToken = $this->auth0->getAccessToken();
         $uitIDv1Token = $this->uitIDv1TokenService->getV1TokenForAuth0AccessToken($accessToken);
 
