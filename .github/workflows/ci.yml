@@ -3,44 +3,42 @@ name: CI
 on: push
 
 jobs:
-    build:
+  phing:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: ['7.4']
+    name: Phing ${{ matrix.php-versions }}
+    steps:
+      - name: 📤 Checkout project
+        uses: actions/checkout@v4
 
-        runs-on: ubuntu-latest
-        strategy:
-            matrix:
-                php-versions: ['7.1', '7.2', '7.3', '7.4']
-        name: PHP ${{ matrix.php-versions }}
-        steps:
-            - uses: actions/checkout@v2
+      - name: 🐘 Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          ini-values: xdebug.mode=coverage
+          extensions: bcmath, tidy
+          tools: composer
 
-            - name: Install PHP
-              uses: shivammathur/setup-php@v2
-              with:
-                  php-version: ${{ matrix.php-versions }}
-                  extensions: intl
-                  tools: composer:v1
+      - name: ✌️ Check PHP Version
+        run: php -v
 
-            - name: Check PHP Version
-              run: php -v
+      - name: 🛂 Validate composer.json and composer.lock
+        run: composer validate
 
-            - name: Validate composer.json and composer.lock
-              run: composer validate
+      - name: 📩 Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}-v1
+          restore-keys: |
+            ${{ runner.os }}-php-
 
-            - name: Cache Composer packages
-              id: composer-cache
-              uses: actions/cache@v2
-              with:
-                  path: vendor
-                  key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-php-
+      - name: 📦 Install dependencies
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --no-progress --no-suggest
 
-            - name: Install composer dependencies
-              if: steps.composer-cache.outputs.cache-hit != 'true'
-              run: composer install --no-progress --no-suggest
-
-            - name: Install npm dependencies
-              run: npm install
-
-            - name: Run Phing
-              run: composer run-script phing
+      - name: ✅ Run Phing
+        run: composer run-script phing
