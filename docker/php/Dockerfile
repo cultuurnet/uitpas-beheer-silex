@@ -1,4 +1,4 @@
-FROM php:7.1-apache
+FROM php:7.4-apache
 
 RUN apt-get update && apt-get install -y --no-install-recommends git zip unzip libicu-dev libtidy-dev zlib1g-dev libpng-dev libzip-dev
 
@@ -37,6 +37,7 @@ RUN npm run bower -- install &
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/web
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+RUN echo "LimitRequestFieldSize 32766" >> /etc/apache2/conf-available/security.conf
 
 RUN pecl install xdebug-2.9.8 && docker-php-ext-enable xdebug
 COPY xdebug.ini $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini
