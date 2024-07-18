@@ -94,8 +94,9 @@ $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 /**
  * Authentication services
  */
-$app['auth0_enabled'] = isset($app['config']['auth0']['enable']) && $app['config']['auth0']['enable'] === true;
-if ($app['auth0_enabled']) {
+$app['external_auth_enabled'] = (isset($app['config']['auth0']['enable']) && $app['config']['auth0']['enable'] === true) || (isset($app['config']['keycloak']['enable']) && $app['config']['keycloak']['enable'] === true);
+
+if ($app['external_auth_enabled']) {
     $app->register(new AuthServiceProvider());
 } else {
     $app->register(new CultuurNet\UiTIDProvider\Auth\AuthServiceProvider());

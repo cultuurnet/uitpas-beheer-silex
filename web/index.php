@@ -47,7 +47,7 @@ $app->register(new \CultuurNet\UiTPASBeheer\JsonPostDataServiceProvider());
 /**
  * API callbacks for authentication.
  */
-if ($app['auth0_enabled']) {
+if ($app['external_auth_enabled']) {
     $app->mount('culturefeed/oauth', new AuthControllerProvider());
 } else {
     $app->mount('culturefeed/oauth', new \CultuurNet\UiTIDProvider\Auth\AuthControllerProvider());

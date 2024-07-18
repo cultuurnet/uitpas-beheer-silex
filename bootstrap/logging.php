@@ -30,7 +30,7 @@ $app['third_party_api_logger_factory'] = $app->protect(
     }
 );
 
-if (!$app['auth0_enabled']) {
+if (!$app['external_auth_enabled']) {
     $app['uitid_auth_service'] = $app->share(
         $app->extend(
             'uitid_auth_service',
